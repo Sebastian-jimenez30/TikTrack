@@ -7,12 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "migrate:generate": "npx drizzle-kit generate --config ./src/infrastructure/database/drizzle.config.ts",
+    "migrate:push": "npx drizzle-kit push --config ./src/infrastructure/database/drizzle.config.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.0",
+    "esbuild": "0.25.0",
     "next": "15.1.7",
     "next-intl": "^3.26.5",
+    "pg": "^8.13.3",
     "prettier": "^3.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -20,12 +26,15 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+    "@types/pg": "^8.11.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.30.5",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }
