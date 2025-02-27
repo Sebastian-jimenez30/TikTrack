@@ -1,0 +1,12 @@
+{
+  "HomePage": {
+    "metadata": {
+      "title": "Home",
+      "description": "Discover the influencer who will help you boost your reach and maximize your impact."
+    }
+  },
+
+  "NavBar": {
+    "home": "Home"
+  }
+}
