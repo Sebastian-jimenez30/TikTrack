@@ -1,6 +1,6 @@
 import { integer, pgTable, varchar, timestamp } from "drizzle-orm/pg-core";
 
-export const influencersTable = pgTable("influencers", {
+const influencersTable = pgTable("influencers", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   username: varchar("username", { length: 100 }).unique().notNull(),
   profileName: varchar("profile_name", { length: 180 }).notNull(),
@@ -19,3 +19,5 @@ export const influencersTable = pgTable("influencers", {
     .$onUpdate(() => new Date())
     .notNull(),
 });
+
+export default influencersTable;

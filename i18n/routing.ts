@@ -10,6 +10,10 @@ export const routing = defineRouting({
       en: "/",
       es: "/",
     },
+    "/influencers": {
+      en: "/influencers",
+      es: "/creadores-de-contenido",
+    },
   },
 });
 
