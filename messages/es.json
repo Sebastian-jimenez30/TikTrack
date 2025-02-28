@@ -1,0 +1,13 @@
+{
+  "HomePage": {
+    "metadata": {
+      "title": "Inicio",
+      "description": "Descubre al influencer que te ayudará a impulsar tu alcance y maximizar tu impacto."
+    }
+  },
+
+  "NavBar": {
+    "home": "Inicio",
+    "getStarted": "Empezar"
+  }
+}
