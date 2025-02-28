@@ -5,7 +5,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
-import NavBar from "@/interface-adapters/views/components/navbar";
+import NavBar from "~/app/components/navbar";
 import "~/styles/globals.css";
 interface LocaleProps {
   children: React.ReactNode;
