@@ -3,16 +3,17 @@ import { Link } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
+import { JSX } from "react";
 
 type NavbarLink = {
   label: string;
   path: (typeof ROUTES)[keyof typeof ROUTES];
 };
 
-export default function NavBar() {
+export default function NavBar(): JSX.Element {
   const t = useTranslations("NavBar");
 
-  const navbarPages: (keyof typeof ROUTES)[] = ["HOME"];
+  const navbarPages: (keyof typeof ROUTES)[] = ["HOME", "INFLUENCERS"];
 
   const navbarLinks: NavbarLink[] = [];
 

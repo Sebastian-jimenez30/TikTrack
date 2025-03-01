@@ -1,11 +1,15 @@
 import clsx from "clsx";
+import { JSX } from "react";
 
 interface ButtonProps {
   variant: "primary" | "secondary" | "danger";
   children: React.ReactNode;
 }
 
-export default function Button({ variant, children }: ButtonProps) {
+export default function Button({
+  variant,
+  children,
+}: ButtonProps): JSX.Element {
   return (
     <a
       className={clsx(
@@ -13,7 +17,7 @@ export default function Button({ variant, children }: ButtonProps) {
         variant === "primary" &&
           "bg-purple text-white cursor-pointer hover:bg-darkPurple",
         variant === "secondary" &&
-          "bg-darkGray text-white cursor-pointer hover:bg-black",
+          "bg-darkGrey text-white cursor-pointer hover:bg-black",
         variant === "danger" &&
           "bg-red-600 text-white cursor-pointer hover:bg-red-700"
       )}
