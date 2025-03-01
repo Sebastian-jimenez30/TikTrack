@@ -33,7 +33,7 @@ export default function NavBar(): JSX.Element {
           width={947}
           height={222}
           className="w-60 h-auto"
-          priority
+          priority={true}
         />
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <Button variant="primary">{t("getStarted")}</Button>
