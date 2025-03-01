@@ -53,13 +53,8 @@ class Influencer {
   }
 
   calculateEngagementVisualizationRate(): number {
-    return (
-      (this.totalLikes +
-        this.totalComments +
-        this.totalShares +
-        this.totalSaves) /
-      this.totalViews
-    );
+    const engagementVisualizationRate = (((this.totalLikes + this.totalComments + this.totalShares + this.totalSaves)/this.totalViews)*100).toFixed(2);
+    return parseFloat(engagementVisualizationRate);
   }
 
   getId(): number {
@@ -90,24 +85,48 @@ class Influencer {
     return this.totalLikes;
   }
 
+  getFormattedTotalLikes(): string {
+    return this.totalLikes.toLocaleString();
+  }
+
   getTotalComments(): number {
     return this.totalComments;
+  }
+
+  getFormattedTotalComments(): string {
+    return this.totalComments.toLocaleString();
   }
 
   getTotalShares(): number {
     return this.totalShares;
   }
 
+  getFormattedTotalShares(): string {
+    return this.totalShares.toLocaleString();
+  }
+
   getTotalSaves(): number {
     return this.totalSaves;
+  }
+
+  getFormattedTotalSaves(): string {
+    return this.totalSaves.toLocaleString();
   }
 
   getTotalViews(): number {
     return this.totalViews;
   }
 
+  getFormattedTotalViews(): string {
+    return this.totalViews.toLocaleString();
+  }
+
   getTotalFollowers(): number {
     return this.totalFollowers;
+  }
+
+  getFormattedTotalFollowers(): string {
+    return this.totalFollowers.toLocaleString();
   }
 
   getCity(): string {

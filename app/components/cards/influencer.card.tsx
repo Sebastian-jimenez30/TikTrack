@@ -8,7 +8,7 @@ interface InfluencerCardProps {
   profilePicture: string;
   city: string;
   engagementVisualizationRate: number;
-  totalFollowers: number;
+  totalFollowers: string;
   updatedAt: string;
 }
 
