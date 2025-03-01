@@ -11,6 +11,7 @@ class Influencer {
   totalSaves: number;
   totalViews: number;
   totalFollowers: number;
+  city: string;
   createdAt: Date;
   updatedAt: Date;
   engagementVisualizationRate: number;
@@ -28,6 +29,7 @@ class Influencer {
     totalSaves: number,
     totalViews: number,
     totalFollowers: number,
+    city: string,
     createdAt: Date,
     updatedAt: Date
   ) {
@@ -43,6 +45,7 @@ class Influencer {
     this.totalSaves = totalSaves;
     this.totalViews = totalViews;
     this.totalFollowers = totalFollowers;
+    this.city = city;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.engagementVisualizationRate =
@@ -107,12 +110,16 @@ class Influencer {
     return this.totalFollowers;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  getCity(): string {
+    return this.city;
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  getCreatedAt(): string {
+    return this.createdAt.toLocaleDateString();
+  }
+
+  getUpdatedAt(): string {
+    return this.updatedAt.toLocaleDateString();
   }
 
   getEngagementVisualizationRate(): number {
@@ -165,6 +172,10 @@ class Influencer {
 
   setTotalFollowers(totalFollowers: number): void {
     this.totalFollowers = totalFollowers;
+  }
+
+  setCity(city: string): void {
+    this.city = city;
   }
 
   setCreatedAt(createdAt: Date): void {

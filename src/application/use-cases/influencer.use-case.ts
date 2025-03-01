@@ -22,6 +22,7 @@ export class InfluencerUseCases {
         influencer.totalSaves,
         influencer.totalViews,
         influencer.totalFollowers,
+        influencer.city,
         influencer.createdAt,
         influencer.updatedAt
       );

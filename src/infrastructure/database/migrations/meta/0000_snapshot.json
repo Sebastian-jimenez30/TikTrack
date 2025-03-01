@@ -1,5 +1,5 @@
 {
-  "id": "0a9087ad-5888-415b-a44a-a7eaabc12cdf",
+  "id": "6dc4bf2c-390a-4144-b3dd-d50ee6d73b93",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -39,13 +39,13 @@
         },
         "profile_picture": {
           "name": "profile_picture",
-          "type": "varchar(255)",
+          "type": "varchar(350)",
           "primaryKey": false,
           "notNull": true
         },
         "profile_url": {
           "name": "profile_url",
-          "type": "varchar(255)",
+          "type": "varchar(350)",
           "primaryKey": false,
           "notNull": true
         },
@@ -88,6 +88,12 @@
         "total_followers": {
           "name": "total_followers",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
         },

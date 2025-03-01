@@ -1,4 +1,4 @@
-import influencersTable from "@/infrastructure/database/schemas/influencer.schema";
+import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import db from "@/infrastructure/database/index";
 
@@ -17,6 +17,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       totalSaves: number;
       totalViews: number;
       totalFollowers: number;
+      city: string;
       createdAt: Date;
       updatedAt: Date;
     }[]

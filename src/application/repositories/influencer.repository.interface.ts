@@ -13,6 +13,7 @@ export default interface IInfluencerRepository {
       totalSaves: number;
       totalViews: number;
       totalFollowers: number;
+      city: string;
       createdAt: Date;
       updatedAt: Date;
     }[]
