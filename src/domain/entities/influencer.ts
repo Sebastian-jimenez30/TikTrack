@@ -53,7 +53,14 @@ class Influencer {
   }
 
   calculateEngagementVisualizationRate(): number {
-    const engagementVisualizationRate = (((this.totalLikes + this.totalComments + this.totalShares + this.totalSaves)/this.totalViews)*100).toFixed(2);
+    const engagementVisualizationRate = (
+      ((this.totalLikes +
+        this.totalComments +
+        this.totalShares +
+        this.totalSaves) /
+        this.totalViews) *
+      100
+    ).toFixed(2);
     return parseFloat(engagementVisualizationRate);
   }
 

@@ -1,9 +1,13 @@
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
+import { count } from "drizzle-orm";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import db from "@/infrastructure/database/index";
 
 export default class InfluencerRepository implements IInfluencerRepository {
-  async findAll(): Promise<
+  async listPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
     {
       id: number;
       username: string;
@@ -22,7 +26,17 @@ export default class InfluencerRepository implements IInfluencerRepository {
       updatedAt: Date;
     }[]
   > {
-    const response = await db.select().from(influencersTable);
+    const offset = (pageNumber - 1) * limit;
+    const response = await db
+      .select()
+      .from(influencersTable)
+      .limit(limit)
+      .offset(offset);
     return response;
+  }
+
+  async count(): Promise<number> {
+    const response = await db.select({ count: count() }).from(influencersTable);
+    return response[0].count;
   }
 }

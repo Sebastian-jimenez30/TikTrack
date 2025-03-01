@@ -1,5 +1,8 @@
 export default interface IInfluencerRepository {
-  findAll(): Promise<
+  listPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
     {
       id: number;
       username: string;
@@ -18,4 +21,5 @@ export default interface IInfluencerRepository {
       updatedAt: Date;
     }[]
   >;
+  count(): Promise<number>;
 }
