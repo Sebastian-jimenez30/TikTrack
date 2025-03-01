@@ -6,6 +6,14 @@
     }
   },
 
+  "InfluencersIndexPage": {
+    "metadata": {
+      "title": "Influencers Destacados",
+      "description": "Encuentra a los influencers más destacados en tu ciudad y comienza a colaborar con ellos."
+    },
+    "title": "Influencers Destacados"
+  },
+
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",

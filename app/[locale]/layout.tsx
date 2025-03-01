@@ -29,7 +29,7 @@ export default async function LocaleLayout({ children, params }: LocaleProps) {
           rel="stylesheet"
         />
       </head>
-      <body className="mx-5">
+      <body className="mx-8">
         <NextIntlClientProvider messages={messages}>
           <NavBar />
           {children}

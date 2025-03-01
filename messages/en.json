@@ -6,6 +6,14 @@
     }
   },
 
+  "InfluencersIndexPage": {
+    "metadata": {
+      "title": "Top Influencers",
+      "description": "Find the top influencers in your city and start collaborating with them."
+    },
+    "title": "Top Influencers"
+  },
+
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",
