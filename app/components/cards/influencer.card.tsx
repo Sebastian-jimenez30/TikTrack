@@ -35,6 +35,7 @@ export default function InfluencerCard({
               width={100}
               height={100}
               className="w-24 h-24 mt-3 rounded-full shadow-lg"
+              priority={true}
             />
             <b>
               <h5 className="mb-1 text-xl text-white mb-4">@{username}</h5>

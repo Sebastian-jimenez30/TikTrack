@@ -19,5 +19,14 @@
       "EVR": "EVR",
       "lastUpdate": "Última actualización"
     }
+  },
+
+  "Pagination": {
+    "showing": "Mostrando",
+    "to": "a",
+    "of": "de",
+    "entries": "Entradas",
+    "previous": "Anterior",
+    "next": "Siguiente"
   }
 }
