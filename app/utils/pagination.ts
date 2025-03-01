@@ -1,5 +1,9 @@
 class PaginationUtil {
-  static getIndexes(page: string, data_length: number, per_page: number) {
+  static getIndexes(
+    page: string,
+    data_length: number,
+    per_page: number
+  ): number[] {
     const start = (Number(page) - 1) * per_page;
 
     let end = start + Number(per_page);

@@ -2,6 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { JSX } from "react";
 
 interface PaginationProps {
   hasNextPage: boolean;
@@ -17,7 +18,7 @@ export default function Pagination({
   totalElements,
   start,
   end,
-}: PaginationProps) {
+}: PaginationProps): JSX.Element {
   const t = useTranslations("Pagination");
 
   const router = useRouter();
