@@ -8,6 +8,16 @@
 
   "NavBar": {
     "home": "Inicio",
+    "influencers": "Influencers",
     "getStarted": "Empezar"
+  },
+
+  "Cards": {
+    "influencer": {
+      "detail": "Detallar",
+      "followers": "Seguidores",
+      "EVR": "EVR",
+      "lastUpdate": "Última actualización"
+    }
   }
 }
