@@ -1,5 +1,6 @@
-import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import { count } from "drizzle-orm";
+
+import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import db from "@/infrastructure/database/index";
 

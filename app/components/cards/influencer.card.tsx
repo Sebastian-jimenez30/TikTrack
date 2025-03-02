@@ -1,7 +1,8 @@
 import { JSX } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "~/i18n/routing";
 import Image from "next/image";
+
+import { Link } from "~/i18n/routing";
 import MapPinIcon from "~/app/components/icons/location.icon";
 
 interface InfluencerCardProps {

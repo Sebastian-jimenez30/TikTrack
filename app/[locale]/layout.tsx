@@ -1,17 +1,18 @@
 /* eslint-disable @next/next/no-sync-scripts */
 
+import { JSX } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
+
+import "~/styles/globals.css";
 import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
-import "~/styles/globals.css";
-import { JSX } from "react";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import { config } from "@fortawesome/fontawesome-svg-core";
-
-config.autoAddCss = false;
 
 interface LocaleProps {
   children: React.ReactNode;

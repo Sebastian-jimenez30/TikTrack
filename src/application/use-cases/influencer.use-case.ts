@@ -1,7 +1,8 @@
 import { Influencer } from "@/domain/entities/influencer";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
-import repositoryContainer from "~/containers/repository.container";
 import PaginationUtil from "@/interface-adapters/utils/pagination";
+import repositoryContainer from "~/containers/repository.container";
+
 export class InfluencerUseCases {
   async listWithPagination(
     pageNumber: number,

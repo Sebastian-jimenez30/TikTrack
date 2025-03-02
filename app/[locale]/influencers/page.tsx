@@ -1,8 +1,10 @@
-import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
-import InfluencerCard from "~/app/components/cards/influencer.card";
-import Pagination from "~/app/components/pagination";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
+
+import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
+
+import InfluencerCard from "~/app/components/cards/influencer.card";
+import Pagination from "~/app/components/pagination";
 import FireIcon from "~/app/components/icons/fire.icon";
 
 interface IndexProps {
