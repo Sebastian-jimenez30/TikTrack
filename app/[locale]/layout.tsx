@@ -8,6 +8,10 @@ import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
 import "~/styles/globals.css";
 import { JSX } from "react";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+
+config.autoAddCss = false;
 
 interface LocaleProps {
   children: React.ReactNode;
