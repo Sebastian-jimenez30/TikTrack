@@ -3,16 +3,17 @@ import { Link } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
+import { JSX } from "react";
 
 type NavbarLink = {
   label: string;
   path: (typeof ROUTES)[keyof typeof ROUTES];
 };
 
-export default function NavBar() {
+export default function NavBar(): JSX.Element {
   const t = useTranslations("NavBar");
 
-  const navbarPages: (keyof typeof ROUTES)[] = ["HOME"];
+  const navbarPages: (keyof typeof ROUTES)[] = ["HOME", "INFLUENCERS"];
 
   const navbarLinks: NavbarLink[] = [];
 
@@ -32,7 +33,7 @@ export default function NavBar() {
           width={947}
           height={222}
           className="w-60 h-auto"
-          priority
+          priority={true}
         />
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <Button variant="primary">{t("getStarted")}</Button>

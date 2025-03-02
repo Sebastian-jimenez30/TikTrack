@@ -1,13 +1,40 @@
 {
-  "HomePage": {
+  "HomeIndexPage": {
     "metadata": {
       "title": "Home",
       "description": "Discover the influencer who will help you boost your reach and maximize your impact."
     }
   },
 
+  "InfluencersIndexPage": {
+    "metadata": {
+      "title": "Top Influencers",
+      "description": "Find the top influencers in your city and start collaborating with them."
+    },
+    "title": "Top Influencers"
+  },
+
   "NavBar": {
     "home": "Home",
+    "influencers": "Influencers",
     "getStarted": "Get Started"
+  },
+
+  "Cards": {
+    "influencer": {
+      "detail": "Detail",
+      "followers": "Followers",
+      "EVR": "EVR",
+      "lastUpdate": "Last Update"
+    }
+  },
+
+  "Pagination": {
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "entries": "Entries",
+    "previous": "Previous",
+    "next": "Next"
   }
 }

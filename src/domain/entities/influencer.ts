@@ -11,6 +11,7 @@ class Influencer {
   totalSaves: number;
   totalViews: number;
   totalFollowers: number;
+  city: string;
   createdAt: Date;
   updatedAt: Date;
   engagementVisualizationRate: number;
@@ -28,6 +29,7 @@ class Influencer {
     totalSaves: number,
     totalViews: number,
     totalFollowers: number,
+    city: string,
     createdAt: Date,
     updatedAt: Date
   ) {
@@ -43,6 +45,7 @@ class Influencer {
     this.totalSaves = totalSaves;
     this.totalViews = totalViews;
     this.totalFollowers = totalFollowers;
+    this.city = city;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.engagementVisualizationRate =
@@ -50,13 +53,15 @@ class Influencer {
   }
 
   calculateEngagementVisualizationRate(): number {
-    return (
-      (this.totalLikes +
+    const engagementVisualizationRate = (
+      ((this.totalLikes +
         this.totalComments +
         this.totalShares +
         this.totalSaves) /
-      this.totalViews
-    );
+        this.totalViews) *
+      100
+    ).toFixed(2);
+    return parseFloat(engagementVisualizationRate);
   }
 
   getId(): number {
@@ -87,32 +92,60 @@ class Influencer {
     return this.totalLikes;
   }
 
+  getFormattedTotalLikes(): string {
+    return this.totalLikes.toLocaleString();
+  }
+
   getTotalComments(): number {
     return this.totalComments;
+  }
+
+  getFormattedTotalComments(): string {
+    return this.totalComments.toLocaleString();
   }
 
   getTotalShares(): number {
     return this.totalShares;
   }
 
+  getFormattedTotalShares(): string {
+    return this.totalShares.toLocaleString();
+  }
+
   getTotalSaves(): number {
     return this.totalSaves;
+  }
+
+  getFormattedTotalSaves(): string {
+    return this.totalSaves.toLocaleString();
   }
 
   getTotalViews(): number {
     return this.totalViews;
   }
 
+  getFormattedTotalViews(): string {
+    return this.totalViews.toLocaleString();
+  }
+
   getTotalFollowers(): number {
     return this.totalFollowers;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  getFormattedTotalFollowers(): string {
+    return this.totalFollowers.toLocaleString();
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  getCity(): string {
+    return this.city;
+  }
+
+  getCreatedAt(): string {
+    return this.createdAt.toLocaleDateString();
+  }
+
+  getUpdatedAt(): string {
+    return this.updatedAt.toLocaleDateString();
   }
 
   getEngagementVisualizationRate(): number {
@@ -165,6 +198,10 @@ class Influencer {
 
   setTotalFollowers(totalFollowers: number): void {
     this.totalFollowers = totalFollowers;
+  }
+
+  setCity(city: string): void {
+    this.city = city;
   }
 
   setCreatedAt(createdAt: Date): void {

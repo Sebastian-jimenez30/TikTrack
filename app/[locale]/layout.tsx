@@ -7,12 +7,17 @@ import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
 import "~/styles/globals.css";
+import { JSX } from "react";
+
 interface LocaleProps {
   children: React.ReactNode;
   params: { locale: string };
 }
 
-export default async function LocaleLayout({ children, params }: LocaleProps) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleProps): Promise<JSX.Element> {
   const { locale } = await params;
 
   if (!routing.locales.includes(locale as Locale)) {
@@ -29,7 +34,7 @@ export default async function LocaleLayout({ children, params }: LocaleProps) {
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body className="mx-8">
         <NextIntlClientProvider messages={messages}>
           <NavBar />
           {children}

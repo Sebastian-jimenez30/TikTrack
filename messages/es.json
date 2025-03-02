@@ -1,13 +1,40 @@
 {
-  "HomePage": {
+  "HomeIndexPage": {
     "metadata": {
       "title": "Inicio",
       "description": "Descubre al influencer que te ayudará a impulsar tu alcance y maximizar tu impacto."
     }
   },
 
+  "InfluencersIndexPage": {
+    "metadata": {
+      "title": "Influencers Destacados",
+      "description": "Encuentra a los influencers más destacados en tu ciudad y comienza a colaborar con ellos."
+    },
+    "title": "Influencers Destacados"
+  },
+
   "NavBar": {
     "home": "Inicio",
+    "influencers": "Influencers",
     "getStarted": "Empezar"
+  },
+
+  "Cards": {
+    "influencer": {
+      "detail": "Detallar",
+      "followers": "Seguidores",
+      "EVR": "EVR",
+      "lastUpdate": "Última actualización"
+    }
+  },
+
+  "Pagination": {
+    "showing": "Mostrando",
+    "to": "a",
+    "of": "de",
+    "entries": "Entradas",
+    "previous": "Anterior",
+    "next": "Siguiente"
   }
 }
