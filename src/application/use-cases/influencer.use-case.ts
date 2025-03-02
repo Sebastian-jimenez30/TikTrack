@@ -1,6 +1,6 @@
 import { Influencer } from "@/domain/entities/influencer";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
-import PaginationUtil from "@/interface-adapters/utils/pagination";
+import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
 
 export class InfluencerUseCases {
