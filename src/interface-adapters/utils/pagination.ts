@@ -11,7 +11,7 @@ class PaginationUtil {
       end = data_length;
     }
 
-    const indexes = [start, end];
+    const indexes = [start+1, end];
 
     return indexes;
   }

@@ -1,6 +1,6 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { Influencer } from "@/domain/entities/influencer";
-import PaginationUtil from "~/app/utils/pagination";
+import PaginationUtil from "@/interface-adapters/utils/pagination";
 
 interface IndexProps {
   searchParams: Promise<{ page?: string }>;
