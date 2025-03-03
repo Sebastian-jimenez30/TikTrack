@@ -1,7 +1,9 @@
 import { JSX } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "~/i18n/routing";
 import Image from "next/image";
+
+import { Link } from "~/i18n/routing";
+import MapPinIcon from "~/app/components/icons/location.icon";
 
 interface InfluencerCardProps {
   username: string;
@@ -41,7 +43,10 @@ export default function InfluencerCard({
               <h5 className="mb-1 text-xl text-white mb-4">@{username}</h5>
             </b>
           </div>
-          <div className="mb-3">📍 {city}</div>
+          <div className="mb-3">
+            {" "}
+            <MapPinIcon /> {city}
+          </div>
           <div className="w-full flex">
             <div className="flex flex-col w-1/2 items-center">
               <div className="mb-1 text-center font-bold">

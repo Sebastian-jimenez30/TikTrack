@@ -1,8 +1,11 @@
-import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
-import InfluencerCard from "~/app/components/cards/influencer.card";
-import Pagination from "~/app/components/pagination";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
+
+import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
+
+import InfluencerCard from "~/app/components/cards/influencer.card";
+import Pagination from "~/app/components/pagination";
+import FireIcon from "~/app/components/icons/fire.icon";
 
 interface IndexProps {
   searchParams: Promise<{ page?: string }>;
@@ -32,7 +35,7 @@ export default async function Index({
   return (
     <div>
       <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
-        {t("title")}🔥
+        {t("title")} <FireIcon />
       </h1>
       <div>
         <div className="flex flex-wrap w-full justify-center sm:justify-baseline">

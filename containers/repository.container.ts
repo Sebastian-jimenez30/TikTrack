@@ -1,7 +1,9 @@
 import "reflect-metadata";
+
 import { Container } from "inversify";
-import InfluencerRepository from "@/infrastructure/repositories/influencer.repository";
+
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
+import InfluencerRepository from "@/infrastructure/repositories/influencer.repository";
 
 const container = new Container();
 
