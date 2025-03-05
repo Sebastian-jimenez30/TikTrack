@@ -5,24 +5,8 @@ import Button from "./button";
 import ROUTES from "~/constants/urls";
 import { JSX } from "react";
 
-type NavbarLink = {
-  label: string;
-  path: (typeof ROUTES)[keyof typeof ROUTES];
-};
-
 export default function NavBar(): JSX.Element {
   const t = useTranslations("NavBar");
-
-  const navbarPages: (keyof typeof ROUTES)[] = ["HOME", "INFLUENCERS"];
-
-  const navbarLinks: NavbarLink[] = [];
-
-  navbarPages.forEach((pageKey) => {
-    navbarLinks.push({
-      label: t(pageKey.toLowerCase()),
-      path: ROUTES[pageKey],
-    });
-  });
 
   return (
     <nav className="bg-white border-gray-200">
@@ -36,7 +20,9 @@ export default function NavBar(): JSX.Element {
           priority={true}
         />
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Button variant="primary">{t("getStarted")}</Button>
+          <Button href="#" variant="primary">
+            {t("getStarted")}
+          </Button>
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
@@ -66,11 +52,12 @@ export default function NavBar(): JSX.Element {
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-            {navbarLinks.map(({ label, path }, index) => (
-              <li key={index}>
-                <Link href={{ pathname: path }}>{label}</Link>
-              </li>
-            ))}
+            <li>
+              <Link href={ROUTES["HOME"]}> {t("home")} </Link>
+            </li>
+            <li>
+              <Link href={ROUTES["INFLUENCERS"]}> {t("influencers")} </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -3,11 +3,13 @@ import { JSX } from "react";
 
 interface ButtonProps {
   variant: "primary" | "secondary" | "danger";
+  href: string;
   children: React.ReactNode;
 }
 
 export default function Button({
   variant,
+  href,
   children,
 }: ButtonProps): JSX.Element {
   return (
@@ -21,6 +23,7 @@ export default function Button({
         variant === "danger" &&
           "bg-red-600 text-white cursor-pointer hover:bg-red-700"
       )}
+      href={href}
     >
       {children}
     </a>
