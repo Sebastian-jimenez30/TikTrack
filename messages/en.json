@@ -14,6 +14,23 @@
     "title": "Top Influencers"
   },
 
+  "InfluencersShowPage": {
+    "metadata": {
+      "title": "Detail influencer",
+      "description": "Know the metrics of the influencer and the engagement visualization rate."
+    },
+    "followers": "followers",
+    "message": "Message",
+    "metrics": "Metrics",
+    "likes": "Likes",
+    "comments": "Comments",
+    "shares": "Shares",
+    "saves": "Saves",
+    "views": "Views",
+    "engagementVisualizationRate": "Engagement Visualization Rate",
+    "videos": "Videos"
+  },
+
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",

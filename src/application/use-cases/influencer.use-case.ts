@@ -4,7 +4,7 @@ import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
 
 export class InfluencerUseCases {
-  async listWithPagination(
+  async list(
     pageNumber: number,
     limit: number
   ): Promise<{
@@ -36,6 +36,7 @@ export class InfluencerUseCases {
         influencer.totalViews,
         influencer.totalFollowers,
         influencer.city,
+        influencer.featuredVideos,
         influencer.createdAt,
         influencer.updatedAt
       );
@@ -56,6 +57,44 @@ export class InfluencerUseCases {
       hasNextPage: end < count,
       hasPreviousPage: start > 1,
     };
+  }
+
+  async detail(
+    username: string
+  ): Promise<{ influencer: Influencer | null; haveResults: boolean }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+    const tempInfluencer = await repository.findByUsername(username);
+    if (!tempInfluencer) {
+      return {
+        influencer: null,
+        haveResults: false,
+      };
+    } else {
+      const influencer = new Influencer(
+        tempInfluencer.id,
+        tempInfluencer.username,
+        tempInfluencer.profileName,
+        tempInfluencer.profilePicture,
+        tempInfluencer.profileUrl,
+        tempInfluencer.profileDescription,
+        tempInfluencer.totalLikes,
+        tempInfluencer.totalComments,
+        tempInfluencer.totalShares,
+        tempInfluencer.totalSaves,
+        tempInfluencer.totalViews,
+        tempInfluencer.totalFollowers,
+        tempInfluencer.city,
+        tempInfluencer.featuredVideos,
+        tempInfluencer.createdAt,
+        tempInfluencer.updatedAt
+      );
+      return {
+        influencer,
+        haveResults: true,
+      };
+    }
   }
 }
 export const influencerUseCases = new InfluencerUseCases();

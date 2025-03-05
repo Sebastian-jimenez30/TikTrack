@@ -14,6 +14,23 @@
     "title": "Influencers Destacados"
   },
 
+  "InfluencersShowPage": {
+    "metadata": {
+      "title": "Detalle del influencer",
+      "description": "Conoce las métricas del influencer y la tasa de participación y visualización."
+    },
+    "followers": "seguidores",
+    "message": "Mensaje",
+    "metrics": "Métricas",
+    "likes": "Me gusta",
+    "comments": "Comentarios",
+    "shares": "Compartidos",
+    "saves": "Guardados",
+    "views": "Vistas",
+    "engagementVisualizationRate": "Tasa de participación y visualización",
+    "videos": "Videos"
+  },
+
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",
