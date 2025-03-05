@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { Link } from "~/i18n/routing";
 import MapPinIcon from "~/app/components/icons/location.icon";
+import ROUTES from "~/constants/urls";
 
 interface InfluencerCardProps {
   username: string;
@@ -24,11 +25,13 @@ export default function InfluencerCard({
 }: InfluencerCardProps): JSX.Element {
   const t = useTranslations("Cards");
   return (
-    <div
-      className="w-80 bg-white border border-gray-200 shadow-sm transform transition duration-300 hover:scale-105 mx-2 my-2
-      "
-    >
-      <Link href="/">
+    <div className="w-80 bg-white border border-gray-200 shadow-sm transform transition duration-300 hover:scale-105 mx-2 my-2">
+      <Link
+        href={{
+          pathname: `${ROUTES["INFLUENCERS_DETAIL"]}`,
+          params: { username: username },
+        }}
+      >
         <div className="flex flex-col items-center pb-10">
           <div className="bg-purple w-full flex justify-center items-center flex-col mb-5">
             <Image
@@ -44,8 +47,7 @@ export default function InfluencerCard({
             </b>
           </div>
           <div className="mb-3">
-            {" "}
-            <MapPinIcon /> {city}
+            <MapPinIcon className="text-lightPurple" /> {city}
           </div>
           <div className="w-full flex">
             <div className="flex flex-col w-1/2 items-center">
