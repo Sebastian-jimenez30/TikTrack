@@ -3,6 +3,7 @@ import { count } from "drizzle-orm";
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import db from "@/infrastructure/database/index";
+import { eq } from "drizzle-orm";
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listPaginated(
@@ -23,6 +24,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       totalViews: number;
       totalFollowers: number;
       city: string;
+      featuredVideos: string[];
       createdAt: Date;
       updatedAt: Date;
     }[]
@@ -34,6 +36,31 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .limit(limit)
       .offset(offset);
     return response;
+  }
+
+  async findByUsername(username: string): Promise<{
+    id: number;
+    username: string;
+    profileName: string;
+    profilePicture: string;
+    profileUrl: string;
+    profileDescription: string;
+    totalLikes: number;
+    totalComments: number;
+    totalShares: number;
+    totalSaves: number;
+    totalViews: number;
+    totalFollowers: number;
+    city: string;
+    featuredVideos: string[];
+    createdAt: Date;
+    updatedAt: Date;
+  } | null> {
+    const response = await db
+      .select()
+      .from(influencersTable)
+      .where(eq(influencersTable.username, username));
+    return response.length > 0 ? response[0] : null;
   }
 
   async count(): Promise<number> {

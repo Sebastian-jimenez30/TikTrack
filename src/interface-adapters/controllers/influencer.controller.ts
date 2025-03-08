@@ -1,12 +1,15 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { Influencer } from "@/domain/entities/influencer";
-
 interface IndexProps {
-  searchParams: Promise<{ page?: string }>;
+  params: Promise<{ page?: string }>;
+}
+
+interface ShowProps {
+  params: Promise<{ username: string }>;
 }
 
 class InfluencerController {
-  async index({ searchParams }: IndexProps): Promise<{
+  async index({ params }: IndexProps): Promise<{
     influencers: Influencer[];
     count: number;
     start: number;
@@ -14,15 +17,21 @@ class InfluencerController {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   }> {
-    const { page } = await searchParams;
+    const { page } = await params;
     const pageNumber = page ? Number(page) : 1;
     const limit = 8;
 
-    const pageData = await influencerUseCases.listWithPagination(
-      pageNumber,
-      limit
-    );
+    const pageData = await influencerUseCases.list(pageNumber, limit);
 
+    return pageData;
+  }
+
+  async show({ params }: ShowProps): Promise<{
+    influencer: Influencer | null;
+    haveResults: boolean;
+  }> {
+    const { username } = await params;
+    const pageData = await influencerUseCases.detail(username);
     return pageData;
   }
 }

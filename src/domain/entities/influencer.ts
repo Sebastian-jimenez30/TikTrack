@@ -12,6 +12,7 @@ class Influencer {
   totalViews: number;
   totalFollowers: number;
   city: string;
+  featuredVideos: string[];
   createdAt: Date;
   updatedAt: Date;
   engagementVisualizationRate: number;
@@ -30,6 +31,7 @@ class Influencer {
     totalViews: number,
     totalFollowers: number,
     city: string,
+    featuredVideos: string[],
     createdAt: Date,
     updatedAt: Date
   ) {
@@ -46,6 +48,7 @@ class Influencer {
     this.totalViews = totalViews;
     this.totalFollowers = totalFollowers;
     this.city = city;
+    this.featuredVideos = featuredVideos;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.engagementVisualizationRate =
@@ -140,6 +143,10 @@ class Influencer {
     return this.city;
   }
 
+  getFeaturedVideos(): string[] {
+    return this.featuredVideos;
+  }
+
   getCreatedAt(): string {
     return this.createdAt.toLocaleDateString();
   }
@@ -202,6 +209,10 @@ class Influencer {
 
   setCity(city: string): void {
     this.city = city;
+  }
+
+  setFeaturedVideos(featuredVideos: string[]): void {
+    this.featuredVideos = featuredVideos;
   }
 
   setCreatedAt(createdAt: Date): void {

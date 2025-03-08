@@ -1,4 +1,10 @@
-import { integer, pgTable, varchar, timestamp } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  varchar,
+  timestamp,
+  json,
+} from "drizzle-orm/pg-core";
 
 export const influencersTable = pgTable("influencers", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -14,6 +20,7 @@ export const influencersTable = pgTable("influencers", {
   totalViews: integer("total_views").notNull(),
   totalFollowers: integer("total_followers").notNull(),
   city: varchar("city", { length: 100 }).notNull(),
+  featuredVideos: json("featured_videos").$type<string[]>().notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .defaultNow()
