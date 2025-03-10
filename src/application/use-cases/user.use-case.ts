@@ -2,7 +2,7 @@
 import { User } from "@/domain/entities/user";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 
 export class UserUseCases {
   // Obtener un usuario por ID
