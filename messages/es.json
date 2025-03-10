@@ -53,5 +53,14 @@
     "entries": "Entradas",
     "previous": "Anterior",
     "next": "Siguiente"
+  },
+
+  "TestPage": {
+    "title": "Página de Pruebas",
+    "testSignUp": "Probar Registro",
+    "testLogIn": "Probar Inicio de Sesión",
+    "testGetUserById": "Probar Obtener Usuario por ID",
+    "testGetInfluencers": "Probar Obtener Influencers",
+    "results": "Resultados"
   }
 }

@@ -11,7 +11,7 @@ export const userStatusEnum = pgEnum("user_status", ["active", "inactive"]);
 export const usersTable = pgTable("users", {
   id: integer("id").primaryKey().notNull().generatedAlwaysAsIdentity(), 
   email: varchar("email", { length: 255 }).unique().notNull(), 
-  password: varchar("password", { length: 255 }).notNull(), 
+  password: varchar("password", { length: 255 }).notNull(),  
   name: varchar("name", { length: 255 }).notNull(), 
   role: userRoleEnum("role").default("user").notNull(), 
   status: userStatusEnum("status").default("inactive").notNull(), 
@@ -97,15 +97,14 @@ export class User {
     }
   }
 
-
   repsositorio user
   
-  // src/infrastructure/repositories/user.repository.ts
+// src/infrastructure/repositories/user.repository.ts
 import { eq, count } from "drizzle-orm";
 import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
-import { hash } from "bcrypt";
+import { hash} from "bcryptjs";
 
 export default class UserRepository implements IUserRepository {
   // Crear un nuevo usuario
@@ -309,7 +308,6 @@ export default class UserRepository implements IUserRepository {
   }
 }
 
-
 interfac DEL REPISOTORIO DE User
 
 // src/application/repositories/user.repository.interface.ts
@@ -435,9 +433,8 @@ export default interface IUserRepository {
     } | null>;
   }
 
-
-  SERVICIO DE JWT
-  // src/infrastructure/services/jwt.service.ts
+SERVICIO DE JWT
+// src/infrastructure/services/jwt.service.ts
 import jwt from "jsonwebtoken";
 
 const SECRET = process.env.JWT_SECRET || "secret";
@@ -460,13 +457,12 @@ export class JwtService {
   }
 }
 
-
 casos de uso, auth
 // src/application/use-cases/auth.use-case.ts
 import { User } from "@/domain/entities/user";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
-import { hash, compare } from "bcrypt";
+import { hash, compare } from "bcryptjs";
 import { JwtService } from "@/infrastructure/services/jwt.service";
 
 export class AuthUseCases {
@@ -484,12 +480,6 @@ export class AuthUseCases {
     const existingUser = await repository.findUserByEmail(email);
     if (existingUser) {
       throw new Error("El email ya está registrado");
-    }
-
-    // Validar la fortaleza de la contraseña
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordRegex.test(password)) {
-      throw new Error("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número");
     }
 
     // Hashear la contraseña
@@ -562,230 +552,31 @@ export class AuthUseCases {
 
 export const authUseCases = new AuthUseCases();
 
-
 user caso de uso
-// src/application/use-cases/user.use-case.ts
-import { User } from "@/domain/entities/user";
-import IUserRepository from "@/application/repositories/user.repository.interface";
-import repositoryContainer from "~/containers/repository.container";
-import { hash } from "bcrypt";
-
-export class UserUseCases {
-  // Obtener un usuario por ID
-  async getUserById(id: number): Promise<User | null> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
-    const tempUser = await repository.findUserById(id);
-    if (!tempUser) {
-      return null;
-    }
-
-    // Crear una instancia de la entidad User
-    return new User(
-      tempUser.id,
-      tempUser.email,
-      tempUser.password,
-      tempUser.name,
-      tempUser.role as "admin" | "user",
-      tempUser.status as "active" | "inactive",
-      tempUser.createdAt,
-      tempUser.updatedAt
-    );
-  }
-
-  // Actualizar el perfil de un usuario
-  async updateProfile(
-    id: number,
-    data: Partial<{
-      email: string;
-      password: string;
-      name: string;
-    }>
-  ): Promise<User> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
-
-    // Si se actualiza la contraseña, hashearla
-    if (data.password) {
-      data.password = await hash(data.password, 10);
-    }
-
-    // Actualizar el usuario en la base de datos
-    const tempUser = await repository.updateUser(id, data);
-
-    // Crear una instancia de la entidad User
-    return new User(
-      tempUser.id,
-      tempUser.email,
-      tempUser.password,
-      tempUser.name,
-      tempUser.role as "admin" | "user",
-      tempUser.status as "active" | "inactive",
-      tempUser.createdAt,
-      tempUser.updatedAt
-    );
-  }
-
-  // Listar usuarios (paginado)
-  async listUsers(
-    page: number,
-    limit: number
-  ): Promise<{ users: User[]; total: number }> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
-
-    // Obtener los usuarios paginados
-    const { users: tempUsers, total } = await repository.listUsers(page, limit);
-
-    // Crear instancias de la entidad User
-    const users = tempUsers.map(
-      (tempUser) =>
-        new User(
-          tempUser.id,
-          tempUser.email,
-          tempUser.password,
-          tempUser.name,
-          tempUser.role as "admin" | "user",
-          tempUser.status as "active" | "inactive",
-          tempUser.createdAt,
-          tempUser.updatedAt
-        )
-    );
-
-    return { users, total };
-  }
-
-  // Actualizar el rol de un usuario (solo para admins)
-  async updateUserRole(id: number, role: "admin" | "user"): Promise<User> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
-
-    // Actualizar el rol del usuario
-    const tempUser = await repository.updateUserRole(id, role);
-
-    // Crear una instancia de la entidad User
-    return new User(
-      tempUser.id,
-      tempUser.email,
-      tempUser.password,
-      tempUser.name,
-      tempUser.role as "admin" | "user",
-      tempUser.status as "active" | "inactive",
-      tempUser.createdAt,
-      tempUser.updatedAt
-    );
-  }
-
-  // Actualizar el estado de un usuario (solo para admins)
-  async updateUserStatus(id: number, status: "active" | "inactive"): Promise<User> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
-
-    // Actualizar el estado del usuario
-    const tempUser = await repository.updateUserStatus(id, status);
-
-    // Crear una instancia de la entidad User
-    return new User(
-      tempUser.id,
-      tempUser.email,
-      tempUser.password,
-      tempUser.name,
-      tempUser.role as "admin" | "user",
-      tempUser.status as "active" | "inactive",
-      tempUser.createdAt,
-      tempUser.updatedAt
-    );
-  }
-}
-
-export const userUseCases = new UserUseCases();
-
-
-controladores auth y user
-
-auth.controller.ts
-// src/infrastructure/controllers/auth.controller.ts
-import { Request, Response } from "express";
-import { authUseCases } from "@/application/use-cases/auth.use-case";
-
-export class AuthController {
-  // Registro de un nuevo usuario
-  async signUp(req: Request, res: Response): Promise<void> {
-    try {
-      const { email, password, name } = req.body;
-
-      // Llamar al caso de uso de registro
-      const { user, token } = await authUseCases.signUp(email, password, name);
-
-      // Devolver la respuesta
-      res.status(201).json({
-        message: "Usuario registrado exitosamente",
-        user: {
-          id: user.getId(),
-          email: user.getEmail(),
-          name: user.getName(),
-          role: user.getRole(),
-          status: user.getStatus(),
-        },
-        token,
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(400).json({ message: "Unknown error" });
-      }
-    }
-  }
-
-  // Inicio de sesión de un usuario
-  async logIn(req: Request, res: Response): Promise<void> {
-    try {
-      const { email, password } = req.body;
-
-      // Llamar al caso de uso de inicio de sesión
-      const { user, token } = await authUseCases.logIn(email, password);
-
-      // Devolver la respuesta
-      res.status(200).json({
-        message: "Inicio de sesión exitoso",
-        user: {
-          id: user.getId(),
-          email: user.getEmail(),
-          name: user.getName(),
-          role: user.getRole(),
-          status: user.getStatus(),
-        },
-        token,
-      });
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(400).json({ message: "Unknown error" });
-      }
-    }
-  }
-}
-
-export const authController = new AuthController();
-
-
-user.controller.ts
 // src/infrastructure/controllers/user.controller.ts
-import { Request, Response } from "express";
 import { userUseCases } from "@/application/use-cases/user.use-case";
 
 export class UserController {
-  async getUserById(req: Request, res: Response): Promise<void> {
+  async getUserById(id: number): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    } | null;
+  }> {
     try {
-      const { id } = req.params;
-
-      // Llamar al caso de uso para obtener el usuario
-      const user = await userUseCases.getUserById(Number(id));
+      const user = await userUseCases.getUserById(id);
 
       if (!user) {
-        res.status(404).json({ message: "Usuario no encontrado" });
-        return;
+        return { message: "Usuario no encontrado", user: null };
       }
 
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Usuario encontrado",
         user: {
           id: user.getId(),
@@ -796,26 +587,31 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al obtener el usuario");
     }
   }
 
-  async updateProfile(req: Request, res: Response): Promise<void> {
+  async updateProfile(
+    id: number,
+    data: { email?: string; password?: string; name?: string }
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
     try {
-      const { id } = req.params;
-      const { email, password, name } = req.body;
+      const user = await userUseCases.updateProfile(id, data);
 
-      // Llamar al caso de uso para actualizar el perfil
-      const user = await userUseCases.updateProfile(Number(id), {
-        email,
-        password,
-        name,
-      });
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Perfil actualizado exitosamente",
         user: {
           id: user.getId(),
@@ -826,21 +622,32 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el perfil");
     }
   }
 
-  async listUsers(req: Request, res: Response): Promise<void> {
+  async listUsers(
+    page: number,
+    limit: number
+  ): Promise<{
+    message: string;
+    users: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }[];
+    total: number;
+  }> {
     try {
-      const { page = 1, limit = 10 } = req.query;
+      const { users, total } = await userUseCases.listUsers(page, limit);
 
-      // Llamar al caso de uso para listar usuarios
-      const { users, total } = await userUseCases.listUsers(Number(page), Number(limit));
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Usuarios listados exitosamente",
         users: users.map((user) => ({
           id: user.getId(),
@@ -852,22 +659,31 @@ export class UserController {
           updatedAt: user.getUpdatedAt(),
         })),
         total,
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al listar usuarios");
     }
   }
 
-  async updateUserRole(req: Request, res: Response): Promise<void> {
+  async updateUserRole(
+    id: number,
+    role: "admin" | "user"
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
     try {
-      const { id } = req.params;
-      const { role } = req.body;
+      const user = await userUseCases.updateUserRole(id, role);
 
-      // Llamar al caso de uso para actualizar el rol
-      const user = await userUseCases.updateUserRole(Number(id), role as "admin" | "user");
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Rol de usuario actualizado exitosamente",
         user: {
           id: user.getId(),
@@ -878,22 +694,31 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el rol");
     }
   }
 
-  async updateUserStatus(req: Request, res: Response): Promise<void> {
+  async updateUserStatus(
+    id: number,
+    status: "active" | "inactive"
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
     try {
-      const { id } = req.params;
-      const { status } = req.body;
+      const user = await userUseCases.updateUserStatus(id, status);
 
-      // Llamar al caso de uso para actualizar el estado
-      const user = await userUseCases.updateUserStatus(Number(id), status as "active" | "inactive");
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Estado de usuario actualizado exitosamente",
         user: {
           id: user.getId(),
@@ -904,9 +729,9 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el estado");
     }
   }
 }
@@ -914,4 +739,266 @@ export class UserController {
 export const userController = new UserController();
 
 
-como esto esta todo en el back, quiero probarlo primero con postman pero no se como hacer, dime si es posible probarlo, y dime si necesitas saber mas informacion para que sea posible
+controladores auth y user
+
+auth.controller.ts
+// src/infrastructure/controllers/auth.controller.ts
+import { authUseCases } from "@/application/use-cases/auth.use-case";
+
+export class AuthController {
+  // Registro de un nuevo usuario
+  async signUp(email: string, password: string, name: string): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+    };
+    token: string;
+  }> {
+    try {
+      // Llamar al caso de uso de registro
+      const { user, token } = await authUseCases.signUp(email, password, name);
+
+      // Devolver la respuesta
+      return {
+        message: "Usuario registrado exitosamente",
+        user: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+        },
+        token,
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error en el registro");
+    }
+  }
+
+  // Inicio de sesión de un usuario
+  async logIn(email: string, password: string): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+    };
+    token: string;
+  }> {
+    try {
+      // Llamar al caso de uso de inicio de sesión
+      const { user, token } = await authUseCases.logIn(email, password);
+
+      // Devolver la respuesta
+      return {
+        message: "Inicio de sesión exitoso",
+        user: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+        },
+        token,
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error en el inicio de sesión");
+    }
+  }
+}
+
+export const authController = new AuthController();
+
+
+user.controller.ts
+// src/infrastructure/controllers/user.controller.ts
+import { userUseCases } from "@/application/use-cases/user.use-case";
+
+export class UserController {
+  async getUserById(id: number): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    } | null;
+  }> {
+    try {
+      const user = await userUseCases.getUserById(id);
+
+      if (!user) {
+        return { message: "Usuario no encontrado", user: null };
+      }
+
+      return {
+        message: "Usuario encontrado",
+        user: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt(),
+        },
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error al obtener el usuario");
+    }
+  }
+
+  async updateProfile(
+    id: number,
+    data: { email?: string; password?: string; name?: string }
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
+    try {
+      const user = await userUseCases.updateProfile(id, data);
+
+      return {
+        message: "Perfil actualizado exitosamente",
+        user: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt(),
+        },
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el perfil");
+    }
+  }
+
+  async listUsers(
+    page: number,
+    limit: number
+  ): Promise<{
+    message: string;
+    users: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }[];
+    total: number;
+  }> {
+    try {
+      const { users, total } = await userUseCases.listUsers(page, limit);
+
+      return {
+        message: "Usuarios listados exitosamente",
+        users: users.map((user) => ({
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt(),
+        })),
+        total,
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error al listar usuarios");
+    }
+  }
+
+  async updateUserRole(
+    id: number,
+    role: "admin" | "user"
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
+    try {
+      const user = await userUseCases.updateUserRole(id, role);
+
+      return {
+        message: "Rol de usuario actualizado exitosamente",
+        user: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt(),
+        },
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el rol");
+    }
+  }
+
+  async updateUserStatus(
+    id: number,
+    status: "active" | "inactive"
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
+    try {
+      const user = await userUseCases.updateUserStatus(id, status);
+
+      return {
+        message: "Estado de usuario actualizado exitosamente",
+        user: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+          role: user.getRole(),
+          status: user.getStatus(),
+          createdAt: user.getCreatedAt(),
+          updatedAt: user.getUpdatedAt(),
+        },
+      };
+    } catch (error: unknown) {
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el estado");
+    }
+  }
+}
+
+export const userController = new UserController();
+

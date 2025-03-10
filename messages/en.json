@@ -53,5 +53,14 @@
     "entries": "Entries",
     "previous": "Previous",
     "next": "Next"
+  },
+
+  "TestPage": {
+    "title": "Test Page",
+    "testSignUp": "Test Sign Up",
+    "testLogIn": "Test Log In",
+    "testGetUserById": "Test Get User by ID",
+    "testGetInfluencers": "Test Get Influencers",
+    "results": "Results"
   }
 }
