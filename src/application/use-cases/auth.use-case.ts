@@ -2,7 +2,7 @@
 import { User } from "@/domain/entities/user";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
-import { hash, compare } from "bcrypt";
+import { hash, compare } from "bcryptjs";
 import { JwtService } from "@/infrastructure/services/jwt.service";
 
 export class AuthUseCases {
@@ -20,12 +20,6 @@ export class AuthUseCases {
     const existingUser = await repository.findUserByEmail(email);
     if (existingUser) {
       throw new Error("El email ya está registrado");
-    }
-
-    // Validar la fortaleza de la contraseña
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordRegex.test(password)) {
-      throw new Error("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número");
     }
 
     // Hashear la contraseña
