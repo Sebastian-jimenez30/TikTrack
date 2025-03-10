@@ -3,40 +3,36 @@ import { eq, count } from "drizzle-orm";
 import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
-import { hash } from "bcrypt";
-
 export default class UserRepository implements IUserRepository {
   // Crear un nuevo usuario
   async createUser(user: {
     email: string;
-    password: string;
+    password: string; // Ahora recibe la contraseña ya hasheada
     name: string;
     role?: "admin" | "user";
     status?: "active" | "inactive";
   }): Promise<{
     id: number;
     email: string;
-    password: string; // Asegurar que devuelva el campo password
+    password: string;
     name: string;
     role: "admin" | "user";
     status: "active" | "inactive";
     createdAt: Date;
     updatedAt: Date;
   }> {
-    const hashedPassword = await hash(user.password, 10); // Hashear la contraseña
     const newUser = await db
       .insert(usersTable)
       .values({
         email: user.email,
-        password: hashedPassword,
+        password: user.password, // Usa la contraseña ya hasheada
         name: user.name,
         role: user.role || "user", // Valor por defecto: "user"
-        status: user.status || "inactive", // Valor por defecto: "inactive"
+        status: user.status || "active", // Valor por defecto: "active"
       })
       .returning();
     return newUser[0];
   }
-
   // Obtener un usuario por ID
   async findUserById(id: number): Promise<{
     id: number;
