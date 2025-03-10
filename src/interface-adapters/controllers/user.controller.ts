@@ -1,22 +1,27 @@
 // src/infrastructure/controllers/user.controller.ts
-import { Request, Response } from "express";
 import { userUseCases } from "@/application/use-cases/user.use-case";
 
 export class UserController {
-  async getUserById(req: Request, res: Response): Promise<void> {
+  async getUserById(id: number): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    } | null;
+  }> {
     try {
-      const { id } = req.params;
-
-      // Llamar al caso de uso para obtener el usuario
-      const user = await userUseCases.getUserById(Number(id));
+      const user = await userUseCases.getUserById(id);
 
       if (!user) {
-        res.status(404).json({ message: "Usuario no encontrado" });
-        return;
+        return { message: "Usuario no encontrado", user: null };
       }
 
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Usuario encontrado",
         user: {
           id: user.getId(),
@@ -27,26 +32,31 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al obtener el usuario");
     }
   }
 
-  async updateProfile(req: Request, res: Response): Promise<void> {
+  async updateProfile(
+    id: number,
+    data: { email?: string; password?: string; name?: string }
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
     try {
-      const { id } = req.params;
-      const { email, password, name } = req.body;
+      const user = await userUseCases.updateProfile(id, data);
 
-      // Llamar al caso de uso para actualizar el perfil
-      const user = await userUseCases.updateProfile(Number(id), {
-        email,
-        password,
-        name,
-      });
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Perfil actualizado exitosamente",
         user: {
           id: user.getId(),
@@ -57,21 +67,32 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el perfil");
     }
   }
 
-  async listUsers(req: Request, res: Response): Promise<void> {
+  async listUsers(
+    page: number,
+    limit: number
+  ): Promise<{
+    message: string;
+    users: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    }[];
+    total: number;
+  }> {
     try {
-      const { page = 1, limit = 10 } = req.query;
+      const { users, total } = await userUseCases.listUsers(page, limit);
 
-      // Llamar al caso de uso para listar usuarios
-      const { users, total } = await userUseCases.listUsers(Number(page), Number(limit));
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Usuarios listados exitosamente",
         users: users.map((user) => ({
           id: user.getId(),
@@ -83,22 +104,31 @@ export class UserController {
           updatedAt: user.getUpdatedAt(),
         })),
         total,
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al listar usuarios");
     }
   }
 
-  async updateUserRole(req: Request, res: Response): Promise<void> {
+  async updateUserRole(
+    id: number,
+    role: "admin" | "user"
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
     try {
-      const { id } = req.params;
-      const { role } = req.body;
+      const user = await userUseCases.updateUserRole(id, role);
 
-      // Llamar al caso de uso para actualizar el rol
-      const user = await userUseCases.updateUserRole(Number(id), role as "admin" | "user");
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Rol de usuario actualizado exitosamente",
         user: {
           id: user.getId(),
@@ -109,22 +139,31 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el rol");
     }
   }
 
-  async updateUserStatus(req: Request, res: Response): Promise<void> {
+  async updateUserStatus(
+    id: number,
+    status: "active" | "inactive"
+  ): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }> {
     try {
-      const { id } = req.params;
-      const { status } = req.body;
+      const user = await userUseCases.updateUserStatus(id, status);
 
-      // Llamar al caso de uso para actualizar el estado
-      const user = await userUseCases.updateUserStatus(Number(id), status as "active" | "inactive");
-
-      // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Estado de usuario actualizado exitosamente",
         user: {
           id: user.getId(),
@@ -135,9 +174,9 @@ export class UserController {
           createdAt: user.getCreatedAt(),
           updatedAt: user.getUpdatedAt(),
         },
-      });
+      };
     } catch (error: unknown) {
-      res.status(400).json({ message: (error as Error).message });
+      throw new Error(error instanceof Error ? error.message : "Error al actualizar el estado");
     }
   }
 }
