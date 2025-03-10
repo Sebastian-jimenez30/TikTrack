@@ -1,18 +1,25 @@
 // src/infrastructure/controllers/auth.controller.ts
-import { Request, Response } from "express";
 import { authUseCases } from "@/application/use-cases/auth.use-case";
 
 export class AuthController {
   // Registro de un nuevo usuario
-  async signUp(req: Request, res: Response): Promise<void> {
+  async signUp(email: string, password: string, name: string): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+    };
+    token: string;
+  }> {
     try {
-      const { email, password, name } = req.body;
-
       // Llamar al caso de uso de registro
       const { user, token } = await authUseCases.signUp(email, password, name);
 
       // Devolver la respuesta
-      res.status(201).json({
+      return {
         message: "Usuario registrado exitosamente",
         user: {
           id: user.getId(),
@@ -22,26 +29,30 @@ export class AuthController {
           status: user.getStatus(),
         },
         token,
-      });
+      };
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(400).json({ message: "Unknown error" });
-      }
+      throw new Error(error instanceof Error ? error.message : "Error en el registro");
     }
   }
 
   // Inicio de sesión de un usuario
-  async logIn(req: Request, res: Response): Promise<void> {
+  async logIn(email: string, password: string): Promise<{
+    message: string;
+    user: {
+      id: number;
+      email: string;
+      name: string;
+      role: string;
+      status: string;
+    };
+    token: string;
+  }> {
     try {
-      const { email, password } = req.body;
-
       // Llamar al caso de uso de inicio de sesión
       const { user, token } = await authUseCases.logIn(email, password);
 
       // Devolver la respuesta
-      res.status(200).json({
+      return {
         message: "Inicio de sesión exitoso",
         user: {
           id: user.getId(),
@@ -51,13 +62,9 @@ export class AuthController {
           status: user.getStatus(),
         },
         token,
-      });
+      };
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(400).json({ message: "Unknown error" });
-      }
+      throw new Error(error instanceof Error ? error.message : "Error en el inicio de sesión");
     }
   }
 }
