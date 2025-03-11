@@ -56,23 +56,18 @@
     "next": "Siguiente"
   },
 
-  "TestPage": {
-    "title": "Página de Pruebas",
-    "testSignUp": "Probar Registro",
-    "testLogIn": "Probar Inicio de Sesión",
-    "testGetUserById": "Probar Obtener Usuario por ID",
-    "testGetInfluencers": "Probar Obtener Influencers",
-    "results": "Resultados"
-  },
-
-  "Auth": {
+  "AuthPage": {
     "signIn": {
       "title": "Iniciar Sesión",
       "emailLabel": "Correo Electrónico",
       "passwordLabel": "Contraseña",
       "submit": "Iniciar Sesión",
       "noAccount": "¿No tienes una cuenta?",
-      "register": "Regístrate"
+      "register": "Regístrate",
+      "success": "Usuario logueado correctamente",
+      "userDoesNotExist": "El usuario no existe",
+      "userInactive": "El usuario está inactivo",
+      "incorrectPassword": "Contraseña incorrecta"
     },
     "signUp": {
       "title": "Registrarse",
@@ -81,7 +76,9 @@
       "passwordLabel": "Contraseña",
       "submit": "Registrarse",
       "alreadyAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar Sesión"
+      "login": "Iniciar Sesión",
+      "success": "Usuario registrado correctamente",
+      "emailExist": "El correo electrónico ya existe"
     },
     "loading": "Cargando..."
   }
