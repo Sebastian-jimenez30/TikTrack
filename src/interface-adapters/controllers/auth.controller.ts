@@ -1,8 +1,6 @@
-// src/infrastructure/controllers/auth.controller.ts
 import { authUseCases } from "@/application/use-cases/auth.use-case";
 
 export class AuthController {
-  // Registro de un nuevo usuario
   async signUp(email: string, password: string, name: string): Promise<{
     message: string;
     user: {
@@ -15,10 +13,8 @@ export class AuthController {
     token: string;
   }> {
     try {
-      // Llamar al caso de uso de registro
       const { user, token } = await authUseCases.signUp(email, password, name);
 
-      // Devolver la respuesta usando los métodos de la entidad User
       return {
         message: "Usuario registrado exitosamente",
         user: {
@@ -35,7 +31,6 @@ export class AuthController {
     }
   }
 
-  // Inicio de sesión de un usuario
   async logIn(email: string, password: string): Promise<{
     message: string;
     user: {
@@ -48,10 +43,8 @@ export class AuthController {
     token: string;
   }> {
     try {
-      // Llamar al caso de uso de inicio de sesión
       const { user, token } = await authUseCases.logIn(email, password);
 
-      // Devolver la respuesta usando los métodos de la entidad User
       return {
         message: "Inicio de sesión exitoso",
         user: {
