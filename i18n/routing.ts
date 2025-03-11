@@ -18,6 +18,9 @@ export const routing = defineRouting({
       en: "/influencers/[username]",
       es: "/creador-de-contenido/[username]",
     },
+
+    "/sign-in": { en: "/sign-in", es: "/iniciar-sesion" },
+    "/sign-up": { en: "/sign-up", es: "/registrarse" },
   },
 });
 
