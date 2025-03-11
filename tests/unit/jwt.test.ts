@@ -1,5 +1,5 @@
 // tests/jwt.test.ts
-import { JwtService } from "../../src/infrastructure/services/jwt.service";
+import { JwtService } from "../../src/shared/utils/jwt.service";
 
 // Prueba del servicio JWT
 function testJwtService() {

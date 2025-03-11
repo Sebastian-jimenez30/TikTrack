@@ -1,9 +1,9 @@
 // src/application/use-cases/auth.use-case.ts
-import { User } from "@/domain/entities/user";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
 import { hash, compare } from "bcryptjs";
-import { JwtService } from "@/infrastructure/services/jwt.service";
+import { JwtService } from "@/shared/utils/jwt.service";
+import { User } from "@/domain/entities/user"; // Importar la entidad User
 
 export class AuthUseCases {
   private jwtService: JwtService;
@@ -13,7 +13,11 @@ export class AuthUseCases {
   }
 
   // Registro de un nuevo usuario
-  async signUp(email: string, password: string, name: string): Promise<{ user: User; token: string }> {
+  async signUp(email: string, password: string, name: string): Promise<{
+    user: User; // Usar la entidad User
+    token: string;
+    message: string;
+  }> {
     const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
 
     // Validar si el email ya está registrado
@@ -26,67 +30,79 @@ export class AuthUseCases {
     const hashedPassword = await hash(password, 10);
 
     // Crear el usuario en la base de datos
-    const tempUser = await repository.createUser({
+    const userData = await repository.createUser({
       email,
       password: hashedPassword,
       name,
     }) as { id: number; email: string; password: string; name: string; role: string; status: string; createdAt: Date; updatedAt: Date; };
 
-    // Crear una instancia de la entidad User
+    // Crear una instancia de User
     const user = new User(
-      tempUser.id,
-      tempUser.email,
-      tempUser.password,
-      tempUser.name,
-      tempUser.role as "admin" | "user",
-      tempUser.status as "active" | "inactive",
-      tempUser.createdAt,
-      tempUser.updatedAt
+      userData.id,
+      userData.email,
+      userData.password,
+      userData.name,
+      userData.role as "admin" | "user",
+      userData.status as "active" | "inactive",
+      userData.createdAt,
+      userData.updatedAt
     );
 
     // Generar un token JWT
-    const token = this.jwtService.generateToken({ userId: user.getId(), email: user.getEmail(), role: user.getRole() });
+    const token = this.jwtService.generateToken({ userId: user.id, email: user.email, role: user.role });
 
-    return { user, token };
+    return {
+      user, // Devolver la instancia de User
+      token,
+      message: "Registro exitoso",
+    };
   }
 
   // Inicio de sesión de un usuario
-  async logIn(email: string, password: string): Promise<{ user: User; token: string }> {
+  async logIn(email: string, password: string): Promise<{
+    user: User; // Usar la entidad User
+    token: string;
+    message: string;
+  }> {
     const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
 
     // Buscar el usuario por email
-    const tempUser = await repository.findUserByEmail(email) as { id: number; email: string; password: string; name: string; role: string; status: string; createdAt: Date; updatedAt: Date; };
-    if (!tempUser) {
+    const userData = await repository.findUserByEmail(email);
+    if (!userData) {
       throw new Error("Usuario no encontrado");
     }
 
     // Verificar si el usuario está activo
-    if (tempUser.status !== "active") {
+    if (userData.status !== "active") {
       throw new Error("El usuario no está activo");
     }
 
     // Verificar la contraseña
-    const isValidPassword = await compare(password, tempUser.password);
+    const isValidPassword = await compare(password, userData.password);
     if (!isValidPassword) {
       throw new Error("Contraseña incorrecta");
     }
 
-    // Crear una instancia de la entidad User
+    // Crear una instancia de User
     const user = new User(
-      tempUser.id,
-      tempUser.email,
-      tempUser.password,
-      tempUser.name,
-      tempUser.role as "admin" | "user",
-      tempUser.status as "active" | "inactive",
-      tempUser.createdAt,
-      tempUser.updatedAt
+      userData.id,
+      userData.email,
+      userData.password,
+      userData.name,
+      userData.role as "admin" | "user",
+      userData.status,
+      userData.createdAt,
+      userData.updatedAt
     );
 
     // Generar un token JWT
-    const token = this.jwtService.generateToken({ userId: user.getId(), email: user.getEmail(), role: user.getRole() });
+    const token = this.jwtService.generateToken({ userId: user.id, email: user.email, role: user.role });
 
-    return { user, token };
+    return {
+      user, // Devolver la instancia de User
+      token,
+      message: "Inicio de sesión exitoso",
+    };
   }
 }
 

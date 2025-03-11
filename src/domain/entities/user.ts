@@ -40,7 +40,6 @@ export class User {
       return this.updatedAt;
     }
   
-    // Setters
     setEmail(email: string): void {
       this.email = email;
     }
@@ -61,14 +60,12 @@ export class User {
       this.status = status;
     }
   
-    // Validaciones
     isValidEmail(): boolean {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(this.email);
     }
   
     isPasswordStrong(): boolean {
-      // Requisitos: al menos 8 caracteres, una mayúscula, una minúscula y un número
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
       return passwordRegex.test(this.password);
     }

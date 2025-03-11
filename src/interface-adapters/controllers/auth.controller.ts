@@ -18,7 +18,7 @@ export class AuthController {
       // Llamar al caso de uso de registro
       const { user, token } = await authUseCases.signUp(email, password, name);
 
-      // Devolver la respuesta
+      // Devolver la respuesta usando los métodos de la entidad User
       return {
         message: "Usuario registrado exitosamente",
         user: {
@@ -51,7 +51,7 @@ export class AuthController {
       // Llamar al caso de uso de inicio de sesión
       const { user, token } = await authUseCases.logIn(email, password);
 
-      // Devolver la respuesta
+      // Devolver la respuesta usando los métodos de la entidad User
       return {
         message: "Inicio de sesión exitoso",
         user: {
