@@ -18,6 +18,10 @@ export const routing = defineRouting({
       en: "/influencers/[username]",
       es: "/creador-de-contenido/[username]",
     },
+    "/messages": {
+      en: "/messages",
+      es: "/mensajes",
+    },
   },
 });
 

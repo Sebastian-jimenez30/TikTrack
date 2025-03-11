@@ -10,6 +10,8 @@ import Video from "~/app/components/video";
 import Image from "next/image";
 import MapPinIcon from "~/app/components/icons/location.icon";
 import Button from "~/app/components/button";
+import ROUTES from "~/constants/urls";
+import { Link } from "~/i18n/routing";
 
 interface ShowProps {
   params: Promise<{ username: string }>;
@@ -52,7 +54,7 @@ export default async function Show({ params }: ShowProps) {
                       priority={true}
                     />
                   </div>
-                  <div className="flex flex-col items-center justify-center justify-center">
+                  <div className="flex flex-col items-center justify-center">
                     <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
                       {influencer.getProfileName()}
                     </a>
@@ -70,9 +72,11 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                  <Button href="#" variant="primary">
+                <Link href={ROUTES["MESSAGES"]} legacyBehavior>
+                  <Button href="" variant="primary">
                     <span className="truncate">{t("message")}</span>
                   </Button>
+                </Link>
                 </div>
               </div>
             </div>
