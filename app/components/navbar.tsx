@@ -1,12 +1,21 @@
+"use client"; 
+
 import { useTranslations } from "next-intl";
 import { Link } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
-import { JSX } from "react";
+import { JSX, useEffect, useState } from "react";
 
 export default function NavBar(): JSX.Element {
   const t = useTranslations("NavBar");
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken"); 
+    setIsAuthenticated(!!token); 
+  }, []);
 
   return (
     <nav className="bg-white border-gray-200">
@@ -20,8 +29,11 @@ export default function NavBar(): JSX.Element {
           priority={true}
         />
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Button href="#" variant="primary">
-            {t("getStarted")}
+          <Button
+            href={isAuthenticated ? ROUTES["HOME"] : ROUTES["SIGN_IN"]} 
+            variant="primary"
+          >
+            {isAuthenticated ? t("profile") : t("getStarted")} 
           </Button>
           <button
             data-collapse-toggle="navbar-cta"

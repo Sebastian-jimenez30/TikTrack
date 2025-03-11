@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import { JSX } from "react";
+import { Link } from "~/i18n/routing";
 
 interface ButtonProps {
   variant: "primary" | "secondary" | "danger";
-  href: string;
+  href: "/" | "/influencers" | "/sign-in" | "/sign-up" | { pathname: "/"; } | { pathname: "/influencers"; } | { pathname: "/sign-in"; } | { pathname: "/sign-up"; };
   children: React.ReactNode;
 }
 
@@ -13,7 +14,8 @@ export default function Button({
   children,
 }: ButtonProps): JSX.Element {
   return (
-    <a
+    <Link
+      href={href} 
       className={clsx(
         "px-4 py-2 rounded-md font-semibold transition-all hover:",
         variant === "primary" &&
@@ -23,9 +25,8 @@ export default function Button({
         variant === "danger" &&
           "bg-red-600 text-white cursor-pointer hover:bg-red-700"
       )}
-      href={href}
     >
       {children}
-    </a>
+    </Link>
   );
 }
