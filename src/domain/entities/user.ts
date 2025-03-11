@@ -1,4 +1,3 @@
-// src/domain/entities/user.ts
 export class User {
     constructor(
       public id: number,
