@@ -2,56 +2,43 @@ import { messageUseCases } from "@/application/use-cases/message.use-case";
 import { Message } from "@/domain/entities/message";
 
 interface IndexProps {
-  params: Promise<{ page?: string }>;
+  params: { page?: string };
 }
 
 interface ShowProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
 interface CreateProps {
-  params: Promise<{
-    sender_id: number;
-    receiver_id: number;
-    content: string;
-  }>;
+  params: { content: string };
+}
+
+interface UpdateProps {
+  params: { id: string; content: string };
 }
 
 class MessageController {
-  async index({ params }: IndexProps): Promise<{
-    messages: Message[];
-    count: number;
-    start: number;
-    end: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-  }> {
-    const { page } = await params;
-    const pageNumber = page ? Number(page) : 1;
-    const limit = 20;
-
-    const pageData = await messageUseCases.list(pageNumber, limit);
-    return pageData;
-  }
-
-  async show({ params }: ShowProps): Promise<{
-    message: Message | null;
-    haveResults: boolean;
-  }> {
-    const { id } = await params;
-    const pageData = await messageUseCases.detail(Number(id));
-    return pageData;
+  async index(): Promise<{ messages: Message[] }> {
+    const messages = await messageUseCases.listAll();
+    return messages;
   }
 
   async create({ params }: CreateProps): Promise<Message> {
-    const { sender_id, receiver_id, content } = await params;
-    const message = await messageUseCases.create({
-      sender_id,
-      receiver_id,
-      content,
-    });
+    const { content } = params;
+    const message = await messageUseCases.create({ content });
     return message;
+  }
+
+  async update({ params }: UpdateProps): Promise<Message | null> {
+    const { id, content } = params;
+    const message = await messageUseCases.update(Number(id), { content });
+    return message;
+  }
+
+  async delete({ params }: ShowProps): Promise<void> {
+    const { id } = params;
+    await messageUseCases.delete(Number(id));
   }
 }
 
-export const messageController = new MessageController(); 
+export const messageController = new MessageController();
