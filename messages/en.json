@@ -21,7 +21,7 @@
     },
     "followers": "followers",
     "message": "Message",
-    "metrics": "Metrics",
+    "metrics": "Metrics (average per post - 10 last posts)",
     "likes": "Likes",
     "comments": "Comments",
     "shares": "Shares",
@@ -34,7 +34,9 @@
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "profile": "Profile",
+    "logout": "Logout"
   },
 
   "Cards": {
@@ -75,5 +77,32 @@
       "placeholder": "Create a message template...",
       "saveTemplate": "Save Template"
     }
+  },
+  
+  "AuthPage": {
+    "signIn": {
+      "title": "Sign In",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "register": "Register",
+      "success": "User logged in successfully",
+      "userDoesNotExist": "User does not exist",
+      "userInactive": "User is inactive",
+      "incorrectPassword": "Incorrect password"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "usernameLabel": "Username",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign Up",
+      "alreadyAccount": "Already have an account?",
+      "login": "Log In",
+      "success": "User created successfully",
+      "emailExist": "Email already exists"
+    },
+    "loading": "Loading..."
   }
 }

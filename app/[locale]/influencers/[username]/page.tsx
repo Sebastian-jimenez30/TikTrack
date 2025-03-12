@@ -67,7 +67,7 @@ export default async function Show({ params }: ShowProps) {
                     <p className="text-black text-base font-normal leading-normal text-center">
                       <MapPinIcon className="text-lightPurple" />{" "}
                       {influencer.getCity()} |{" "}
-                      {influencer.getFormattedTotalFollowers()} {t("followers")}
+                      {influencer.getFormattedFollowers()} {t("followers")}
                     </p>
                   </div>
                 </div>
@@ -87,27 +87,27 @@ export default async function Show({ params }: ShowProps) {
               <MetricCard
                 icon={<HeartIcon className="text-lightPurple text-2xl" />}
                 title={t("likes")}
-                value={influencer.getFormattedTotalLikes().toString()}
+                value={influencer.getFormattedAverageLikes().toString()}
               />
               <MetricCard
                 icon={<CommentIcon className="text-lightPurple text-2xl" />}
                 title={t("comments")}
-                value={influencer.getFormattedTotalComments().toString()}
+                value={influencer.getFormattedAverageComments().toString()}
               />
               <MetricCard
                 icon={<ShareIcon className="text-lightPurple text-2xl" />}
                 title={t("shares")}
-                value={influencer.getFormattedTotalShares().toString()}
+                value={influencer.getFormattedAverageShares().toString()}
               />
               <MetricCard
                 icon={<DiskIcon className="text-lightPurple text-2xl" />}
                 title={t("saves")}
-                value={influencer.getFormattedTotalSaves().toString()}
+                value={influencer.getFormattedAverageSaves().toString()}
               />
               <MetricCard
                 icon={<EyeIcon className="text-lightPurple text-2xl" />}
                 title={t("views")}
-                value={influencer.getFormattedTotalViews().toString()}
+                value={influencer.getFormattedAverageViews().toString()}
               />
             </div>
             <div className="flex flex-col gap-3 p-4">

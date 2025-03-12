@@ -21,7 +21,7 @@
     },
     "followers": "seguidores",
     "message": "Mensaje",
-    "metrics": "Métricas",
+    "metrics": "Métricas (promedio por publicación - 10 últimas publicaciones)",
     "likes": "Me gusta",
     "comments": "Comentarios",
     "shares": "Compartidos",
@@ -34,7 +34,9 @@
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",
-    "getStarted": "Empezar"
+    "getStarted": "Comenzar",
+    "profile": "Perfil",
+    "logout": "Cerrar Sesión"
   },
 
   "Cards": {
@@ -75,5 +77,32 @@
       "placeholder": "Crea una plantilla...",
       "saveTemplate": "Guardar plantilla"
     }
+  },
+  
+  "AuthPage": {
+    "signIn": {
+      "title": "Iniciar Sesión",
+      "emailLabel": "Correo Electrónico",
+      "passwordLabel": "Contraseña",
+      "submit": "Iniciar Sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "register": "Regístrate",
+      "success": "Usuario logueado correctamente",
+      "userDoesNotExist": "El usuario no existe",
+      "userInactive": "El usuario está inactivo",
+      "incorrectPassword": "Contraseña incorrecta"
+    },
+    "signUp": {
+      "title": "Registrarse",
+      "usernameLabel": "Nombre de Usuario",
+      "emailLabel": "Correo Electrónico",
+      "passwordLabel": "Contraseña",
+      "submit": "Registrarse",
+      "alreadyAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar Sesión",
+      "success": "Usuario registrado correctamente",
+      "emailExist": "El correo electrónico ya existe"
+    },
+    "loading": "Cargando..."
   }
 }

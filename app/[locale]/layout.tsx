@@ -14,6 +14,8 @@ import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
 
+import { cookies } from "next/headers";
+
 interface LocaleProps {
   children: React.ReactNode;
   params: { locale: string };
@@ -31,6 +33,9 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
+  const token = (await cookies()).get("authToken")?.value;
+  const isAuthenticated = !!token;
+
   return (
     <html lang={locale}>
       <head>
@@ -41,7 +46,7 @@ export default async function LocaleLayout({
       </head>
       <body className="mx-8">
         <NextIntlClientProvider messages={messages}>
-          <NavBar />
+          <NavBar isAuthenticated={isAuthenticated} locale={locale} />
           {children}
         </NextIntlClientProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
