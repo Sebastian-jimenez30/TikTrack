@@ -21,7 +21,7 @@
     },
     "followers": "followers",
     "message": "Message",
-    "metrics": "Metrics",
+    "metrics": "Metrics (average per post - 10 last posts)",
     "likes": "Likes",
     "comments": "Comments",
     "shares": "Shares",

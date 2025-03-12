@@ -21,7 +21,7 @@
     },
     "followers": "seguidores",
     "message": "Mensaje",
-    "metrics": "Métricas",
+    "metrics": "Métricas (promedio por publicación - 10 últimas publicaciones)",
     "likes": "Me gusta",
     "comments": "Comentarios",
     "shares": "Compartidos",

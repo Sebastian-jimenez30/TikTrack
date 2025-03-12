@@ -89,7 +89,8 @@ class Influencer {
   }
 
   getFormattedAverageLikes(): string {
-    return this.averageLikes.toLocaleString();
+    const number = this.averageLikes | 0;
+    return number.toLocaleString();
   }
 
   getAverageComments(): number {
@@ -97,7 +98,8 @@ class Influencer {
   }
 
   getFormattedAverageComments(): string {
-    return this.averageComments.toLocaleString();
+    const number = this.averageComments | 0;
+    return number.toLocaleString();
   }
 
   getAverageShares(): number {
@@ -105,7 +107,8 @@ class Influencer {
   }
 
   getFormattedAverageShares(): string {
-    return this.averageShares.toLocaleString();
+    const number = this.averageShares | 0;
+    return number.toLocaleString();
   }
 
   getAverageSaves(): number {
@@ -113,7 +116,8 @@ class Influencer {
   }
 
   getFormattedAverageSaves(): string {
-    return this.averageSaves.toLocaleString();
+    const number = this.averageSaves | 0;
+    return number.toLocaleString();
   }
 
   getAverageViews(): number {
@@ -121,7 +125,8 @@ class Influencer {
   }
 
   getFormattedAverageViews(): string {
-    return this.averageViews.toLocaleString();
+    const number = this.averageViews | 0;
+    return number.toLocaleString();
   }
 
   getFollowers(): number {
