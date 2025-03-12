@@ -5,7 +5,7 @@ import { Link } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
-import { logout } from "@/shared/utils/auth.utils";
+import { logout } from "@/shared/utils/auth.util";
 import LogoutIcon from "./icons/logout.icon";
 
 interface NavBarProps {

@@ -46,7 +46,7 @@ export default async function Index({
                 profilePicture={influencer.getProfilePicture()}
                 city={influencer.getCity()}
                 engagementVisualizationRate={influencer.getEngagementVisualizationRate()}
-                totalFollowers={influencer.getFormattedTotalFollowers()}
+                totalFollowers={influencer.getFormattedFollowers()}
                 updatedAt={influencer.getUpdatedAt()}
               />
             </div>

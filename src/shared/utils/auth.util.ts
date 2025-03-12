@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "~/i18n/routing"; 
+import { redirect } from "~/i18n/routing";
 import ROUTES from "~/constants/urls";
 
 export async function logout(locale: string) {
