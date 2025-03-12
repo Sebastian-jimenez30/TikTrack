@@ -25,4 +25,15 @@ export default interface IUserRepository {
     createdAt: Date;
     updatedAt: Date;
   } | null>;
+
+  findUserById(id: number): Promise<{
+    id: number;
+    email: string;
+    password: string;
+    name: string;
+    role: string;
+    status: string;
+    createdAt: Date;
+    updatedAt: Date;
+  } | null>;
 }

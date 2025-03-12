@@ -19,6 +19,10 @@ class JwtUtil {
   verifyToken(token: string): TokenPayload {
     return jwt.verify(token, this.secret) as TokenPayload;
   }
+
+  getUserIdFromToken(token: string): number {
+    return this.verifyToken(token).userId;
+  }
 }
 
 const jwtUtil = new JwtUtil();

@@ -49,4 +49,21 @@ export default class UserRepository implements IUserRepository {
       .where(eq(usersTable.email, email));
     return user[0] || null;
   }
+
+  async findUserById(id: number): Promise<{
+    id: number;
+    email: string;
+    password: string;
+    name: string;
+    role: "admin" | "user";
+    status: "active" | "inactive";
+    createdAt: Date;
+    updatedAt: Date;
+  } | null> {
+    const user = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.id, id));
+    return user[0] || null;
+  }
 }
