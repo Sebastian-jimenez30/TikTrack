@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { JSX } from "react";
 import { Link } from "~/i18n/routing";
-
+import { Pathname } from "~/i18n/routing";
 interface ButtonProps {
   variant: "primary" | "secondary" | "danger";
-  href: "/" | "/influencers" | "/sign-in" | "/sign-up" | { pathname: "/"; } | { pathname: "/influencers"; } | { pathname: "/sign-in"; } | { pathname: "/sign-up"; };
+  href: Pathname;
   children: React.ReactNode;
 }
 
@@ -15,7 +15,7 @@ export default function Button({
 }: ButtonProps): JSX.Element {
   return (
     <Link
-      href={href} 
+      href={href}
       className={clsx(
         "px-4 py-2 rounded-md font-semibold transition-all hover:",
         variant === "primary" &&

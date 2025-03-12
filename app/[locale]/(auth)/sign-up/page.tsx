@@ -1,59 +1,31 @@
-"use client"; 
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation"; 
-import SignUpCard from "~/app/components/cards/signup.card";
+import { authController } from "@/interface-adapters/controllers/auth.controller";
+import AuthCard from "~/app/components/cards/authentication.card";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import ROUTES from "~/constants/urls";
 
 export default function SignUpPage() {
-  const router = useRouter();
-  const params = useParams(); 
-  const locale = params.locale as string; 
+  async function handleSignUp(formData: FormData): Promise<{ error?: string }> {
+    "use server";
 
-  // Estados para manejar el formulario
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+    const username = formData.get("username") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+    const pageData = await authController.signUp(email, password, username);
 
-    try {
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, name: username }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        router.push(`/${locale}/sign-in`);
-      } else {
-        setError(result.message || "Error en el registro");
+    if (!pageData.is_success) {
+      return { error: pageData.message };
+    } else {
+      if (pageData.token) {
+        (await cookies()).set("authToken", pageData.token, {
+          httpOnly: true,
+          path: "/",
+        });
       }
-    } catch {
-      setError("Error en la solicitud");
-    } finally {
-      setLoading(false);
+      redirect(ROUTES.HOME);
     }
-  };
+  }
 
-  return (
-    <SignUpCard
-      username={username}
-      email={email}
-      password={password}
-      error={error}
-      loading={loading}
-      onUsernameChange={setUsername}
-      onEmailChange={setEmail}
-      onPasswordChange={setPassword}
-      onSubmit={handleSubmit}
-    />
-  );
+  return <AuthCard type="sign-up" onSubmit={handleSignUp} />;
 }

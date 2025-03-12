@@ -16,13 +16,12 @@ export default class InfluencerRepository implements IInfluencerRepository {
       profileName: string;
       profilePicture: string;
       profileUrl: string;
-      profileDescription: string;
-      totalLikes: number;
-      totalComments: number;
-      totalShares: number;
-      totalSaves: number;
-      totalViews: number;
-      totalFollowers: number;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
       city: string;
       featuredVideos: string[];
       createdAt: Date;
@@ -44,13 +43,12 @@ export default class InfluencerRepository implements IInfluencerRepository {
     profileName: string;
     profilePicture: string;
     profileUrl: string;
-    profileDescription: string;
-    totalLikes: number;
-    totalComments: number;
-    totalShares: number;
-    totalSaves: number;
-    totalViews: number;
-    totalFollowers: number;
+    averageLikes: number;
+    averageComments: number;
+    averageShares: number;
+    averageSaves: number;
+    averageViews: number;
+    followers: number;
     city: string;
     featuredVideos: string[];
     createdAt: Date;
@@ -66,5 +64,22 @@ export default class InfluencerRepository implements IInfluencerRepository {
   async count(): Promise<number> {
     const response = await db.select({ count: count() }).from(influencersTable);
     return response[0].count;
+  }
+
+  async create(influencer: {
+    username: string;
+    profileName: string;
+    profilePicture: string;
+    profileUrl: string;
+    averageLikes: number;
+    averageComments: number;
+    averageShares: number;
+    averageSaves: number;
+    averageViews: number;
+    followers: number;
+    city: string;
+    featuredVideos: string[];
+  }): Promise<void> {
+    await db.insert(influencersTable).values(influencer).execute();
   }
 }

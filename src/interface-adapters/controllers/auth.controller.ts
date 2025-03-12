@@ -1,64 +1,29 @@
 import { authUseCases } from "@/application/use-cases/auth.use-case";
 
 export class AuthController {
-  async signUp(email: string, password: string, name: string): Promise<{
+  async signUp(
+    email: string,
+    password: string,
+    name: string
+  ): Promise<{
+    token: string | null;
     message: string;
-    user: {
-      id: number;
-      email: string;
-      name: string;
-      role: string;
-      status: string;
-    };
-    token: string;
+    is_success: boolean;
   }> {
-    try {
-      const { user, token } = await authUseCases.signUp(email, password, name);
-
-      return {
-        message: "Usuario registrado exitosamente",
-        user: {
-          id: user.getId(),
-          email: user.getEmail(),
-          name: user.getName(),
-          role: user.getRole(),
-          status: user.getStatus(),
-        },
-        token,
-      };
-    } catch (error: unknown) {
-      throw new Error(error instanceof Error ? error.message : "Error en el registro");
-    }
+    const pageData = await authUseCases.signUp(email, password, name);
+    return pageData;
   }
 
-  async logIn(email: string, password: string): Promise<{
+  async logIn(
+    email: string,
+    password: string
+  ): Promise<{
+    token: string | null;
     message: string;
-    user: {
-      id: number;
-      email: string;
-      name: string;
-      role: string;
-      status: string;
-    };
-    token: string;
+    is_success: boolean;
   }> {
-    try {
-      const { user, token } = await authUseCases.logIn(email, password);
-
-      return {
-        message: "Inicio de sesión exitoso",
-        user: {
-          id: user.getId(),
-          email: user.getEmail(),
-          name: user.getName(),
-          role: user.getRole(),
-          status: user.getStatus(),
-        },
-        token,
-      };
-    } catch (error: unknown) {
-      throw new Error(error instanceof Error ? error.message : "Error en el inicio de sesión");
-    }
+    const pageData = await authUseCases.logIn(email, password);
+    return pageData;
   }
 }
 

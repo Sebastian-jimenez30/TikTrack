@@ -1,58 +1,28 @@
-"use client"; 
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import SignInCard from "~/app/components/cards/signin.card";
+import { authController } from "@/interface-adapters/controllers/auth.controller";
+import AuthenticationCard from "~/app/components/cards/authentication.card";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import ROUTES from "~/constants/urls";
 
 export default function SignInPage() {
-  const router = useRouter();
+  async function handleLogin(formData: FormData): Promise<{ error?: string }> {
+    "use server";
 
-  // Estados para manejar el formulario
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  // Función para manejar el envío del formulario
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Guardar el token en localStorage
-        localStorage.setItem("authToken", result.token);
-
-        // Redirigir al home después de iniciar sesión
-        router.push("/");
-      } else {
-        setError(result.message || "Error en el inicio de sesión");
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const pageData = await authController.logIn(email, password);
+    if (!pageData.is_success) {
+      return { error: pageData.message };
+    } else {
+      if (pageData.token) {
+        (await cookies()).set("authToken", pageData.token, {
+          httpOnly: true,
+          path: "/",
+        });
       }
-    } catch {
-      setError("Error en la solicitud");
-    } finally {
-      setLoading(false);
+      redirect(ROUTES.HOME);
     }
-  };
+  }
 
-  return (
-    <SignInCard
-      email={email}
-      password={password}
-      error={error}
-      loading={loading}
-      onEmailChange={setEmail}
-      onPasswordChange={setPassword}
-      onSubmit={handleSubmit}
-    />
-  );
+  return <AuthenticationCard type="sign-in" onSubmit={handleLogin} />;
 }
