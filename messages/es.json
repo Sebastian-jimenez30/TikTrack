@@ -111,5 +111,19 @@
       "emailExist": "El correo electrónico ya existe"
     },
     "loading": "Cargando..."
+  },
+
+  "ProfilePage": {
+    "title": "Perfil de Usuario",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "roles": {
+      "user": "Usuario",
+      "admin": "Administrador"
+    },
+    "authError": "Error de autenticación. Inicia sesión nuevamente.",
+    "tokenError": "Token inválido. Intenta de nuevo.",
+    "fetchError": "No se pudo obtener la información del usuario."
   }
 }

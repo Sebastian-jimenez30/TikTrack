@@ -8,5 +8,5 @@ export async function logout(locale: string) {
   const cookieStore = await cookies();
   cookieStore.delete("authToken");
 
-  redirect({ href: ROUTES.SIGN_IN, locale });
+  redirect({ href: ROUTES.SIGN_IN, locale }); 
 }

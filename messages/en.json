@@ -114,5 +114,19 @@
       "emailExist": "Email already exists"
     },
     "loading": "Loading..."
+  },
+
+  "ProfilePage": {
+    "title": "User Profile",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "roles": {
+      "user": "User",
+      "admin": "Administrator"
+    },
+    "authError": "Authentication error. Please log in again.",
+    "tokenError": "Invalid token. Please try again.",
+    "fetchError": "Could not fetch user information."
   }
 }
