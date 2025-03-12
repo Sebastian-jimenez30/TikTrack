@@ -11,7 +11,7 @@ interface InfluencerCardProps {
   profilePicture: string;
   city: string;
   engagementVisualizationRate: number;
-  totalFollowers: string;
+  followers: string;
   updatedAt: string;
 }
 
@@ -20,7 +20,7 @@ export default function InfluencerCard({
   profilePicture,
   city,
   engagementVisualizationRate,
-  totalFollowers,
+  followers,
   updatedAt,
 }: InfluencerCardProps): JSX.Element {
   const t = useTranslations("Cards");
@@ -63,7 +63,7 @@ export default function InfluencerCard({
                 {t("influencer.followers")}
               </div>
               <p className="bg-black p-2 sm:p-4 rounded-lg text-white w-3/4 text-center">
-                {totalFollowers}
+                {followers}
               </p>
             </div>
           </div>
