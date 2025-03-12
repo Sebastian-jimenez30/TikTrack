@@ -13,6 +13,7 @@ import "~/styles/globals.css";
 import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
+import Footer from "~/app/components/footer";
 
 import { cookies } from "next/headers";
 
@@ -44,10 +45,11 @@ export default async function LocaleLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="mx-8">
+      <body className="">
         <NextIntlClientProvider messages={messages}>
           <NavBar isAuthenticated={isAuthenticated} locale={locale} />
           {children}
+          <Footer />
         </NextIntlClientProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
       </body>
