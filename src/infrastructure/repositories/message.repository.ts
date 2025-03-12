@@ -1,0 +1,47 @@
+import { eq } from "drizzle-orm";
+import { messagesTable } from "@/infrastructure/database/schemas/message.schema";
+import IMessageRepository from "@/application/repositories/message.repository.interface";
+import db from "@/infrastructure/database/index";
+
+export default class MessageRepository implements IMessageRepository {
+  async listAll(): Promise<{
+    id: number;
+    content: string;
+    created_at: Date;
+    updated_at: Date;
+  }[]> {
+    return await db.select().from(messagesTable);
+  }
+
+  async create(message: { content: string }): Promise<{
+    id: number;
+    content: string;
+    created_at: Date;
+    updated_at: Date;
+  }> {
+    const response = await db
+      .insert(messagesTable)
+      .values(message)
+      .returning();
+    return response[0];
+  }
+
+  async update(id: number, message: { content: string }): Promise<{
+    id: number;
+    content: string;
+    created_at: Date;
+    updated_at: Date;
+  } | null> {
+    const response = await db
+      .update(messagesTable)
+      .set({ content: message.content })
+      .where(eq(messagesTable.id, id))
+      .returning();
+
+    return response.length ? response[0] : null;
+  }
+
+  async delete(id: number): Promise<void> {
+    await db.delete(messagesTable).where(eq(messagesTable.id, id));
+  }
+}

@@ -77,6 +77,13 @@
       "followers": "Followers",
       "EVR": "EVR",
       "lastUpdate": "Last Update"
+    },
+    "message": {
+      "update": "Update",
+      "delete": "Delete",
+      "customize": "Customize",
+      "edit": "Edit",
+      "cancel": "Cancel"     
     }
   },
 
@@ -89,6 +96,21 @@
     "next": "Next"
   },
 
+  "MessagesPage": {
+    "title": "Messaging Templates",
+    "input": {
+      "placeholder": "Type your message...",
+      "send": "Send"
+    }
+  },
+
+  "Forms": {
+    "message": {
+      "placeholder": "Create a message template...",
+      "saveTemplate": "Save Template"
+    }
+  },
+  
   "AuthPage": {
     "signIn": {
       "title": "Sign In",
