@@ -4,13 +4,12 @@ class Influencer {
   profileName: string;
   profilePicture: string;
   profileUrl: string;
-  profileDescription: string;
-  totalLikes: number;
-  totalComments: number;
-  totalShares: number;
-  totalSaves: number;
-  totalViews: number;
-  totalFollowers: number;
+  averageLikes: number;
+  averageComments: number;
+  averageShares: number;
+  averageSaves: number;
+  averageViews: number;
+  followers: number;
   city: string;
   featuredVideos: string[];
   createdAt: Date;
@@ -23,13 +22,12 @@ class Influencer {
     profileName: string,
     profilePicture: string,
     profileUrl: string,
-    profileDescription: string,
-    totalLikes: number,
-    totalComments: number,
-    totalShares: number,
-    totalSaves: number,
-    totalViews: number,
-    totalFollowers: number,
+    averageLikes: number,
+    averageComments: number,
+    averageShares: number,
+    averageSaves: number,
+    averageViews: number,
+    followers: number,
     city: string,
     featuredVideos: string[],
     createdAt: Date,
@@ -40,13 +38,12 @@ class Influencer {
     this.profileName = profileName;
     this.profilePicture = profilePicture;
     this.profileUrl = profileUrl;
-    this.profileDescription = profileDescription;
-    this.totalLikes = totalLikes;
-    this.totalComments = totalComments;
-    this.totalShares = totalShares;
-    this.totalSaves = totalSaves;
-    this.totalViews = totalViews;
-    this.totalFollowers = totalFollowers;
+    this.averageLikes = averageLikes;
+    this.averageComments = averageComments;
+    this.averageShares = averageShares;
+    this.averageSaves = averageSaves;
+    this.averageViews = averageViews;
+    this.followers = followers;
     this.city = city;
     this.featuredVideos = featuredVideos;
     this.createdAt = createdAt;
@@ -57,11 +54,11 @@ class Influencer {
 
   calculateEngagementVisualizationRate(): number {
     const engagementVisualizationRate = (
-      ((this.totalLikes +
-        this.totalComments +
-        this.totalShares +
-        this.totalSaves) /
-        this.totalViews) *
+      ((this.averageLikes +
+        this.averageComments +
+        this.averageShares +
+        this.averageSaves) /
+        this.averageViews) *
       100
     ).toFixed(2);
     return parseFloat(engagementVisualizationRate);
@@ -87,56 +84,52 @@ class Influencer {
     return this.profileUrl;
   }
 
-  getProfileDescription(): string {
-    return this.profileDescription;
+  getAverageLikes(): number {
+    return this.averageLikes;
   }
 
-  getTotalLikes(): number {
-    return this.totalLikes;
+  getFormattedAverageLikes(): string {
+    return this.averageLikes.toLocaleString();
   }
 
-  getFormattedTotalLikes(): string {
-    return this.totalLikes.toLocaleString();
+  getAverageComments(): number {
+    return this.averageComments;
   }
 
-  getTotalComments(): number {
-    return this.totalComments;
+  getFormattedAverageComments(): string {
+    return this.averageComments.toLocaleString();
   }
 
-  getFormattedTotalComments(): string {
-    return this.totalComments.toLocaleString();
+  getAverageShares(): number {
+    return this.averageShares;
   }
 
-  getTotalShares(): number {
-    return this.totalShares;
+  getFormattedAverageShares(): string {
+    return this.averageShares.toLocaleString();
   }
 
-  getFormattedTotalShares(): string {
-    return this.totalShares.toLocaleString();
+  getAverageSaves(): number {
+    return this.averageSaves;
   }
 
-  getTotalSaves(): number {
-    return this.totalSaves;
+  getFormattedAverageSaves(): string {
+    return this.averageSaves.toLocaleString();
   }
 
-  getFormattedTotalSaves(): string {
-    return this.totalSaves.toLocaleString();
+  getAverageViews(): number {
+    return this.averageViews;
   }
 
-  getTotalViews(): number {
-    return this.totalViews;
+  getFormattedAverageViews(): string {
+    return this.averageViews.toLocaleString();
   }
 
-  getFormattedTotalViews(): string {
-    return this.totalViews.toLocaleString();
+  getFollowers(): number {
+    return this.followers;
   }
 
-  getTotalFollowers(): number {
-    return this.totalFollowers;
-  }
-
-  getFormattedTotalFollowers(): string {
-    return this.totalFollowers.toLocaleString();
+  getFormattedFollowers(): string {
+    return this.followers.toLocaleString();
   }
 
   getCity(): string {
@@ -179,32 +172,28 @@ class Influencer {
     this.profileUrl = profileUrl;
   }
 
-  setProfileDescription(profileDescription: string): void {
-    this.profileDescription = profileDescription;
+  setAverageLikes(averageLikes: number): void {
+    this.averageLikes = averageLikes;
   }
 
-  setTotalLikes(totalLikes: number): void {
-    this.totalLikes = totalLikes;
+  setAverageComments(averageComments: number): void {
+    this.averageComments = averageComments;
   }
 
-  setTotalComments(totalComments: number): void {
-    this.totalComments = totalComments;
+  setAverageShares(averageShares: number): void {
+    this.averageShares = averageShares;
   }
 
-  setTotalShares(totalShares: number): void {
-    this.totalShares = totalShares;
+  setAverageSaves(averageSaves: number): void {
+    this.averageSaves = averageSaves;
   }
 
-  setTotalSaves(totalSaves: number): void {
-    this.totalSaves = totalSaves;
+  setAverageViews(averageViews: number): void {
+    this.averageViews = averageViews;
   }
 
-  setTotalViews(totalViews: number): void {
-    this.totalViews = totalViews;
-  }
-
-  setTotalFollowers(totalFollowers: number): void {
-    this.totalFollowers = totalFollowers;
+  setFollowers(followers: number): void {
+    this.followers = followers;
   }
 
   setCity(city: string): void {
