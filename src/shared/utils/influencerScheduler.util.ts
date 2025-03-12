@@ -1,18 +1,22 @@
+import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import influencerManagementService from "@/infrastructure/services/influencerManagement.service";
+import repositoryContainer from "~/containers/repository.container";
 
 class InfluencerSchedulerUtil {
   private intervalId: NodeJS.Timeout | null = null;
-  private readonly intervalTime: number = 6000000;
+  private readonly intervalTime: number = 60000;
 
   constructor() {
     this.start();
-}
+  }
 
   start() {
     if (!this.intervalId) {
-      console.log("🚀 Iniciando la tarea de actualización de influencers...");
       this.fetchAndStoreInfluencers();
-      this.intervalId = setInterval(() => this.fetchAndStoreInfluencers(), this.intervalTime);
+      this.intervalId = setInterval(
+        () => this.fetchAndStoreInfluencers(),
+        this.intervalTime
+      );
     }
   }
 
@@ -20,20 +24,43 @@ class InfluencerSchedulerUtil {
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
-      console.log("⏹️ Se ha detenido la tarea de actualización de influencers.");
     }
   }
 
   private async fetchAndStoreInfluencers() {
     try {
-      console.log("🔄 Obteniendo influencers...");
-      const influencers = await influencerManagementService.addInfluencers();
-      console.log("✅ Influencers obtenidos:", influencers);
+      const influencers = await influencerManagementService.fetchInfluencers();
+      const repository = repositoryContainer.get<IInfluencerRepository>(
+        "IInfluencerRepository"
+      );
+
+      for (const influencer of influencers) {
+        const tempInfluencer = await repository.findByUsername(
+          influencer.username
+        );
+        if (!tempInfluencer) {
+          console.log("Guardando influencer:", influencer);
+          await repository.create({
+            username: influencer.username,
+            profileName: influencer.profileName,
+            profilePicture: influencer.profilePicture,
+            profileUrl: influencer.profileUrl,
+            averageLikes: influencer.averageLikes,
+            averageComments: influencer.averageComments,
+            averageShares: influencer.averageShares,
+            averageSaves: influencer.averageSaves,
+            averageViews: influencer.averageViews,
+            followers: influencer.followers,
+            city: influencer.city,
+            featuredVideos: influencer.featuredVideos,
+          });
+        }
+      }
     } catch (error) {
       if (error instanceof Error) {
-        console.error("❌ Error al obtener influencers:", error.message);
+        console.error(error.message);
       } else {
-        console.error("❌ Error al obtener influencers:", error);
+        console.error(error);
       }
     }
   }
