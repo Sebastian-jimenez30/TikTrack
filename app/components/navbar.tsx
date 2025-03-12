@@ -5,12 +5,12 @@ import { Link } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./button";
 import ROUTES from "~/constants/urls";
-import { logout } from "@/shared/utils/auth.utils"; 
-import  LogoutIcon  from "./icons/logout.icon";
+import { logout } from "@/shared/utils/auth.utils";
+import LogoutIcon from "./icons/logout.icon";
 
 interface NavBarProps {
   isAuthenticated: boolean;
-  locale: string; 
+  locale: string;
 }
 
 export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
@@ -27,17 +27,26 @@ export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
           className="w-60 h-auto"
           priority={true}
         />
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
           {isAuthenticated ? (
-            <form action={() => logout(locale)}>
-            <button
-              type="submit"
-              className="w-full flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-            >
-              <LogoutIcon className="text-xl" />
-              {t("logout")}
-            </button>
-          </form>
+            <div className="flex items-center gap-4 bg-gray-100 p-2 rounded-md">
+              {/* Botón de perfil */}
+              <Button href={ROUTES.PROFILE} variant="primary">
+                {t("profile")}
+              </Button>
+              {/* Separador */}
+              <div className="border-l border-gray-300 h-6"></div>
+              {/* Botón de logout */}
+              <form action={() => logout(locale)}>
+                <button
+                  type="submit"
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors px-3 py-2 rounded-md hover:bg-gray-200"
+                >
+                  <LogoutIcon className="text-xl" />
+                  {t("logout")}
+                </button>
+              </form>
+            </div>
           ) : (
             <Button href={ROUTES.SIGN_IN} variant="primary">
               {t("getStarted")}
