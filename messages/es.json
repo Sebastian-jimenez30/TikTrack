@@ -43,6 +43,13 @@
       "followers": "Seguidores",
       "EVR": "EVR",
       "lastUpdate": "Última actualización"
+    },
+    "message": {
+      "update": "Actualizar",
+      "delete": "Eliminar",
+      "customize": "Personalizar",
+      "edit": "Editar",
+      "cancel": "Cancelar"
     }
   },
 
@@ -53,5 +60,20 @@
     "entries": "Entradas",
     "previous": "Anterior",
     "next": "Siguiente"
+  },
+
+  "MessagesPage": {
+    "title": "Plantillas de Mensajes",
+    "input": {
+      "placeholder": "Escribe tu mensaje...",
+      "send": "Enviar"
+    }
+  },
+
+  "Forms": {
+    "message": {
+      "placeholder": "Crea una plantilla...",
+      "saveTemplate": "Guardar plantilla"
+    }
   }
 }

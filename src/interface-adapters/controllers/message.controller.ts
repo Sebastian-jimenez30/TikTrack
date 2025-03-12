@@ -6,7 +6,7 @@ interface IndexProps {
 }
 
 interface ShowProps {
-  params: { id: string };
+  params: { id: number };
 }
 
 interface CreateProps {
@@ -14,7 +14,7 @@ interface CreateProps {
 }
 
 interface UpdateProps {
-  params: { id: string; content: string };
+  params: { id: number; content: string };
 }
 
 class MessageController {

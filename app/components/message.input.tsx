@@ -1,14 +1,25 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Button from '~/app/components/button';
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import Button from "~/app/components/button";
 
 interface MessageInputProps {
   onSend: (message: string) => void;
+  selectedMessage: string | null; // ⬅️ Recibimos el mensaje seleccionado
 }
 
-export default function MessageInput({ onSend }: MessageInputProps) {
+export default function MessageInput({ onSend, selectedMessage }: MessageInputProps) {
   const [message, setMessage] = useState('');
+
+  const t = useTranslations('MessagesPage.input');
+
+  // ⬇️ Actualizar el input cuando cambia el mensaje seleccionado
+  useEffect(() => {
+    if (selectedMessage) {
+      setMessage(selectedMessage);
+    }
+  }, [selectedMessage]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,11 +36,11 @@ export default function MessageInput({ onSend }: MessageInputProps) {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message..."
+          placeholder={t("placeholder")}
           className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <Button variant="primary" href="">Send</Button>
+        <Button variant="primary" href="">{t("send")}</Button>
       </div>
     </form>
   );
-} 
+}
