@@ -6,7 +6,7 @@ import Button from "~/app/components/button";
 
 interface MessageInputProps {
   onSend: (message: string) => void;
-  selectedMessage: string | null; // ⬅️ Recibimos el mensaje seleccionado
+  selectedMessage: string | null; 
 }
 
 export default function MessageInput({ onSend, selectedMessage }: MessageInputProps) {
@@ -14,7 +14,6 @@ export default function MessageInput({ onSend, selectedMessage }: MessageInputPr
 
   const t = useTranslations('MessagesPage.input');
 
-  // ⬇️ Actualizar el input cuando cambia el mensaje seleccionado
   useEffect(() => {
     if (selectedMessage) {
       setMessage(selectedMessage);
@@ -39,7 +38,7 @@ export default function MessageInput({ onSend, selectedMessage }: MessageInputPr
           placeholder={t("placeholder")}
           className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <Button variant="primary" href="">{t("send")}</Button>
+        <Button variant="primary" href="/">{t("send")}</Button>
       </div>
     </form>
   );

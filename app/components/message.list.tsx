@@ -30,7 +30,6 @@ export default function MessageList({ messages }: MessageListProps) {
           />
         ))}
       </div>
-      <MessageInput onSend={(msg) => {}} selectedMessage={selectedMessage} />
     </div>
   );
 }
