@@ -22,6 +22,9 @@ export const routing = defineRouting({
 
     "/sign-in": { en: "/sign-in", es: "/iniciar-sesion" },
     "/sign-up": { en: "/sign-up", es: "/registrarse" },
+
+    "/profile": { en: "/profile", es: "/perfil" },
+    
   },
 });
 
