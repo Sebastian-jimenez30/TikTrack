@@ -3,6 +3,31 @@
     "metadata": {
       "title": "Inicio",
       "description": "Descubre al influencer que te ayudará a impulsar tu alcance y maximizar tu impacto."
+    },
+    "homeSection": {
+      "title": "Encuentra los mejores influencers de Colombia",
+      "description": "Descubre y contacta a los influencers más relevantes del país en un solo lugar. Usa TikTrack para explorar perfiles auténticos, conocer su impacto y enviarles mensajes fácilmente.",
+      "button": "Listar influencers"
+    },
+    "featureSection": {
+      "title": "Características",
+      "subtitle": "Descubre las características de TikTrack",
+      "feature1": {
+        "title": "Descubre influencers",
+        "description": "Encuentra creadores de contenido relevantes según nicho, audiencia y engagement."
+      },
+      "feature2": {
+        "title": "Analiza estadísticas",
+        "description": "Accede y compara datos sobre interacciones, seguidores y crecimiento."
+      },
+      "feature3": {
+        "title": "Contacta fácilmente",
+        "description": "Envía mensajes y colabora con influencers sin complicaciones."
+      }
+    },
+    "influencerSection": {
+      "title": "Influencers Destacados",
+      "subtitle": "Encuentra a los influencers más destacados en tu ciudad y comienza a colaborar con ellos."
     }
   },
 
@@ -37,6 +62,10 @@
     "getStarted": "Comenzar",
     "profile": "Perfil",
     "logout": "Cerrar Sesión"
+  },
+
+  "Footer": {
+    "footerText": "TikTrack © 2025. Todos los derechos reservados."
   },
 
   "Cards": {
