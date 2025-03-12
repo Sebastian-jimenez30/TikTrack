@@ -46,7 +46,7 @@ export default async function LocaleLayout({
       </head>
       <body className="mx-8">
         <NextIntlClientProvider messages={messages}>
-          <NavBar isAuthenticated={isAuthenticated} />
+          <NavBar isAuthenticated={isAuthenticated} locale={locale} /> 
           {children}
         </NextIntlClientProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

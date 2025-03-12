@@ -35,7 +35,8 @@
     "home": "Home",
     "influencers": "Influencers",
     "getStarted": "Get Started",
-    "profile": "Profile"
+    "profile": "Profile",
+    "logout": "Logout"
   },
 
   "Cards": {
