@@ -43,6 +43,13 @@
       "when": 1741752300992,
       "tag": "0005_cute_preak",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741765192880,
+      "tag": "0006_steady_hawkeye",
+      "breakpoints": true
     }
   ]
 }

@@ -11,7 +11,6 @@ import Image from "next/image";
 import MapPinIcon from "~/app/components/icons/location.icon";
 import Button from "~/app/components/button";
 import ROUTES from "~/constants/urls";
-import { Link } from "~/i18n/routing";
 
 interface ShowProps {
   params: Promise<{ username: string }>;
@@ -72,11 +71,9 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                <Link href={ROUTES["MESSAGES"]} legacyBehavior>
-                  <Button href="" variant="primary">
-                    <span className="truncate">{t("message")}</span>
+                  <Button href={ROUTES.MESSAGES} variant="primary">
+                    {t("message")}
                   </Button>
-                </Link>
                 </div>
               </div>
             </div>
