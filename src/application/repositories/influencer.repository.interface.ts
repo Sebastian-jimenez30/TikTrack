@@ -39,4 +39,19 @@ export default interface IInfluencerRepository {
     updatedAt: Date;
   } | null>;
   count(): Promise<number>;
+
+  create(influencer: {
+    username: string;
+    profileName: string;
+    profilePicture: string;
+    profileUrl: string;
+    averageLikes: number;
+    averageComments: number;
+    averageShares: number;
+    averageSaves: number;
+    averageViews: number;
+    followers: number;
+    city: string;
+    featuredVideos: string[];
+  }): Promise<void>;
 }

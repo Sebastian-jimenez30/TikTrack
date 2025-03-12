@@ -65,4 +65,21 @@ export default class InfluencerRepository implements IInfluencerRepository {
     const response = await db.select({ count: count() }).from(influencersTable);
     return response[0].count;
   }
+
+  async create(influencer: {
+    username: string;
+    profileName: string;
+    profilePicture: string;
+    profileUrl: string;
+    averageLikes: number;
+    averageComments: number;
+    averageShares: number;
+    averageSaves: number;
+    averageViews: number;
+    followers: number;
+    city: string;
+    featuredVideos: string[];
+  }): Promise<void> {
+    await db.insert(influencersTable).values(influencer).execute();
+  }
 }
