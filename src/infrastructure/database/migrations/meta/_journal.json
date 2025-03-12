@@ -15,13 +15,6 @@
       "when": 1741215126934,
       "tag": "0001_simple_wrecking_crew",
       "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1741668713174,
-      "tag": "0002_clammy_leo",
-      "breakpoints": true
     }
   ]
 }
