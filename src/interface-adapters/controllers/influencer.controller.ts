@@ -1,7 +1,8 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { Influencer } from "@/domain/entities/influencer";
+
 interface IndexProps {
-  params: Promise<{ page?: string }>;
+  searchParams: { page?: string };
 }
 
 interface ShowProps {
@@ -9,7 +10,7 @@ interface ShowProps {
 }
 
 class InfluencerController {
-  async index({ params }: IndexProps): Promise<{
+  async index({ searchParams }: IndexProps): Promise<{
     influencers: Influencer[];
     count: number;
     start: number;
@@ -17,8 +18,11 @@ class InfluencerController {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   }> {
-    const { page } = await params;
+    const resolvedParams = await searchParams;
+
+    const { page } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
+
     const limit = 8;
 
     const pageData = await influencerUseCases.list(pageNumber, limit);

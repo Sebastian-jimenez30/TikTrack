@@ -8,7 +8,7 @@ import Pagination from "~/app/components/pagination";
 import FireIcon from "~/app/components/icons/fire.icon";
 
 interface IndexProps {
-  params: Promise<{ page?: string }>;
+  searchParams: { page?: string };
 }
 
 export async function generateMetadata() {
@@ -21,10 +21,10 @@ export async function generateMetadata() {
 }
 
 export default async function Index({
-  params,
+  searchParams,
 }: IndexProps): Promise<JSX.Element> {
   const t = await getTranslations("InfluencersIndexPage");
-  const pageData = await influencerController.index({ params });
+  const pageData = await influencerController.index({ searchParams });
   const influencers = pageData.influencers;
   const count = pageData.count;
   const start = pageData.start;
