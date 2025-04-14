@@ -10,7 +10,7 @@ import Video from "~/app/components/video";
 import Image from "next/image";
 import MapPinIcon from "~/app/components/icons/location.icon";
 import Button from "~/app/components/button";
-import ROUTES from "~/constants/urls";
+import ROUTES from "~/constants/urls/urls";
 
 interface ShowProps {
   params: Promise<{ username: string }>;

@@ -2,7 +2,7 @@ import { authController } from "@/interface-adapters/controllers/auth.controller
 import AuthCard from "~/app/components/cards/authentication.card";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import ROUTES from "~/constants/urls";
+import ROUTES from "~/constants/urls/urls";
 
 export default function SignUpPage() {
   async function handleSignUp(formData: FormData): Promise<{ error?: string }> {

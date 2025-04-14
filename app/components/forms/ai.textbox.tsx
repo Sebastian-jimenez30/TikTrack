@@ -2,7 +2,7 @@
 import { useTranslations } from "next-intl";
 import { useState, ChangeEvent } from "react";
 import ErrorCard from "~/app/components/cards/error.card";
-import ROUTES from "~/constants/api.urls";
+import ROUTES from "~/constants/urls/api.urls";
 export default function TextboxWithService() {
   const t = useTranslations("TextboxAI");
 

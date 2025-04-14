@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Button from "~/app/components/button";
-import ROUTES from "~/constants/urls";
+import ROUTES from "~/constants/urls/urls";
 import FeatureCard from "~/app/components/cards/feature.card";
 import FireIcon from "~/app/components/icons/fire.icon";
 import { homeController } from "@/interface-adapters/controllers/home.controller";
