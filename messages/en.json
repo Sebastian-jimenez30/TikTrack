@@ -101,7 +101,11 @@
     "input": {
       "placeholder": "Type your message...",
       "send": "Send"
-    }
+    },
+    "communicationDescription": "Communicate clearly: Make your message sharper and easier to understand — increase your chance of getting noticed.",
+    "connectionDescription": "Connect emotionally: Craft messages that resonate with your audience and brands on a deeper level.",
+    "standOutDescription": "Stand out instantly: Let AI help you write more engaging, visually striking pitches that grab attention.",
+    "aiSuggestions": "AI Suggestions"
   },
 
   "Forms": {
@@ -150,5 +154,24 @@
     "authError": "Authentication error. Please log in again.",
     "tokenError": "Invalid token. Please try again.",
     "fetchError": "Could not fetch user information."
+  },
+
+  "TextboxAI":{
+    "buttonAccept": "Accept",  
+    "buttonCancel": "Cancel",
+    "placeholder": "Write your message here...",
+    "loading": "Loading...",
+    "enhanced": "Enhance message with AI",
+    "error":{
+      "inputEmpty": "The message field is empty",
+      "general": "An error occurred while processing your request"
+    }
+  },
+
+  "OpenAIService":{
+    "error": {
+      "noResponse": "No response from OpenAI API",
+      "general": "An error occurred while processing your request"
+    }
   }
 }
