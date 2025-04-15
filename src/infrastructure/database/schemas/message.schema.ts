@@ -1,9 +1,4 @@
-import {
-  integer,
-  pgTable,
-  text,
-  timestamp,
-} from "drizzle-orm/pg-core";
+import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const messagesTable = pgTable("messages", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -13,4 +8,4 @@ export const messagesTable = pgTable("messages", {
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
-}); 
+});

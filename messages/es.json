@@ -98,7 +98,11 @@
     "input": {
       "placeholder": "Escribe tu mensaje...",
       "send": "Enviar"
-    }
+    },
+    "aiSuggestions": "Sugerencias de IA",
+    "communicationDescription": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención.",
+    "connectionDescription": "Conecte emocionalmente: Elabore mensajes que resuenen con su público y sus marcas a un nivel más profundo.",
+    "standOutDescription": "Destaque al instante: Deja que la IA te ayude a redactar propuestas más atractivas y visualmente impactantes que capten la atención."
   },
 
   "Forms": {
@@ -107,7 +111,7 @@
       "saveTemplate": "Guardar plantilla"
     }
   },
-  
+
   "AuthPage": {
     "signIn": {
       "title": "Iniciar Sesión",
@@ -147,5 +151,24 @@
     "authError": "Error de autenticación. Inicia sesión nuevamente.",
     "tokenError": "Token inválido. Intenta de nuevo.",
     "fetchError": "No se pudo obtener la información del usuario."
+  },
+
+  "TextboxAI": {
+    "buttonAccept": "Aceptar",
+    "buttonCancel": "Cancelar",
+    "placeholder": "Escribe tu mensaje aquí...",
+    "loading": "Cargando...",
+    "enhanced": "Mejorar mensaje con IA",
+    "error": {
+      "inputEmpty": "El campo de mensaje está vacío",
+      "general": "Ocurrió un error al procesar tu solicitud"
+    }
+  },
+
+  "OpenAIService": {
+    "error": {
+      "noResponse": "No hay respuesta de la API de OpenAI",
+      "general": "Ocurrió un error al procesar tu solicitud"
+    }
   }
 }

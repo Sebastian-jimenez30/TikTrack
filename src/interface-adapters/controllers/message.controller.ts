@@ -1,10 +1,6 @@
 import { messageUseCases } from "@/application/use-cases/message.use-case";
 import { Message } from "@/domain/entities/message";
 
-interface IndexProps {
-  params: { page?: string };
-}
-
 interface ShowProps {
   params: { id: number };
 }

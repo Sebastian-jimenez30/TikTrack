@@ -1,5 +1,5 @@
 import IInfluencerManagementService from "@/application/services/influencerManagement.service.interface";
-import ROUTES from "~/constants/urls";
+import ROUTES from "~/constants/urls/services.urls";
 
 class InfluencerManagementService implements IInfluencerManagementService {
   async fetchInfluencers(): Promise<
@@ -19,7 +19,7 @@ class InfluencerManagementService implements IInfluencerManagementService {
     }[]
   > {
     const endpoint = "influencers";
-    const url = ROUTES.INFLUENCERS_MANAGEMENT + endpoint;
+    const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
 
     try {
       const response = await fetch(url);

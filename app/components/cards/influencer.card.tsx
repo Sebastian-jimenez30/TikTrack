@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { Link } from "~/i18n/routing";
 import MapPinIcon from "~/app/components/icons/location.icon";
-import ROUTES from "~/constants/urls";
+import ROUTES from "~/constants/urls/urls";
 
 interface InfluencerCardProps {
   username: string;

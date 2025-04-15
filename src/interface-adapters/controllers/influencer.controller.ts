@@ -1,22 +1,18 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
-import { Influencer } from "@/domain/entities/influencer";
+import { InfluencerOverviewPresenter } from "@/interface-adapters/presenters/influencer/influencer.overview.presenter";
+import { InfluencerDetailPresenter } from "@/interface-adapters/presenters/influencer/influencer.detail.presenter";
 
 interface IndexProps {
   searchParams: { page?: string };
 }
 
 interface ShowProps {
-  params: Promise<{ username: string }>;
+  params: { username: string };
 }
 
 class InfluencerController {
   async index({ searchParams }: IndexProps): Promise<{
-    influencers: Influencer[];
-    count: number;
-    start: number;
-    end: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
+    pageData: object;
   }> {
     const resolvedParams = await searchParams;
 
@@ -25,18 +21,43 @@ class InfluencerController {
 
     const limit = 8;
 
-    const pageData = await influencerUseCases.list(pageNumber, limit);
+    const result = await influencerUseCases.list(pageNumber, limit);
 
-    return pageData;
+    const influencers = result.influencers.map((influencer) =>
+      InfluencerOverviewPresenter.toHttp(influencer)
+    );
+
+    const pageData = {
+      influencers,
+      count: result.count,
+      start: result.start,
+      end: result.end,
+      hasNextPage: result.hasNextPage,
+      hasPreviousPage: result.hasPreviousPage,
+    };
+
+    return { pageData };
   }
 
   async show({ params }: ShowProps): Promise<{
-    influencer: Influencer | null;
-    haveResults: boolean;
+    pageData: object;
   }> {
     const { username } = await params;
-    const pageData = await influencerUseCases.detail(username);
-    return pageData;
+    const result = await influencerUseCases.detail(username);
+
+    let influencer = null;
+
+    if (result.influencer) {
+      const tempInfluencer = result.influencer;
+      influencer = InfluencerDetailPresenter.toHttp(tempInfluencer);
+    }
+
+    const pageData = {
+      influencer,
+      haveResults: result.haveResults,
+    };
+
+    return { pageData };
   }
 }
 

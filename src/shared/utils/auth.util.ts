@@ -2,11 +2,11 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "~/i18n/routing";
-import ROUTES from "~/constants/urls";
+import ROUTES from "~/constants/urls/urls";
 
 export async function logout(locale: string) {
   const cookieStore = await cookies();
   cookieStore.delete("authToken");
 
-  redirect({ href: ROUTES.SIGN_IN, locale }); 
+  redirect({ href: ROUTES.SIGN_IN, locale });
 }
