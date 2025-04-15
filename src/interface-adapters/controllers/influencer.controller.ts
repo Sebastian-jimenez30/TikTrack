@@ -10,6 +10,10 @@ interface ShowProps {
   params: { username: string };
 }
 
+interface DeactivateProps {
+  params: { username: string | null };
+}
+
 class InfluencerController {
   async index({ searchParams }: IndexProps): Promise<{
     pageData: object;
@@ -21,7 +25,7 @@ class InfluencerController {
 
     const limit = 8;
 
-    const result = await influencerUseCases.list(pageNumber, limit);
+    const result = await influencerUseCases.listActive(pageNumber, limit);
 
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
@@ -58,6 +62,28 @@ class InfluencerController {
     };
 
     return { pageData };
+  }
+
+  async deactivate({ params }: DeactivateProps): Promise<{
+    pageData: object;
+  }> {
+    const { username } = await params;
+    let result;
+    let pageData;
+    if (!username) {
+      pageData = {
+        isSuccess: false,
+      };
+      return { pageData };
+    } else {
+      result = await influencerUseCases.updateStatus(username);
+
+      const pageData = {
+        isSuccess: result.isSuccess,
+      };
+
+      return { pageData };
+    }
   }
 }
 

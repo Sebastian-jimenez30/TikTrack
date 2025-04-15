@@ -5,7 +5,7 @@ class HomeController {
   async index(): Promise<{
     pageData: object;
   }> {
-    const result = await influencerUseCases.list(1, 4);
+    const result = await influencerUseCases.listActive(1, 4);
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
     );
