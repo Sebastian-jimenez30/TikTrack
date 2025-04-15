@@ -4,7 +4,7 @@ import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
 
 export class InfluencerUseCases {
-  async list(
+  async listActive(
     pageNumber: number,
     limit: number
   ): Promise<{
@@ -18,8 +18,11 @@ export class InfluencerUseCases {
     const repository = repositoryContainer.get<IInfluencerRepository>(
       "IInfluencerRepository"
     );
-    const tempInfluencers = await repository.listPaginated(pageNumber, limit);
-    const tempCount = await repository.count();
+    const tempInfluencers = await repository.listActivePaginated(
+      pageNumber,
+      limit
+    );
+    const tempCount = await repository.countActive();
 
     const influencers = tempInfluencers.map((influencer) => {
       return new Influencer(
@@ -36,6 +39,7 @@ export class InfluencerUseCases {
         influencer.followers,
         influencer.city,
         influencer.featuredVideos,
+        influencer.status,
         influencer.createdAt,
         influencer.updatedAt
       );
@@ -85,6 +89,7 @@ export class InfluencerUseCases {
         tempInfluencer.followers,
         tempInfluencer.city,
         tempInfluencer.featuredVideos,
+        tempInfluencer.status,
         tempInfluencer.createdAt,
         tempInfluencer.updatedAt
       );
@@ -93,6 +98,26 @@ export class InfluencerUseCases {
         haveResults: true,
       };
     }
+  }
+
+  async updateStatus(username: string): Promise<{ isSuccess: boolean }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+
+    const influencer = await repository.findByUsername(username);
+    if (!influencer) {
+      return {
+        isSuccess: false,
+      };
+    }
+
+    influencer.status = "inactive";
+    await repository.update(influencer);
+
+    return {
+      isSuccess: true,
+    };
   }
 }
 export const influencerUseCases = new InfluencerUseCases();
