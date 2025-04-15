@@ -38,9 +38,12 @@ type StaticPathname = Exclude<
   "/influencers/[username]"
 >;
 
-export type Pathname =
-  | StaticPathname
-  | ({ pathname: StaticPathname } & Omit<UrlObject, "pathname">);
+export type Pathname = StaticPathname
+
+export type Href = {
+  pathname: StaticPathname;
+  query?: Record<string, any>;
+};
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =
   createNavigation(routing);
