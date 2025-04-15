@@ -2,10 +2,12 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Button from "~/app/components/button";
 import ROUTES from "~/constants/urls/urls";
+import ROUTES_API from "~/constants/urls/api.urls";
 import FeatureCard from "~/app/components/cards/feature.card";
 import FireIcon from "~/app/components/icons/fire.icon";
-import { homeController } from "@/interface-adapters/controllers/home.controller";
 import InfluencerSlider from "~/app/components/home/influencerSlider";
+import { Influencer } from "@/domain/entities/influencer";
+import axios from "axios";
 
 export async function generateMetadata() {
   const t = await getTranslations("HomeIndexPage");
@@ -18,16 +20,8 @@ export async function generateMetadata() {
 
 export default async function Index() {
   const t = await getTranslations("HomeIndexPage");
-
-  const pageData = await homeController.index();
-  const influencers = pageData.influencers.map((influencer) => ({
-    username: influencer.getUsername(),
-    profilePicture: influencer.getProfilePicture(),
-    followers: influencer.getFormattedFollowers(),
-    city: influencer.getCity(),
-    updatedAt: influencer.getUpdatedAt(),
-    engagementVisualizationRate: influencer.getEngagementVisualizationRate(),
-  }));
+  const pageData = (await axios.get(ROUTES_API.HOME_INDEX)).data.pageData;
+  const influencers = pageData.influencers
 
   return (
     <div>
