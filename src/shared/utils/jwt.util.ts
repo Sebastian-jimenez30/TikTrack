@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
 
 interface TokenPayload {
   userId: number;
@@ -22,6 +23,21 @@ class JwtUtil {
 
   getUserIdFromToken(token: string): number {
     return this.verifyToken(token).userId;
+  }
+
+  isTokenExpired(token: string): boolean {
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp !== undefined && decoded.exp < currentTime;
+    } catch {
+      return true;
+    }
+  }
+
+  isAdmin(token: string): boolean {
+    const decoded = jwtDecode(token) as TokenPayload;
+    return decoded.role === "admin";
   }
 }
 
