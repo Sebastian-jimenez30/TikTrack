@@ -3,18 +3,15 @@ import { messageController } from "~/src/interface-adapters/controllers/message.
 import MessageList from "~/app/components/message.list";
 import CreateMessage from "~/app/components/forms/create.message";
 
-interface IndexProps {
-  params: { page?: string };
-}
-
-export default async function Index({ params }: IndexProps) {
+export default async function Index() {
   const t = await getTranslations("MessagesPage");
   const pageData = await messageController.index();
-  const messages = pageData.messages?.map(msg => ({
-    ...msg,
-    created_at: msg.created_at?.toISOString(),
-    updated_at: msg.updated_at?.toISOString()
-  })) || [];
+  const messages =
+    pageData.messages?.map((msg) => ({
+      ...msg,
+      created_at: msg.created_at?.toISOString(),
+      updated_at: msg.updated_at?.toISOString(),
+    })) || [];
 
   return (
     <div>

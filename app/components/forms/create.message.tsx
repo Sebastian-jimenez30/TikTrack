@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useTransition } from 'react';
-import { useTranslations } from 'next-intl';
-import { createMessage } from '~/app/[locale]/messages/actions';
+import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
+import { createMessage } from "~/app/[locale]/messages/actions";
 
 export default function CreateMessage() {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const t = useTranslations('Forms.message');
+  const t = useTranslations("Forms.message");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -17,10 +17,10 @@ export default function CreateMessage() {
     startTransition(async () => {
       const result = await createMessage(message);
       if (result.success) {
-        setMessage('');
+        setMessage("");
         setError(null);
       } else {
-        setError(result.error || 'Failed to create message');
+        setError(result.error || "Failed to create message");
       }
     });
   }
@@ -28,17 +28,15 @@ export default function CreateMessage() {
   return (
     <form onSubmit={handleSubmit} className="mb-4 max-w-md mx-auto text-center">
       {error && (
-        <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">
-          {error}
-        </div>
+        <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
       )}
-      
-      <div >
+
+      <div>
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder={t('placeholder')}
+          placeholder={t("placeholder")}
           className="border p-2 rounded w-full mb-2 text-sm border-purple"
           disabled={isPending}
         />
@@ -47,9 +45,9 @@ export default function CreateMessage() {
           className="bg-purple text-white font-semibold transition-all px-4 py-2 rounded hover:bg-darkPurple text-sm"
           disabled={isPending || !message.trim()}
         >
-          {t('saveTemplate')}
+          {t("saveTemplate")}
         </button>
       </div>
     </form>
   );
-} 
+}

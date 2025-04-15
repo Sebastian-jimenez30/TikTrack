@@ -12,7 +12,7 @@ interface ShowProps {
 
 class InfluencerController {
   async index({ searchParams }: IndexProps): Promise<{
-    pageData: Object
+    pageData: object;
   }> {
     const resolvedParams = await searchParams;
 
@@ -23,9 +23,9 @@ class InfluencerController {
 
     const result = await influencerUseCases.list(pageNumber, limit);
 
-    const influencers = result.influencers.map((influencer) => (
+    const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
-    ))
+    );
 
     const pageData = {
       influencers,
@@ -36,18 +36,18 @@ class InfluencerController {
       hasPreviousPage: result.hasPreviousPage,
     };
 
-    return {pageData};
+    return { pageData };
   }
 
   async show({ params }: ShowProps): Promise<{
-    pageData: Object
+    pageData: object;
   }> {
     const { username } = await params;
     const result = await influencerUseCases.detail(username);
-    
+
     let influencer = null;
 
-    if (result.influencer){
+    if (result.influencer) {
       const tempInfluencer = result.influencer;
       influencer = InfluencerDetailPresenter.toHttp(tempInfluencer);
     }
@@ -57,7 +57,7 @@ class InfluencerController {
       haveResults: result.haveResults,
     };
 
-    return {pageData};
+    return { pageData };
   }
 }
 

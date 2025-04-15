@@ -4,7 +4,8 @@ import repositoryContainer from "~/containers/repository.container";
 
 export class MessageUseCases {
   async listAll(): Promise<{ messages: Message[] }> {
-    const repository = repositoryContainer.get<IMessageRepository>("IMessageRepository");
+    const repository =
+      repositoryContainer.get<IMessageRepository>("IMessageRepository");
     const tempMessages = await repository.listAll();
 
     const messages = tempMessages.map((message) => {
@@ -20,10 +21,11 @@ export class MessageUseCases {
   }
 
   async create(data: { content: string }): Promise<Message> {
-    const repository = repositoryContainer.get<IMessageRepository>("IMessageRepository");
-    
+    const repository =
+      repositoryContainer.get<IMessageRepository>("IMessageRepository");
+
     const tempMessage = await repository.create(data);
-    
+
     return new Message(
       tempMessage.id,
       tempMessage.content,
@@ -33,10 +35,11 @@ export class MessageUseCases {
   }
 
   async update(id: number, data: { content: string }): Promise<Message | null> {
-    const repository = repositoryContainer.get<IMessageRepository>("IMessageRepository");
-    
+    const repository =
+      repositoryContainer.get<IMessageRepository>("IMessageRepository");
+
     const updatedMessage = await repository.update(id, data);
-    
+
     if (!updatedMessage) return null;
 
     return new Message(
@@ -48,7 +51,8 @@ export class MessageUseCases {
   }
 
   async delete(id: number): Promise<void> {
-    const repository = repositoryContainer.get<IMessageRepository>("IMessageRepository");
+    const repository =
+      repositoryContainer.get<IMessageRepository>("IMessageRepository");
     await repository.delete(id);
   }
 }

@@ -23,7 +23,6 @@ export default function Pagination({
   end,
 }: PaginationProps): JSX.Element {
   const t = useTranslations("Pagination");
-  
 
   const baseClasses =
     "flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-purple";

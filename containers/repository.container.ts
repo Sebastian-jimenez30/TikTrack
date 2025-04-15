@@ -16,9 +16,7 @@ container
   .bind<IInfluencerRepository>("IInfluencerRepository")
   .to(InfluencerRepository);
 
-container
-  .bind<IMessageRepository>("IMessageRepository")
-  .to(MessageRepository);
+container.bind<IMessageRepository>("IMessageRepository").to(MessageRepository);
 
 container.bind<IUserRepository>("IUserRepository").to(UserRepository);
 

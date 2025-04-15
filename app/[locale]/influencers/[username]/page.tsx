@@ -1,18 +1,17 @@
-import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
-import { getTranslations } from "next-intl/server";
+import ROUTES from "~/constants/urls/urls";
+import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
+import Button from "~/app/components/button";
+import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
 import DiskIcon from "~/app/components/icons/disk.icon";
 import EyeIcon from "~/app/components/icons/eye.icon";
 import HeartIcon from "~/app/components/icons/heart.icon";
 import ShareIcon from "~/app/components/icons/share.icon";
-import Video from "~/app/components/video";
-import Image from "next/image";
 import MapPinIcon from "~/app/components/icons/location.icon";
-import Button from "~/app/components/button";
-import ROUTES from "~/constants/urls/urls";
+import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import axios from "axios";
-import ROUTES_API from "~/constants/urls/api.urls";
 
 interface ShowProps {
   params: { username: string };
@@ -31,7 +30,11 @@ export default async function Show({ params }: ShowProps) {
   const t = await getTranslations("InfluencersShowPage");
 
   const pathParams = await params;
-  const pageData = (await axios.post(ROUTES_API.INFLUENCER_SHOW, {username: pathParams.username})).data.pageData;
+  const pageData = (
+    await axios.post(ROUTES_API.INFLUENCER_SHOW, {
+      username: pathParams.username,
+    })
+  ).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {
     return null;
   }
@@ -68,8 +71,8 @@ export default async function Show({ params }: ShowProps) {
                     </a>
                     <p className="text-black text-base font-normal leading-normal text-center">
                       <MapPinIcon className="text-lightPurple" />{" "}
-                      {influencer.city} |{" "}
-                      {influencer.followers} {t("followers")}
+                      {influencer.city} | {influencer.followers}{" "}
+                      {t("followers")}
                     </p>
                   </div>
                 </div>

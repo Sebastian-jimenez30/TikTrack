@@ -1,23 +1,26 @@
 export default interface IMessageRepository {
-  listAll(): Promise<{
-    id: number;
-    content: string;
-    created_at: Date;
-    updated_at: Date;
-  }[]>;
+  listAll(): Promise<
+    {
+      id: number;
+      content: string;
+      created_at: Date;
+      updated_at: Date;
+    }[]
+  >;
 
-  create(message: {
-    content: string;
-  }): Promise<{
+  create(message: { content: string }): Promise<{
     id: number;
     content: string;
     created_at: Date;
     updated_at: Date;
   }>;
 
-  update(id: number, message: {
-    content: string;
-  }): Promise<{
+  update(
+    id: number,
+    message: {
+      content: string;
+    }
+  ): Promise<{
     id: number;
     content: string;
     created_at: Date;

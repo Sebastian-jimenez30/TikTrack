@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import MessageCard from "~/app/components/cards/message.card";
-import MessageInput from "~/app/components/message.input";
 
 interface Message {
   id: number;
@@ -22,10 +21,10 @@ export default function MessageList({ messages }: MessageListProps) {
     <div>
       <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
         {messages.map((message) => (
-          <MessageCard 
-            key={message.id} 
-            id={message.id} 
-            content={message.content} 
+          <MessageCard
+            key={message.id}
+            id={message.id}
+            content={message.content}
             onCustomize={(content) => setSelectedMessage(content)}
           />
         ))}

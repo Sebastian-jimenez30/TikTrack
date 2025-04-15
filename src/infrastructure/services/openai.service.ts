@@ -3,8 +3,10 @@ import type { IOpenAIService } from "@/application/services/openai.service.inter
 import { getTranslations } from "next-intl/server";
 
 export class OpenAIService implements IOpenAIService {
-
-  async generateText(input: string, contextPrompt: string): Promise<string | { error: string }> {
+  async generateText(
+    input: string,
+    contextPrompt: string
+  ): Promise<string | { error: string }> {
     const t = await getTranslations("OpenAIService");
     const OPENAI_API_URL = process.env.OPENAI_API_URL!;
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY!;

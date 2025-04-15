@@ -6,13 +6,16 @@ import Button from "~/app/components/button";
 
 interface MessageInputProps {
   onSend: (message: string) => void;
-  selectedMessage: string | null; 
+  selectedMessage: string | null;
 }
 
-export default function MessageInput({ onSend, selectedMessage }: MessageInputProps) {
-  const [message, setMessage] = useState('');
+export default function MessageInput({
+  onSend,
+  selectedMessage,
+}: MessageInputProps) {
+  const [message, setMessage] = useState("");
 
-  const t = useTranslations('MessagesPage.input');
+  const t = useTranslations("MessagesPage.input");
 
   useEffect(() => {
     if (selectedMessage) {
@@ -24,12 +27,15 @@ export default function MessageInput({ onSend, selectedMessage }: MessageInputPr
     e.preventDefault();
     if (message.trim()) {
       onSend(message);
-      setMessage('');
+      setMessage("");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="fixed bottom-0 left-0 w-full bg-white border-t p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="fixed bottom-0 left-0 w-full bg-white border-t p-4"
+    >
       <div className="max-w-4xl mx-auto flex gap-4">
         <input
           type="text"
@@ -38,7 +44,9 @@ export default function MessageInput({ onSend, selectedMessage }: MessageInputPr
           placeholder={t("placeholder")}
           className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <Button variant="primary" href="/">{t("send")}</Button>
+        <Button variant="primary" href="/">
+          {t("send")}
+        </Button>
       </div>
     </form>
   );

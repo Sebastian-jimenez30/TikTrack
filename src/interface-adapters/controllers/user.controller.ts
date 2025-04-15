@@ -2,7 +2,7 @@ import { userUseCases } from "@/application/use-cases/user.use-case";
 
 export class UserController {
   async show(userId: number): Promise<{
-    pageData: Object;
+    pageData: object;
   }> {
     let pageData;
     try {
@@ -19,16 +19,16 @@ export class UserController {
           user,
           message: "Perfil obtenido con éxito",
           is_success: true,
-        }
+        };
       }
-      return {pageData};
-    } catch (error) {
+      return { pageData };
+    } catch {
       pageData = {
         user: null,
         message: "Error al obtener el perfil",
         is_success: false,
-      }
-      return {pageData};
+      };
+      return { pageData };
     }
   }
 }

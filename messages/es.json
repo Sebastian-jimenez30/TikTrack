@@ -111,7 +111,7 @@
       "saveTemplate": "Guardar plantilla"
     }
   },
-  
+
   "AuthPage": {
     "signIn": {
       "title": "Iniciar Sesión",
@@ -154,18 +154,18 @@
   },
 
   "TextboxAI": {
-    "buttonAccept": "Aceptar",  
+    "buttonAccept": "Aceptar",
     "buttonCancel": "Cancelar",
     "placeholder": "Escribe tu mensaje aquí...",
     "loading": "Cargando...",
     "enhanced": "Mejorar mensaje con IA",
-    "error":{
+    "error": {
       "inputEmpty": "El campo de mensaje está vacío",
       "general": "Ocurrió un error al procesar tu solicitud"
     }
   },
 
-  "OpenAIService":{
+  "OpenAIService": {
     "error": {
       "noResponse": "No hay respuesta de la API de OpenAI",
       "general": "Ocurrió un error al procesar tu solicitud"

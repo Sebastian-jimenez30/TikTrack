@@ -3,14 +3,14 @@ import { InfluencerOverviewPresenter } from "@/interface-adapters/presenters/inf
 
 class HomeController {
   async index(): Promise<{
-    pageData: Object;
+    pageData: object;
   }> {
     const result = await influencerUseCases.list(1, 4);
-    const influencers = result.influencers.map((influencer) => (
+    const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
-    ))
+    );
 
-    const pageData = {influencers: influencers};
+    const pageData = { influencers: influencers };
     return { pageData };
   }
 }

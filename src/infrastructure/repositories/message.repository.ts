@@ -4,12 +4,14 @@ import IMessageRepository from "@/application/repositories/message.repository.in
 import db from "@/infrastructure/database/index";
 
 export default class MessageRepository implements IMessageRepository {
-  async listAll(): Promise<{
-    id: number;
-    content: string;
-    created_at: Date;
-    updated_at: Date;
-  }[]> {
+  async listAll(): Promise<
+    {
+      id: number;
+      content: string;
+      created_at: Date;
+      updated_at: Date;
+    }[]
+  > {
     return await db.select().from(messagesTable);
   }
 
@@ -19,14 +21,14 @@ export default class MessageRepository implements IMessageRepository {
     created_at: Date;
     updated_at: Date;
   }> {
-    const response = await db
-      .insert(messagesTable)
-      .values(message)
-      .returning();
+    const response = await db.insert(messagesTable).values(message).returning();
     return response[0];
   }
 
-  async update(id: number, message: { content: string }): Promise<{
+  async update(
+    id: number,
+    message: { content: string }
+  ): Promise<{
     id: number;
     content: string;
     created_at: Date;

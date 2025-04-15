@@ -1,13 +1,12 @@
-import { getTranslations } from "next-intl/server";
-import Image from "next/image";
-import Button from "~/app/components/button";
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import FeatureCard from "~/app/components/cards/feature.card";
-import FireIcon from "~/app/components/icons/fire.icon";
 import InfluencerSlider from "~/app/components/home/influencerSlider";
-import { Influencer } from "@/domain/entities/influencer";
+import Button from "~/app/components/button";
+import FireIcon from "~/app/components/icons/fire.icon";
+import Image from "next/image";
 import axios from "axios";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata() {
   const t = await getTranslations("HomeIndexPage");
@@ -21,7 +20,7 @@ export async function generateMetadata() {
 export default async function Index() {
   const t = await getTranslations("HomeIndexPage");
   const pageData = (await axios.get(ROUTES_API.HOME_INDEX)).data.pageData;
-  const influencers = pageData.influencers
+  const influencers = pageData.influencers;
 
   return (
     <div>

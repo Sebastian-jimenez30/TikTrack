@@ -83,7 +83,7 @@
       "delete": "Delete",
       "customize": "Customize",
       "edit": "Edit",
-      "cancel": "Cancel"     
+      "cancel": "Cancel"
     }
   },
 
@@ -114,7 +114,7 @@
       "saveTemplate": "Save Template"
     }
   },
-  
+
   "AuthPage": {
     "signIn": {
       "title": "Sign In",
@@ -156,19 +156,19 @@
     "fetchError": "Could not fetch user information."
   },
 
-  "TextboxAI":{
-    "buttonAccept": "Accept",  
+  "TextboxAI": {
+    "buttonAccept": "Accept",
     "buttonCancel": "Cancel",
     "placeholder": "Write your message here...",
     "loading": "Loading...",
     "enhanced": "Enhance message with AI",
-    "error":{
+    "error": {
       "inputEmpty": "The message field is empty",
       "general": "An error occurred while processing your request"
     }
   },
 
-  "OpenAIService":{
+  "OpenAIService": {
     "error": {
       "noResponse": "No response from OpenAI API",
       "general": "An error occurred while processing your request"

@@ -4,12 +4,7 @@ class Message {
   created_at: Date;
   updated_at: Date;
 
-  constructor(
-    id: number,
-    content: string,
-    created_at: Date,
-    updated_at: Date
-  ) {
+  constructor(id: number, content: string, created_at: Date, updated_at: Date) {
     this.id = id;
     this.content = content;
     this.created_at = created_at;
