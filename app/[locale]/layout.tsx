@@ -14,7 +14,7 @@ import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
 import Footer from "~/app/components/footer";
-
+import jwtUtil from "@/shared/utils/jwt.util";
 import { cookies } from "next/headers";
 
 interface LocaleProps {
@@ -35,7 +35,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   const token = (await cookies()).get("authToken")?.value;
-  const isAuthenticated = !!token;
+
+  let isAuthenticated = false
+
+  if(token && !jwtUtil.isTokenExpired(token)) {
+    isAuthenticated = true
+  }
 
   return (
     <html lang={locale}>
