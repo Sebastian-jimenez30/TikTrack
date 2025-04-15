@@ -2,7 +2,7 @@
 import { useTranslations } from "next-intl";
 import { useState, ChangeEvent } from "react";
 import ErrorCard from "~/app/components/cards/error.card";
-import ROUTES from "~/constants/urls/api.urls";
+import ROUTES_API from "~/constants/urls/api.urls";
 export default function TextboxWithService() {
   const t = useTranslations("TextboxAI");
 
@@ -28,7 +28,7 @@ export default function TextboxWithService() {
     setShowConfirmation(false);
 
     try {
-      const res = await fetch(ROUTES.OPENAI, {
+      const res = await fetch(ROUTES_API.OPENAI, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
