@@ -1,3 +1,5 @@
+export type Status = "active" | "inactive";
+
 class Influencer {
   id: number;
   username: string;
@@ -12,6 +14,7 @@ class Influencer {
   followers: number;
   city: string;
   featuredVideos: string[];
+  status: Status;
   createdAt: Date;
   updatedAt: Date;
   engagementVisualizationRate: number;
@@ -30,6 +33,7 @@ class Influencer {
     followers: number,
     city: string,
     featuredVideos: string[],
+    status: Status,
     createdAt: Date,
     updatedAt: Date
   ) {
@@ -46,6 +50,7 @@ class Influencer {
     this.followers = followers;
     this.city = city;
     this.featuredVideos = featuredVideos;
+    this.status = status;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.engagementVisualizationRate =
@@ -145,6 +150,10 @@ class Influencer {
     return this.featuredVideos;
   }
 
+  getStatus(): Status {
+    return this.status;
+  }
+
   getCreatedAt(): string {
     return this.createdAt.toLocaleDateString();
   }
@@ -209,6 +218,10 @@ class Influencer {
     this.featuredVideos = featuredVideos;
   }
 
+  setStatus(status: Status): void {
+    this.status = status;
+  }
+
   setCreatedAt(createdAt: Date): void {
     this.createdAt = createdAt;
   }
@@ -221,5 +234,4 @@ class Influencer {
     this.engagementVisualizationRate = engagementVisualizationRate;
   }
 }
-
 export { Influencer };
