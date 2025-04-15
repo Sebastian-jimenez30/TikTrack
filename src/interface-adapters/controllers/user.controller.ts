@@ -1,24 +1,34 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 
 export class UserController {
-  async getProfile(userId: number): Promise<{
-    user: any;
-    message: string;
-    is_success: boolean;
+  async show(userId: number): Promise<{
+    pageData: Object;
   }> {
+    let pageData;
     try {
       const user = await userUseCases.getProfile(userId);
-      return {
-        user,
-        message: "Perfil obtenido con éxito",
-        is_success: true,
-      };
+
+      if (!user) {
+        pageData = {
+          user: null,
+          message: "Usuario no encontrado",
+          is_success: false,
+        };
+      } else {
+        pageData = {
+          user,
+          message: "Perfil obtenido con éxito",
+          is_success: true,
+        }
+      }
+      return {pageData};
     } catch (error) {
-      return {
+      pageData = {
         user: null,
         message: "Error al obtener el perfil",
         is_success: false,
-      };
+      }
+      return {pageData};
     }
   }
 }
