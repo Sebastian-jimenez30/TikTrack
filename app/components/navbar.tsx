@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "~/i18n/routing";
 import Image from "next/image";
-import Button from "./button";
+import Button from "./buttons/button";
 import ROUTES from "~/constants/urls/urls";
 import { logout } from "@/shared/utils/auth.util";
 import LogoutIcon from "./icons/logout.icon";
