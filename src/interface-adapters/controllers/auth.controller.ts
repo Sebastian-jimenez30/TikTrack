@@ -6,24 +6,20 @@ export class AuthController {
     password: string,
     name: string
   ): Promise<{
-    token: string | null;
-    message: string;
-    is_success: boolean;
+    pageData: Object;
   }> {
     const pageData = await authUseCases.signUp(email, password, name);
-    return pageData;
+    return {pageData};
   }
 
   async logIn(
     email: string,
     password: string
   ): Promise<{
-    token: string | null;
-    message: string;
-    is_success: boolean;
+    pageData: Object;
   }> {
     const pageData = await authUseCases.logIn(email, password);
-    return pageData;
+    return {pageData};
   }
 }
 
