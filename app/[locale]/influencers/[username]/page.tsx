@@ -1,7 +1,8 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
-import Button from "~/app/components/button";
+import Button from "~/app/components/buttons/button";
+import RedirectButton from "~/app/components/buttons/redirect.button";
 import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
 import DiskIcon from "~/app/components/icons/disk.icon";
@@ -9,7 +10,9 @@ import EyeIcon from "~/app/components/icons/eye.icon";
 import HeartIcon from "~/app/components/icons/heart.icon";
 import ShareIcon from "~/app/components/icons/share.icon";
 import MapPinIcon from "~/app/components/icons/location.icon";
+import jwtUtil from "@/shared/utils/jwt.util";
 import Image from "next/image";
+import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import axios from "axios";
 
@@ -28,6 +31,14 @@ export async function generateMetadata() {
 
 export default async function Show({ params }: ShowProps) {
   const t = await getTranslations("InfluencersShowPage");
+
+  const cookiesData = await cookies();
+  const token = cookiesData.get("authToken")?.value;
+
+  let isAdmin = false;
+  if (token && !jwtUtil.isTokenExpired(token)) {
+    isAdmin = jwtUtil.isAdmin(token);
+  }
 
   const pathParams = await params;
   const pageData = (
@@ -80,6 +91,19 @@ export default async function Show({ params }: ShowProps) {
                   <Button href={ROUTES.MESSAGES} variant="primary">
                     {t("message")}
                   </Button>
+
+                  {isAdmin && (
+                    <RedirectButton
+                      variant="secondary"
+                      redirect={ROUTES.INFLUENCERS}
+                      actionUrl={
+                        ROUTES_API.INFLUENCER_DEACTIVATE +
+                        "?username=" +
+                        influencer.username
+                      }
+                      value={t("deactivate")}
+                    />
+                  )}
                 </div>
               </div>
             </div>
