@@ -11,9 +11,11 @@ import Image from "next/image";
 import MapPinIcon from "~/app/components/icons/location.icon";
 import Button from "~/app/components/button";
 import ROUTES from "~/constants/urls/urls";
+import axios from "axios";
+import ROUTES_API from "~/constants/urls/api.urls";
 
 interface ShowProps {
-  params: Promise<{ username: string }>;
+  params: { username: string };
 }
 
 export async function generateMetadata() {
@@ -27,8 +29,9 @@ export async function generateMetadata() {
 
 export default async function Show({ params }: ShowProps) {
   const t = await getTranslations("InfluencersShowPage");
-  const pageData = await influencerController.show({ params });
 
+  const pathParams = await params;
+  const pageData = (await axios.post(ROUTES_API.INFLUENCER_SHOW, {username: pathParams.username})).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {
     return null;
   }
@@ -45,8 +48,8 @@ export default async function Show({ params }: ShowProps) {
                 <div className="flex gap-4 flex-col items-center">
                   <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32 flex items-center justify-center">
                     <Image
-                      src={influencer.getProfilePicture()}
-                      alt={influencer.getUsername()}
+                      src={influencer.profilePicture}
+                      alt={influencer.username}
                       width={100}
                       height={100}
                       className="w-24 h-24 mt-3 rounded-full shadow-lg"
@@ -55,18 +58,18 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
-                      {influencer.getProfileName()}
+                      {influencer.profileName}
                     </a>
                     <a
-                      href={influencer.getProfileUrl()}
+                      href={influencer.profileUrl}
                       className="text-center border-b border-transparent hover:border-purple transition"
                     >
-                      @{influencer.getUsername()}
+                      @{influencer.username}
                     </a>
                     <p className="text-black text-base font-normal leading-normal text-center">
                       <MapPinIcon className="text-lightPurple" />{" "}
-                      {influencer.getCity()} |{" "}
-                      {influencer.getFormattedFollowers()} {t("followers")}
+                      {influencer.city} |{" "}
+                      {influencer.followers} {t("followers")}
                     </p>
                   </div>
                 </div>
@@ -84,27 +87,27 @@ export default async function Show({ params }: ShowProps) {
               <MetricCard
                 icon={<HeartIcon className="text-lightPurple text-2xl" />}
                 title={t("likes")}
-                value={influencer.getFormattedAverageLikes().toString()}
+                value={influencer.averageLikes.toString()}
               />
               <MetricCard
                 icon={<CommentIcon className="text-lightPurple text-2xl" />}
                 title={t("comments")}
-                value={influencer.getFormattedAverageComments().toString()}
+                value={influencer.averageComments.toString()}
               />
               <MetricCard
                 icon={<ShareIcon className="text-lightPurple text-2xl" />}
                 title={t("shares")}
-                value={influencer.getFormattedAverageShares().toString()}
+                value={influencer.averageShares.toString()}
               />
               <MetricCard
                 icon={<DiskIcon className="text-lightPurple text-2xl" />}
                 title={t("saves")}
-                value={influencer.getFormattedAverageSaves().toString()}
+                value={influencer.averageSaves.toString()}
               />
               <MetricCard
                 icon={<EyeIcon className="text-lightPurple text-2xl" />}
                 title={t("views")}
-                value={influencer.getFormattedAverageViews().toString()}
+                value={influencer.averageViews.toString()}
               />
             </div>
             <div className="flex flex-col gap-3 p-4">
@@ -113,14 +116,14 @@ export default async function Show({ params }: ShowProps) {
                   {t("engagementVisualizationRate")}
                 </p>
                 <p className="text-black text-sm font-normal leading-normal">
-                  {influencer.getEngagementVisualizationRate()}%
+                  {influencer.engagementVisualizationRate}%
                 </p>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   className="bg-purple h-2.5 rounded-full"
                   style={{
-                    width: influencer.getEngagementVisualizationRate() + "%",
+                    width: influencer.engagementVisualizationRate + "%",
                   }}
                 ></div>
               </div>
@@ -129,7 +132,7 @@ export default async function Show({ params }: ShowProps) {
               {t("videos")}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 p-4 place-items-center">
-              {influencer.getFeaturedVideos().map((videoId) => {
+              {influencer.featuredVideos.map((videoId: string) => {
                 return (
                   <div key={videoId}>
                     <Video id={videoId} />
