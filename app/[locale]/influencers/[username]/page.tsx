@@ -52,7 +52,6 @@ export default async function Show({ params }: ShowProps) {
   }
   
   const influencer = pageData.influencer;
-  console.log(influencer)
   const isInfluencerActive = influencer.status==="active";
 
   return (
