@@ -3,13 +3,10 @@
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-interface NotificationProps {
-  type: "error" | "warning" | "info" | "success" | "default";
-}
-
-export default function Notification({ type }: NotificationProps) {
+export default function NotificationSessionStorage() {
   useEffect(() => {
     const message = sessionStorage.getItem("notification");
+    const type = sessionStorage.getItem("notificationType");
     if (message) {
       if (type === "error") {
         toast.error(message);
@@ -24,7 +21,7 @@ export default function Notification({ type }: NotificationProps) {
       }
       sessionStorage.removeItem("notification");
     }
-  }, [type]);
+  }, []);
 
   return null;
 }

@@ -175,7 +175,8 @@
     "error": {
       "inputEmpty": "El campo de mensaje está vacío",
       "general": "Ocurrió un error al procesar tu solicitud"
-    }
+    },
+    "success": "Respuesta generada con éxito"
   },
 
   "OpenAIService": {

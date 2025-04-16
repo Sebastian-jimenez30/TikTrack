@@ -4,13 +4,11 @@
       "title": "Home",
       "description": "Discover the influencer who will help you boost your reach and maximize your impact."
     },
-
     "homeSection": {
       "title": "Find the best influencers in Colombia",
       "description": "Discover and contact the most relevant influencers in the country in one place. Use TikTrack to explore authentic profiles, know their impact and easily send them messages.",
       "button": "List influencers"
     },
-
     "featureSection": {
       "title": "Features",
       "subtitle": "Discover TikTrack features",
@@ -27,7 +25,6 @@
         "description": "Send messages and collaborate with influencers without complications."
       }
     },
-
     "influencerSection": {
       "title": "Top Influencers",
       "subtitle": "Discover the top influencers in your city and start collaborating with them."
@@ -178,7 +175,8 @@
     "error": {
       "inputEmpty": "The message field is empty",
       "general": "An error occurred while processing your request"
-    }
+    },
+    "success": "Response received successfully"
   },
 
   "OpenAIService": {

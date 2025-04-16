@@ -34,9 +34,11 @@ export default function RedirectButton({
 
     if (result.isSuccess) {
       sessionStorage.setItem("notification", messages.success);
+      sessionStorage.setItem("notificationType", "success");
       router.push(`/${locale}${redirect}`);
     } else {
       sessionStorage.setItem("notification", messages.error);
+      sessionStorage.setItem("notificationType", "error");
       router.push(pathname);
     }
   };

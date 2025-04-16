@@ -6,7 +6,7 @@ import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
-import Notification from "~/app/components/notification";
+import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -52,7 +52,7 @@ export default async function Index({
 
   return (
     <div>
-      <Notification type="success" />
+      <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
