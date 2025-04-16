@@ -42,6 +42,14 @@
     "title": "Top Influencers"
   },
 
+  "InfluencersDisabledPage": {
+    "metadata": {
+      "title": "Disabled Influencers",
+      "description": "Find the disabled influencers"
+    },
+    "title": "Disabled Influencers"
+  },
+
   "InfluencersShowPage": {
     "metadata": {
       "title": "Detail influencer",
@@ -57,7 +65,8 @@
     "views": "Views",
     "engagementVisualizationRate": "Engagement Visualization Rate",
     "videos": "Videos",
-    "deactivate": "Deactivate"
+    "deactivate": "Deactivate",
+    "activate": "Activate"
   },
 
   "NavBar": {
@@ -65,7 +74,8 @@
     "influencers": "Influencers",
     "getStarted": "Get Started",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "influencersDisabled": "Disabled"
   },
 
   "Footer": {
@@ -173,6 +183,23 @@
     "error": {
       "noResponse": "No response from OpenAI API",
       "general": "An error occurred while processing your request"
+    }
+  },
+
+  "NotFoundPage": {
+    "metadata":{
+      "title": "Page Not Found",
+      "description": "The page you are looking for does not exist."
+    },
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "goBack": "Go Back"
+  },
+
+  "LayoutPage": {
+    "metadata": {
+      "title": "TikTrack",
+      "description": "Discover the influencer who will help you boost your reach and maximize your impact."
     }
   }
 }

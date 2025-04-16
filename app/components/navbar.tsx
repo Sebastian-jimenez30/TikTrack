@@ -10,10 +10,11 @@ import LogoutIcon from "./icons/logout.icon";
 
 interface NavBarProps {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   locale: string;
 }
 
-export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
+export default function NavBar({ isAuthenticated, isAdmin, locale }: NavBarProps) {
   const t = useTranslations("NavBar");
 
   return (
@@ -84,6 +85,11 @@ export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
             <li>
               <Link className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200" href={ROUTES.INFLUENCERS}> {t("influencers")} </Link>
             </li>
+            {isAdmin && (
+              <li>
+                <Link className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200" href={ROUTES.INFLUENCERS_DISABLED}> {t("influencersDisabled")} </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

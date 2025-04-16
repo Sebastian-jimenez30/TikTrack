@@ -39,6 +39,14 @@
     "title": "Influencers Destacados"
   },
 
+  "InfluencersDisabledPage": {
+    "metadata": {
+      "title": "Influencers Desactivados",
+      "description": "Encuentra los influencers desactivados"
+    },
+    "title": "Influencers Desactivados"
+  },
+
   "InfluencersShowPage": {
     "metadata": {
       "title": "Detalle del influencer",
@@ -54,7 +62,8 @@
     "views": "Vistas",
     "engagementVisualizationRate": "Tasa de participación y visualización",
     "videos": "Videos",
-    "deactivate": "Desactivar"
+    "deactivate": "Desactivar",
+    "activate": "Activar"
   },
 
   "NavBar": {
@@ -62,7 +71,8 @@
     "influencers": "Influencers",
     "getStarted": "Comenzar",
     "profile": "Perfil",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "influencersDisabled": "Desactivados"
   },
 
   "Footer": {
@@ -170,6 +180,23 @@
     "error": {
       "noResponse": "No hay respuesta de la API de OpenAI",
       "general": "Ocurrió un error al procesar tu solicitud"
+    }
+  },
+
+  "NotFoundPage": {
+    "metadata":{
+      "title": "Página No Encontrada",
+      "description": "La página que buscas no existe."
+    },
+    "title": "Página No Encontrada",
+    "description": "La página que buscas no existe.",
+    "goBack": "Regresar"
+  },
+
+  "LayoutPage": {
+    "metadata": {
+      "title": "TikTrack",
+      "description": "La plataforma para encontrar influencers."
     }
   }
 }
