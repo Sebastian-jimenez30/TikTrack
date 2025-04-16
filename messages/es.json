@@ -63,7 +63,9 @@
     "engagementVisualizationRate": "Tasa de participación y visualización",
     "videos": "Videos",
     "deactivate": "Desactivar",
-    "activate": "Activar"
+    "activate": "Activar",
+    "success": "Proceso completado con éxito",
+    "error": "Ocurrió un error al procesar tu solicitud"
   },
 
   "NavBar": {

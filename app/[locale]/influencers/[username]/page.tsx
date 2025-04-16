@@ -105,6 +105,10 @@ export default async function Show({ params }: ShowProps) {
                           influencer.username
                         }
                         value={t("deactivate")}
+                        messages={{
+                          success: t("success"),
+                          error: t("error"),
+                        }}
                       />
                     ) : (
                       <RedirectButton
@@ -116,6 +120,10 @@ export default async function Show({ params }: ShowProps) {
                           influencer.username
                         }
                         value={t("activate")}
+                        messages={{
+                          success: t("success"),
+                          error: t("error"),
+                        }}
                       />
                     )
                   )}

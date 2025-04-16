@@ -12,6 +12,10 @@ interface RedirectButtonProps {
   redirect: Pathname;
   actionUrl: string;
   value: string;
+  messages:{
+    success: string;
+    error: string;
+  }
 }
 
 export default function RedirectButton({
@@ -19,6 +23,7 @@ export default function RedirectButton({
   redirect,
   actionUrl,
   value,
+  messages,
 }: RedirectButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
@@ -28,8 +33,10 @@ export default function RedirectButton({
     const result = (await axios.patch(`${actionUrl}`)).data.pageData;
 
     if (result.isSuccess) {
+      sessionStorage.setItem("notification", messages.success);
       router.push(`/${locale}${redirect}`);
     } else {
+      sessionStorage.setItem("notification", messages.error);
       router.push(pathname);
     }
   };

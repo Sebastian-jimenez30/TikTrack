@@ -37,6 +37,7 @@
     "react-slick": "^0.30.3",
     "reflect-metadata": "^0.2.2",
     "slick-carousel": "^1.8.1",
+    "sonner": "^2.0.3",
     "tiktrack": "file:"
   },
   "devDependencies": {

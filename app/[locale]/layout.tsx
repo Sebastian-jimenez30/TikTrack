@@ -16,6 +16,7 @@ import NavBar from "~/app/components/navbar";
 import Footer from "~/app/components/footer";
 import jwtUtil from "@/shared/utils/jwt.util";
 import { cookies } from "next/headers";
+import { Toaster } from "sonner";
 
 interface LocaleProps {
   children: React.ReactNode;
@@ -66,6 +67,7 @@ export default async function LocaleLayout({
       <body className="">
         <NextIntlClientProvider messages={messages}>
           <NavBar isAuthenticated={isAuthenticated} isAdmin={isAdmin} locale={locale} />
+          <Toaster richColors position="top-right"/>
           {children}
           <Footer />
         </NextIntlClientProvider>
