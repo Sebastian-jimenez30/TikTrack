@@ -1,4 +1,4 @@
-import { Influencer } from "@/domain/entities/influencer";
+import { Influencer, Status } from "@/domain/entities/influencer";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
@@ -158,7 +158,7 @@ export class InfluencerUseCases {
     }
   }
 
-  async updateStatus(username: string): Promise<{ isSuccess: boolean }> {
+  async updateStatus(username: string, status:Status): Promise<{ isSuccess: boolean }> {
     const repository = repositoryContainer.get<IInfluencerRepository>(
       "IInfluencerRepository"
     );
@@ -170,7 +170,7 @@ export class InfluencerUseCases {
       };
     }
 
-    influencer.status = "inactive";
+    influencer.status = status;
     await repository.update(influencer);
 
     return {

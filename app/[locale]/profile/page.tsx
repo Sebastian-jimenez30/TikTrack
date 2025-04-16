@@ -20,7 +20,7 @@ export default async function ProfilePage() {
 
   let userId;
   try {
-    userId = jwtUtil.getUserIdFromToken(token);
+    userId = await jwtUtil.getUserIdFromToken(token);
   } catch {
     return (
       <div className="flex flex-col items-center justify-center h-screen">

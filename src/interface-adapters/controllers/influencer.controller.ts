@@ -1,6 +1,7 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { InfluencerOverviewPresenter } from "@/interface-adapters/presenters/influencer/influencer.overview.presenter";
 import { InfluencerDetailPresenter } from "@/interface-adapters/presenters/influencer/influencer.detail.presenter";
+import { Status } from "@/domain/entities/influencer";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -15,6 +16,10 @@ interface DisabledProps {
 }
 
 interface DeactivateProps {
+  params: { username: string | null };
+}
+
+interface ActivateProps {
   params: { username: string | null };
 }
 
@@ -68,7 +73,7 @@ class InfluencerController {
     return { pageData };
   }
 
-  async disabled({ searchParams }: IndexProps): Promise<{
+  async disabled({ searchParams }: DisabledProps): Promise<{
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
@@ -108,7 +113,29 @@ class InfluencerController {
       };
       return { pageData };
     } else {
-      result = await influencerUseCases.updateStatus(username);
+      result = await influencerUseCases.updateStatus(username, "inactive" as Status);
+
+      const pageData = {
+        isSuccess: result.isSuccess,
+      };
+
+      return { pageData };
+    }
+  }
+
+  async activate({ params }: ActivateProps): Promise<{
+    pageData: object;
+  }> {
+    const { username } = await params;
+    let result;
+    let pageData;
+    if (!username) {
+      pageData = {
+        isSuccess: false,
+      };
+      return { pageData };
+    } else {
+      result = await influencerUseCases.updateStatus(username, "active" as Status);
 
       const pageData = {
         isSuccess: result.isSuccess,

@@ -19,7 +19,7 @@ export default function NavBar({ isAuthenticated, isAdmin, locale }: NavBarProps
 
   return (
     <nav className="bg-white border-gray-200 mb-10">
-      <div className="max-w-screen-xl flex flex-wrap items-center sm:justify-between mx-auto p-4 justify-center">
+      <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 justify-around">
         <Image
           src="/logos/combination-mark.png"
           alt="TikTrack Logo"

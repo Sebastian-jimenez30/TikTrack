@@ -9,6 +9,8 @@ const ROUTES_API = {
   INFLUENCER_DISABLED: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/disabled",
   INFLUENCER_DEACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/deactivate",
+  INFLUENCER_ACTIVATE:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/activate",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
   SIGN_UP: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/sign-up",
   PROFILE_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/profile/show",

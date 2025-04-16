@@ -14,6 +14,7 @@ import jwtUtil from "@/shared/utils/jwt.util";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 import axios from "axios";
 
 interface ShowProps {
@@ -36,10 +37,10 @@ export default async function Show({ params }: ShowProps) {
   const token = cookiesData.get("authToken")?.value;
 
   let isAdmin = false;
-  if (token && !jwtUtil.isTokenExpired(token)) {
-    isAdmin = jwtUtil.isAdmin(token);
+  if (token && !await jwtUtil.isTokenExpired(token)) {
+    isAdmin = await jwtUtil.isAdmin(token);
   }
-
+  
   const pathParams = await params;
   const pageData = (
     await axios.post(ROUTES_API.INFLUENCER_SHOW, {
@@ -47,10 +48,12 @@ export default async function Show({ params }: ShowProps) {
     })
   ).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {
-    return null;
+    notFound();
   }
-
+  
   const influencer = pageData.influencer;
+  console.log(influencer)
+  const isInfluencerActive = influencer.status==="active";
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -93,16 +96,29 @@ export default async function Show({ params }: ShowProps) {
                   </Button>
 
                   {isAdmin && (
-                    <RedirectButton
-                      variant="secondary"
-                      redirect={ROUTES.INFLUENCERS}
-                      actionUrl={
-                        ROUTES_API.INFLUENCER_DEACTIVATE +
-                        "?username=" +
-                        influencer.username
-                      }
-                      value={t("deactivate")}
-                    />
+                    isInfluencerActive ? (
+                      <RedirectButton
+                        variant="secondary"
+                        redirect={ROUTES.INFLUENCERS}
+                        actionUrl={
+                          ROUTES_API.INFLUENCER_DEACTIVATE +
+                          "?username=" +
+                          influencer.username
+                        }
+                        value={t("deactivate")}
+                      />
+                    ) : (
+                      <RedirectButton
+                        variant="secondary"
+                        redirect={ROUTES.INFLUENCERS}
+                        actionUrl={
+                          ROUTES_API.INFLUENCER_ACTIVATE +
+                          "?username=" +
+                          influencer.username
+                        }
+                        value={t("activate")}
+                      />
+                    )
                   )}
                 </div>
               </div>
