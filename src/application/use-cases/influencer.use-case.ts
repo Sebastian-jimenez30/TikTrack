@@ -158,7 +158,10 @@ export class InfluencerUseCases {
     }
   }
 
-  async updateStatus(username: string, status:Status): Promise<{ isSuccess: boolean }> {
+  async updateStatus(
+    username: string,
+    status: Status
+  ): Promise<{ isSuccess: boolean }> {
     const repository = repositoryContainer.get<IInfluencerRepository>(
       "IInfluencerRepository"
     );

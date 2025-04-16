@@ -12,10 +12,10 @@ interface RedirectButtonProps {
   redirect: Pathname;
   actionUrl: string;
   value: string;
-  messages:{
+  messages: {
     success: string;
     error: string;
-  }
+  };
 }
 
 export default function RedirectButton({

@@ -113,7 +113,10 @@ class InfluencerController {
       };
       return { pageData };
     } else {
-      result = await influencerUseCases.updateStatus(username, "inactive" as Status);
+      result = await influencerUseCases.updateStatus(
+        username,
+        "inactive" as Status
+      );
 
       const pageData = {
         isSuccess: result.isSuccess,
@@ -135,7 +138,10 @@ class InfluencerController {
       };
       return { pageData };
     } else {
-      result = await influencerUseCases.updateStatus(username, "active" as Status);
+      result = await influencerUseCases.updateStatus(
+        username,
+        "active" as Status
+      );
 
       const pageData = {
         isSuccess: result.isSuccess,

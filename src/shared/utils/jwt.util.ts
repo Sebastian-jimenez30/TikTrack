@@ -47,7 +47,7 @@ class JwtUtil {
 
   async isAdmin(token: string): Promise<boolean> {
     const { payload } = await jwtVerify(token, this.secret);
-    return (payload.role === "admin");
+    return payload.role === "admin";
   }
 }
 

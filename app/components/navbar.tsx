@@ -14,7 +14,11 @@ interface NavBarProps {
   locale: string;
 }
 
-export default function NavBar({ isAuthenticated, isAdmin, locale }: NavBarProps) {
+export default function NavBar({
+  isAuthenticated,
+  isAdmin,
+  locale,
+}: NavBarProps) {
   const t = useTranslations("NavBar");
 
   return (
@@ -80,14 +84,32 @@ export default function NavBar({ isAuthenticated, isAdmin, locale }: NavBarProps
         >
           <ul className="flex flex-col font-medium p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white">
             <li>
-              <Link className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200" href={ROUTES.HOME}> {t("home")} </Link>
+              <Link
+                className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                href={ROUTES.HOME}
+              >
+                {" "}
+                {t("home")}{" "}
+              </Link>
             </li>
             <li>
-              <Link className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200" href={ROUTES.INFLUENCERS}> {t("influencers")} </Link>
+              <Link
+                className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                href={ROUTES.INFLUENCERS}
+              >
+                {" "}
+                {t("influencers")}{" "}
+              </Link>
             </li>
             {isAdmin && (
               <li>
-                <Link className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200" href={ROUTES.INFLUENCERS_DISABLED}> {t("influencersDisabled")} </Link>
+                <Link
+                  className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                  href={ROUTES.INFLUENCERS_DISABLED}
+                >
+                  {" "}
+                  {t("influencersDisabled")}{" "}
+                </Link>
               </li>
             )}
           </ul>

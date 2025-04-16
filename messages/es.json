@@ -186,7 +186,7 @@
   },
 
   "NotFoundPage": {
-    "metadata":{
+    "metadata": {
       "title": "Página No Encontrada",
       "description": "La página que buscas no existe."
     },

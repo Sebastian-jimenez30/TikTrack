@@ -32,7 +32,6 @@ export async function generateMetadata() {
   };
 }
 
-
 export default async function LocaleLayout({
   children,
   params,
@@ -47,14 +46,13 @@ export default async function LocaleLayout({
 
   const token = (await cookies()).get("authToken")?.value;
 
-  let isAuthenticated = false
+  let isAuthenticated = false;
   let isAdmin = false;
 
-  if(token && !await jwtUtil.isTokenExpired(token)) {
-    isAuthenticated = true
+  if (token && !(await jwtUtil.isTokenExpired(token))) {
+    isAuthenticated = true;
     isAdmin = await jwtUtil.isAdmin(token);
   }
-
 
   return (
     <html lang={locale}>
@@ -66,8 +64,12 @@ export default async function LocaleLayout({
       </head>
       <body className="">
         <NextIntlClientProvider messages={messages}>
-          <NavBar isAuthenticated={isAuthenticated} isAdmin={isAdmin} locale={locale} />
-          <Toaster richColors position="top-right"/>
+          <NavBar
+            isAuthenticated={isAuthenticated}
+            isAdmin={isAdmin}
+            locale={locale}
+          />
+          <Toaster richColors position="top-right" />
           {children}
           <Footer />
         </NextIntlClientProvider>

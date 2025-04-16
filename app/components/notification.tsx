@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { toast } from "sonner"; 
+import { toast } from "sonner";
 
 interface NotificationProps {
   type: "error" | "warning" | "info" | "success" | "default";
 }
 
-export default function Notification({type}: NotificationProps) {
+export default function Notification({ type }: NotificationProps) {
   useEffect(() => {
     const message = sessionStorage.getItem("notification");
     if (message) {
@@ -24,7 +24,7 @@ export default function Notification({type}: NotificationProps) {
       }
       sessionStorage.removeItem("notification");
     }
-  }, []);
+  }, [type]);
 
   return null;
 }

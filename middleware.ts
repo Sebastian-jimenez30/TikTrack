@@ -4,7 +4,6 @@ import { routing } from "./i18n/routing";
 import jwtUtil from "@/shared/utils/jwt.util";
 const intlMiddleware = createIntlMiddleware(routing);
 
-
 export default async function middleware(request: NextRequest) {
   const response = intlMiddleware(request);
   const { pathname } = request.nextUrl;
@@ -36,16 +35,22 @@ export default async function middleware(request: NextRequest) {
   const notFoundPath = routing.pathnames["/not-found"]?.[locale as "en" | "es"];
   if (pathname.includes("/admin")) {
     if (!token) {
-      return NextResponse.redirect(new URL(`/${locale}${notFoundPath}`, request.url));
+      return NextResponse.redirect(
+        new URL(`/${locale}${notFoundPath}`, request.url)
+      );
     }
     try {
-      const user = await jwtUtil.verifyToken(token); 
+      const user = await jwtUtil.verifyToken(token);
 
       if (user.role !== "admin") {
-        return NextResponse.redirect(new URL(`/${locale}${notFoundPath}`, request.url));
+        return NextResponse.redirect(
+          new URL(`/${locale}${notFoundPath}`, request.url)
+        );
       }
     } catch {
-      return NextResponse.redirect(new URL(`/${locale}${notFoundPath}`, request.url));
+      return NextResponse.redirect(
+        new URL(`/${locale}${notFoundPath}`, request.url)
+      );
     }
   }
 
@@ -53,13 +58,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/",
-    "/(en|es)",
-    "/(en|es)/:path*",
-    "/admin/:path*",
-    "/api/:path*",
-  ],
+  matcher: ["/", "/(en|es)", "/(en|es)/:path*", "/admin/:path*", "/api/:path*"],
 };
-
-
