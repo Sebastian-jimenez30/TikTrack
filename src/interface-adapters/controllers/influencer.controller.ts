@@ -10,6 +10,10 @@ interface ShowProps {
   params: { username: string };
 }
 
+interface DisabledProps {
+  searchParams: { page?: string };
+}
+
 interface DeactivateProps {
   params: { username: string | null };
 }
@@ -59,6 +63,34 @@ class InfluencerController {
     const pageData = {
       influencer,
       haveResults: result.haveResults,
+    };
+
+    return { pageData };
+  }
+
+  async disabled({ searchParams }: IndexProps): Promise<{
+    pageData: object;
+  }> {
+    const resolvedParams = await searchParams;
+
+    const { page } = resolvedParams;
+    const pageNumber = page ? Number(page) : 1;
+
+    const limit = 8;
+
+    const result = await influencerUseCases.listInactive(pageNumber, limit);
+
+    const influencers = result.influencers.map((influencer) =>
+      InfluencerOverviewPresenter.toHttp(influencer)
+    );
+
+    const pageData = {
+      influencers,
+      count: result.count,
+      start: result.start,
+      end: result.end,
+      hasNextPage: result.hasNextPage,
+      hasPreviousPage: result.hasPreviousPage,
     };
 
     return { pageData };

@@ -1,7 +1,7 @@
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
 import { hash, compare } from "bcryptjs";
-import JwtUtil from "@/shared/utils/jwt.util";
+import jwtUtil from "@/shared/utils/jwt.util";
 import { User } from "@/domain/entities/user";
 import { getTranslations } from "next-intl/server";
 export class AuthUseCases {
@@ -44,7 +44,7 @@ export class AuthUseCases {
       updatedAt: Date;
     };
 
-    const token = JwtUtil.generateToken({
+    const token = await jwtUtil.generateToken({
       userId: user.id,
       email: user.email,
       role: user.role,
@@ -107,7 +107,7 @@ export class AuthUseCases {
       userData.updatedAt
     );
 
-    const token = JwtUtil.generateToken({
+    const token = await jwtUtil.generateToken({
       userId: user.id,
       email: user.email,
       role: user.role,

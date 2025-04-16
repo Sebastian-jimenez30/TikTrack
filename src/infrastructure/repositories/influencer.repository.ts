@@ -40,6 +40,39 @@ export default class InfluencerRepository implements IInfluencerRepository {
     return response;
   }
 
+  async listInactivePaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+    const response = await db
+      .select()
+      .from(influencersTable)
+      .where(eq(influencersTable.status, "inactive"))
+      .limit(limit)
+      .offset(offset);
+    return response;
+  }
+
   async findByUsername(username: string): Promise<{
     id: number;
     username: string;
