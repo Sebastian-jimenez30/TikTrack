@@ -6,6 +6,7 @@ const ROUTES_API = {
   HOME_INDEX: NEXT_PUBLIC_BASE_URL_API + "/api/backend/home/index",
   INFLUENCER_INDEX: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/index",
   INFLUENCER_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/show",
+  INFLUENCER_DISABLED: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/disabled",
   INFLUENCER_DEACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/deactivate",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
