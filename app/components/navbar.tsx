@@ -3,22 +3,27 @@
 import { useTranslations } from "next-intl";
 import { Link } from "~/i18n/routing";
 import Image from "next/image";
-import Button from "./button";
+import Button from "./buttons/button";
 import ROUTES from "~/constants/urls/urls";
 import { logout } from "@/shared/utils/auth.util";
 import LogoutIcon from "./icons/logout.icon";
 
 interface NavBarProps {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   locale: string;
 }
 
-export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
+export default function NavBar({
+  isAuthenticated,
+  isAdmin,
+  locale,
+}: NavBarProps) {
   const t = useTranslations("NavBar");
 
   return (
     <nav className="bg-white border-gray-200 mb-10">
-      <div className="max-w-screen-xl flex flex-wrap items-center sm:justify-between mx-auto p-4 justify-center">
+      <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 justify-around">
         <Image
           src="/logos/combination-mark.png"
           alt="TikTrack Logo"
@@ -27,7 +32,7 @@ export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
           className="w-60 h-auto"
           priority={true}
         />
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
+        <div className="flex lg:order-2 space-x-3 lg:space-x-0 rtl:space-x-reverse items-center flex-wrap justify-center">
           {isAuthenticated ? (
             <div className="flex items-center gap-4 bg-gray-100 p-2 rounded-md">
               <Button href={ROUTES.PROFILE} variant="primary">
@@ -52,7 +57,7 @@ export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="my-5 sm:my-0 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="navbar-cta"
             aria-expanded="false"
           >
@@ -74,16 +79,39 @@ export default function NavBar({ isAuthenticated, locale }: NavBarProps) {
           </button>
         </div>
         <div
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
           id="navbar-cta"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <ul className="flex flex-col font-medium p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white">
             <li>
-              <Link href={ROUTES.HOME}> {t("home")} </Link>
+              <Link
+                className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                href={ROUTES.HOME}
+              >
+                {" "}
+                {t("home")}{" "}
+              </Link>
             </li>
             <li>
-              <Link href={ROUTES.INFLUENCERS}> {t("influencers")} </Link>
+              <Link
+                className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                href={ROUTES.INFLUENCERS}
+              >
+                {" "}
+                {t("influencers")}{" "}
+              </Link>
             </li>
+            {isAdmin && (
+              <li>
+                <Link
+                  className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                  href={ROUTES.INFLUENCERS_DISABLED}
+                >
+                  {" "}
+                  {t("influencersDisabled")}{" "}
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -1,14 +1,13 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import InfluencerCard from "~/app/components/cards/influencer.card";
+import ErrorIcon from "~/app/components/icons/error.icon";
 import Pagination from "~/app/components/pagination";
-import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
-import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
-interface IndexProps {
+interface DisabledProps {
   searchParams: { page?: string };
 }
 
@@ -22,7 +21,7 @@ interface InfluencerOverview {
 }
 
 export async function generateMetadata() {
-  const t = await getTranslations("InfluencersIndexPage");
+  const t = await getTranslations("InfluencersDisabledPage");
 
   return {
     title: t("metadata.title"),
@@ -30,10 +29,10 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Index({
+export default async function Disabled({
   searchParams,
-}: IndexProps): Promise<JSX.Element> {
-  const t = await getTranslations("InfluencersIndexPage");
+}: DisabledProps): Promise<JSX.Element> {
+  const t = await getTranslations("InfluencersDisabledPage");
   const safeParams = Object.fromEntries(
     Object.entries(await searchParams).filter(
       ([, value]) => typeof value === "string"
@@ -41,8 +40,9 @@ export default async function Index({
   );
   const query = new URLSearchParams(safeParams).toString();
   const paginationCurrentNumber = parseInt(safeParams.page || "1");
-  const pageData = (await axios.get(ROUTES_API.INFLUENCER_INDEX + `?${query}`))
-    .data.pageData;
+  const pageData = (
+    await axios.get(ROUTES_API.INFLUENCER_DISABLED + `?${query}`)
+  ).data.pageData;
   const influencers = pageData.influencers;
   const count = pageData.count;
   const start = pageData.start;
@@ -52,9 +52,8 @@ export default async function Index({
 
   return (
     <div>
-      <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
-        {t("title")} <FireIcon className="text-lightPurple" />
+        {t("title")} <ErrorIcon className="text-lightPurple"></ErrorIcon>
       </h1>
       <div>
         <div className="flex flex-wrap w-full justify-center sm:justify-baseline">

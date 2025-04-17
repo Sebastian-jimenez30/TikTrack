@@ -2,7 +2,7 @@ import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import FeatureCard from "~/app/components/cards/feature.card";
 import InfluencerSlider from "~/app/components/home/influencerSlider";
-import Button from "~/app/components/button";
+import Button from "~/app/components/buttons/button";
 import FireIcon from "~/app/components/icons/fire.icon";
 import Image from "next/image";
 import axios from "axios";

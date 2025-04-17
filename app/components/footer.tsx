@@ -14,6 +14,7 @@ export default function Footer() {
             alt="TikTrack Logo"
             width={500}
             height={500}
+            className="w-60 h-auto"
             priority={true}
           />
         </div>

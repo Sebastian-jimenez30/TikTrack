@@ -39,6 +39,14 @@
     "title": "Influencers Destacados"
   },
 
+  "InfluencersDisabledPage": {
+    "metadata": {
+      "title": "Influencers Desactivados",
+      "description": "Encuentra los influencers desactivados"
+    },
+    "title": "Influencers Desactivados"
+  },
+
   "InfluencersShowPage": {
     "metadata": {
       "title": "Detalle del influencer",
@@ -53,7 +61,11 @@
     "saves": "Guardados",
     "views": "Vistas",
     "engagementVisualizationRate": "Tasa de participación y visualización",
-    "videos": "Videos"
+    "videos": "Videos",
+    "deactivate": "Desactivar",
+    "activate": "Activar",
+    "success": "Proceso completado con éxito",
+    "error": "Ocurrió un error al procesar tu solicitud"
   },
 
   "NavBar": {
@@ -61,7 +73,8 @@
     "influencers": "Influencers",
     "getStarted": "Comenzar",
     "profile": "Perfil",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "influencersDisabled": "Desactivados"
   },
 
   "Footer": {
@@ -162,13 +175,31 @@
     "error": {
       "inputEmpty": "El campo de mensaje está vacío",
       "general": "Ocurrió un error al procesar tu solicitud"
-    }
+    },
+    "success": "Respuesta generada con éxito"
   },
 
   "OpenAIService": {
     "error": {
       "noResponse": "No hay respuesta de la API de OpenAI",
       "general": "Ocurrió un error al procesar tu solicitud"
+    }
+  },
+
+  "NotFoundPage": {
+    "metadata": {
+      "title": "Página No Encontrada",
+      "description": "La página que buscas no existe."
+    },
+    "title": "Página No Encontrada",
+    "description": "La página que buscas no existe.",
+    "goBack": "Regresar"
+  },
+
+  "LayoutPage": {
+    "metadata": {
+      "title": "TikTrack",
+      "description": "La plataforma para encontrar influencers."
     }
   }
 }

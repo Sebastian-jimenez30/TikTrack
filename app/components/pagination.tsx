@@ -29,6 +29,8 @@ export default function Pagination({
 
   const disabledClasses = "opacity-50 cursor-not-allowed";
 
+  start = totalElements === 0 ? 0 : start;
+
   return (
     <div className="flex flex-col items-center my-5">
       <span className="text-sm text-gray-700">

@@ -23,9 +23,16 @@ export const routing = defineRouting({
       en: "/messages",
       es: "/mensajes",
     },
+    "/admin/influencers/disabled": {
+      en: "/admin/influencers/disabled",
+      es: "/admin/creadores-de-contenido/desactivados",
+    },
+    "/not-found": {
+      en: "/not-found",
+      es: "/no-encontrado",
+    },
     "/sign-in": { en: "/sign-in", es: "/iniciar-sesion" },
     "/sign-up": { en: "/sign-up", es: "/registrarse" },
-
     "/profile": { en: "/profile", es: "/perfil" },
   },
 });

@@ -5,7 +5,13 @@ import {
   varchar,
   timestamp,
   json,
+  pgEnum,
 } from "drizzle-orm/pg-core";
+
+export const influencerStatusEnum = pgEnum("influencer_status", [
+  "active",
+  "inactive",
+]);
 
 export const influencersTable = pgTable("influencers", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
@@ -21,6 +27,7 @@ export const influencersTable = pgTable("influencers", {
   followers: integer("followers").notNull(),
   city: varchar("city", { length: 100 }).notNull(),
   featuredVideos: json("featured_videos").$type<string[]>().notNull(),
+  status: influencerStatusEnum("status").default("active").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .defaultNow()

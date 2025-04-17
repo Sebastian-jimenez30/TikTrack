@@ -1,7 +1,8 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
-import Button from "~/app/components/button";
+import Button from "~/app/components/buttons/button";
+import RedirectButton from "~/app/components/buttons/redirect.button";
 import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
 import DiskIcon from "~/app/components/icons/disk.icon";
@@ -9,8 +10,11 @@ import EyeIcon from "~/app/components/icons/eye.icon";
 import HeartIcon from "~/app/components/icons/heart.icon";
 import ShareIcon from "~/app/components/icons/share.icon";
 import MapPinIcon from "~/app/components/icons/location.icon";
+import jwtUtil from "@/shared/utils/jwt.util";
 import Image from "next/image";
+import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 import axios from "axios";
 
 interface ShowProps {
@@ -29,6 +33,14 @@ export async function generateMetadata() {
 export default async function Show({ params }: ShowProps) {
   const t = await getTranslations("InfluencersShowPage");
 
+  const cookiesData = await cookies();
+  const token = cookiesData.get("authToken")?.value;
+
+  let isAdmin = false;
+  if (token && !(await jwtUtil.isTokenExpired(token))) {
+    isAdmin = await jwtUtil.isAdmin(token);
+  }
+
   const pathParams = await params;
   const pageData = (
     await axios.post(ROUTES_API.INFLUENCER_SHOW, {
@@ -36,10 +48,11 @@ export default async function Show({ params }: ShowProps) {
     })
   ).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {
-    return null;
+    notFound();
   }
 
   const influencer = pageData.influencer;
+  const isInfluencerActive = influencer.status === "active";
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -80,6 +93,39 @@ export default async function Show({ params }: ShowProps) {
                   <Button href={ROUTES.MESSAGES} variant="primary">
                     {t("message")}
                   </Button>
+
+                  {isAdmin &&
+                    (isInfluencerActive ? (
+                      <RedirectButton
+                        variant="secondary"
+                        redirect={ROUTES.INFLUENCERS}
+                        actionUrl={
+                          ROUTES_API.INFLUENCER_DEACTIVATE +
+                          "?username=" +
+                          influencer.username
+                        }
+                        value={t("deactivate")}
+                        messages={{
+                          success: t("success"),
+                          error: t("error"),
+                        }}
+                      />
+                    ) : (
+                      <RedirectButton
+                        variant="secondary"
+                        redirect={ROUTES.INFLUENCERS}
+                        actionUrl={
+                          ROUTES_API.INFLUENCER_ACTIVATE +
+                          "?username=" +
+                          influencer.username
+                        }
+                        value={t("activate")}
+                        messages={{
+                          success: t("success"),
+                          error: t("error"),
+                        }}
+                      />
+                    ))}
                 </div>
               </div>
             </div>

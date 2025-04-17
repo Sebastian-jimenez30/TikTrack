@@ -1,5 +1,7 @@
+import { Status } from "@/domain/entities/influencer";
+
 export default interface IInfluencerRepository {
-  listPaginated(
+  listActivePaginated(
     pageNumber: number,
     limit: number
   ): Promise<
@@ -17,6 +19,30 @@ export default interface IInfluencerRepository {
       followers: number;
       city: string;
       featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+  listInactivePaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
       createdAt: Date;
       updatedAt: Date;
     }[]
@@ -35,10 +61,13 @@ export default interface IInfluencerRepository {
     followers: number;
     city: string;
     featuredVideos: string[];
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null>;
-  count(): Promise<number>;
+
+  countActive(): Promise<number>;
+  countInactive(): Promise<number>;
 
   create(influencer: {
     username: string;
@@ -53,5 +82,24 @@ export default interface IInfluencerRepository {
     followers: number;
     city: string;
     featuredVideos: string[];
+  }): Promise<void>;
+
+  update(influencer: {
+    id: number;
+    username: string;
+    profileName: string;
+    profilePicture: string;
+    profileUrl: string;
+    averageLikes: number;
+    averageComments: number;
+    averageShares: number;
+    averageSaves: number;
+    averageViews: number;
+    followers: number;
+    city: string;
+    featuredVideos: string[];
+    status: Status;
+    createdAt: Date;
+    updatedAt: Date;
   }): Promise<void>;
 }

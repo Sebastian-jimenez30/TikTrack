@@ -2,7 +2,7 @@
 
 import { JSX } from "react";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -14,12 +14,22 @@ import { routing } from "~/i18n/routing";
 import { Locale } from "~/i18n/routing";
 import NavBar from "~/app/components/navbar";
 import Footer from "~/app/components/footer";
-
+import jwtUtil from "@/shared/utils/jwt.util";
 import { cookies } from "next/headers";
+import { Toaster } from "sonner";
 
 interface LocaleProps {
   children: React.ReactNode;
   params: { locale: string };
+}
+
+export async function generateMetadata() {
+  const t = await getTranslations("LayoutPage");
+
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
 }
 
 export default async function LocaleLayout({
@@ -35,7 +45,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   const token = (await cookies()).get("authToken")?.value;
-  const isAuthenticated = !!token;
+
+  let isAuthenticated = false;
+  let isAdmin = false;
+
+  if (token && !(await jwtUtil.isTokenExpired(token))) {
+    isAuthenticated = true;
+    isAdmin = await jwtUtil.isAdmin(token);
+  }
 
   return (
     <html lang={locale}>
@@ -47,7 +64,12 @@ export default async function LocaleLayout({
       </head>
       <body className="">
         <NextIntlClientProvider messages={messages}>
-          <NavBar isAuthenticated={isAuthenticated} locale={locale} />
+          <NavBar
+            isAuthenticated={isAuthenticated}
+            isAdmin={isAdmin}
+            locale={locale}
+          />
+          <Toaster richColors position="top-right" />
           {children}
           <Footer />
         </NextIntlClientProvider>

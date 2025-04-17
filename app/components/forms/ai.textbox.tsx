@@ -1,7 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { useState, ChangeEvent } from "react";
-import ErrorCard from "~/app/components/cards/error.card";
+import { toast } from "sonner";
 import ROUTES_API from "~/constants/urls/api.urls";
 export default function TextboxWithService() {
   const t = useTranslations("TextboxAI");
@@ -11,7 +11,6 @@ export default function TextboxWithService() {
   const [serviceText, setServiceText] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleTextBoxChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextBoxValue(e.target.value);
@@ -20,7 +19,7 @@ export default function TextboxWithService() {
   const handleClick = async () => {
     if (isLoading) return;
     if (!textBoxValue) {
-      setError(t("error.inputEmpty"));
+      toast.error(t("error.inputEmpty"));
       return;
     }
 
@@ -39,7 +38,7 @@ export default function TextboxWithService() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        setError(data.error);
+        toast.error(data.error);
         setIsLoading(false);
         return;
       }
@@ -53,9 +52,9 @@ export default function TextboxWithService() {
 
       setShowConfirmation(true);
       setIsLoading(false);
-      setError(null);
+      toast.success(t("success"));
     } catch {
-      setError(t("error.general"));
+      toast.error(t("error.general"));
     } finally {
       setIsLoading(false);
     }
@@ -78,12 +77,6 @@ export default function TextboxWithService() {
 
   return (
     <div>
-      {error && (
-        <div>
-          <ErrorCard message={error} />
-          <br />
-        </div>
-      )}
       {!showConfirmation ? (
         <div>
           <textarea

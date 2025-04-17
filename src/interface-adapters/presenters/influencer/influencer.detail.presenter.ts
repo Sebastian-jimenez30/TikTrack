@@ -15,6 +15,7 @@ export class InfluencerDetailPresenter {
       followers: influencer.getFormattedFollowers(),
       city: influencer.getCity(),
       featuredVideos: influencer.getFeaturedVideos(),
+      status: influencer.getStatus(),
       engagementVisualizationRate: influencer.getEngagementVisualizationRate(),
     };
   }
