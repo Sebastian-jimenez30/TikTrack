@@ -2,7 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { createMessage } from "~/app/[locale]/messages/actions";
+import axios from "axios";
+import ROUTES_API from "~/constants/urls/api.urls";
 
 export default function CreateMessage() {
   const [message, setMessage] = useState("");
@@ -15,12 +16,15 @@ export default function CreateMessage() {
     if (!message.trim()) return;
 
     startTransition(async () => {
-      const result = await createMessage(message);
-      if (result.success) {
+      const result = await axios.post(ROUTES_API.MESSAGE_CREATE, {
+        content: message,
+      });
+      if (result.status === 200) {
         setMessage("");
         setError(null);
+        window.location.reload();
       } else {
-        setError(result.error || "Failed to create message");
+        setError("Failed to create message");
       }
     });
   }

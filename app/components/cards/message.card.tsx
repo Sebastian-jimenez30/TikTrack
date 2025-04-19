@@ -2,7 +2,6 @@
 
 import { useTransition, useState } from "react";
 import { useTranslations } from "next-intl";
-import { deleteMessage } from "~/app/[locale]/messages/actions";
 import ROUTES_API from "~/constants/urls/api.urls";
 import Link from "next/link";
 import axios from "axios";
@@ -24,10 +23,9 @@ export default function MessageCard({
   const [newContent, setNewContent] = useState(content);
   const t = useTranslations("Cards.message");
 
+  // Actualizar contenido
   async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("Updating content:", newContent); 
-
     if (!newContent.trim()) {
       setError("Content cannot be empty");
       return;
@@ -37,13 +35,13 @@ export default function MessageCard({
       try {
         const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
           id,
-          content: newContent
+          content: newContent,
         });
 
         if (result.status === 200) {
           setEditing(false);
           setError(null);
-          setNewContent(result.data.content);
+          setNewContent(result.data.content); 
           window.location.reload();
         } else {
           setError("Failed to update message");
@@ -54,15 +52,27 @@ export default function MessageCard({
     });
   }
 
+  // Eliminar mensaje
   async function handleDelete() {
     startTransition(async () => {
-      const result = await deleteMessage(id);
-      if (!result.success) {
-        setError(result.error || "Failed to delete message");
+      try {
+        const result = await axios.delete(ROUTES_API.MESSAGE_DELETE, {
+          data: { id }, // Pasando el id en el cuerpo de la solicitud
+        });
+        if (result.status === 200) {
+          setError(null); // No es necesario manejar error aquí
+          alert("Message deleted successfully");
+          window.location.reload(); // O hacer alguna otra acción como redirigir
+        } else {
+          setError("Failed to delete message");
+        }
+      } catch (error) {
+        setError("Failed to delete message");
       }
     });
   }
 
+  // Actualizar el estado del contenido mientras se edita
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewContent(e.target.value);
   };
@@ -92,7 +102,7 @@ export default function MessageCard({
             </button>
             <button
               type="button"
-              onClick={handleDelete}
+              onClick={handleDelete} // Cambiado de submit a button
               className="bg-darkGrey text-white font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-black"
               disabled={isPending}
             >
