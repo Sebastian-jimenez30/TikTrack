@@ -14,10 +14,10 @@ interface UpdateProps {
 }
 
 class MessageController {
-  async index(): Promise<{ messages: Message[] }> {
-    const messages = await messageUseCases.listAll();
-    return messages;
-  }
+  async index(): Promise<{ pageData: { messages: Message[] } }> {
+    const data = await messageUseCases.listAll();
+    return { pageData: data };
+  } 
 
   async create({ params }: CreateProps): Promise<Message> {
     const { content } = params;

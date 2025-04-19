@@ -1,22 +1,44 @@
-import { messageController } from "~/src/interface-adapters/controllers/message.controller";
-import MessageList from "~/app/components/message.list";
+import ROUTES from "~/constants/urls/urls";
+import ROUTES_API from "~/constants/urls/api.urls";
 import CreateMessage from "~/app/components/forms/create.message";
 import TextboxWithService from "~/app/components/forms/ai.textbox";
 import FireIcon from "~/app/components/icons/fire.icon";
 import HeartIcon from "~/app/components/icons/heart.icon";
 import EyeIcon from "~/app/components/icons/eye.icon";
 import InlineCard from "~/app/components/cards/inline.card";
+import axios from "axios";
+import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
+import { useState } from "react";
+import MessageCard from "~/app/components/cards/message.card";
+import Link from "next/link";
 
-export default async function Index() {
-  const t = await getTranslations("MessagesPage");
-  const pageData = await messageController.index();
-  const messages =
-    pageData.messages?.map((msg) => ({
-      ...msg,
-      created_at: msg.created_at?.toISOString(),
-      updated_at: msg.updated_at?.toISOString(),
-    })) || [];
+interface Message {
+  id: number;
+  content: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+interface Props {
+  searchParams: { selectedId?: string };
+}
+
+export default async function MessagesPage({ searchParams }: Props) {
+  const t = await getTranslations("MessagesIndexPage");
+  const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
+  const messages: Message[] = pageData.messages;
+
+  if (Array.isArray(messages)) {
+    console.log("Es un array");
+  }
+  else {
+    console.log(typeof messages);
+  }
+
+  const selectedMessage = messages.find(
+    (msg) => msg.id === Number(searchParams.selectedId)
+  );
 
   return (
     <div>
@@ -24,7 +46,17 @@ export default async function Index() {
         {t("title")}
       </h3>
       {messages.length < 3 && <CreateMessage />}
-      <MessageList messages={messages} />
+
+      <div className="flex flex-wrap">
+        {messages.map((msg) => (
+          <MessageCard
+            key={msg.id}
+            id={msg.id}
+            content={msg.content}
+            isCustomizeLink
+          />
+        ))}
+      </div>
 
       <div className="mx-[100px]">
         <section>
@@ -33,7 +65,7 @@ export default async function Index() {
           </h2>
           <div className="flex flex-col flex-wrap justify-center lg:flex-row gap-6">
             <div className="flex flex-1 justify-center md:justify-center lg:justify-start flex-col">
-              <TextboxWithService />
+              <TextboxWithService selectedMessageContent={selectedMessage?.content} />
             </div>
             <div className="flex flex-1 justify-center flex-col items-center flex-wrap ml-5 my-5 lg:my-0 gap-6">
               <InlineCard

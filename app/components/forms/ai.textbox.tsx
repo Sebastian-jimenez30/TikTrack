@@ -1,9 +1,14 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { toast } from "sonner";
 import ROUTES_API from "~/constants/urls/api.urls";
-export default function TextboxWithService() {
+
+interface TextboxWithServiceProps {
+  selectedMessageContent?: string;
+}
+
+export default function TextboxWithService({ selectedMessageContent }: TextboxWithServiceProps) {
   const t = useTranslations("TextboxAI");
 
   const [textBoxValue, setTextBoxValue] = useState<string>("");
@@ -11,6 +16,12 @@ export default function TextboxWithService() {
   const [serviceText, setServiceText] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (selectedMessageContent) {
+      setTextBoxValue(selectedMessageContent);
+    }
+  }, [selectedMessageContent]);
 
   const handleTextBoxChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextBoxValue(e.target.value);

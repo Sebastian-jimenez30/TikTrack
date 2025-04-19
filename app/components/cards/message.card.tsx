@@ -3,17 +3,18 @@
 import { useTransition, useState } from "react";
 import { useTranslations } from "next-intl";
 import { updateMessage, deleteMessage } from "~/app/[locale]/messages/actions";
+import Link from "next/link";
 
 interface MessageCardProps {
   id: number;
   content: string;
-  onCustomize: (content: string) => void;
+  isCustomizeLink?: boolean;
 }
 
 export default function MessageCard({
   id,
   content,
-  onCustomize,
+  isCustomizeLink,
 }: MessageCardProps) {
   const [editing, setEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -82,13 +83,12 @@ export default function MessageCard({
       )}
 
       <div className="flex gap-2">
-        {!editing && (
-          <button
-            onClick={() => onCustomize(content)}
-            className="bg-white text-purple border border-purple font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-gray-200"
-          >
-            {t("customize")}
-          </button>
+        {!editing && isCustomizeLink && (
+          <Link href={`?selectedId=${id}`}>
+            <button className="bg-white text-purple border border-purple font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-gray-200">
+              {t("customize")}
+            </button>
+          </Link>
         )}
         <button
           onClick={() => setEditing(!editing)}

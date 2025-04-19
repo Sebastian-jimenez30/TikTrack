@@ -106,7 +106,7 @@
     "next": "Next"
   },
 
-  "MessagesPage": {
+  "MessagesIndexPage": {
     "title": "Messaging Templates",
     "input": {
       "placeholder": "Type your message...",
