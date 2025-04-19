@@ -34,11 +34,11 @@ export class MessageUseCases {
     );
   }
 
-  async update(id: number, data: { content: string }): Promise<Message | null> {
+  async update(id: number, content: string): Promise<Message | null> {
     const repository =
       repositoryContainer.get<IMessageRepository>("IMessageRepository");
 
-    const updatedMessage = await repository.update(id, data);
+    const updatedMessage = await repository.update(id, content);
 
     if (!updatedMessage) return null;
 

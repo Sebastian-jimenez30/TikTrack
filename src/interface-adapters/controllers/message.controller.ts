@@ -27,7 +27,7 @@ class MessageController {
 
   async update({ params }: UpdateProps): Promise<Message | null> {
     const { id, content } = params;
-    const message = await messageUseCases.update(Number(id), { content });
+    const message = await messageUseCases.update(Number(id), content);
     return message;
   }
 

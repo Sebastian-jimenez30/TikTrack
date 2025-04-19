@@ -29,13 +29,6 @@ export default async function MessagesPage({ searchParams }: Props) {
   const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
   const messages: Message[] = pageData.messages;
 
-  if (Array.isArray(messages)) {
-    console.log("Es un array");
-  }
-  else {
-    console.log(typeof messages);
-  }
-
   const selectedMessage = messages.find(
     (msg) => msg.id === Number(searchParams.selectedId)
   );

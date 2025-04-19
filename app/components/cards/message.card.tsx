@@ -2,8 +2,10 @@
 
 import { useTransition, useState } from "react";
 import { useTranslations } from "next-intl";
-import { updateMessage, deleteMessage } from "~/app/[locale]/messages/actions";
+import { deleteMessage } from "~/app/[locale]/messages/actions";
+import ROUTES_API from "~/constants/urls/api.urls";
 import Link from "next/link";
+import axios from "axios";
 
 interface MessageCardProps {
   id: number;
@@ -19,20 +21,35 @@ export default function MessageCard({
   const [editing, setEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [newContent, setNewContent] = useState(content);
   const t = useTranslations("Cards.message");
 
   async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newContent = formData.get("content") as string;
+    console.log("Updating content:", newContent); 
+
+    if (!newContent.trim()) {
+      setError("Content cannot be empty");
+      return;
+    }
 
     startTransition(async () => {
-      const result = await updateMessage(id, newContent);
-      if (result.success) {
-        setEditing(false);
-        setError(null);
-      } else {
-        setError(result.error || "Failed to update message");
+      try {
+        const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
+          id,
+          content: newContent
+        });
+
+        if (result.status === 200) {
+          setEditing(false);
+          setError(null);
+          setNewContent(result.data.content);
+          window.location.reload();
+        } else {
+          setError("Failed to update message");
+        }
+      } catch (error) {
+        setError("Failed to update message");
       }
     });
   }
@@ -46,6 +63,10 @@ export default function MessageCard({
     });
   }
 
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewContent(e.target.value);
+  };
+
   return (
     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2">
       {error && (
@@ -56,7 +77,8 @@ export default function MessageCard({
         <form onSubmit={handleUpdate} className="mt-3">
           <textarea
             name="content"
-            defaultValue={content}
+            value={newContent}
+            onChange={handleContentChange}
             className="w-full mb-3 p-2 border rounded text-sm"
             disabled={isPending}
           />
