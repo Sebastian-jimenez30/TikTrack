@@ -3,6 +3,7 @@ import ROUTES_API from "~/constants/urls/api.urls";
 import AuthenticationCard from "~/app/components/cards/authentication.card";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { getLocale } from "next-intl/server";
 import axios from "axios";
 
 export default function SignInPage() {
@@ -11,8 +12,9 @@ export default function SignInPage() {
 
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const locale = await getLocale();
     const pageData = (
-      await axios.post(ROUTES_API.LOGIN, { email: email, password: password })
+      await axios.post(ROUTES_API.LOGIN, { email: email, password: password, locale })
     ).data.pageData;
     if (!pageData.is_success) {
       return { error: pageData.message };

@@ -8,13 +8,14 @@ export class AuthUseCases {
   async signUp(
     email: string,
     password: string,
-    name: string
+    name: string,
+    locale: string
   ): Promise<{
     token: string | null;
     message: string;
     is_success: boolean;
   }> {
-    const t = await getTranslations("AuthPage");
+    const t = await getTranslations({ locale, namespace: "AuthPage" });
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
 
@@ -59,13 +60,14 @@ export class AuthUseCases {
 
   async logIn(
     email: string,
-    password: string
+    password: string,
+    locale: string
   ): Promise<{
     token: string | null;
     message: string;
     is_success: boolean;
   }> {
-    const t = await getTranslations("AuthPage");
+    const t = await getTranslations({ locale, namespace: "AuthPage" });
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
 

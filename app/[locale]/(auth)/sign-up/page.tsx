@@ -3,6 +3,7 @@ import ROUTES_API from "~/constants/urls/api.urls";
 import AuthCard from "~/app/components/cards/authentication.card";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { getLocale } from "next-intl/server";
 import axios from "axios";
 
 export default function SignUpPage() {
@@ -12,12 +13,14 @@ export default function SignUpPage() {
     const username = formData.get("username") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const locale = await getLocale();
 
     const pageData = (
       await axios.post(ROUTES_API.SIGN_UP, {
         email: email,
         password: password,
         username: username,
+        locale,
       })
     ).data.pageData;
 
