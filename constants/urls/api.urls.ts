@@ -19,6 +19,7 @@ const ROUTES_API = {
   MESSAGE_CREATE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/create",
   MESSAGE_EDIT: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/edit",
   MESSAGE_DELETE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/delete",
+  MESSAGE_SEND: (username: string) => NEXT_PUBLIC_BASE_URL_API + `/api/backend/services/messages/${username}`,
 } as const;
 
 export default ROUTES_API;

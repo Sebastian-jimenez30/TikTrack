@@ -37,6 +37,26 @@ class InfluencerManagementService implements IInfluencerManagementService {
       );
     }
   }
+
+  async sendMessageToInfluencer(username: string, message: string): Promise<any> {
+    const endpoint = 'messages/' + username;
+    const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }), 
+      });
+  
+      return response.json();
+    } catch (error) {
+      console.error("Error sending message:", error);
+      throw error;
+    }
+  }  
 }
 
 const influencerManagementService = new InfluencerManagementService();

@@ -6,9 +6,10 @@ import ROUTES_API from "~/constants/urls/api.urls";
 
 interface TextboxWithServiceProps {
   selectedMessageContent?: string;
+  username?: string;
 }
 
-export default function TextboxWithService({ selectedMessageContent }: TextboxWithServiceProps) {
+export default function TextboxWithService({ selectedMessageContent, username }: TextboxWithServiceProps) {
   const t = useTranslations("TextboxAI");
 
   const [textBoxValue, setTextBoxValue] = useState<string>("");
@@ -81,10 +82,37 @@ export default function TextboxWithService({ selectedMessageContent }: TextboxWi
 
   const handleDecline = () => {
     setTextBoxValue(originalTextBoxValue);
-
     setShowConfirmation(false);
     setServiceText(null);
   };
+
+  const handleSendMessage = async () => {
+    if (!username || !textBoxValue) {
+      toast.error("No username or message provided");
+      return;
+    }
+    try {
+      const response = await fetch(ROUTES_API.MESSAGE_SEND(username), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: textBoxValue
+        })
+      });
+      
+      if (response.status !== 200) {
+        toast.error("Failed to send message");
+      } else {
+        toast.success("Message sent successfully");
+      }
+  
+    } catch (error) {
+      toast.error("Failed to send message");
+    }
+  };
+ 
 
   return (
     <div>
@@ -104,6 +132,14 @@ export default function TextboxWithService({ selectedMessageContent }: TextboxWi
             >
               {isLoading ? t("loading") : t("enhanced")}
             </button>
+            {username && textBoxValue && (
+              <button
+                onClick={handleSendMessage}
+                className="mt-4 bg-purple font-bold text-white px-4 py-2 rounded"
+              >
+                Send Message
+              </button>
+            )}
           </div>
         </div>
       ) : (

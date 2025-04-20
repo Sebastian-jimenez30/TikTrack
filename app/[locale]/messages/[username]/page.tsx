@@ -21,14 +21,16 @@ interface Message {
 }
 
 interface Props {
+  params: { username: string };            
   searchParams: { selectedId?: string };
 }
 
-export default async function MessagesPage({ searchParams }: Props) {
+export default async function MessagesPage({ params, searchParams }: Props) {
   const t = await getTranslations("MessagesIndexPage");
   const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
   const messages: Message[] = pageData.messages;
-
+  console.log(params.username);
+  
   const selectedMessage = messages.find(
     (msg) => msg.id === Number(searchParams.selectedId)
   );
@@ -58,7 +60,10 @@ export default async function MessagesPage({ searchParams }: Props) {
           </h2>
           <div className="flex flex-col flex-wrap justify-center lg:flex-row gap-6">
             <div className="flex flex-1 justify-center md:justify-center lg:justify-start flex-col">
-              <TextboxWithService selectedMessageContent={selectedMessage?.content} />
+              <TextboxWithService 
+                selectedMessageContent={selectedMessage?.content} 
+                username={params.username}
+              />
             </div>
             <div className="flex flex-1 justify-center flex-col items-center flex-wrap ml-5 my-5 lg:my-0 gap-6">
               <InlineCard
