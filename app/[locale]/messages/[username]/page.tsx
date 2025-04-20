@@ -1,4 +1,3 @@
-import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import CreateMessage from "~/app/components/forms/create.message";
 import TextboxWithService from "~/app/components/forms/ai.textbox";
@@ -7,11 +6,8 @@ import HeartIcon from "~/app/components/icons/heart.icon";
 import EyeIcon from "~/app/components/icons/eye.icon";
 import InlineCard from "~/app/components/cards/inline.card";
 import axios from "axios";
-import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
-import { useState } from "react";
 import MessageCard from "~/app/components/cards/message.card";
-import Link from "next/link";
 
 interface Message {
   id: number;
@@ -27,12 +23,12 @@ interface Props {
 
 export default async function MessagesPage({ params, searchParams }: Props) {
   const t = await getTranslations("MessagesIndexPage");
+
   const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
   const messages: Message[] = pageData.messages;
-  console.log(params.username);
   
-  const selectedMessage = messages.find(
-    (msg) => msg.id === Number(searchParams.selectedId)
+  const selectedId = searchParams?.selectedId;
+  const selectedMessage = messages.find((msg) => msg.id === Number(searchParams.selectedId)
   );
 
   return (
