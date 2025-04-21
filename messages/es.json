@@ -201,5 +201,22 @@
       "title": "TikTrack",
       "description": "La plataforma para encontrar influencers."
     }
+  },
+
+  "InfluencerComparison": {
+    "title": "Comparación de Influencers",
+    "select": "Selecciona influencers para contratar",
+    "compare": "Comparar",
+    "cancel": "Cancelar",
+    "metric": "Métrica",
+    "followers": "Seguidores",
+    "engagementRate": "Tasa de participación",
+    "averageLikes": "Promedio de me gusta",
+    "averageComments": "Promeido de comentarios",
+    "averageShares": "Promedio de compartidos",
+    "averageViews": "Promedio de vistas",
+    "selectMinimum": "Por favor selecciona al menos dos influencers para comparar",
+    "selectMaximum": "Solo puedes comparar hasta 5 influencers al mismo tiempo",
+    "error": "Ocurrió un error al comparar los influencers"
   }
 }

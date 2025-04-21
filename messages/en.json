@@ -201,5 +201,22 @@
       "title": "TikTrack",
       "description": "Discover the influencer who will help you boost your reach and maximize your impact."
     }
+  },
+
+  "InfluencerComparison": {
+    "title": "Influencer Comparison",
+    "select": "Select influencers to compare",
+    "compare": "Compare",
+    "cancel": "Cancel",
+    "metric": "Metric",
+    "followers": "Followers",
+    "engagementRate": "Engagement Rate",
+    "averageLikes": "Average Likes",
+    "averageComments": "Average Comments",
+    "averageShares": "Average Shares",
+    "averageViews": "Average Views",
+    "selectMinimum": "Please select at least two influencers to compare",
+    "selectMaximum": "You can only compare up to five influencers at a time",
+    "error": "An error occurred while comparing influencers"
   }
 }
