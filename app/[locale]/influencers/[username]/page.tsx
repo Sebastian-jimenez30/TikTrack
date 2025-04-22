@@ -16,6 +16,7 @@ import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import axios from "axios";
+import { Link } from "~/i18n/routing";
 
 interface ShowProps {
   params: { username: string };
@@ -90,9 +91,17 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                  <Button href={ROUTES.MESSAGES} variant="primary">
-                    {t("message")}
-                  </Button>
+                
+                <Link
+                  href={{
+                    pathname: ROUTES.MESSAGES,
+                    params: { username: influencer.username },
+                  }}
+                  className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
+                >
+                  {t("message")}
+                </Link>
+
 
                   {isAdmin &&
                     (isInfluencerActive ? (

@@ -1,5 +1,6 @@
 import IInfluencerManagementService from "@/application/services/influencerManagement.service.interface";
 import ROUTES from "~/constants/urls/services.urls";
+import { getTranslations } from "next-intl/server";
 
 class InfluencerManagementService implements IInfluencerManagementService {
   async fetchInfluencers(): Promise<
@@ -18,6 +19,7 @@ class InfluencerManagementService implements IInfluencerManagementService {
       featuredVideos: string[];
     }[]
   > {
+    const t = await getTranslations("InfluencerManagementService");
     const endpoint = "influencers";
     const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
 
@@ -31,12 +33,34 @@ class InfluencerManagementService implements IInfluencerManagementService {
 
       return await response.json();
     } catch (error) {
-      console.error("❌ Error al obtener influencers:", error);
+      console.error(t("error.errorGettingInfluencers"), error);
       throw new Error(
-        "No se pudo obtener la lista de influencers. Intenta nuevamente más tarde."
+        t("error.errorGettingInfluencerList")
       );
     }
   }
+
+  async sendMessageToInfluencer(username: string, message: string): Promise<any> {
+    const t = await getTranslations("InfluencerManagementService");
+    const endpoint = 'messages/' + username;
+    const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }), 
+      });
+  
+      return response.json();
+    } catch (error) {
+      throw new Error(
+        t("error.errorSendingMessage"), 
+      );
+    }
+  }  
 }
 
 const influencerManagementService = new InfluencerManagementService();

@@ -19,9 +19,9 @@ export const routing = defineRouting({
       en: "/influencers/[username]",
       es: "/creador-de-contenido/[username]",
     },
-    "/messages": {
-      en: "/messages",
-      es: "/mensajes",
+    "/messages/[username]": {
+      en: "/messages/[username]",
+      es: "/mensajes/[username]",
     },
     "/admin/influencers/disabled": {
       en: "/admin/influencers/disabled",
@@ -41,7 +41,7 @@ export type Locale = (typeof routing.locales)[number];
 
 type StaticPathname = Exclude<
   keyof typeof routing.pathnames,
-  "/influencers/[username]"
+  "/influencers/[username]" | "/messages/[username]"
 >;
 
 export type Pathname = StaticPathname;
