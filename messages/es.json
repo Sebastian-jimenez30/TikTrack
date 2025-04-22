@@ -115,7 +115,11 @@
     "next": "Siguiente"
   },
 
-  "MessagesPage": {
+  "MessagesIndexPage": {
+    "metadata": {
+      "title": "Plantillas de Mensajes",
+      "description": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención."
+    },
     "title": "Plantillas de Mensajes",
     "input": {
       "placeholder": "Escribe tu mensaje...",

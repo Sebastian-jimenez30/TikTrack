@@ -21,6 +21,15 @@ interface Props {
   searchParams: { selectedId?: string };
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("MessagesIndexPage");
+
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
 export default async function MessagesPage({ params, searchParams }: Props) {
   const t = await getTranslations("MessagesIndexPage");
 

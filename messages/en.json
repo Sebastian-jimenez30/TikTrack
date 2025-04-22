@@ -116,6 +116,10 @@
   },
 
   "MessagesIndexPage": {
+    "metadata": {
+      "title": "Messaging Templates",
+      "description": "Communicate clearly: Make your message sharper and easier to understand — increase your chance of getting noticed."
+    },
     "title": "Messaging Templates",
     "input": {
       "placeholder": "Type your message...",
