@@ -93,7 +93,16 @@
       "delete": "Eliminar",
       "customize": "Personalizar",
       "edit": "Editar",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "error": {
+        "notEmptyContent": "El contenido no puede estar vacío",
+        "failedToUpdateMessage": "Error al actualizar el mensaje",
+        "failedToDeleteMessage": "Error al eliminar el mensaje"
+      },
+      "success": {
+        "messageUpdated": "Mensaje actualizado correctamente",
+        "messageDeleted": "Mensaje eliminado correctamente"
+      }
     }
   },
 
@@ -121,7 +130,8 @@
   "Forms": {
     "message": {
       "placeholder": "Crea una plantilla...",
-      "saveTemplate": "Guardar plantilla"
+      "saveTemplate": "Guardar plantilla",
+      "error": "Error al crear la plantilla"
     }
   },
 
@@ -169,20 +179,34 @@
   "TextboxAI": {
     "buttonAccept": "Aceptar",
     "buttonCancel": "Cancelar",
+    "buttonSend": "Enviar mensaje",
     "placeholder": "Escribe tu mensaje aquí...",
     "loading": "Cargando...",
     "enhanced": "Mejorar mensaje con IA",
     "error": {
       "inputEmpty": "El campo de mensaje está vacío",
-      "general": "Ocurrió un error al procesar tu solicitud"
+      "general": "Ocurrió un error al procesar tu solicitud",
+      "noUsernameOrMessage": "No se proporcionó un nombre de usuario o mensaje",
+      "failedToSendMessage": "No se pudo enviar el mensaje"
     },
-    "success": "Respuesta generada con éxito"
+    "success": {
+      "responseReceived": "Respuesta generada con éxito",
+      "messageSent": "Mensaje enviado con éxito"
+    }
   },
 
   "OpenAIService": {
     "error": {
       "noResponse": "No hay respuesta de la API de OpenAI",
       "general": "Ocurrió un error al procesar tu solicitud"
+    }
+  },
+
+  "InfluencerManagementService": {
+    "error": {
+      "errorGettingInfluencers": "Error al obtener influencers",
+      "errorGettingInfluencerList": "Error al obtener la lista de influencers. Intenta nuevamente más tarde",
+      "errorSendingMessage": "Error al enviar el mensaje"
     }
   },
 

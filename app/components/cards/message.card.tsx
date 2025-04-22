@@ -27,7 +27,7 @@ export default function MessageCard({
   async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newContent.trim()) {
-      setError("Content cannot be empty");
+      setError(t("error.notEmptyContent"));
       return;
     }
 
@@ -42,12 +42,13 @@ export default function MessageCard({
           setEditing(false);
           setError(null);
           setNewContent(result.data.content); 
+          alert(t("success.messageUpdated"));
           window.location.reload();
         } else {
-          setError("Failed to update message");
+          setError(t("error.failedToUpdateMessage"));
         }
       } catch (error) {
-        setError("Failed to update message");
+        setError(t("error.failedToUpdateMessage"));
       }
     });
   }
@@ -61,13 +62,13 @@ export default function MessageCard({
         });
         if (result.status === 200) {
           setError(null); // No es necesario manejar error aquí
-          alert("Message deleted successfully");
+          alert(t("success.messageDeleted"));
           window.location.reload(); // O hacer alguna otra acción como redirigir
         } else {
-          setError("Failed to delete message");
+          setError(t("error.failedToDeleteMessage"));
         }
       } catch (error) {
-        setError("Failed to delete message");
+        setError(t("error.failedToDeleteMessage"));
       }
     });
   }

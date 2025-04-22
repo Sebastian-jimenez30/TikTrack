@@ -24,7 +24,7 @@ export default function CreateMessage() {
         setError(null);
         window.location.reload();
       } else {
-        setError("Failed to create message");
+        setError(t("error"));
       }
     });
   }

@@ -64,7 +64,7 @@ export default function TextboxWithService({ selectedMessageContent, username }:
 
       setShowConfirmation(true);
       setIsLoading(false);
-      toast.success(t("success"));
+      toast.success(t("success.responseReceived"));
     } catch {
       toast.error(t("error.general"));
     } finally {
@@ -88,7 +88,7 @@ export default function TextboxWithService({ selectedMessageContent, username }:
 
   const handleSendMessage = async () => {
     if (!username || !textBoxValue) {
-      toast.error("No username or message provided");
+      toast.error(t("error.noUsernameOrMessage"));
       return;
     }
     try {
@@ -103,13 +103,13 @@ export default function TextboxWithService({ selectedMessageContent, username }:
       });
       
       if (response.status !== 200) {
-        toast.error("Failed to send message");
+        toast.error(t("error.failedToSendMessage"));
       } else {
-        toast.success("Message sent successfully");
+        toast.success(t("success.messageSent"));
       }
   
     } catch (error) {
-      toast.error("Failed to send message");
+      toast.error(t("error.failedToSendMessage"));
     }
   };
  
@@ -137,7 +137,7 @@ export default function TextboxWithService({ selectedMessageContent, username }:
                 onClick={handleSendMessage}
                 className="mt-4 bg-purple font-bold text-white px-4 py-2 rounded"
               >
-                Send Message
+                {t("buttonSend")}
               </button>
             )}
           </div>
