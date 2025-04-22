@@ -27,10 +27,8 @@ export default function UserManagementCard({ users }: UserManagementCardProps) {
 
       <div className="space-y-8">
         {users.map((user) => {
-          // Definir la constante query para cada usuario
           const query = new URLSearchParams({ userId: user.id.toString() }).toString();
 
-          // Construir la URL con la ruta base y la query string
           const manageUserRoute = `${ROUTES.MANAGEMENT_MANAGE}?${query}`;
 
           return (
@@ -77,7 +75,6 @@ export default function UserManagementCard({ users }: UserManagementCardProps) {
                 </p>
               </div>
 
-              {/* Botón de gestionar */}
               <div className="flex-1 text-right">
                 <Button
                   variant="primary"

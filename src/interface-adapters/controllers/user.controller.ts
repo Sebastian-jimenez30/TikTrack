@@ -77,7 +77,7 @@ export class UserController {
     }
   }
 
-  async updateUser(userId: number, userData: { name?: string, email?: string, password?: string, role?: string }): Promise<{ pageData: object }> {
+  async updateUser(userId: number, userData: { name?: string, email?: string, password?: string, role?: string, status?: string }): Promise<{ pageData: object }> {
     let pageData;
     try {
       const updatedUser = await userUseCases.updateUser(userId, userData);
@@ -107,35 +107,6 @@ export class UserController {
     }
   }
 
-  async deactivateUser(userId: number): Promise<{ pageData: object }> {
-    let pageData;
-    try {
-      const deactivatedUser = await userUseCases.deactivateUser(userId);
-
-      if (!deactivatedUser) {
-        pageData = {
-          user: null,
-          message: "Error al desactivar el usuario",
-          is_success: false,
-        };
-      } else {
-        pageData = {
-          user: deactivatedUser,
-          message: "Usuario desactivado con éxito",
-          is_success: true,
-        };
-      }
-      return { pageData };
-    } catch (error) {
-      console.error("Error deactivating user:", error);
-      pageData = {
-        user: null,
-        message: "Error al desactivar el usuario",
-        is_success: false,
-      };
-      return { pageData };
-    }
-  }
 }
 
 export const userController = new UserController();

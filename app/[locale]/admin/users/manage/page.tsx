@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 import ROUTES_API from "~/constants/urls/api.urls";
 import axios from "axios";
-import UpdateUserCard from "~/app/components/cards/updateuser.card"; // Importamos la nueva card
+import UpdateUserCard from "~/app/components/cards/updateuser.card"; 
 
 export default async function ManageUserPage({
   searchParams,
@@ -34,7 +34,6 @@ export default async function ManageUserPage({
   let pageData;
 
   try {
-    // Hacemos la solicitud a la API para obtener los datos del usuario
     const response = await axios.get(`${ROUTES_API.PROFILE_SHOW}?userId=${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -69,8 +68,9 @@ export default async function ManageUserPage({
           name: user.name,
           email: user.email,
           role: user.role,
+          status: user.status,
         }}
-        userId={Number(userId)} // Convertimos userId a número antes de pasarlo
+        userId={Number(userId)} 
       />
     </div>
   );

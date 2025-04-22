@@ -33,10 +33,6 @@ export class UserUseCases {
     return updatedUser;
   }
 
-  async deactivateUser(id: number) {
-    const deactivatedUser = await this.repository.deactivateUser(id);
-    return deactivatedUser;
-  }
 }
 
 export const userUseCases = new UserUseCases();

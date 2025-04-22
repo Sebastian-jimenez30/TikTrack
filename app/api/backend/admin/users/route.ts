@@ -4,7 +4,7 @@ import { userController } from "@/interface-adapters/controllers/user.controller
 export async function PATCH(req: NextRequest) {
   const body = await req.json();
   const userId = body?.userId;
-  const { name, email, password, role } = body;
+  const { name, email, password, role, status } = body;
 
   if (!userId) {
     return NextResponse.json(
@@ -13,8 +13,7 @@ export async function PATCH(req: NextRequest) {
     );
   }
 
-  // Llamamos al controlador para actualizar el usuario
-  const data = await userController.updateUser(userId, { name, email, password, role });
+  const data = await userController.updateUser(userId, { name, email, password, role, status });
 
   return NextResponse.json(data);
 }

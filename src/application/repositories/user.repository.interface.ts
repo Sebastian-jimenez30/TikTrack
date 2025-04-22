@@ -64,13 +64,4 @@ export default interface IUserRepository {
     updatedAt: Date;
   }>;
 
-  deactivateUser(id: number): Promise<{
-    id: number;
-    email: string;
-    name: string;
-    role: string;
-    status: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }>;
 }

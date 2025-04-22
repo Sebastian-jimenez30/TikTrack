@@ -219,6 +219,7 @@
     "user": "Usuario",
     "active": "Activo",
     "inactive": "Inactivo",
+    "deactivate": "Desactivar",
     "manage": "Gestionar",
     "username": "Nombre de usuario",
     "password": "Contraseña",

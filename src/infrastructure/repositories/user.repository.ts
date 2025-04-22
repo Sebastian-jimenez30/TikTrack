@@ -111,21 +111,4 @@ export default class UserRepository implements IUserRepository {
     return updatedUser[0];
   }
 
-  async deactivateUser(id: number): Promise<{
-    id: number;
-    email: string;
-    name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
-    const deactivatedUser = await db
-      .update(usersTable)
-      .set({ status: "inactive" }) 
-      .where(eq(usersTable.id, id))
-      .returning();
-
-    return deactivatedUser[0];
-  }
 }
