@@ -6,17 +6,21 @@ import UserIcon from "~/app/components/icons/user.icon";
 import EmailIcon from "~/app/components/icons/email.icon";
 import RoleIcon from "~/app/components/icons/role.icon";
 import LockIcon from "~/app/components/icons/lock.icon";
+import { useRouter } from "next/navigation";  // Usamos useRouter para redirigir
+import axios from "axios";
+import ROUTES_API from "~/constants/urls/api.urls";  // Asegúrate de importar tu ruta de la API
 
 interface UpdateUserCardProps {
-    initialData: {
-      username: string;
-      name: string;
-      email: string;
-      role: "admin" | "user";
-    };
-  }
+  initialData: {
+    username: string;
+    name: string;
+    email: string;
+    role: "admin" | "user";
+  };
+  userId: number; // Añadimos userId aquí para enviarlo en la solicitud API
+}
 
-export default function UpdateUserCard({ initialData }: UpdateUserCardProps) {
+export default function UpdateUserCard({ initialData, userId }: UpdateUserCardProps) {
   const t = useTranslations("UserManagementPage");
 
   const [formData, setFormData] = useState({
@@ -27,13 +31,48 @@ export default function UpdateUserCard({ initialData }: UpdateUserCardProps) {
     role: initialData.role,
   });
 
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();  // Inicializamos el router para la redirección
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+    setError(null); // Reset error state
+
+    // Validación simple de los campos
+    if (!formData.name || !formData.email || !formData.role) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    try {
+      const response = await axios.patch(
+        `${ROUTES_API.USER_UPDATE}`, // Tu URL de la API para actualizar
+        {
+          userId,
+          username: formData.username,
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+        }
+      );
+
+      const pageData = response.data.pageData;
+
+      if (!pageData.is_success) {
+        setError(pageData.message || "Error updating user");
+      } else {
+        // Después de que el usuario se actualice correctamente, redirigimos
+        router.push("/admin/usuarios");  // Redirige a la página de usuarios
+      }
+    } catch {
+      setError("Error updating user. Please try again.");
+    }
   };
 
   return (
@@ -44,6 +83,12 @@ export default function UpdateUserCard({ initialData }: UpdateUserCardProps) {
       <h2 className="text-3xl font-semibold text-purple text-center mb-4">
         {t("editTitle")}
       </h2>
+
+      {error && (
+        <div className="p-4 mb-4 text-red-600 bg-red-100 border border-red-400 rounded">
+          {error}
+        </div>
+      )}
 
       {/* Name */}
       <div className="flex items-start gap-6">
@@ -77,7 +122,7 @@ export default function UpdateUserCard({ initialData }: UpdateUserCardProps) {
 
       {/* Password */}
       <div className="flex items-start gap-6">
-      <LockIcon className="text-purple text-3xl mt-1" />
+        <LockIcon className="text-purple text-3xl mt-1" />
         <div className="w-full">
           <label className="text-base text-gray-500 uppercase tracking-wide">{t("password")}</label>
           <input

@@ -77,13 +77,7 @@ export class UserController {
     }
   }
 
-  async updateUser(userId: number, userData: {
-    name?: string;
-    email?: string;
-    password?: string;
-    role?: string;
-    status?: string;
-  }): Promise<{ pageData: object }> {
+  async updateUser(userId: number, userData: { name?: string, email?: string, password?: string, role?: string }): Promise<{ pageData: object }> {
     let pageData;
     try {
       const updatedUser = await userUseCases.updateUser(userId, userData);

@@ -34,14 +34,12 @@ export default async function ManageUserPage({
   let pageData;
 
   try {
-    const response = await axios.get(
-      `${ROUTES_API.PROFILE_SHOW}?userId=${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    // Hacemos la solicitud a la API para obtener los datos del usuario
+    const response = await axios.get(`${ROUTES_API.PROFILE_SHOW}?userId=${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     pageData = response.data.pageData;
   } catch {
@@ -65,14 +63,15 @@ export default async function ManageUserPage({
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-        <UpdateUserCard
+      <UpdateUserCard
         initialData={{
-            username: user.username,
-            name: user.name,
-            email: user.email,
-            role: user.role,
+          username: user.username,
+          name: user.name,
+          email: user.email,
+          role: user.role,
         }}
-        />
+        userId={Number(userId)} // Convertimos userId a número antes de pasarlo
+      />
     </div>
   );
 }
