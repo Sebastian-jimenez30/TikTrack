@@ -11,7 +11,6 @@ interface UserResponse {
     createdAt: Date;
     updatedAt: Date;
   }[];
-  message: string;
   is_success: boolean;
 }
 
@@ -25,23 +24,19 @@ export class UserController {
       if (!users || users.length === 0) {
         pageData = {
           users: [],
-          message: "No se encontraron usuarios",
           is_success: false,
         };
       } else {
         pageData = {
           users,
-          message: "Usuarios obtenidos con éxito",
           is_success: true,
         };
       }
   
       return { pageData };
-    } catch (error) {
-      console.error("Error getting users:", error);
+    } catch  {
       pageData = {
         users: [],
-        message: "Error al obtener los usuarios",
         is_success: false,
       };
       return { pageData };
@@ -56,13 +51,11 @@ export class UserController {
       if (!user) {
         pageData = {
           user: null,
-          message: "Usuario no encontrado",
           is_success: false,
         };
       } else {
         pageData = {
           user,
-          message: "Perfil obtenido con éxito",
           is_success: true,
         };
       }
@@ -70,7 +63,6 @@ export class UserController {
     } catch {
       pageData = {
         user: null,
-        message: "Error al obtener el perfil",
         is_success: false,
       };
       return { pageData };
@@ -85,22 +77,18 @@ export class UserController {
       if (!updatedUser) {
         pageData = {
           user: null,
-          message: "Error al actualizar el usuario",
           is_success: false,
         };
       } else {
         pageData = {
           user: updatedUser,
-          message: "Usuario actualizado con éxito",
           is_success: true,
         };
       }
       return { pageData };
-    } catch (error) {
-      console.error("Error updating user:", error);
+    } catch  {
       pageData = {
         user: null,
-        message: "Error al actualizar el usuario",
         is_success: false,
       };
       return { pageData };
