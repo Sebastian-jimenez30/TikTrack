@@ -68,6 +68,26 @@
     "error": "Ocurrió un error al procesar tu solicitud"
   },
 
+  "InfluencerComparison": {
+    "title": "Comparación de Influencers",
+    "compareInfluencers": "Comparar Influencers",
+    "compare": "Comparar",
+    "cancel": "Cancelar",
+    "influencer": "Influencer",
+    "status": "Estado",
+    "followers": "Seguidores",
+    "engagementRate": "Tasa de participación",
+    "averageComments": "Promedio de comentarios",
+    "averageLikes": "Promedio de me gusta",
+    "averageSaves": "Promedio de guardados",
+    "averageShares": "Promedio de compartidos",
+    "averageViews": "Promedio de vistas",
+    "selectMinimum": "Por favor selecciona al menos dos influencers para comparar",
+    "selectMaximum": "Solo puedes comparar hasta 5 influencers al mismo tiempo",
+    "selectRange": "Por favor selecciona entre 2 y 5 influencers para comparar",
+    "error": "Ocurrió un error al comparar los influencers"
+  },
+
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",
