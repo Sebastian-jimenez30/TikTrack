@@ -22,7 +22,6 @@ export default function UserCard({ name, email, role }: UserCardProps) {
       </h2>
 
       <div className="space-y-6">
-        {/* Name */}
         <div className="flex items-start gap-6">
           <UserIcon className="text-purple text-3xl mt-1" />
           <div>
@@ -31,7 +30,6 @@ export default function UserCard({ name, email, role }: UserCardProps) {
           </div>
         </div>
 
-        {/* Email */}
         <div className="flex items-start gap-6">
           <EmailIcon className="text-purple text-3xl mt-1" />
           <div>
@@ -40,7 +38,6 @@ export default function UserCard({ name, email, role }: UserCardProps) {
           </div>
         </div>
 
-        {/* Role */}
         <div className="flex items-start gap-6">
           <RoleIcon className="text-purple text-3xl mt-1" />
           <div>
