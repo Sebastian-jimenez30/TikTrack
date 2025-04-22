@@ -94,7 +94,8 @@
     "getStarted": "Comenzar",
     "profile": "Perfil",
     "logout": "Cerrar Sesión",
-    "influencersDisabled": "Desactivados"
+    "influencersDisabled": "Desactivados",
+    "userManagement": "Gestión de usuarios"
   },
 
   "Footer": {
@@ -248,6 +249,36 @@
     "metadata": {
       "title": "TikTrack",
       "description": "La plataforma para encontrar influencers."
+    }
+  },
+
+  "UserManagementPage": {
+    "userManagement": "Gestión de Usuarios",
+    "authError": "Debes iniciar sesión para acceder a esta página.",
+    "fetchError": "Hubo un error al obtener los usuarios.",
+    "noUsersFound": "No se encontraron usuarios",
+    "tokenError": "Token inválido. Por favor, inicia sesión nuevamente.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "role": "Rol",
+    "createdAt": "Fecha de creación",
+    "status": "Estado",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "deactivate": "Desactivar",
+    "manage": "Gestionar",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Déjalo en blanco para mantener la actual",
+    "editTitle": "Editar Usuario",
+    "save": "Guardar Cambios",
+    "missingUserId": "Falta el ID del usuario en la solicitud.",
+    "userNotFound": "Usuario no encontrado.",
+    "roles": {
+      "admin": "Administrador",
+      "user": "Usuario"
     }
   }
 }

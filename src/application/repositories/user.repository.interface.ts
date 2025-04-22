@@ -36,4 +36,32 @@ export default interface IUserRepository {
     createdAt: Date;
     updatedAt: Date;
   } | null>;
+
+  findAllUsers(): Promise<{
+    id: number;
+    email: string;
+    password: string;
+    name: string;
+    role: "admin" | "user";
+    status: "active" | "inactive";
+    createdAt: Date;
+    updatedAt: Date;
+  }[]>;
+
+  updateUser(id: number, user: {
+    name?: string;
+    email?: string;
+    password?: string;
+    role?: string;
+    status?: string;
+  }): Promise<{
+    id: number;
+    email: string;
+    name: string;
+    role: string;
+    status: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }>;
+
 }

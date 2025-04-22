@@ -16,6 +16,23 @@ export class UserUseCases {
     }
     return user;
   }
+
+  async getAllUsers() {
+    const users = await this.repository.findAllUsers();
+    return users;
+  }
+
+  async updateUser(id: number, user: {
+    name?: string;
+    email?: string;
+    password?: string;
+    role?: string;
+    status?: string;
+  }) {
+    const updatedUser = await this.repository.updateUser(id, user);
+    return updatedUser;
+  }
+
 }
 
 export const userUseCases = new UserUseCases();

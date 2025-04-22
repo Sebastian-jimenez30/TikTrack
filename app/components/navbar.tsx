@@ -102,15 +102,24 @@ export default function NavBar({
               </Link>
             </li>
             {isAdmin && (
-              <li>
-                <Link
-                  className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
-                  href={ROUTES.INFLUENCERS_DISABLED}
-                >
-                  {" "}
-                  {t("influencersDisabled")}{" "}
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link
+                    className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                    href={ROUTES.INFLUENCERS_DISABLED}
+                  >
+                    {t("influencersDisabled")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                    href={ROUTES.MANAGEMENT}
+                  >
+                    {t("userManagement")}
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
         </div>

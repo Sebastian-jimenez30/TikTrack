@@ -16,6 +16,8 @@ const ROUTES_API = {
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
   SIGN_UP: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/sign-up",
   PROFILE_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/profile/show",
+  USER_UPDATE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/users",
+
   MESSAGE_INDEX: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/index",
   MESSAGE_CREATE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/create",
   MESSAGE_EDIT: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/edit",

@@ -66,4 +66,49 @@ export default class UserRepository implements IUserRepository {
       .where(eq(usersTable.id, id));
     return user[0] || null;
   }
+
+  async findAllUsers(): Promise<{
+    id: number;
+    email: string;
+    password: string;
+    name: string;
+    role: "admin" | "user";
+    status: "active" | "inactive";
+    createdAt: Date;
+    updatedAt: Date;
+  }[]> {
+    const users = await db.select().from(usersTable);
+    return users;
+  }
+
+  async updateUser(id: number, user: {
+    name?: string;
+    email?: string;
+    password?: string;
+    role?: "admin" | "user"; 
+    status?: "active" | "inactive"; 
+  }): Promise<{
+    id: number;
+    email: string;
+    name: string;
+    role: "admin" | "user";
+    status: "active" | "inactive";
+    createdAt: Date;
+    updatedAt: Date;
+  }> {
+    const updatedUser = await db
+      .update(usersTable)
+      .set({
+        ...(user.name && { name: user.name }),
+        ...(user.email && { email: user.email }),
+        ...(user.password && { password: user.password }),
+        ...(user.role && { role: user.role }), 
+        ...(user.status && { status: user.status }), 
+      })
+      .where(eq(usersTable.id, id))
+      .returning();
+
+    return updatedUser[0];
+  }
+
 }

@@ -94,7 +94,8 @@
     "getStarted": "Get Started",
     "profile": "Profile",
     "logout": "Logout",
-    "influencersDisabled": "Disabled"
+    "influencersDisabled": "Disabled",
+    "userManagement": "User Management"
   },
 
   "Footer": {
@@ -248,6 +249,36 @@
     "metadata": {
       "title": "TikTrack",
       "description": "Discover the influencer who will help you boost your reach and maximize your impact."
+    }
+  },
+
+  "UserManagementPage": {
+    "userManagement": "User Management",
+    "authError": "You need to be logged in to access this page.",
+    "fetchError": "There was an error fetching the users.",
+    "noUsersFound": "No users found",
+    "tokenError": "Invalid token. Please log in again.",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "createdAt": "Created At",
+    "status": "Status",
+    "admin": "Admin",
+    "user": "User",
+    "active": "Active",
+    "inactive": "Inactive",
+    "deactivate": "Deactivate",
+    "manage": "Manage",
+    "username": "Username",
+    "password": "Password",
+    "passwordPlaceholder": "Leave blank to keep current password",
+    "editTitle": "Edit User",
+    "save": "Save Changes",
+    "missingUserId": "Missing user ID in the request.",
+    "userNotFound": "User not found.",
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
     }
   }
 }
