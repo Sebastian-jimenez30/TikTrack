@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-interface ComparisonData {
+interface Influencer {
   username: string;
   profileName: string;
   followers: string;
@@ -14,11 +14,11 @@ interface ComparisonData {
 }
 
 interface ComparisonModalProps {
-  data: ComparisonData[];
+  influencers: Influencer[];
   onClose: () => void;
 }
 
-export default function ComparisonModal({ data, onClose }: ComparisonModalProps) {
+export default function ComparisonModal({ influencers, onClose }: ComparisonModalProps) {
   const t = useTranslations("InfluencerComparison");
 
   return (
@@ -40,7 +40,7 @@ export default function ComparisonModal({ data, onClose }: ComparisonModalProps)
               <thead>
                 <tr className="border-b">
                   <th className="p-3 font-semibold">{t("metric")}</th>
-                  {data.map((influencer) => (
+                  {influencers.map((influencer) => (
                     <th key={influencer.username} className="p-3 font-semibold">
                       {influencer.profileName}
                       <div className="text-sm text-gray-500">
@@ -53,49 +53,49 @@ export default function ComparisonModal({ data, onClose }: ComparisonModalProps)
               <tbody>
                 <tr className="border-b">
                   <td className="p-3">{t("followers")}</td>
-                  {data.map((inf) => (
-                    <td key={inf.username} className="p-3">
-                      {inf.followers}
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.followers}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b">
                   <td className="p-3">{t("engagementRate")}</td>
-                  {data.map((inf) => (
-                    <td key={inf.username} className="p-3">
-                      {inf.engagementRate}%
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.engagementRate}%
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b">
                   <td className="p-3">{t("averageLikes")}</td>
-                  {data.map((inf) => (
-                    <td key={inf.username} className="p-3">
-                      {inf.averageLikes}
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.averageLikes}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b">
                   <td className="p-3">{t("averageComments")}</td>
-                  {data.map((inf) => (
-                    <td key={inf.username} className="p-3">
-                      {inf.averageComments}
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.averageComments}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b">
                   <td className="p-3">{t("averageShares")}</td>
-                  {data.map((inf) => (
-                    <td key={inf.username} className="p-3">
-                      {inf.averageShares}
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.averageShares}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b">
                   <td className="p-3">{t("averageViews")}</td>
-                  {data.map((inf) => (
-                    <td key={inf.username} className="p-3">
-                      {inf.averageViews}
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.averageViews}
                     </td>
                   ))}
                 </tr>

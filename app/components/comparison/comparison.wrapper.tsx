@@ -25,7 +25,7 @@ export default function ComparisonWrapper({
   const [selectedInfluencers, setSelectedInfluencers] = useState<string[]>([]);
   const [comparisonMode, setComparisonMode] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [comparisonData, setComparisonData] = useState(null);
+  const [influencerComparisonData, setInfluencerComparisonData] = useState(null);
   
   const handleInfluencerSelect = (username: string) => {
     setSelectedInfluencers((prev) =>
@@ -53,7 +53,7 @@ export default function ComparisonWrapper({
       console.log(result);
 
       if (result.pageData.isSuccess) {
-        setComparisonData(result.pageData.influencers);
+        setInfluencerComparisonData(result.pageData.influencers);
         setShowModal(true);
       } else {
         toast.error(result.pageData.error || t("error"));
@@ -96,9 +96,9 @@ export default function ComparisonWrapper({
         ))}
       </div>
 
-      {showModal && comparisonData && (
+      {showModal && influencerComparisonData && (
         <ComparisonModal
-          data={comparisonData}
+          influencers={influencerComparisonData}
           onClose={() => setShowModal(false)}
         />
       )}
