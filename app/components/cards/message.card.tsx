@@ -76,7 +76,7 @@ export default function MessageCard({
   };
 
   return (
-    <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2">
+    <div className="min-w-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2">
       {error && (
         <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
       )}
@@ -87,13 +87,13 @@ export default function MessageCard({
             name="content"
             value={newContent}
             onChange={handleContentChange}
-            className="w-full mb-3 p-2 border rounded text-sm"
+            className="w-full mb-3 p-2 border rounded text-sm md:text-xl"
             disabled={isPending}
           />
           <div className="flex gap-2">
             <button
               type="submit"
-              className="bg-white text-purple border border-purple font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-gray-200"
+              className="bg-white text-purple border border-purple font-semibold transition-all mt-3 w-full px-2 py-1 rounded hover:bg-gray-200"
               disabled={isPending}
             >
               {t("update")}
@@ -101,7 +101,7 @@ export default function MessageCard({
             <button
               type="button"
               onClick={handleDelete}
-              className="bg-darkGrey text-white font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-black"
+              className="bg-darkGrey text-white font-semibold transition-all mt-3 w-full px-2 py-1 rounded hover:bg-black"
               disabled={isPending}
             >
               {t("delete")}
@@ -109,20 +109,20 @@ export default function MessageCard({
           </div>
         </form>
       ) : (
-        <p className="text-gray-700 text-sm">{content}</p>
+        <p className="text-gray-700 text-sm md:text-xl">{content}</p>
       )}
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-center">
         {!editing && isCustomizeLink && (
           <Link href={`?selectedId=${id}`}>
-            <button className="bg-white text-purple border border-purple font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-gray-200">
+            <button className="bg-white text-purple border border-purple font-semibold transition-all mt-3 min-w-[120px] px-2 py-1 rounded hover:bg-gray-200">
               {t("customize")}
             </button>
           </Link>
         )}
         <button
           onClick={() => setEditing(!editing)}
-          className="bg-purple text-white font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-darkPurple"
+          className="bg-purple text-white font-semibold transition-all mt-3 px-2 min-w-[120px] py-1 rounded hover:bg-darkPurple"
           aria-label={editing ? t("cancel") : t("edit")}
         >
           {editing ? t("cancel") : t("edit")}

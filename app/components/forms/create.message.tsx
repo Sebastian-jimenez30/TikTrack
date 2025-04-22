@@ -30,7 +30,7 @@ export default function CreateMessage() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 max-w-md mx-auto text-center">
+    <form onSubmit={handleSubmit} className="mb-4 w-full text-center">
       {error && (
         <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
       )}
@@ -41,12 +41,12 @@ export default function CreateMessage() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t("placeholder")}
-          className="border p-2 rounded w-full mb-2 text-sm border-purple"
+          className="border p-3 rounded w-full mb-2 text-sm md:text-xl border-purple"
           disabled={isPending}
         />
         <button
           type="submit"
-          className="bg-purple text-white font-semibold transition-all px-4 py-2 rounded hover:bg-darkPurple text-sm"
+          className="mt-4 bg-purple text-white font-bold transition-all px-4 py-2 rounded hover:bg-darkPurple"
           disabled={isPending || !message.trim()}
         >
           {t("saveTemplate")}

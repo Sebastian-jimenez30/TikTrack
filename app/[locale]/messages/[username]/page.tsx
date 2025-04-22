@@ -42,24 +42,22 @@ export default async function MessagesPage({ params, searchParams }: Props) {
 
   return (
     <div>
-      <h3 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-3xl text-center">
+      <h1 className="mb-8 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-none tracking-tight text-center">
         {t("title")}
-      </h3>
-      {messages.length < 3 && <CreateMessage />}
-
-      <div className="flex flex-wrap">
-        {messages.map((msg) => (
-          <MessageCard
-            key={msg.id}
-            id={msg.id}
-            content={msg.content}
-            isCustomizeLink
-          />
-        ))}
-      </div>
-
+      </h1>
       <div className="mx-[100px]">
-        <section>
+        {messages.length < 3 && <CreateMessage />}
+        <div className="grid w-full gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start">
+          {messages.map((msg) => (
+            <MessageCard
+              key={msg.id}
+              id={msg.id}
+              content={msg.content}
+              isCustomizeLink
+            />
+          ))}
+        </div>
+        <section className="mt-10">
           <h2 className="mb-8 text-3xl text-center font-bold leading-none tracking-tight md:text-4xl md:text-center lg:text-4xl lg:text-left ">
             {t("aiSuggestions")}
           </h2>
