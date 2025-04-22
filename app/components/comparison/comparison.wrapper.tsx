@@ -68,16 +68,15 @@ export default function ComparisonWrapper({
       <div className="flex justify-center">
         <button
             onClick={() => setComparisonMode(!comparisonMode)}
-            className="mb-6 px-4 py-2 bg-purple text-white rounded hover:bg-darkPurple transition"
+            className="mb-6 px-4 py-2 rounded bg-white text-purple border border-purple font-semibold transition-all hover:bg-gray-200"
         >
             {comparisonMode ? t("cancel") : t("compareInfluencers")}
         </button>
       
-
         {comparisonMode && selectedInfluencers.length >= 2 && (
             <button
             onClick={handleCompare}
-            className="ml-2 mb-6 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition"
+            className="ml-2 mb-6 px-4 py-2 bg-purple text-white rounded hover:bg-darkPurple transition"
             >
             {t("compare")}
             </button>

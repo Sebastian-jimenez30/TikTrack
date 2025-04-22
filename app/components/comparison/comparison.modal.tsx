@@ -24,29 +24,35 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
   const t = useTranslations("InfluencerComparison");
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-auto">
         <div className="p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">{t("title")}</h2>
+          <div className="relative mb-6">
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
+              className="absolute top-0 right-0 text-gray-500 hover:text-purple text-2xl"
             >
               ✕
             </button>
+            <h2 className="text-3xl font-bold text-center leading-none tracking-tight md:text-4xl lg:text-4xl">
+              {t("title")}
+            </h2>
           </div>
-          
+
           <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
+            <table className="w-full text-center">
+              <thead className="bg-lightPurple">
                 <tr className="border-b">
-                  <th className="p-3 font-semibold">{t("influencer")}</th>
+                  <th className="p-3 text-lg text-white font-semibold">{t("influencer")}</th>
                   {influencers.map((influencer) => (
                     <th key={influencer.username} className="p-3 font-semibold">
-                      <div className="flex items-center">
-                        <img src={influencer.profilePicture} alt={influencer.username} className="w-6 h-6 rounded-full mr-2" />
-                        <div className="text-sm text-gray-500">
+                      <div className="flex flex-col items-center">
+                        <img
+                          src={influencer.profilePicture}
+                          alt={influencer.username}
+                          className="w-8 h-8 rounded-full mb-1"
+                        />
+                        <div className="text-white text-center">
                           @{influencer.username}
                         </div>
                       </div>
@@ -55,15 +61,20 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("status")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
+                      <span
+                          className={`mr-1 w-3 h-3 rounded-full inline-block ${
+                            influencer.status === "active" ? "bg-purple-500" : "bg-gray-400"
+                          }`}
+                        ></span>
                       {influencer.status}
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("followers")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
@@ -71,7 +82,7 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("engagementRate")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
@@ -79,7 +90,7 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("averageComments")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
@@ -87,7 +98,7 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("averageLikes")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
@@ -95,7 +106,7 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("averageSaves")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
@@ -103,7 +114,7 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("averageShares")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
@@ -111,7 +122,7 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                     </td>
                   ))}
                 </tr>
-                <tr className="border-b">
+                <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
                   <td className="p-3">{t("averageViews")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">

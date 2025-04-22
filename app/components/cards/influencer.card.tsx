@@ -50,7 +50,7 @@ export default function InfluencerCard({
           onClick={handleToggleSelect}
           className={clsx(
             "absolute top-2 left-2 rounded-full w-6 h-6 border border-gray-300 flex items-center justify-center text-xs font-bold z-10",
-            selected ? "bg-purple text-white" : "bg-white text-black"
+            selected ? "bg-purple text-white" : "bg-white text-gray-300"
           )}
         >
           ✓
