@@ -205,7 +205,7 @@
 
   "InfluencerComparison": {
     "title": "Comparación de Influencers",
-    "select": "Selecciona influencers para contratar",
+    "compareInfluencers": "Comparar Influencers",
     "compare": "Comparar",
     "cancel": "Cancelar",
     "metric": "Métrica",
@@ -217,6 +217,7 @@
     "averageViews": "Promedio de vistas",
     "selectMinimum": "Por favor selecciona al menos dos influencers para comparar",
     "selectMaximum": "Solo puedes comparar hasta 5 influencers al mismo tiempo",
+    "selectRange": "Por favor selecciona entre 2 y 5 influencers para comparar",
     "error": "Ocurrió un error al comparar los influencers"
   }
 }

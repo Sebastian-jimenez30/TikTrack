@@ -70,7 +70,7 @@ export default function ComparisonWrapper({
             onClick={() => setComparisonMode(!comparisonMode)}
             className="mb-6 px-4 py-2 bg-purple text-white rounded hover:bg-darkPurple transition"
         >
-            {comparisonMode ? t("cancel") : t("select")}
+            {comparisonMode ? t("cancel") : t("compareInfluencers")}
         </button>
       
 

@@ -1,6 +1,6 @@
 import { influencerComparisonUseCases } from "@/application/use-cases/influencer.comparison.use-case";
 import { InfluencerComparisonPresenter } from "../presenters/influencer/influencer.comparison.presenter";
-
+import { getTranslations } from "next-intl/server";
 interface CompareProps {
   searchParams: { usernames: string[]};
 }
@@ -13,6 +13,8 @@ class InfluencerComparisonController {
       error?: string;
     };
   }> {
+    const t = await getTranslations("InfluencerComparison");
+
     const { usernames } = searchParams;
 
     if (!Array.isArray(usernames) || usernames.length < 2 || usernames.length > 5) {
@@ -20,7 +22,7 @@ class InfluencerComparisonController {
         pageData: {
           isSuccess: false,
           influencers: null,
-          error: "Please select between 2 and 5 influencers to compare."
+          error: t("selectRange")
         }
       };
     }

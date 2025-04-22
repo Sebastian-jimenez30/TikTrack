@@ -1,6 +1,7 @@
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
 import { Influencer } from "@/domain/entities/influencer";
+import { getTranslations } from "next-intl/server";
 
 export class InfluencerComparisonUseCases {
   async compareInfluencers(usernames: string[]): Promise<{
@@ -8,7 +9,9 @@ export class InfluencerComparisonUseCases {
     influencers: Influencer[];
     error?: string;
   }> {
-    try {
+    const t = await getTranslations("InfluencerComparison");
+
+    try {      
       const repository = repositoryContainer.get<IInfluencerRepository>(
         "IInfluencerRepository"
       );
@@ -46,7 +49,7 @@ export class InfluencerComparisonUseCases {
       return {
         isSuccess: false,
         influencers: [],
-        error: 'Error fetching comparison'
+        error: t("error")
       };
     }
   }
