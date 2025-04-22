@@ -27,7 +27,7 @@ export default class MessageRepository implements IMessageRepository {
 
   async update(
     id: number,
-    message: { content: string }
+    content: string
   ): Promise<{
     id: number;
     content: string;
@@ -36,7 +36,7 @@ export default class MessageRepository implements IMessageRepository {
   } | null> {
     const response = await db
       .update(messagesTable)
-      .set({ content: message.content })
+      .set({ content })
       .where(eq(messagesTable.id, id))
       .returning();
 

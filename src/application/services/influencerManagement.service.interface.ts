@@ -15,6 +15,7 @@ interface IInfluencerManagementService {
       featuredVideos: string[];
     }[]
   >;
+  sendMessageToInfluencer(username: string, message: string): Promise<any>;
 }
 
 export default IInfluencerManagementService;

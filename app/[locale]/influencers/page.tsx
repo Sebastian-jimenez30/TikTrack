@@ -7,6 +7,8 @@ import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
+import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
+
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -57,22 +59,7 @@ export default async function Index({
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
       <div>
-        <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
-          {influencers.map((influencer: InfluencerOverview) => (
-            <div key={influencer.username}>
-              <InfluencerCard
-                username={influencer.username}
-                profilePicture={influencer.profilePicture}
-                city={influencer.city}
-                engagementVisualizationRate={
-                  influencer.engagementVisualizationRate
-                }
-                followers={influencer.followers}
-                updatedAt={influencer.updatedAt}
-              />
-            </div>
-          ))}
-        </div>
+        <ComparisonWrapper influencers={influencers} />
         <Pagination
           pathname={ROUTES.INFLUENCERS}
           page={paginationCurrentNumber}

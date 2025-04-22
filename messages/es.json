@@ -68,6 +68,26 @@
     "error": "Ocurrió un error al procesar tu solicitud"
   },
 
+  "InfluencerComparison": {
+    "title": "Comparación de Influencers",
+    "compareInfluencers": "Comparar Influencers",
+    "compare": "Comparar",
+    "cancel": "Cancelar",
+    "influencer": "Influencer",
+    "status": "Estado",
+    "followers": "Seguidores",
+    "engagementRate": "Tasa de participación",
+    "averageComments": "Promedio de comentarios",
+    "averageLikes": "Promedio de me gusta",
+    "averageSaves": "Promedio de guardados",
+    "averageShares": "Promedio de compartidos",
+    "averageViews": "Promedio de vistas",
+    "selectMinimum": "Por favor selecciona al menos dos influencers para comparar",
+    "selectMaximum": "Solo puedes comparar hasta 5 influencers al mismo tiempo",
+    "selectRange": "Por favor selecciona entre 2 y 5 influencers para comparar",
+    "error": "Ocurrió un error al comparar los influencers"
+  },
+
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",
@@ -94,7 +114,16 @@
       "delete": "Eliminar",
       "customize": "Personalizar",
       "edit": "Editar",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "error": {
+        "notEmptyContent": "El contenido no puede estar vacío",
+        "failedToUpdateMessage": "Error al actualizar el mensaje",
+        "failedToDeleteMessage": "Error al eliminar el mensaje"
+      },
+      "success": {
+        "messageUpdated": "Mensaje actualizado correctamente",
+        "messageDeleted": "Mensaje eliminado correctamente"
+      }
     }
   },
 
@@ -107,7 +136,11 @@
     "next": "Siguiente"
   },
 
-  "MessagesPage": {
+  "MessagesIndexPage": {
+    "metadata": {
+      "title": "Plantillas de Mensajes",
+      "description": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención."
+    },
     "title": "Plantillas de Mensajes",
     "input": {
       "placeholder": "Escribe tu mensaje...",
@@ -122,7 +155,8 @@
   "Forms": {
     "message": {
       "placeholder": "Crea una plantilla...",
-      "saveTemplate": "Guardar plantilla"
+      "saveTemplate": "Guardar plantilla",
+      "error": "Error al crear la plantilla"
     }
   },
 
@@ -170,20 +204,34 @@
   "TextboxAI": {
     "buttonAccept": "Aceptar",
     "buttonCancel": "Cancelar",
+    "buttonSend": "Enviar mensaje",
     "placeholder": "Escribe tu mensaje aquí...",
     "loading": "Cargando...",
     "enhanced": "Mejorar mensaje con IA",
     "error": {
       "inputEmpty": "El campo de mensaje está vacío",
-      "general": "Ocurrió un error al procesar tu solicitud"
+      "general": "Ocurrió un error al procesar tu solicitud",
+      "noUsernameOrMessage": "No se proporcionó un nombre de usuario o mensaje",
+      "failedToSendMessage": "No se pudo enviar el mensaje"
     },
-    "success": "Respuesta generada con éxito"
+    "success": {
+      "responseReceived": "Respuesta generada con éxito",
+      "messageSent": "Mensaje enviado con éxito"
+    }
   },
 
   "OpenAIService": {
     "error": {
       "noResponse": "No hay respuesta de la API de OpenAI",
       "general": "Ocurrió un error al procesar tu solicitud"
+    }
+  },
+
+  "InfluencerManagementService": {
+    "error": {
+      "errorGettingInfluencers": "Error al obtener influencers",
+      "errorGettingInfluencerList": "Error al obtener la lista de influencers. Intenta nuevamente más tarde",
+      "errorSendingMessage": "Error al enviar el mensaje"
     }
   },
 

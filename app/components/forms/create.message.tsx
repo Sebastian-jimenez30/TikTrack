@@ -2,7 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { createMessage } from "~/app/[locale]/messages/actions";
+import axios from "axios";
+import ROUTES_API from "~/constants/urls/api.urls";
 
 export default function CreateMessage() {
   const [message, setMessage] = useState("");
@@ -15,18 +16,21 @@ export default function CreateMessage() {
     if (!message.trim()) return;
 
     startTransition(async () => {
-      const result = await createMessage(message);
-      if (result.success) {
+      const result = await axios.post(ROUTES_API.MESSAGE_CREATE, {
+        content: message,
+      });
+      if (result.status === 200) {
         setMessage("");
         setError(null);
+        window.location.reload();
       } else {
-        setError(result.error || "Failed to create message");
+        setError(t("error"));
       }
     });
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 max-w-md mx-auto text-center">
+    <form onSubmit={handleSubmit} className="mb-4 w-full text-center">
       {error && (
         <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
       )}
@@ -37,12 +41,12 @@ export default function CreateMessage() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder={t("placeholder")}
-          className="border p-2 rounded w-full mb-2 text-sm border-purple"
+          className="border p-3 rounded w-full mb-2 text-sm md:text-xl border-purple"
           disabled={isPending}
         />
         <button
           type="submit"
-          className="bg-purple text-white font-semibold transition-all px-4 py-2 rounded hover:bg-darkPurple text-sm"
+          className="mt-4 bg-purple text-white font-bold transition-all px-4 py-2 rounded hover:bg-darkPurple"
           disabled={isPending || !message.trim()}
         >
           {t("saveTemplate")}

@@ -68,6 +68,26 @@
     "error": "An error occurred while processing your request"
   },
 
+  "InfluencerComparison": {
+    "title": "Influencer Comparison",
+    "compareInfluencers": "Compare Influencers",
+    "compare": "Compare",
+    "cancel": "Cancel",
+    "influencer": "Influencer",
+    "status": "Status",
+    "followers": "Followers",
+    "engagementRate": "Engagement Rate",
+    "averageComments": "Average Comments",
+    "averageLikes": "Average Likes",
+    "averageSaves": "Average Saves",
+    "averageShares": "Average Shares",
+    "averageViews": "Average Views",
+    "selectMinimum": "Please select at least two influencers to compare",
+    "selectMaximum": "You can only compare up to five influencers at a time",
+    "selectRange": "Please select between 2 and 5 influencers to compare",
+    "error": "An error occurred while comparing influencers"
+  },
+
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",
@@ -94,7 +114,16 @@
       "delete": "Delete",
       "customize": "Customize",
       "edit": "Edit",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": {
+        "notEmptyContent": "Content cannot be empty",
+        "failedToUpdateMessage": "Failed to update message",
+        "failedToDeleteMessage": "Failed to delete message"
+      },
+      "success": {
+        "messageUpdated": "Message updated successfully",
+        "messageDeleted": "Message deleted successfully"
+      }
     }
   },
 
@@ -107,7 +136,11 @@
     "next": "Next"
   },
 
-  "MessagesPage": {
+  "MessagesIndexPage": {
+    "metadata": {
+      "title": "Messaging Templates",
+      "description": "Communicate clearly: Make your message sharper and easier to understand — increase your chance of getting noticed."
+    },
     "title": "Messaging Templates",
     "input": {
       "placeholder": "Type your message...",
@@ -122,7 +155,8 @@
   "Forms": {
     "message": {
       "placeholder": "Create a message template...",
-      "saveTemplate": "Save Template"
+      "saveTemplate": "Save Template",
+      "error": "Failed to create template"
     }
   },
 
@@ -170,20 +204,34 @@
   "TextboxAI": {
     "buttonAccept": "Accept",
     "buttonCancel": "Cancel",
+    "buttonSend": "Send Message",
     "placeholder": "Write your message here...",
     "loading": "Loading...",
     "enhanced": "Enhance message with AI",
     "error": {
       "inputEmpty": "The message field is empty",
-      "general": "An error occurred while processing your request"
+      "general": "An error occurred while processing your request",
+      "noUsernameOrMessage": "No username or message provided",
+      "failedToSendMessage": "Failed to send message"
     },
-    "success": "Response received successfully"
+    "success": {
+      "responseReceived": "Response received successfully",
+      "messageSent": "Message sent successfully"
+    }
   },
 
   "OpenAIService": {
     "error": {
       "noResponse": "No response from OpenAI API",
       "general": "An error occurred while processing your request"
+    }
+  },
+
+  "InfluencerManagementService": {
+    "error": {
+      "errorGettingInfluencers": "Error getting influencers",
+      "errorGettingInfluencerList": "Error getting influencer list. Try again later",
+      "errorSendingMessage": "Error sending message"
     }
   },
 
