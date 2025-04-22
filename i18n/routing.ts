@@ -1,6 +1,5 @@
 import { defineRouting } from "next-intl/routing";
 import { createNavigation } from "next-intl/navigation";
-import { UrlObject } from "url";
 
 export const routing = defineRouting({
   locales: ["en", "es"],
@@ -31,12 +30,24 @@ export const routing = defineRouting({
       en: "/not-found",
       es: "/no-encontrado",
     },
-    "/sign-in": { en: "/sign-in", es: "/iniciar-sesion" },
-    "/sign-up": { en: "/sign-up", es: "/registrarse" },
-    "/profile": { en: "/profile", es: "/perfil" },
+    "/sign-in": {
+      en: "/sign-in",
+      es: "/iniciar-sesion",
+    },
+    "/sign-up": {
+      en: "/sign-up",
+      es: "/registrarse",
+    },
+    "/profile": {
+      en: "/profile",
+      es: "/perfil",
+    },
+    "/admin/users": {
+      en: "/admin/users",
+      es: "/admin/usuarios",
+    },
   },
 });
-
 export type Locale = (typeof routing.locales)[number];
 
 type StaticPathname = Exclude<
