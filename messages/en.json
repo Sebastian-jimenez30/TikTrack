@@ -68,6 +68,26 @@
     "error": "An error occurred while processing your request"
   },
 
+  "InfluencerComparison": {
+    "title": "Influencer Comparison",
+    "compareInfluencers": "Compare Influencers",
+    "compare": "Compare",
+    "cancel": "Cancel",
+    "influencer": "Influencer",
+    "status": "Status",
+    "followers": "Followers",
+    "engagementRate": "Engagement Rate",
+    "averageComments": "Average Comments",
+    "averageLikes": "Average Likes",
+    "averageSaves": "Average Saves",
+    "averageShares": "Average Shares",
+    "averageViews": "Average Views",
+    "selectMinimum": "Please select at least two influencers to compare",
+    "selectMaximum": "You can only compare up to five influencers at a time",
+    "selectRange": "Please select between 2 and 5 influencers to compare",
+    "error": "An error occurred while comparing influencers"
+  },
+
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",
@@ -201,23 +221,5 @@
       "title": "TikTrack",
       "description": "Discover the influencer who will help you boost your reach and maximize your impact."
     }
-  },
-
-  "InfluencerComparison": {
-    "title": "Influencer Comparison",
-    "compareInfluencers": "Compare Influencers",
-    "compare": "Compare",
-    "cancel": "Cancel",
-    "metric": "Metric",
-    "followers": "Followers",
-    "engagementRate": "Engagement Rate",
-    "averageLikes": "Average Likes",
-    "averageComments": "Average Comments",
-    "averageShares": "Average Shares",
-    "averageViews": "Average Views",
-    "selectMinimum": "Please select at least two influencers to compare",
-    "selectMaximum": "You can only compare up to five influencers at a time",
-    "selectRange": "Please select between 2 and 5 influencers to compare",
-    "error": "An error occurred while comparing influencers"
   }
 }

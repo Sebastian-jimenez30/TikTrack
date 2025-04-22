@@ -3,12 +3,14 @@
 import { useTranslations } from "next-intl";
 
 interface Influencer {
+  profilePicture: string;
   username: string;
-  profileName: string;
+  status: string;
   followers: string;
-  engagementRate: number;
-  averageLikes: string;
+  engagementVisualizationRate: number;
   averageComments: string;
+  averageLikes: string;
+  averageSaves: string;
   averageShares: string;
   averageViews: string;
 }
@@ -39,18 +41,28 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b">
-                  <th className="p-3 font-semibold">{t("metric")}</th>
+                  <th className="p-3 font-semibold">{t("influencer")}</th>
                   {influencers.map((influencer) => (
                     <th key={influencer.username} className="p-3 font-semibold">
-                      {influencer.profileName}
-                      <div className="text-sm text-gray-500">
-                        @{influencer.username}
+                      <div className="flex items-center">
+                        <img src={influencer.profilePicture} alt={influencer.username} className="w-6 h-6 rounded-full mr-2" />
+                        <div className="text-sm text-gray-500">
+                          @{influencer.username}
+                        </div>
                       </div>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
+                <tr className="border-b">
+                  <td className="p-3">{t("status")}</td>
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.status}
+                    </td>
+                  ))}
+                </tr>
                 <tr className="border-b">
                   <td className="p-3">{t("followers")}</td>
                   {influencers.map((influencer) => (
@@ -63,7 +75,15 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                   <td className="p-3">{t("engagementRate")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
-                      {influencer.engagementRate}%
+                      {influencer.engagementVisualizationRate}%
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b">
+                  <td className="p-3">{t("averageComments")}</td>
+                  {influencers.map((influencer) => (
+                    <td key={influencer.username} className="p-3">
+                      {influencer.averageComments}
                     </td>
                   ))}
                 </tr>
@@ -76,10 +96,10 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                   ))}
                 </tr>
                 <tr className="border-b">
-                  <td className="p-3">{t("averageComments")}</td>
+                  <td className="p-3">{t("averageSaves")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
-                      {influencer.averageComments}
+                      {influencer.averageSaves}
                     </td>
                   ))}
                 </tr>
