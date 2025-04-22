@@ -46,6 +46,11 @@ export const routing = defineRouting({
       en: "/admin/users",
       es: "/admin/usuarios",
     },
+
+    "/admin/users/manage": {
+      en: "/admin/users/manage",
+      es: "/admin/usuarios/gestionar",
+    },
   },
 });
 export type Locale = (typeof routing.locales)[number];

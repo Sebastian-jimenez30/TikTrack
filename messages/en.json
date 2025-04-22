@@ -219,10 +219,17 @@
     "user": "User",
     "active": "Active",
     "inactive": "Inactive",
-    "editUser": "Edit User",
+    "manage": "Manage",
+    "username": "Username",
     "password": "Password",
-    "update": "Update",
-    "deactivate": "Deactivate",
-    "close": "Close"
+    "passwordPlaceholder": "Leave blank to keep current password",
+    "editTitle": "Edit User",
+    "save": "Save Changes",
+    "missingUserId": "Missing user ID in the request.",
+    "userNotFound": "User not found.",
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
+    }
   }
 }

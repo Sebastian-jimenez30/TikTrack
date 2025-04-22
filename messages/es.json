@@ -205,8 +205,8 @@
   },
 
   "UserManagementPage": {
-    "userManagement": "Gestión de usuarios",
-    "authError": "Necesitas estar logueado para acceder a esta página.",
+    "userManagement": "Gestión de Usuarios",
+    "authError": "Debes iniciar sesión para acceder a esta página.",
     "fetchError": "Hubo un error al obtener los usuarios.",
     "noUsersFound": "No se encontraron usuarios",
     "tokenError": "Token inválido. Por favor, inicia sesión nuevamente.",
@@ -219,10 +219,17 @@
     "user": "Usuario",
     "active": "Activo",
     "inactive": "Inactivo",
-    "editUser": "Editar usuario",
+    "manage": "Gestionar",
+    "username": "Nombre de usuario",
     "password": "Contraseña",
-    "update": "Actualizar",
-    "deactivate": "Desactivar",
-    "close": "Cerrar"
+    "passwordPlaceholder": "Déjalo en blanco para mantener la actual",
+    "editTitle": "Editar Usuario",
+    "save": "Guardar Cambios",
+    "missingUserId": "Falta el ID del usuario en la solicitud.",
+    "userNotFound": "Usuario no encontrado.",
+    "roles": {
+      "admin": "Administrador",
+      "user": "Usuario"
+    }
   }
 }
