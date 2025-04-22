@@ -23,7 +23,6 @@ export default function MessageCard({
   const [newContent, setNewContent] = useState(content);
   const t = useTranslations("Cards.message");
 
-  // Actualizar contenido
   async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newContent.trim()) {
@@ -53,17 +52,16 @@ export default function MessageCard({
     });
   }
 
-  // Eliminar mensaje
   async function handleDelete() {
     startTransition(async () => {
       try {
         const result = await axios.delete(ROUTES_API.MESSAGE_DELETE, {
-          data: { id }, // Pasando el id en el cuerpo de la solicitud
+          data: { id },
         });
         if (result.status === 200) {
-          setError(null); // No es necesario manejar error aquí
+          setError(null);
           alert(t("success.messageDeleted"));
-          window.location.reload(); // O hacer alguna otra acción como redirigir
+          window.location.reload();
         } else {
           setError(t("error.failedToDeleteMessage"));
         }
@@ -73,7 +71,6 @@ export default function MessageCard({
     });
   }
 
-  // Actualizar el estado del contenido mientras se edita
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewContent(e.target.value);
   };
@@ -103,7 +100,7 @@ export default function MessageCard({
             </button>
             <button
               type="button"
-              onClick={handleDelete} // Cambiado de submit a button
+              onClick={handleDelete}
               className="bg-darkGrey text-white font-semibold transition-all mt-3 text-sm w-full px-2 py-1 rounded hover:bg-black"
               disabled={isPending}
             >
