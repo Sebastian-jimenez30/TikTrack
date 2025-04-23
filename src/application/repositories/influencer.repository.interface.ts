@@ -102,4 +102,24 @@ export default interface IInfluencerRepository {
     createdAt: Date;
     updatedAt: Date;
   }): Promise<void>;
+  searchPaginated(query: string, pageNumber: number, limit: number): Promise<{
+    id: number;
+    username: string;
+    profileName: string;
+    profilePicture: string;
+    profileUrl: string;
+    averageLikes: number;
+    averageComments: number;
+    averageShares: number;
+    averageSaves: number;
+    averageViews: number;
+    followers: number;
+    city: string;
+    featuredVideos: string[];
+    status: Status;
+    createdAt: Date;
+    updatedAt: Date;
+  }[]>;
+  countSearchResults(query: string): Promise<number>;
+
 }

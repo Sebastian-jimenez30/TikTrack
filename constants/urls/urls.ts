@@ -1,6 +1,7 @@
 const ROUTES = {
   HOME: "/",
   INFLUENCERS: "/influencers",
+  INFLUENCERS_SEARCH: "/influencers/search",
   INFLUENCERS_DETAIL: "/influencers/[username]",
   INFLUENCERS_DISABLED: "/admin/influencers/disabled",
   MESSAGES: "/messages",

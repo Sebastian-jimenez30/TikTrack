@@ -2,6 +2,7 @@ import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import InfluencerCard from "~/app/components/cards/influencer.card";
 import Pagination from "~/app/components/pagination";
+import SearchBar from "~/app/components/searchBar"; 
 import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
 import { JSX } from "react";
@@ -50,12 +51,18 @@ export default async function Index({
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
 
+  
   return (
     <div>
       <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
+
+      <div className="mb-8 flex justify-center">
+        <SearchBar actionUrl={`${ROUTES.INFLUENCERS_SEARCH}`} />
+      </div>
+    
       <div>
         <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
           {influencers.map((influencer: InfluencerOverview) => (

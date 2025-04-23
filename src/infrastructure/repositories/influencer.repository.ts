@@ -4,7 +4,9 @@ import { influencersTable } from "@/infrastructure/database/schemas/influencer.s
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq } from "drizzle-orm";
+import { eq, ilike } from "drizzle-orm";
+
+
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
@@ -156,4 +158,50 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .where(eq(influencersTable.id, influencer.id))
       .execute();
   }
+
+  async searchPaginated(
+    query: string,
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+
+    const response = await db
+      .select()
+      .from(influencersTable)
+      .where(ilike(influencersTable.username, `%${query}%`)) // Case-insensitive search
+      .limit(limit)
+      .offset(offset);
+
+    return response;
+  }
+
+  async countSearchResults(query: string): Promise<number> {
+    const response = await db
+      .select({ count: count() })
+      .from(influencersTable)
+      .where(ilike(influencersTable.username, `%${query}%`)); // Case-insensitive search
+
+    return response[0].count;
+  }
+
 }
