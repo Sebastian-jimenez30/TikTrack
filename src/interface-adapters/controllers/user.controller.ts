@@ -1,6 +1,5 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 
-
 interface UserResponse {
   users: {
     id: number;
@@ -15,12 +14,11 @@ interface UserResponse {
 }
 
 export class UserController {
-
   async getAllUsers(): Promise<{ pageData: UserResponse }> {
     let pageData: UserResponse;
     try {
-      const users = await userUseCases.getAllUsers(); 
-  
+      const users = await userUseCases.getAllUsers();
+
       if (!users || users.length === 0) {
         pageData = {
           users: [],
@@ -32,9 +30,9 @@ export class UserController {
           is_success: true,
         };
       }
-  
+
       return { pageData };
-    } catch  {
+    } catch {
       pageData = {
         users: [],
         is_success: false,
@@ -69,7 +67,16 @@ export class UserController {
     }
   }
 
-  async updateUser(userId: number, userData: { name?: string, email?: string, password?: string, role?: string, status?: string }): Promise<{ pageData: object }> {
+  async updateUser(
+    userId: number,
+    userData: {
+      name?: string;
+      email?: string;
+      password?: string;
+      role?: string;
+      status?: string;
+    }
+  ): Promise<{ pageData: object }> {
     let pageData;
     try {
       const updatedUser = await userUseCases.updateUser(userId, userData);
@@ -86,7 +93,7 @@ export class UserController {
         };
       }
       return { pageData };
-    } catch  {
+    } catch {
       pageData = {
         user: null,
         is_success: false,
@@ -94,7 +101,6 @@ export class UserController {
       return { pageData };
     }
   }
-
 }
 
 export const userController = new UserController();

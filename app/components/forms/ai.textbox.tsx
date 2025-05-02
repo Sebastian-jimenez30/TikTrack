@@ -9,7 +9,10 @@ interface TextboxWithServiceProps {
   username?: string;
 }
 
-export default function TextboxWithService({ selectedMessageContent, username }: TextboxWithServiceProps) {
+export default function TextboxWithService({
+  selectedMessageContent,
+  username,
+}: TextboxWithServiceProps) {
   const t = useTranslations("TextboxAI");
 
   const [textBoxValue, setTextBoxValue] = useState<string>("");
@@ -95,24 +98,22 @@ export default function TextboxWithService({ selectedMessageContent, username }:
       const response = await fetch(ROUTES_API.MESSAGE_SEND(username), {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: textBoxValue
-        })
+          message: textBoxValue,
+        }),
       });
-      
+
       if (response.status !== 200) {
         toast.error(t("error.failedToSendMessage"));
       } else {
         toast.success(t("success.messageSent"));
       }
-  
-    } catch (error) {
+    } catch {
       toast.error(t("error.failedToSendMessage"));
     }
   };
- 
 
   return (
     <div>

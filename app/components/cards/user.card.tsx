@@ -25,7 +25,9 @@ export default function UserCard({ name, email, role }: UserCardProps) {
         <div className="flex items-start gap-6">
           <UserIcon className="text-purple text-3xl mt-1" />
           <div>
-            <p className="text-base text-gray-500 uppercase tracking-wide">{t("name")}</p>
+            <p className="text-base text-gray-500 uppercase tracking-wide">
+              {t("name")}
+            </p>
             <p className="text-xl font-medium text-gray-800">{name}</p>
           </div>
         </div>
@@ -33,7 +35,9 @@ export default function UserCard({ name, email, role }: UserCardProps) {
         <div className="flex items-start gap-6">
           <EmailIcon className="text-purple text-3xl mt-1" />
           <div>
-            <p className="text-base text-gray-500 uppercase tracking-wide">{t("email")}</p>
+            <p className="text-base text-gray-500 uppercase tracking-wide">
+              {t("email")}
+            </p>
             <p className="text-xl font-medium text-gray-800">{email}</p>
           </div>
         </div>
@@ -41,7 +45,9 @@ export default function UserCard({ name, email, role }: UserCardProps) {
         <div className="flex items-start gap-6">
           <RoleIcon className="text-purple text-3xl mt-1" />
           <div>
-            <p className="text-base text-gray-500 uppercase tracking-wide">{t("role")}</p>
+            <p className="text-base text-gray-500 uppercase tracking-wide">
+              {t("role")}
+            </p>
             <p
               className={`text-xl font-medium ${
                 role === "admin" ? "text-red-500" : "text-gray-800"

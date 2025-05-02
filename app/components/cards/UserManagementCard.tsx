@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Button from "~/app/components/buttons/button"; 
+import Button from "~/app/components/buttons/button";
 import ROUTES from "~/constants/urls/urls";
 
 interface UserManagementCardProps {
@@ -27,7 +27,9 @@ export default function UserManagementCard({ users }: UserManagementCardProps) {
 
       <div className="space-y-8">
         {users.map((user) => {
-          const query = new URLSearchParams({ userId: user.id.toString() }).toString();
+          const query = new URLSearchParams({
+            userId: user.id.toString(),
+          }).toString();
 
           const manageUserRoute = `${ROUTES.MANAGEMENT_MANAGE}?${query}`;
 
@@ -42,8 +44,12 @@ export default function UserManagementCard({ users }: UserManagementCardProps) {
               </div>
 
               <div className="flex-1">
-                <p className="text-base text-gray-500 uppercase">{t("email")}</p>
-                <p className="text-xl font-medium text-gray-800">{user.email}</p>
+                <p className="text-base text-gray-500 uppercase">
+                  {t("email")}
+                </p>
+                <p className="text-xl font-medium text-gray-800">
+                  {user.email}
+                </p>
               </div>
 
               <div className="flex-1">
@@ -58,17 +64,23 @@ export default function UserManagementCard({ users }: UserManagementCardProps) {
               </div>
 
               <div className="flex-1">
-                <p className="text-base text-gray-500 uppercase">{t("createdAt")}</p>
+                <p className="text-base text-gray-500 uppercase">
+                  {t("createdAt")}
+                </p>
                 <p className="text-xl font-medium text-gray-800">
                   {new Date(user.createdAt).toLocaleDateString()}
                 </p>
               </div>
 
               <div className="flex-1">
-                <p className="text-base text-gray-500 uppercase">{t("status")}</p>
+                <p className="text-base text-gray-500 uppercase">
+                  {t("status")}
+                </p>
                 <p
                   className={`text-xl font-medium ${
-                    user.status === "active" ? "text-green-500" : "text-gray-400"
+                    user.status === "active"
+                      ? "text-green-500"
+                      : "text-gray-400"
                   }`}
                 >
                   {user.status === "active" ? t("active") : t("inactive")}
@@ -76,10 +88,7 @@ export default function UserManagementCard({ users }: UserManagementCardProps) {
               </div>
 
               <div className="flex-1 text-right">
-                <Button
-                  variant="primary"
-                  href={manageUserRoute} 
-                >
+                <Button variant="primary" href={manageUserRoute}>
                   {t("manage")}
                 </Button>
               </div>

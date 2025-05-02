@@ -22,17 +22,19 @@ export class UserUseCases {
     return users;
   }
 
-  async updateUser(id: number, user: {
-    name?: string;
-    email?: string;
-    password?: string;
-    role?: string;
-    status?: string;
-  }) {
+  async updateUser(
+    id: number,
+    user: {
+      name?: string;
+      email?: string;
+      password?: string;
+      role?: string;
+      status?: string;
+    }
+  ) {
     const updatedUser = await this.repository.updateUser(id, user);
     return updatedUser;
   }
-
 }
 
 export const userUseCases = new UserUseCases();

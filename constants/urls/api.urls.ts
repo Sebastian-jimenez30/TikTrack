@@ -12,7 +12,8 @@ const ROUTES_API = {
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/deactivate",
   INFLUENCER_ACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/activate",
-  INFLUENCER_COMPARE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/compare",
+  INFLUENCER_COMPARE:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/compare",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
   SIGN_UP: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/sign-up",
   PROFILE_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/profile/show",
@@ -22,7 +23,8 @@ const ROUTES_API = {
   MESSAGE_CREATE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/create",
   MESSAGE_EDIT: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/edit",
   MESSAGE_DELETE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/delete",
-  MESSAGE_SEND: (username: string) => NEXT_PUBLIC_BASE_URL_API + `/api/backend/services/messages/${username}`,
+  MESSAGE_SEND: (username: string) =>
+    NEXT_PUBLIC_BASE_URL_API + `/api/backend/services/messages/${username}`,
 } as const;
 
 export default ROUTES_API;

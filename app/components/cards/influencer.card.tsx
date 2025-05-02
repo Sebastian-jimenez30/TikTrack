@@ -34,7 +34,7 @@ export default function InfluencerCard({
   const t = useTranslations("Cards");
 
   const handleToggleSelect = (e: React.MouseEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     onSelect?.(username);
   };
 

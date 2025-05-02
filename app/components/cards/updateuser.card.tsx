@@ -7,19 +7,22 @@ import EmailIcon from "~/app/components/icons/email.icon";
 import RoleIcon from "~/app/components/icons/role.icon";
 import LockIcon from "~/app/components/icons/lock.icon";
 import axios from "axios";
-import ROUTES_API from "~/constants/urls/api.urls";  
+import ROUTES_API from "~/constants/urls/api.urls";
 interface UpdateUserCardProps {
   initialData: {
     username: string;
     name: string;
     email: string;
     role: "admin" | "user";
-    status: "active" | "inactive"; 
+    status: "active" | "inactive";
   };
-  userId: number; 
+  userId: number;
 }
 
-export default function UpdateUserCard({ initialData, userId }: UpdateUserCardProps) {
+export default function UpdateUserCard({
+  initialData,
+  userId,
+}: UpdateUserCardProps) {
   const t = useTranslations("UserManagementPage");
 
   const [formData, setFormData] = useState({
@@ -28,44 +31,48 @@ export default function UpdateUserCard({ initialData, userId }: UpdateUserCardPr
     email: initialData.email,
     password: "",
     role: initialData.role,
-    status: initialData.status, 
+    status: initialData.status,
   });
 
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); 
+    setError(null);
 
-    if (!formData.name || !formData.email || !formData.role || !formData.status) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.role ||
+      !formData.status
+    ) {
       setError("Please fill in all required fields.");
       return;
     }
 
     try {
-      const response = await axios.patch(
-        `${ROUTES_API.USER_UPDATE}`, 
-        {
-          userId,
-          username: formData.username,
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          role: formData.role,
-          status: formData.status, 
-        }
-      );
+      const response = await axios.patch(`${ROUTES_API.USER_UPDATE}`, {
+        userId,
+        username: formData.username,
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+        status: formData.status,
+      });
 
       const pageData = response.data.pageData;
 
       if (!pageData.is_success) {
         setError(pageData.message || "Error updating user");
       } else {
-        window.location.href = "/admin/usuarios"; 
+        window.location.href = "/admin/usuarios";
       }
     } catch {
       setError("Error updating user. Please try again.");
@@ -90,7 +97,9 @@ export default function UpdateUserCard({ initialData, userId }: UpdateUserCardPr
       <div className="flex items-start gap-6">
         <UserIcon className="text-purple text-3xl mt-1" />
         <div className="w-full">
-          <label className="text-base text-gray-500 uppercase tracking-wide">{t("name")}</label>
+          <label className="text-base text-gray-500 uppercase tracking-wide">
+            {t("name")}
+          </label>
           <input
             type="text"
             name="name"
@@ -104,7 +113,9 @@ export default function UpdateUserCard({ initialData, userId }: UpdateUserCardPr
       <div className="flex items-start gap-6">
         <EmailIcon className="text-purple text-3xl mt-1" />
         <div className="w-full">
-          <label className="text-base text-gray-500 uppercase tracking-wide">{t("email")}</label>
+          <label className="text-base text-gray-500 uppercase tracking-wide">
+            {t("email")}
+          </label>
           <input
             type="email"
             name="email"
@@ -118,7 +129,9 @@ export default function UpdateUserCard({ initialData, userId }: UpdateUserCardPr
       <div className="flex items-start gap-6">
         <LockIcon className="text-purple text-3xl mt-1" />
         <div className="w-full">
-          <label className="text-base text-gray-500 uppercase tracking-wide">{t("password")}</label>
+          <label className="text-base text-gray-500 uppercase tracking-wide">
+            {t("password")}
+          </label>
           <input
             type="password"
             name="password"
@@ -133,7 +146,9 @@ export default function UpdateUserCard({ initialData, userId }: UpdateUserCardPr
       <div className="flex items-start gap-6">
         <RoleIcon className="text-purple text-3xl mt-1" />
         <div className="w-full">
-          <label className="text-base text-gray-500 uppercase tracking-wide">{t("role")}</label>
+          <label className="text-base text-gray-500 uppercase tracking-wide">
+            {t("role")}
+          </label>
           <select
             name="role"
             value={formData.role}
@@ -149,7 +164,9 @@ export default function UpdateUserCard({ initialData, userId }: UpdateUserCardPr
       <div className="flex items-start gap-6">
         <RoleIcon className="text-purple text-3xl mt-1" />
         <div className="w-full">
-          <label className="text-base text-gray-500 uppercase tracking-wide">{t("status")}</label>
+          <label className="text-base text-gray-500 uppercase tracking-wide">
+            {t("status")}
+          </label>
           <select
             name="status"
             value={formData.status}

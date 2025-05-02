@@ -1,6 +1,5 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
-import InfluencerCard from "~/app/components/cards/influencer.card";
 import Pagination from "~/app/components/pagination";
 import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
@@ -9,18 +8,8 @@ import { getTranslations } from "next-intl/server";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
 
-
 interface IndexProps {
   searchParams: { page?: string };
-}
-
-interface InfluencerOverview {
-  username: string;
-  profilePicture: string;
-  city: string;
-  engagementVisualizationRate: number;
-  followers: string;
-  updatedAt: string;
 }
 
 export async function generateMetadata() {

@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 import ROUTES_API from "~/constants/urls/api.urls";
 import axios from "axios";
-import UpdateUserCard from "~/app/components/cards/updateuser.card"; 
+import UpdateUserCard from "~/app/components/cards/updateuser.card";
 
 export default async function ManageUserPage({
   searchParams,
@@ -34,11 +34,14 @@ export default async function ManageUserPage({
   let pageData;
 
   try {
-    const response = await axios.get(`${ROUTES_API.PROFILE_SHOW}?userId=${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${ROUTES_API.PROFILE_SHOW}?userId=${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     pageData = response.data.pageData;
   } catch {
@@ -70,7 +73,7 @@ export default async function ManageUserPage({
           role: user.role,
           status: user.status,
         }}
-        userId={Number(userId)} 
+        userId={Number(userId)}
       />
     </div>
   );

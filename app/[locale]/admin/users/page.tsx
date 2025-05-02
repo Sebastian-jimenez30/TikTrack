@@ -18,8 +18,8 @@ export default async function UserManagementPage() {
 
   let usersResponse;
   try {
-    usersResponse = await userController.getAllUsers(); 
-  } catch  {
+    usersResponse = await userController.getAllUsers();
+  } catch {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <p className="text-xl font-bold text-red-500">{t("fetchError")}</p>
@@ -40,7 +40,7 @@ export default async function UserManagementPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <UserManagementCard users={userList} /> 
+      <UserManagementCard users={userList} />
     </div>
   );
 }

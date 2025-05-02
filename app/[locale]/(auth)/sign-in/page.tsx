@@ -14,7 +14,11 @@ export default function SignInPage() {
     const password = formData.get("password") as string;
     const locale = await getLocale();
     const pageData = (
-      await axios.post(ROUTES_API.LOGIN, { email: email, password: password, locale })
+      await axios.post(ROUTES_API.LOGIN, {
+        email: email,
+        password: password,
+        locale,
+      })
     ).data.pageData;
     if (!pageData.is_success) {
       return { error: pageData.message };

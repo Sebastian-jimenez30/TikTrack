@@ -1,11 +1,11 @@
 "use client";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Scrollbar, A11y, Autoplay } from "swiper/modules";
 import React from "react";
 import InfluencerCard from "~/app/components/cards/influencer.card";
-import 'swiper/css';
-import 'swiper/css/scrollbar';
+import "swiper/css";
+import "swiper/css/scrollbar";
 
 interface InfluencerSliderProps {
   influencers: {
@@ -48,19 +48,19 @@ const InfluencerSlider: React.FC<InfluencerSliderProps> = ({ influencers }) => {
         {influencers.map((influencer, i) => (
           <SwiperSlide key={i}>
             <div className="flex justify-center items-center h-full w-full block w-full h-full object-cover my-5">
-            <InfluencerCard
-              username={influencer.username}
-              profilePicture={influencer.profilePicture}
-              city={influencer.city}
-              engagementVisualizationRate={
-                influencer.engagementVisualizationRate
-              }
-              followers={influencer.followers}
-              updatedAt={influencer.updatedAt}
-            />
+              <InfluencerCard
+                username={influencer.username}
+                profilePicture={influencer.profilePicture}
+                city={influencer.city}
+                engagementVisualizationRate={
+                  influencer.engagementVisualizationRate
+                }
+                followers={influencer.followers}
+                updatedAt={influencer.updatedAt}
+              />
             </div>
           </SwiperSlide>
-          ))}
+        ))}
       </Swiper>
     </div>
   );

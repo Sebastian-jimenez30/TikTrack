@@ -11,48 +11,51 @@ export class InfluencerComparisonUseCases {
   }> {
     const t = await getTranslations("InfluencerComparison");
 
-    try {      
+    try {
       const repository = repositoryContainer.get<IInfluencerRepository>(
         "IInfluencerRepository"
       );
 
       const tempInfluencers = await Promise.all(
-        usernames.map(username => repository.findByUsername(username))
+        usernames.map((username) => repository.findByUsername(username))
       );
 
       const influencers = tempInfluencers
-      .filter((inf): inf is NonNullable<typeof inf> => inf != null)
-      .map((influencer) => new Influencer(
-        influencer.id,
-        influencer.username,
-        influencer.profileName,
-        influencer.profilePicture,
-        influencer.profileUrl,
-        influencer.averageLikes,
-        influencer.averageComments,
-        influencer.averageShares,
-        influencer.averageSaves,
-        influencer.averageViews,
-        influencer.followers,
-        influencer.city,
-        influencer.featuredVideos,
-        influencer.status,
-        influencer.createdAt,
-        influencer.updatedAt
-      ));
+        .filter((inf): inf is NonNullable<typeof inf> => inf != null)
+        .map(
+          (influencer) =>
+            new Influencer(
+              influencer.id,
+              influencer.username,
+              influencer.profileName,
+              influencer.profilePicture,
+              influencer.profileUrl,
+              influencer.averageLikes,
+              influencer.averageComments,
+              influencer.averageShares,
+              influencer.averageSaves,
+              influencer.averageViews,
+              influencer.followers,
+              influencer.city,
+              influencer.featuredVideos,
+              influencer.status,
+              influencer.createdAt,
+              influencer.updatedAt
+            )
+        );
 
       return {
         isSuccess: true,
-        influencers: influencers
+        influencers: influencers,
       };
-    } catch (error) {
+    } catch {
       return {
         isSuccess: false,
         influencers: [],
-        error: t("error")
+        error: t("error"),
       };
     }
   }
 }
 
-export const influencerComparisonUseCases = new InfluencerComparisonUseCases(); 
+export const influencerComparisonUseCases = new InfluencerComparisonUseCases();

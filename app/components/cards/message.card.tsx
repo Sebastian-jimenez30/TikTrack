@@ -40,13 +40,13 @@ export default function MessageCard({
         if (result.status === 200) {
           setEditing(false);
           setError(null);
-          setNewContent(result.data.content); 
+          setNewContent(result.data.content);
           alert(t("success.messageUpdated"));
           window.location.reload();
         } else {
           setError(t("error.failedToUpdateMessage"));
         }
-      } catch (error) {
+      } catch {
         setError(t("error.failedToUpdateMessage"));
       }
     });
@@ -65,7 +65,7 @@ export default function MessageCard({
         } else {
           setError(t("error.failedToDeleteMessage"));
         }
-      } catch (error) {
+      } catch {
         setError(t("error.failedToDeleteMessage"));
       }
     });

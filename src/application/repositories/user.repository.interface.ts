@@ -37,24 +37,29 @@ export default interface IUserRepository {
     updatedAt: Date;
   } | null>;
 
-  findAllUsers(): Promise<{
-    id: number;
-    email: string;
-    password: string;
-    name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
-    createdAt: Date;
-    updatedAt: Date;
-  }[]>;
+  findAllUsers(): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: "admin" | "user";
+      status: "active" | "inactive";
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
 
-  updateUser(id: number, user: {
-    name?: string;
-    email?: string;
-    password?: string;
-    role?: string;
-    status?: string;
-  }): Promise<{
+  updateUser(
+    id: number,
+    user: {
+      name?: string;
+      email?: string;
+      password?: string;
+      role?: string;
+      status?: string;
+    }
+  ): Promise<{
     id: number;
     email: string;
     name: string;
@@ -63,5 +68,4 @@ export default interface IUserRepository {
     createdAt: Date;
     updatedAt: Date;
   }>;
-
 }
