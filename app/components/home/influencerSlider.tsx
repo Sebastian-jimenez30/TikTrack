@@ -1,10 +1,11 @@
 "use client";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import React from "react";
-import Slider from "react-slick";
 import InfluencerCard from "~/app/components/cards/influencer.card";
+import 'swiper/css';
+import 'swiper/css/scrollbar';
 
 interface InfluencerSliderProps {
   influencers: {
@@ -18,27 +19,35 @@ interface InfluencerSliderProps {
 }
 
 const InfluencerSlider: React.FC<InfluencerSliderProps> = ({ influencers }) => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
-    speed: 500,
-    cssEase: "linear",
-    responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 800, settings: { slidesToShow: 2 } },
-      { breakpoint: 450, settings: { slidesToShow: 1 } },
-    ],
-  };
-
   return (
-    <div className="w-full overflow-hidden">
-      <Slider {...settings}>
+    <div>
+      <Swiper
+        modules={[Scrollbar, A11y, Autoplay]}
+        scrollbar={{ draggable: true }}
+        className="h-100 w-[70vw] rounded-lg mx-5"
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 15,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+        }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+      >
         {influencers.map((influencer, i) => (
-          <div key={i} className="m-3 py-5 text-center">
+          <SwiperSlide key={i}>
+            <div className="flex justify-center items-center h-full w-full block w-full h-full object-cover my-5">
             <InfluencerCard
               username={influencer.username}
               profilePicture={influencer.profilePicture}
@@ -49,9 +58,10 @@ const InfluencerSlider: React.FC<InfluencerSliderProps> = ({ influencers }) => {
               followers={influencer.followers}
               updatedAt={influencer.updatedAt}
             />
-          </div>
-        ))}
-      </Slider>
+            </div>
+          </SwiperSlide>
+          ))}
+      </Swiper>
     </div>
   );
 };
