@@ -36,16 +36,21 @@ export default async function MessagesPage({ params, searchParams }: Props) {
   const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
   const messages: Message[] = pageData.messages;
 
+  const paramsData = await params;
+  const searchParamsData = await searchParams;
+
   const selectedMessage = messages.find(
-    (msg) => msg.id === Number(searchParams.selectedId)
+    (msg) => msg.id === Number(searchParamsData.selectedId)
   );
+
+  const username = paramsData.username;
 
   return (
     <div>
       <h1 className="mb-8 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-none tracking-tight text-center">
         {t("title")}
       </h1>
-      <div className="mx-[100px]">
+      <div className="mx-[2vw]">
         {messages.length < 3 && <CreateMessage />}
         <div className="grid w-full gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start">
           {messages.map((msg) => (
@@ -65,7 +70,7 @@ export default async function MessagesPage({ params, searchParams }: Props) {
             <div className="flex flex-1 justify-center md:justify-center lg:justify-start flex-col">
               <TextboxWithService
                 selectedMessageContent={selectedMessage?.content}
-                username={params.username}
+                username={username}
               />
             </div>
             <div className="flex flex-1 justify-center flex-col items-center flex-wrap ml-5 my-5 lg:my-0 gap-6">
