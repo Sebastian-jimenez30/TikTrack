@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getLocale } from "next-intl/server";
 import axios from "axios";
-
+import Image from "next/image";
 export default function SignInPage() {
   async function handleLogin(formData: FormData): Promise<{ error?: string }> {
     "use server";
@@ -33,5 +33,21 @@ export default function SignInPage() {
     }
   }
 
-  return <AuthenticationCard type="sign-in" onSubmit={handleLogin} />;
+  return (
+    <div className="flex flex-wrap items-center justify-center mx-[30px]">
+      <div className="w-full md:w-1/2 flex justify-center items-center md:my-0 my-5 ">
+        <AuthenticationCard type="sign-in" onSubmit={handleLogin} />
+      </div>
+      <div className="w-full md:w-1/2 flex justify-center">
+        <Image
+          src="/authentication/women.png"
+          alt="sign-in"
+          width={2581}
+          height={2872}
+          priority={true}
+          className="w-100 h-fit mask-fade-bottom max-w-full"
+        />
+      </div>
+    </div>
+  );
 }
