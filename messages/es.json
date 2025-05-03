@@ -261,7 +261,7 @@
     "name": "Nombre",
     "email": "Correo electrónico",
     "role": "Rol",
-    "createdAt": "Fecha de creación",
+    "updatedAt": "Fecha de actualización",
     "status": "Estado",
     "admin": "Administrador",
     "user": "Usuario",
@@ -279,6 +279,8 @@
     "roles": {
       "admin": "Administrador",
       "user": "Usuario"
-    }
+    },
+    "cancel": "Cancelar",
+    "action": "Acción"
   }
 }

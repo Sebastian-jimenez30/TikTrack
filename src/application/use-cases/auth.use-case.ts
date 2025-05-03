@@ -30,7 +30,7 @@ export class AuthUseCases {
 
     const hashedPassword = await hash(password, 10);
 
-    const user = (await repository.createUser({
+    const user = (await repository.create({
       email,
       password: hashedPassword,
       name,

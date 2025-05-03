@@ -1,5 +1,24 @@
 export default interface IUserRepository {
-  createUser(user: {
+  listPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: "admin" | "user";
+      status: "active" | "inactive";
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+
+  count(): Promise<number>;
+    
+
+  create(user: {
     email: string;
     password: string;
     name: string;

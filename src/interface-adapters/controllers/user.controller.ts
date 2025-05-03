@@ -1,44 +1,39 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
+import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
 
-interface UserResponse {
-  users: {
-    id: number;
-    email: string;
-    name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
-  is_success: boolean;
+interface IndexProps {
+  searchParams: { page?: string };
 }
 
+
 export class UserController {
-  async getAllUsers(): Promise<{ pageData: UserResponse }> {
-    let pageData: UserResponse;
-    try {
-      const users = await userUseCases.getAllUsers();
+  async index({ searchParams }: IndexProps): Promise<{
+    pageData: object;
+  }>{
+    const resolvedParams = await searchParams;
 
-      if (!users || users.length === 0) {
-        pageData = {
-          users: [],
-          is_success: false,
-        };
-      } else {
-        pageData = {
-          users,
-          is_success: true,
-        };
-      }
+    const { page } = resolvedParams;
+    const pageNumber = page ? Number(page) : 1;
 
-      return { pageData };
-    } catch {
-      pageData = {
-        users: [],
-        is_success: false,
-      };
-      return { pageData };
-    }
+    const limit = 8;
+
+    const result = await userUseCases.list(pageNumber, limit);
+    
+    const users = result.users.map((user) =>
+        UserOverviewPresenter.toHttp(user)
+    );
+
+    const pageData = {
+      users: users,
+      count: result.count,
+      start: result.start,
+      end: result.end,
+      hasNextPage: result.hasNextPage,
+      hasPreviousPage: result.hasPreviousPage,
+    };
+
+    return { pageData };
+    
   }
 
   async show(userId: number): Promise<{ pageData: object }> {

@@ -30,12 +30,12 @@ export class User {
     return this.status;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  getCreatedAt(): string {
+    return this.createdAt.toLocaleDateString();
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  getUpdatedAt(): string {
+    return this.updatedAt.toLocaleDateString();
   }
 
   setEmail(email: string): void {

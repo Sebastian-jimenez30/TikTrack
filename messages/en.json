@@ -261,7 +261,7 @@
     "name": "Name",
     "email": "Email",
     "role": "Role",
-    "createdAt": "Created At",
+    "updatedAt": "Last Updated",
     "status": "Status",
     "admin": "Admin",
     "user": "User",
@@ -279,6 +279,8 @@
     "roles": {
       "admin": "Admin",
       "user": "User"
-    }
+    },
+    "cancel": "Cancel",
+    "action": "Action"
   }
 }

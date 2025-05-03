@@ -42,14 +42,14 @@ export const routing = defineRouting({
       en: "/profile",
       es: "/perfil",
     },
-    "/admin/users": {
-      en: "/admin/users",
-      es: "/admin/usuarios",
+    "/admin/users-management": {
+      en: "/admin/users-management",
+      es: "/admin/gestion-de-usuarios",
     },
 
-    "/admin/users/manage": {
-      en: "/admin/users/manage",
-      es: "/admin/usuarios/gestionar",
+    "/admin/user/manage": {
+      en: "/admin/user/manage",
+      es: "/admin/usuario/gestionar",
     },
   },
 });

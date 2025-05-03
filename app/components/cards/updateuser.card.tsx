@@ -8,6 +8,7 @@ import RoleIcon from "~/app/components/icons/role.icon";
 import LockIcon from "~/app/components/icons/lock.icon";
 import axios from "axios";
 import ROUTES_API from "~/constants/urls/api.urls";
+import ROUTES from "~/constants/urls/urls";
 interface UpdateUserCardProps {
   initialData: {
     username: string;
@@ -95,7 +96,7 @@ export default function UpdateUserCard({
       )}
 
       <div className="flex items-start gap-6">
-        <UserIcon className="text-purple text-3xl mt-1" />
+        <UserIcon className="text-purple text-3xl mt-1 mr-2" />
         <div className="w-full">
           <label className="text-base text-gray-500 uppercase tracking-wide">
             {t("name")}
@@ -111,7 +112,7 @@ export default function UpdateUserCard({
       </div>
 
       <div className="flex items-start gap-6">
-        <EmailIcon className="text-purple text-3xl mt-1" />
+        <EmailIcon className="text-purple text-3xl mt-1 mr-1" />
         <div className="w-full">
           <label className="text-base text-gray-500 uppercase tracking-wide">
             {t("email")}
@@ -127,7 +128,7 @@ export default function UpdateUserCard({
       </div>
 
       <div className="flex items-start gap-6">
-        <LockIcon className="text-purple text-3xl mt-1" />
+        <LockIcon className="text-purple text-3xl mt-1 mr-2" />
         <div className="w-full">
           <label className="text-base text-gray-500 uppercase tracking-wide">
             {t("password")}
@@ -179,13 +180,16 @@ export default function UpdateUserCard({
         </div>
       </div>
 
-      <div className="text-center mt-6">
+      <div className="text-center mt-6 flex flex-col gap-4 items-center">
         <button
           type="submit"
           className="bg-purple text-white py-3 px-8 rounded-lg font-semibold hover:bg-darkPurple transition-all"
         >
           {t("save")}
         </button>
+        <a href={ROUTES.USER_MANAGEMENT_INDEX} className="text-gray-500 hover:text-purple transition">
+          {t("cancel")}
+        </a>
       </div>
     </form>
   );
