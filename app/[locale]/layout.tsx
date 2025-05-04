@@ -54,6 +54,9 @@ export default async function LocaleLayout({
     isAdmin = await jwtUtil.isAdmin(token);
   }
 
+  const userTempId = token ? await jwtUtil.getUserIdFromToken(token) : "";
+  const userId = userTempId.toString() || "";
+
   return (
     <html lang={locale}>
       <head>
@@ -68,6 +71,7 @@ export default async function LocaleLayout({
             isAuthenticated={isAuthenticated}
             isAdmin={isAdmin}
             locale={locale}
+            id={userId}
           />
           <Toaster richColors position="top-right" />
           {children}
