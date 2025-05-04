@@ -50,7 +50,6 @@ export default async function LocaleLayout({
   let isAdmin = false;
   let userId = "";
 
-
   if (token && !(await jwtUtil.isTokenExpired(token))) {
     isAuthenticated = true;
     isAdmin = await jwtUtil.isAdmin(token);

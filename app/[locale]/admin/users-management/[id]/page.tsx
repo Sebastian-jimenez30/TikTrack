@@ -47,7 +47,10 @@ export default async function Show({ params }: ShowProps) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <form action={updateUser} className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200 mx-auto space-y-6">
+      <form
+        action={updateUser}
+        className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200 mx-auto space-y-6"
+      >
         <h1 className="text-3xl font-semibold text-purple text-center mb-4">
           {t("editTitle")}
         </h1>

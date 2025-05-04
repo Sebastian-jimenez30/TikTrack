@@ -1,3 +1,5 @@
+import { Role, Status } from "@/domain/entities/user";
+
 export default interface IUserRepository {
   listPaginated(
     pageNumber: number,
@@ -8,8 +10,8 @@ export default interface IUserRepository {
       email: string;
       password: string;
       name: string;
-      role: "admin" | "user";
-      status: "active" | "inactive";
+      role: Role;
+      status: Status;
       createdAt: Date;
       updatedAt: Date;
     }[]
@@ -21,14 +23,14 @@ export default interface IUserRepository {
     email: string;
     password: string;
     name: string;
-    role?: string;
-    status?: string;
+    role?: Role;
+    status?: Status;
   }): Promise<{
     id: number;
     email: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   }>;
@@ -38,8 +40,8 @@ export default interface IUserRepository {
     email: string;
     password: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null>;
@@ -49,28 +51,20 @@ export default interface IUserRepository {
     email: string;
     password: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null>;
 
-  update(
-    id: number,
-    user: {
-      name?: string;
-      email?: string;
-      password?: string;
-      role?: string;
-      status?: string;
-    }
-  ): Promise<{
+  update(user: {
     id: number;
     email: string;
+    password: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
-  }>;
+  }): Promise<void>;
 }

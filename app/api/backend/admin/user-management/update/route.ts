@@ -5,12 +5,17 @@ export async function PATCH(req: NextRequest) {
   const body = await req.json();
   const { id, name, email, password, role, status } = body;
 
-  const data = await userController.update(id, {
-    name,
-    email,
-    password,
-    role,
-    status,
+  const data = await userController.update({
+    params: {
+      userId: id,
+      userData: {
+        name,
+        email,
+        password,
+        role,
+        status,
+      },
+    },
   });
 
   return NextResponse.json(data);

@@ -1,6 +1,7 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
 import { UserDetailPresenter } from "@/interface-adapters/presenters/user/user.detail.presenter";
+import { Role, Status } from "@/domain/entities/user";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -8,6 +9,19 @@ interface IndexProps {
 
 interface ShowProps {
   params: { id: string };
+}
+
+interface UpdateProps {
+  params: {
+    userId: number;
+    userData: {
+      name?: string;
+      email?: string;
+      password?: string;
+      role?: Role;
+      status?: Status;
+    };
+  };
 }
 
 export class UserController {
@@ -64,40 +78,23 @@ export class UserController {
     return { pageData };
   }
 
-  async update(
-    userId: number,
-    userData: {
-      name?: string;
-      email?: string;
-      password?: string;
-      role?: string;
-      status?: string;
-    }
-  ): Promise<{ pageData: object }> {
+  async update({ params }: UpdateProps): Promise<{ pageData: object }> {
+    const { userId, userData } = await params;
+    let result;
     let pageData;
-    try {
-      const updatedUser = await userUseCases.updateInformation(
-        userId,
-        userData
-      );
 
-      if (!updatedUser) {
-        pageData = {
-          user: null,
-          is_success: false,
-        };
-      } else {
-        pageData = {
-          user: updatedUser,
-          is_success: true,
-        };
-      }
-      return { pageData };
-    } catch {
+    if (!userId || !userData) {
       pageData = {
-        user: null,
-        is_success: false,
+        isSuccess: false,
       };
+      return { pageData };
+    } else {
+      result = await userUseCases.updateInformation(userId, userData);
+
+      const pageData = {
+        isSuccess: result.isSuccess,
+      };
+
       return { pageData };
     }
   }
