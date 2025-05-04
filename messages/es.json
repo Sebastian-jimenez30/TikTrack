@@ -206,7 +206,7 @@
     "influencer": "Influencer",
     "status": "Estado",
     "followers": "Seguidores",
-    "engagementRate": "Tasa de participación",
+    "engagementVisualizationRate": "Tasa de participación",
     "averageComments": "Promedio de comentarios",
     "averageLikes": "Promedio de me gusta",
     "averageSaves": "Promedio de guardados",
@@ -306,5 +306,19 @@
       "errorGettingInfluencerList": "Error al obtener la lista de influencers. Intenta nuevamente más tarde",
       "errorSendingMessage": "Error al enviar el mensaje"
     }
+  },
+
+  "SearchBar": {
+    "search": "Buscar"
+  },
+
+  "FiltersInfluencer": {
+    "city": "Ciudad",
+    "followers": "Seguidores",
+    "engagementVisualizationRate": "Tasa de participación y visualización",
+    "updatedAt": "Ultima actualización",
+    "today": "Hoy",
+    "thisWeek": "Esta semana",
+    "thisMonth": "Este mes"
   }
 }
