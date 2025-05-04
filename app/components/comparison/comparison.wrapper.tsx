@@ -84,7 +84,7 @@ export default function ComparisonWrapper({
         )}
       </div>
 
-      <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
+      <div className="grid w-full justify-center grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 items-center">
         {influencers.map((influencer) => (
           <InfluencerCard
             key={influencer.username}
