@@ -94,7 +94,7 @@ export default function ComparisonModal({
                   ))}
                 </tr>
                 <tr className="border-b hover:bg-gray-100 transition-colors duration-150">
-                  <td className="p-3">{t("engagementRate")}</td>
+                  <td className="p-3">{t("engagementVisualizationRate")}</td>
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
                       {influencer.engagementVisualizationRate}%
