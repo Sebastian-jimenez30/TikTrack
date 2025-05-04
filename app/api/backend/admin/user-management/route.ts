@@ -13,7 +13,7 @@ export async function PATCH(req: NextRequest) {
     );
   }
 
-  const data = await userController.updateUser(userId, {
+  const data = await userController.update(userId, {
     name,
     email,
     password,
