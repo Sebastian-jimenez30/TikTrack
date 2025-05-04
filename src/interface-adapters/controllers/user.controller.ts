@@ -1,15 +1,19 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
+import { UserDetailPresenter } from "@/interface-adapters/presenters/user/user.detail.presenter";
 
 interface IndexProps {
   searchParams: { page?: string };
 }
 
+interface ShowProps {
+  params: { id: string };
+}
 
 export class UserController {
   async index({ searchParams }: IndexProps): Promise<{
     pageData: object;
-  }>{
+  }> {
     const resolvedParams = await searchParams;
 
     const { page } = resolvedParams;
@@ -18,9 +22,9 @@ export class UserController {
     const limit = 8;
 
     const result = await userUseCases.list(pageNumber, limit);
-    
+
     const users = result.users.map((user) =>
-        UserOverviewPresenter.toHttp(user)
+      UserOverviewPresenter.toHttp(user)
     );
 
     const pageData = {
@@ -33,36 +37,30 @@ export class UserController {
     };
 
     return { pageData };
-    
   }
 
-  async show(userId: number): Promise<{ pageData: object }> {
-    let pageData;
-    try {
-      const user = await userUseCases.getProfile(userId);
+  async show({ params }: ShowProps): Promise<{
+    pageData: object;
+  }> {
+    const { id } = await params;
+    const result = await userUseCases.detail(Number(id));
 
-      if (!user) {
-        pageData = {
-          user: null,
-          is_success: false,
-        };
-      } else {
-        pageData = {
-          user,
-          is_success: true,
-        };
-      }
-      return { pageData };
-    } catch {
-      pageData = {
-        user: null,
-        is_success: false,
-      };
-      return { pageData };
+    let user = null;
+
+    if (result.user) {
+      const tempUser = result.user;
+      user = UserDetailPresenter.toHttp(tempUser);
     }
+
+    const pageData = {
+      user,
+      haveResults: result.haveResults,
+    };
+
+    return { pageData };
   }
 
-  async updateUser(
+  async update(
     userId: number,
     userData: {
       name?: string;
@@ -74,7 +72,10 @@ export class UserController {
   ): Promise<{ pageData: object }> {
     let pageData;
     try {
-      const updatedUser = await userUseCases.updateUser(userId, userData);
+      const updatedUser = await userUseCases.updateInformation(
+        userId,
+        userData
+      );
 
       if (!updatedUser) {
         pageData = {

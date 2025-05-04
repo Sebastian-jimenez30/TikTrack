@@ -1,6 +1,6 @@
 import { User } from "@/domain/entities/user";
 
-export class UserOverviewPresenter {
+export class UserDetailPresenter {
   static toHttp(user: User) {
     return {
       id: user.getId(),
@@ -9,6 +9,7 @@ export class UserOverviewPresenter {
       role: user.getRole(),
       updatedAt: user.getUpdatedAt(),
       status: user.getStatus(),
+      createdAt: user.getCreatedAt(),
     };
   }
 }
