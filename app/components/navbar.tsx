@@ -40,7 +40,7 @@ export default function NavBar({
               <Link
                 href={{
                   pathname: `${ROUTES.PROFILE}`,
-                  params: { id },
+                  params: { id: id },
                 }}
                 className="px-4 py-2 rounded-md font-semibold transition-all bg-purple text-white cursor-pointer hover:bg-darkPurple"
               >
