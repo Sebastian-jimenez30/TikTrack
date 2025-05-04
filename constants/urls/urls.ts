@@ -6,9 +6,9 @@ const ROUTES = {
   MESSAGES: "/messages/[username]",
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
-  PROFILE: "/profile",
+  PROFILE: "/profile/[id]",
   USER_MANAGEMENT_INDEX: "/admin/users-management",
-  MANAGEMENT_DETAIL: "/admin/users/manage",
+  USER_MANAGEMENT_DETAIL: "/admin/users-management/[id]",
 } as const;
 
 export default ROUTES;
