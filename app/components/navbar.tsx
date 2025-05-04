@@ -12,12 +12,14 @@ interface NavBarProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
   locale: string;
+  id: string;
 }
 
 export default function NavBar({
   isAuthenticated,
   isAdmin,
   locale,
+  id,
 }: NavBarProps) {
   const t = useTranslations("NavBar");
 
@@ -35,9 +37,14 @@ export default function NavBar({
         <div className="flex lg:order-2 space-x-3 lg:space-x-0 rtl:space-x-reverse items-center flex-wrap justify-center">
           {isAuthenticated ? (
             <div className="flex items-center gap-4 bg-gray-100 p-2 rounded-md">
-              <Button href={ROUTES.PROFILE} variant="primary">
+              <Link
+                href={{
+                  pathname: `${ROUTES.PROFILE}`,
+                  params: { id },
+                }}
+              >
                 {t("profile")}
-              </Button>
+              </Link>
               <div className="border-l border-gray-300 h-6"></div>
               <form action={() => logout(locale)}>
                 <button
