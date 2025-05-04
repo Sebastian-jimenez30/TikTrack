@@ -29,6 +29,8 @@ const ROUTES_API = {
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/user-management/show",
   USER_MANAGEMENT_INDEX:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/user-management/index",
+  USER_MANAGEMENT_UPDATE:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/user-management/update",
 } as const;
 
 export default ROUTES_API;

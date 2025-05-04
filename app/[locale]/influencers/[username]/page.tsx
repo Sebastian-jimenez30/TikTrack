@@ -43,8 +43,8 @@ export default async function Show({ params }: ShowProps) {
 
   const pathParams = await params;
   const pageData = (
-    await axios.post(ROUTES_API.INFLUENCER_SHOW, {
-      username: pathParams.username,
+    await axios.get(ROUTES_API.INFLUENCER_SHOW, {
+      params: { username: pathParams.username },
     })
   ).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {

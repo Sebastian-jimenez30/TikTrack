@@ -4,6 +4,7 @@ import UserIcon from "~/app/components/icons/user.icon";
 import EmailIcon from "~/app/components/icons/email.icon";
 import LockIcon from "~/app/components/icons/lock.icon";
 import RoleIcon from "~/app/components/icons/role.icon";
+import { updateUser } from "~/app/actions/updateUser";
 import axios from "axios";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
@@ -31,15 +32,12 @@ export default async function Show({ params }: ShowProps) {
   const pathParams = await params;
 
   const pageData = (
-    await axios.post(
-      ROUTES_API.USER_MANAGEMENT_SHOW,
-      { id: pathParams.id },
-      {
-        headers: {
-          Cookie: `authToken=${token}`,
-        },
-      }
-    )
+    await axios.get(ROUTES_API.USER_MANAGEMENT_SHOW, {
+      params: { id: pathParams.id },
+      headers: {
+        Cookie: `authToken=${token}`,
+      },
+    })
   ).data.pageData;
   if (!pageData.haveResults || !pageData.user) {
     notFound();
@@ -49,11 +47,11 @@ export default async function Show({ params }: ShowProps) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <form className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200 mx-auto space-y-6">
+      <form action={updateUser} className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200 mx-auto space-y-6">
         <h1 className="text-3xl font-semibold text-purple text-center mb-4">
           {t("editTitle")}
         </h1>
-
+        <input type="hidden" name="id" defaultValue={user.id} />
         <div className="flex items-start gap-6">
           <UserIcon className="text-purple text-3xl mt-1 mr-2" />
           <div className="w-full">
