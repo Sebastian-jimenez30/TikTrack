@@ -8,7 +8,6 @@ export interface FilterOptions {
   status?: Status;
 }
 
-
 class Influencer {
   id: number;
   username: string;

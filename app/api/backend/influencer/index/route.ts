@@ -7,11 +7,18 @@ export async function GET(req: NextRequest) {
   const page = searchParams.get("page") || undefined;
   const city = searchParams.get("city") || undefined;
   const followers = searchParams.get("followers") || undefined;
-  const engagementVisualizationRate = searchParams.get("engagementVisualizationRate") || undefined;
+  const engagementVisualizationRate =
+    searchParams.get("engagementVisualizationRate") || undefined;
   const updatedAt = searchParams.get("updatedAt") || undefined;
 
   const data = await influencerController.index({
-    searchParams: { page, city, followers, engagementVisualizationRate, updatedAt },
+    searchParams: {
+      page,
+      city,
+      followers,
+      engagementVisualizationRate,
+      updatedAt,
+    },
   });
 
   return NextResponse.json(data);
