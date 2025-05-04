@@ -70,14 +70,15 @@
 
   "MessagesIndexPage": {
     "metadata": {
-      "title": "Plantillas de Mensajes",
+      "title": "Mensajes",
       "description": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención."
     },
-    "title": "Plantillas de Mensajes",
+    "title": "Mensajes",
     "input": {
       "placeholder": "Escribe tu mensaje...",
       "send": "Enviar"
     },
+    "messagingTemplate": "Plantilla de Mensajes",
     "aiSuggestions": "Sugerencias de IA",
     "communicationDescription": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención.",
     "connectionDescription": "Conecte emocionalmente: Elabore mensajes que resuenen con su público y sus marcas a un nivel más profundo.",
@@ -161,6 +162,7 @@
       "title": "Gestión de Usuarios",
       "description": "Gestiona los usuarios de la plataforma."
     },
+    "title": "Gestión de Usuarios",
     "name": "Nombre",
     "email": "Correo electrónico",
     "role": "Rol",

@@ -74,7 +74,11 @@ export default async function LocaleLayout({
             id={userId}
           />
           <Toaster richColors position="top-right" />
-          {children}
+          <div>
+            <div className="sm:px-20 sm:pt-[12vh] pt-[22vh] px-10">
+              {children}
+            </div>
+          </div>
           <Footer />
         </NextIntlClientProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

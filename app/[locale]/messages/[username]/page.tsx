@@ -8,6 +8,7 @@ import InlineCard from "~/app/components/cards/inline.card";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
 import MessageCard from "~/app/components/cards/message.card";
+import EmailIcon from "~/app/components/icons/email.icon";
 
 interface Message {
   id: number;
@@ -47,12 +48,15 @@ export default async function MessagesPage({ params, searchParams }: Props) {
 
   return (
     <div>
-      <h1 className="mb-8 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-none tracking-tight text-center">
-        {t("title")}
+      <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl lg:text-left text-center">
+        {t("title")} <EmailIcon className="text-lightPurple" />
       </h1>
-      <div className="mx-[2vw]">
+      <div>
+        <h2 className="mb-8 text-3xl text-center font-bold leading-none tracking-tight md:text-4xl md:text-center lg:text-4xl lg:text-left ">
+          {t("messagingTemplate")}
+        </h2>
         {messages.length < 3 && <CreateMessage />}
-        <div className="grid w-full gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start">
+        <div className="grid w-full gap-4 grid-cols-1 lg:grid-cols-3 items-start">
           {messages.map((msg) => (
             <MessageCard
               key={msg.id}

@@ -76,7 +76,7 @@ export default function MessageCard({
   };
 
   return (
-    <div className="min-w-[300px] min-h-[300px] max-h-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2 overflow-y-auto flex flex-col">
+    <div className="min-h-[300px] max-h-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2 overflow-y-auto flex flex-col">
       {error && (
         <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
       )}

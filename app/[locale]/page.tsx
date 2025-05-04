@@ -24,7 +24,7 @@ export default async function Index() {
 
   return (
     <div>
-      <section id="home-section" className="my-5">
+      <section id="home-section">
         <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md px-4 pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
             <div className="col-span-6">

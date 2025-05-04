@@ -44,7 +44,7 @@ export default async function Index({
   return (
     <div>
       <NotificationSessionStorage />
-      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
+      <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
       <div>

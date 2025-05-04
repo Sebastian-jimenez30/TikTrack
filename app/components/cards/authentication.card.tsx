@@ -24,9 +24,9 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
 
   return (
     <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-6 text-purple">
+      <h1 className="text-2xl font-bold text-center mb-6 text-purple">
         {type === "sign-in" ? t1("title") : t2("title")}
-      </h2>
+      </h1>
 
       {error && (
         <div className="mb-4 p-2 text-red-600 bg-red-100 border border-red-400 rounded">

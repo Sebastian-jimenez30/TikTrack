@@ -17,9 +17,9 @@ export default function UserCard({ name, email, role }: UserCardProps) {
 
   return (
     <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200 mx-auto">
-      <h2 className="text-3xl font-semibold text-purple text-center mb-8">
+      <h1 className="text-3xl font-semibold text-purple text-center mb-8">
         {t("title")}
-      </h2>
+      </h1>
 
       <div className="space-y-6">
         <div className="flex items-start gap-6">

@@ -24,7 +24,7 @@ export default async function Show({ params }: ShowProps) {
   const pathParams = await params;
   const pageData = (
     await axios.get(ROUTES_API.PROFILE_SHOW, {
-      params:{ id: pathParams.id },
+      params: { id: pathParams.id },
       headers: { Cookie: `authToken=${token}` },
     })
   ).data.pageData;
