@@ -11,12 +11,33 @@ export class UserUseCases {
       repositoryContainer.get<IUserRepository>("IUserRepository");
   }
 
-  async getProfile(userId: number) {
-    const user = await this.repository.findUserById(userId);
-    if (!user) {
-      throw new Error("Usuario no encontrado");
+  async detail(
+    id: number
+  ): Promise<{ user: User | null; haveResults: boolean }> {
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const tempUser = await repository.findById(id);
+    if (!tempUser) {
+      return {
+        user: null,
+        haveResults: false,
+      };
+    } else {
+      const user = new User(
+        tempUser.id,
+        tempUser.email,
+        tempUser.password,
+        tempUser.name,
+        tempUser.role as "admin" | "user",
+        tempUser.status as "active" | "inactive",
+        tempUser.createdAt,
+        tempUser.updatedAt
+      );
+      return {
+        user,
+        haveResults: true,
+      };
     }
-    return user;
   }
 
   async list(
@@ -30,11 +51,9 @@ export class UserUseCases {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   }> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
-    const tempusers = await repository.listPaginated(
-      pageNumber,
-      limit
-    );
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const tempusers = await repository.listPaginated(pageNumber, limit);
 
     const users = tempusers.map((user) => {
       return new User(
@@ -68,7 +87,7 @@ export class UserUseCases {
     };
   }
 
-  async updateUser(
+  async updateInformation(
     id: number,
     user: {
       name?: string;
@@ -78,7 +97,7 @@ export class UserUseCases {
       status?: string;
     }
   ) {
-    const updatedUser = await this.repository.updateUser(id, user);
+    const updatedUser = await this.repository.update(id, user);
     return updatedUser;
   }
 }

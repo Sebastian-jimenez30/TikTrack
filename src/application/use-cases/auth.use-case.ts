@@ -19,7 +19,7 @@ export class AuthUseCases {
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
 
-    const existingUser = await repository.findUserByEmail(email);
+    const existingUser = await repository.findByEmail(email);
     if (existingUser) {
       return {
         token: null,
@@ -71,7 +71,7 @@ export class AuthUseCases {
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
 
-    const userData = await repository.findUserByEmail(email);
+    const userData = await repository.findByEmail(email);
 
     if (!userData) {
       return {

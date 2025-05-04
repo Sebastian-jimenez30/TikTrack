@@ -16,7 +16,6 @@ export default interface IUserRepository {
   >;
 
   count(): Promise<number>;
-    
 
   create(user: {
     email: string;
@@ -34,7 +33,7 @@ export default interface IUserRepository {
     updatedAt: Date;
   }>;
 
-  findUserByEmail(email: string): Promise<{
+  findByEmail(email: string): Promise<{
     id: number;
     email: string;
     password: string;
@@ -45,7 +44,7 @@ export default interface IUserRepository {
     updatedAt: Date;
   } | null>;
 
-  findUserById(id: number): Promise<{
+  findById(id: number): Promise<{
     id: number;
     email: string;
     password: string;
@@ -56,20 +55,7 @@ export default interface IUserRepository {
     updatedAt: Date;
   } | null>;
 
-  findAllUsers(): Promise<
-    {
-      id: number;
-      email: string;
-      password: string;
-      name: string;
-      role: "admin" | "user";
-      status: "active" | "inactive";
-      createdAt: Date;
-      updatedAt: Date;
-    }[]
-  >;
-
-  updateUser(
+  update(
     id: number,
     user: {
       name?: string;

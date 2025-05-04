@@ -30,9 +30,7 @@ export default class UserRepository implements IUserRepository {
   }
 
   async count(): Promise<number> {
-    const response = await db
-      .select({ count: count() })
-      .from(usersTable)
+    const response = await db.select({ count: count() }).from(usersTable);
     return response[0].count;
   }
 
@@ -65,7 +63,7 @@ export default class UserRepository implements IUserRepository {
     return newUser[0];
   }
 
-  async findUserByEmail(email: string): Promise<{
+  async findByEmail(email: string): Promise<{
     id: number;
     email: string;
     password: string;
@@ -82,7 +80,7 @@ export default class UserRepository implements IUserRepository {
     return user[0] || null;
   }
 
-  async findUserById(id: number): Promise<{
+  async findById(id: number): Promise<{
     id: number;
     email: string;
     password: string;
@@ -99,23 +97,7 @@ export default class UserRepository implements IUserRepository {
     return user[0] || null;
   }
 
-  async findAllUsers(): Promise<
-    {
-      id: number;
-      email: string;
-      password: string;
-      name: string;
-      role: "admin" | "user";
-      status: "active" | "inactive";
-      createdAt: Date;
-      updatedAt: Date;
-    }[]
-  > {
-    const users = await db.select().from(usersTable);
-    return users;
-  }
-
-  async updateUser(
+  async update(
     id: number,
     user: {
       name?: string;
