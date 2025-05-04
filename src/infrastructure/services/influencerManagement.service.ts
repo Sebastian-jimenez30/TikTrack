@@ -23,11 +23,9 @@ class InfluencerManagementService implements IInfluencerManagementService {
     }[]
   > {
     const t = await getTranslations("InfluencerManagementService");
-    const endpoint = "influencers";
-    const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(ROUTES.GET_INFLUENCERS);
       if (!response.ok) {
         throw new Error(
           `HTTP Error: ${response.status} - ${response.statusText}`
@@ -46,11 +44,9 @@ class InfluencerManagementService implements IInfluencerManagementService {
     message: string
   ): Promise<SendMessageResponse> {
     const t = await getTranslations("InfluencerManagementService");
-    const endpoint = "messages/" + username;
-    const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(ROUTES.SEND_MESSAGE(username), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

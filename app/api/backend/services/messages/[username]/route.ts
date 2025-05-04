@@ -5,7 +5,7 @@ export async function POST(
   req: NextRequest,
   { params }: { params: { username: string } }
 ) {
-  const { username } = params;
+  const { username } = await params;
   const { message } = await req.json();
 
   const response = await influencerManagementService.sendMessageToInfluencer(

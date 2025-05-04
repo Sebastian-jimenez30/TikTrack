@@ -48,14 +48,15 @@ export default async function LocaleLayout({
 
   let isAuthenticated = false;
   let isAdmin = false;
+  let userId = "";
+
 
   if (token && !(await jwtUtil.isTokenExpired(token))) {
     isAuthenticated = true;
     isAdmin = await jwtUtil.isAdmin(token);
+    const userTempId = await jwtUtil.getUserIdFromToken(token);
+    userId = userTempId.toString() || "";
   }
-
-  const userTempId = token ? await jwtUtil.getUserIdFromToken(token) : "";
-  const userId = userTempId.toString() || "";
 
   return (
     <html lang={locale}>
