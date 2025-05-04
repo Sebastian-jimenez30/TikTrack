@@ -75,7 +75,7 @@ export default async function LocaleLayout({
           />
           <Toaster richColors position="top-right" />
           <div>
-            <div className="sm:px-20 sm:pt-[12vh] pt-[22vh] px-10">
+            <div className="sm:px-20 sm:pt-[130px] pt-[200px] px-10">
               {children}
             </div>
           </div>
