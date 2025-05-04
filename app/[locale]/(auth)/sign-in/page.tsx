@@ -3,9 +3,19 @@ import ROUTES_API from "~/constants/urls/api.urls";
 import AuthenticationCard from "~/app/components/cards/authentication.card";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import axios from "axios";
 import Image from "next/image";
+
+export async function generateMetadata() {
+  const t = await getTranslations("SignInPage");
+
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
 export default function SignInPage() {
   async function handleLogin(formData: FormData): Promise<{ error?: string }> {
     "use server";

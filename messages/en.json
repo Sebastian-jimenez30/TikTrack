@@ -160,34 +160,48 @@
     }
   },
 
-  "AuthPage": {
-    "signIn": {
+  "SignInPage": {
+    "metadata": {
       "title": "Sign In",
-      "emailLabel": "Email",
-      "passwordLabel": "Password",
-      "submit": "Sign In",
-      "noAccount": "Don't have an account?",
-      "register": "Register",
-      "success": "User logged in successfully",
-      "userDoesNotExist": "User does not exist",
-      "userInactive": "User is inactive",
-      "incorrectPassword": "Incorrect password"
+      "description": "Log in to your account"
     },
-    "signUp": {
+    "title": "Sign In",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "submit": "Sign In",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "success": "User logged in successfully",
+    "userDoesNotExist": "User does not exist",
+    "userInactive": "User is inactive",
+    "incorrectPassword": "Incorrect password"
+  },
+
+  "SignUpPage": {
+    "metadata": {
       "title": "Sign Up",
-      "usernameLabel": "Username",
-      "emailLabel": "Email",
-      "passwordLabel": "Password",
-      "submit": "Sign Up",
-      "alreadyAccount": "Already have an account?",
-      "login": "Log In",
-      "success": "User created successfully",
-      "emailExist": "Email already exists"
+      "description": "Create a new account"
     },
-    "loading": "Loading..."
+    "title": "Sign Up",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "submit": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "success": "User registered successfully",
+    "error": {
+      "userAlreadyExists": "User already exists",
+      "passwordMismatch": "Passwords do not match"
+    }
   },
 
   "ProfilePage": {
+    "metadata": {
+      "title": "User Profile",
+      "description": "View your profile information"
+    },
     "title": "User Profile",
     "name": "Name",
     "email": "Email",
@@ -252,35 +266,43 @@
     }
   },
 
-  "UserManagementPage": {
-    "userManagement": "User Management",
-    "authError": "You need to be logged in to access this page.",
-    "fetchError": "There was an error fetching the users.",
-    "noUsersFound": "No users found",
-    "tokenError": "Invalid token. Please log in again.",
+  "UserManagementIndexPage": {
+    "metadata": {
+      "title": "User Management",
+      "description": "Manage users and their roles"
+    },
     "name": "Name",
     "email": "Email",
     "role": "Role",
-    "updatedAt": "Last Updated",
+    "updatedAt": "Updated At",
     "status": "Status",
-    "admin": "Admin",
+    "action": "Action",
+    "admin": "Administrator",
     "user": "User",
     "active": "Active",
     "inactive": "Inactive",
-    "deactivate": "Deactivate",
-    "manage": "Manage",
-    "username": "Username",
+    "manage": "Manage"
+  },
+
+  "UserManagementShowPage": {
+    "metadata": {
+      "title": "Edit User",
+      "description": "Edit user information"
+    },
+    "editTitle": "Edit User",
+    "name": "Name",
+    "email": "Email",
     "password": "Password",
     "passwordPlaceholder": "Leave blank to keep current password",
-    "editTitle": "Edit User",
-    "save": "Save Changes",
-    "missingUserId": "Missing user ID in the request.",
-    "userNotFound": "User not found.",
+    "role": "Role",
     "roles": {
-      "admin": "Admin",
-      "user": "User"
+      "user": "User",
+      "admin": "Administrator"
     },
-    "cancel": "Cancel",
-    "action": "Action"
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

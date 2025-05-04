@@ -2,9 +2,19 @@ import ROUTES_API from "~/constants/urls/api.urls";
 import UserCard from "~/app/components/cards/user.card";
 import { cookies } from "next/headers";
 import axios from "axios";
+import { getTranslations } from "next-intl/server";
 
 interface ShowProps {
   params: { id: string };
+}
+
+export async function generateMetadata() {
+  const t = await getTranslations("ProfilePage");
+
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
 }
 
 export default async function Show({ params }: ShowProps) {

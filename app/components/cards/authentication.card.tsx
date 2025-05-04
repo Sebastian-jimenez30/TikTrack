@@ -10,7 +10,9 @@ interface AuthCardProps {
 }
 
 export default function AuthCard({ type, onSubmit }: AuthCardProps) {
-  const t = useTranslations("AuthPage");
+  const t1 = useTranslations("SignInPage");
+  const t2 = useTranslations("SignUpPage");
+
   const [error, setError] = useState<string | null>(null);
 
   async function handleFormSubmit(formData: FormData) {
@@ -23,7 +25,7 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
   return (
     <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6 text-purple">
-        {type === "sign-in" ? t("signIn.title") : t("signUp.title")}
+        {type === "sign-in" ? t1("title") : t2("title")}
       </h2>
 
       {error && (
@@ -36,7 +38,7 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
         {type === "sign-up" && (
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              {t("signUp.usernameLabel")}
+              {t2("nameLabel")}
             </label>
             <input
               type="text"
@@ -49,9 +51,7 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            {type === "sign-in"
-              ? t("signIn.emailLabel")
-              : t("signUp.emailLabel")}
+            {type === "sign-in" ? t1("emailLabel") : t2("emailLabel")}
           </label>
           <input
             type="email"
@@ -63,9 +63,7 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            {type === "sign-in"
-              ? t("signIn.passwordLabel")
-              : t("signUp.passwordLabel")}
+            {type === "sign-in" ? t1("passwordLabel") : t2("passwordLabel")}
           </label>
           <input
             type="password"
@@ -80,21 +78,19 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
             type="submit"
             className="w-full bg-purple text-white py-2 rounded hover:bg-darkPurple transition-colors"
           >
-            {type === "sign-in" ? t("signIn.submit") : t("signUp.submit")}
+            {type === "sign-in" ? t1("submit") : t2("submit")}
           </button>
         </div>
 
         <div className="text-center">
           <span className="text-sm text-gray-600">
-            {type === "sign-in"
-              ? t("signIn.noAccount")
-              : t("signUp.alreadyAccount")}
+            {type === "sign-in" ? t1("noAccount") : t2("alreadyHaveAccount")}
             <br />
             <Link
               href={type === "sign-in" ? "/sign-up" : "/sign-in"}
               className="text-purple hover:underline"
             >
-              {type === "sign-in" ? t("signIn.register") : t("signUp.login")}
+              {type === "sign-in" ? t1("register") : t2("signIn")}
             </Link>
           </span>
         </div>

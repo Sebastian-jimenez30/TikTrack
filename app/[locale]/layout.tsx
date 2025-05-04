@@ -65,7 +65,7 @@ export default async function LocaleLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="">
+      <body>
         <NextIntlClientProvider messages={messages}>
           <NavBar
             isAuthenticated={isAuthenticated}

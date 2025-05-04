@@ -1,20 +1,29 @@
-import { getTranslations } from "next-intl/server";
-import { cookies } from "next/headers";
+import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
-import axios from "axios";
-import { notFound } from "next/navigation";
 import UserIcon from "~/app/components/icons/user.icon";
 import EmailIcon from "~/app/components/icons/email.icon";
 import LockIcon from "~/app/components/icons/lock.icon";
 import RoleIcon from "~/app/components/icons/role.icon";
-import ROUTES from "~/constants/urls/urls";
+import axios from "axios";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 interface ShowProps {
   params: { id: string };
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("UserManagementShowPage");
+
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
 export default async function Show({ params }: ShowProps) {
-  const t = await getTranslations("UserManagementPage");
+  const t = await getTranslations("UserManagementShowPage");
 
   const cookieStore = await cookies();
   const token = cookieStore.get("authToken")?.value;

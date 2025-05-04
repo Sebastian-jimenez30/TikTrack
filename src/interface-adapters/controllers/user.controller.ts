@@ -27,6 +27,9 @@ export class UserController {
       UserOverviewPresenter.toHttp(user)
     );
 
+    const emptyRowCount = Math.max(0, 8 - users.length);
+    const emptyRows = Array.from({ length: emptyRowCount });
+
     const pageData = {
       users: users,
       count: result.count,
@@ -34,6 +37,7 @@ export class UserController {
       end: result.end,
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
+      emptyRows: emptyRows,
     };
 
     return { pageData };

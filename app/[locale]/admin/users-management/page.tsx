@@ -1,11 +1,12 @@
-import { getTranslations } from "next-intl/server";
 import ROUTES from "~/constants/urls/urls";
-import { JSX } from "react";
 import ROUTES_API from "~/constants/urls/api.urls";
-import axios from "axios";
 import Pagination from "~/app/components/pagination";
-import { cookies } from "next/headers";
 import { Link } from "~/i18n/routing";
+import { cookies } from "next/headers";
+import { JSX } from "react";
+import axios from "axios";
+import { getTranslations } from "next-intl/server";
+
 interface IndexProps {
   searchParams: { page?: string };
 }
@@ -19,10 +20,19 @@ interface User {
   status: string;
 }
 
+export async function generateMetadata() {
+  const t = await getTranslations("UserManagementIndexPage");
+
+  return {
+    title: t("metadata.title"),
+    description: t("metadata.description"),
+  };
+}
+
 export default async function Index({
   searchParams,
 }: IndexProps): Promise<JSX.Element> {
-  const t = await getTranslations("UserManagementPage");
+  const t = await getTranslations("UserManagementIndexPage");
 
   const safeParams = Object.fromEntries(
     Object.entries(await searchParams).filter(
@@ -47,9 +57,7 @@ export default async function Index({
   const end = pageData.end;
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
-
-  const emptyRowCount = Math.max(0, 8 - users.length);
-  const emptyRows = Array.from({ length: emptyRowCount });
+  const emptyRows = pageData.emptyRows;
 
   return (
     <div className="mx-[30px] relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -105,6 +113,7 @@ export default async function Index({
                       pathname: `${ROUTES.USER_MANAGEMENT_DETAIL}`,
                       params: { id: user.id },
                     }}
+                    className="font-medium text-purple hover:underline"
                   >
                     {t("manage")}
                   </Link>
@@ -112,7 +121,7 @@ export default async function Index({
               </tr>
             );
           })}
-          {emptyRows.map((_, i) => (
+          {emptyRows.map((_: string, i: number) => (
             <tr
               key={`empty-${i}`}
               className="bg-white border-b border-gray-200"
