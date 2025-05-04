@@ -1,5 +1,14 @@
 export type Status = "active" | "inactive";
 
+export interface FilterOptions {
+  city?: string;
+  followers?: string;
+  engagementVisualizationRate?: string;
+  updatedAt?: string;
+  status?: Status;
+}
+
+
 class Influencer {
   id: number;
   username: string;
@@ -67,6 +76,51 @@ class Influencer {
       100
     ).toFixed(2);
     return parseFloat(engagementVisualizationRate);
+  }
+
+  static getFilters(): object[] {
+    return [
+      {
+        name: "city",
+        options: [{ value: "Medellín" }, { value: "Bogota" }],
+      },
+      {
+        name: "followers",
+        options: [
+          { value: "10K-50K" },
+          { value: "50K-100K" },
+          { value: "100K-500K" },
+          { value: "500K-1M" },
+          { value: "1M+" },
+        ],
+      },
+      {
+        name: "engagementVisualizationRate",
+        options: [
+          { value: ">=3%" },
+          { value: ">=5%" },
+          { value: ">=7%" },
+          { value: ">=10%" },
+          { value: ">=15%" },
+        ],
+      },
+      {
+        name: "updatedAt",
+        options: [
+          { value: new Date().toISOString().split("T")[0] },
+          {
+            value: new Date(new Date().setDate(new Date().getDate() - 7))
+              .toISOString()
+              .split("T")[0],
+          },
+          {
+            value: new Date(new Date().setDate(new Date().getDate() - 30))
+              .toISOString()
+              .split("T")[0],
+          },
+        ],
+      },
+    ];
   }
 
   getId(): number {
@@ -155,11 +209,11 @@ class Influencer {
   }
 
   getCreatedAt(): string {
-    return this.createdAt.toLocaleDateString();
+    return this.createdAt.toISOString().split("T")[0];
   }
 
   getUpdatedAt(): string {
-    return this.updatedAt.toLocaleDateString();
+    return this.updatedAt.toISOString().split("T")[0];
   }
 
   getEngagementVisualizationRate(): number {

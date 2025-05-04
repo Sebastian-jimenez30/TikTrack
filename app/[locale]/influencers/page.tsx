@@ -7,9 +7,17 @@ import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
+import SearchBar from "~/app/components/forms/searchBar";
+import FilterBar from "~/app/components/forms/filterBar";
 
 interface IndexProps {
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+  };
 }
 
 export async function generateMetadata() {
@@ -25,6 +33,7 @@ export default async function Index({
   searchParams,
 }: IndexProps): Promise<JSX.Element> {
   const t = await getTranslations("InfluencersIndexPage");
+  const translationKeyFilter = "FiltersInfluencer";
   const safeParams = Object.fromEntries(
     Object.entries(await searchParams).filter(
       ([, value]) => typeof value === "string"
@@ -40,13 +49,21 @@ export default async function Index({
   const end = pageData.end;
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
-
+  const filters = pageData.filters;
   return (
     <div>
       <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
+      <div className="flex flex-col w-full flex-wrap justify-center gap-3 xl:flex-row">
+        <div className="flex-[0.40] my-5 flex items-center">
+          <SearchBar className="w-96" />
+        </div>
+        <div className="flex-[0.60] my-5">
+          <FilterBar filters={filters} translation={translationKeyFilter} />
+        </div>
+      </div>
       <div>
         <ComparisonWrapper influencers={influencers} />
         <Pagination

@@ -1,4 +1,4 @@
-import { Influencer, Status } from "@/domain/entities/influencer";
+import { FilterOptions, Influencer, Status } from "@/domain/entities/influencer";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
@@ -178,6 +178,74 @@ export class InfluencerUseCases {
 
     return {
       isSuccess: true,
+    };
+  }
+
+  async filter(
+    filters: FilterOptions,
+    pageNumber: number,
+    limit: number
+  ): Promise<{
+    influencers: Influencer[];
+    count: number;
+    start: number;
+    end: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+    const tempInfluencers = await repository.filterPaginated(
+      pageNumber,
+      limit,
+      filters
+    );
+
+    let influencers = tempInfluencers.map((influencer) => {
+      return new Influencer(
+        influencer.id,
+        influencer.username,
+        influencer.profileName,
+        influencer.profilePicture,
+        influencer.profileUrl,
+        influencer.averageLikes,
+        influencer.averageComments,
+        influencer.averageShares,
+        influencer.averageSaves,
+        influencer.averageViews,
+        influencer.followers,
+        influencer.city,
+        influencer.featuredVideos,
+        influencer.status,
+        influencer.createdAt,
+        influencer.updatedAt
+      );
+    });
+
+    if (filters.engagementVisualizationRate) {
+      influencers = influencers.filter((influencer) => {
+        return (
+          Number(filters.engagementVisualizationRate?.match(/\d+/)) <=
+          Number(influencer.getEngagementVisualizationRate())
+        );
+      });
+    }
+
+    const count = influencers.length;
+    const [start, end] = PaginationUtil.getIndexes(
+      pageNumber.toString(),
+      count,
+      10
+    );
+
+    return {
+      influencers,
+      count,
+      start,
+      end,
+      hasNextPage: end < count,
+      hasPreviousPage: start > 1,
     };
   }
 }
