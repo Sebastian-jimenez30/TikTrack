@@ -1,4 +1,4 @@
-import { Role, Status } from "@/domain/entities/user";
+import { FilterOptions, Role, Status } from "@/domain/entities/user";
 
 export default interface IUserRepository {
   listPaginated(
@@ -67,4 +67,21 @@ export default interface IUserRepository {
     createdAt: Date;
     updatedAt: Date;
   }): Promise<void>;
+
+  filterPaginated(
+    pageNumber: number,
+    limit: number,
+    filters: FilterOptions
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
 }

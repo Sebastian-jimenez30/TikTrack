@@ -7,6 +7,8 @@ import { JSX } from "react";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
 import UserIcon from "~/app/components/icons/user.icon";
+import SearchBar from "~/app/components/forms/searchBar";
+import FilterBar from "~/app/components/forms/filterBar";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -34,6 +36,7 @@ export default async function Index({
   searchParams,
 }: IndexProps): Promise<JSX.Element> {
   const t = await getTranslations("UserManagementIndexPage");
+  const translationKeyFilter = "FiltersUser";
 
   const safeParams = Object.fromEntries(
     Object.entries(await searchParams).filter(
@@ -59,12 +62,21 @@ export default async function Index({
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
   const emptyRows = pageData.emptyRows;
+  const filters = pageData.filters;
 
   return (
     <div>
       <h1 className="mb-10 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <UserIcon className="text-lightPurple" />
       </h1>
+      <div className="flex flex-col w-full flex-wrap justify-center gap-3 xl:flex-row">
+        <div className="flex-[0.40] my-5 flex items-center">
+          <SearchBar className="w-96" />
+        </div>
+        <div className="flex-[0.60] my-5">
+          <FilterBar filters={filters} translation={translationKeyFilter} />
+        </div>
+      </div>
       <div className="mx-[30px] relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 min-h-screen">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">

@@ -320,5 +320,18 @@
     "today": "Hoy",
     "thisWeek": "Esta semana",
     "thisMonth": "Este mes"
+  },
+
+  "FiltersUser": {
+    "role": "Rol",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "updatedAt": "Ultima actualización",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
   }
 }

@@ -1,10 +1,15 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
 import { UserDetailPresenter } from "@/interface-adapters/presenters/user/user.detail.presenter";
-import { Role, Status } from "@/domain/entities/user";
+import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
 
 interface IndexProps {
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    role?: string;
+    status?: string;
+    updatedAt?: string;
+  };
 }
 
 interface ShowProps {
@@ -30,12 +35,22 @@ export class UserController {
   }> {
     const resolvedParams = await searchParams;
 
-    const { page } = resolvedParams;
+    const { page, role, status, updatedAt } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
 
-    const result = await userUseCases.list(pageNumber, limit);
+    let result;
+    if (role || status || updatedAt) {
+      const filters = {
+        role,
+        status,
+        updatedAt,
+      } as FilterOptions;
+      result = await userUseCases.filter(filters, pageNumber, limit);
+    } else {
+      result = await userUseCases.listPaginated(pageNumber, limit);
+    }
 
     const users = result.users.map((user) =>
       UserOverviewPresenter.toHttp(user)
@@ -43,6 +58,7 @@ export class UserController {
 
     const emptyRowCount = Math.max(0, 8 - users.length);
     const emptyRows = Array.from({ length: emptyRowCount });
+    const filters = User.getFilters();
 
     const pageData = {
       users: users,
@@ -52,6 +68,7 @@ export class UserController {
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
       emptyRows: emptyRows,
+      filters,
     };
 
     return { pageData };

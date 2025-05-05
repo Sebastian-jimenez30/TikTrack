@@ -64,6 +64,18 @@ export default function FilterBar({ filters, translation }: FilterBarProps) {
                   {t("thisMonth")}
                 </option>
               </>
+            ) : filter.name === "role" ? (
+              <>
+                <option value={filter.options[0]?.value}>{t("admin")}</option>
+                <option value={filter.options[1]?.value}>{t("user")}</option>
+              </>
+            ) : filter.name === "status" ? (
+              <>
+                <option value={filter.options[0]?.value}>{t("active")}</option>
+                <option value={filter.options[1]?.value}>
+                  {t("inactive")}
+                </option>
+              </>
             ) : (
               filter.options.map((opt) => (
                 <option key={opt.value} value={opt.value}>

@@ -1,6 +1,12 @@
 export type Status = "active" | "inactive";
 export type Role = "admin" | "user";
 
+export interface FilterOptions {
+  role?: Role;
+  status?: Status;
+  updatedAt?: string;
+}
+
 class User {
   constructor(
     public id: number,
@@ -12,6 +18,35 @@ class User {
     public createdAt: Date,
     public updatedAt: Date
   ) {}
+
+  static getFilters(): object[] {
+    return [
+      {
+        name: "role",
+        options: [{ value: "admin" }, { value: "user" }],
+      },
+      {
+        name: "status",
+        options: [{ value: "active" }, { value: "inactive" }],
+      },
+      {
+        name: "updatedAt",
+        options: [
+          { value: new Date().toISOString().split("T")[0] },
+          {
+            value: new Date(new Date().setDate(new Date().getDate() - 7))
+              .toISOString()
+              .split("T")[0],
+          },
+          {
+            value: new Date(new Date().setDate(new Date().getDate() - 30))
+              .toISOString()
+              .split("T")[0],
+          },
+        ],
+      },
+    ];
+  }
 
   getId(): number {
     return this.id;
