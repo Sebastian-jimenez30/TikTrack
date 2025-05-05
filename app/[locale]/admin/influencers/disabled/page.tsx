@@ -65,9 +65,9 @@ export default async function Disabled({
       <h1 className="mb-10 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <ErrorIcon className="text-lightPurple"></ErrorIcon>
       </h1>
-      <div className="flex flex-col w-full flex-wrap justify-center gap-3 xl:flex-row">
+      <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
         <div className="flex-[0.40] my-5 flex items-center">
-          <SearchBar className="w-96" />
+          <SearchBar className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
           <FilterBar filters={filters} translation={translationKeyFilter} />
