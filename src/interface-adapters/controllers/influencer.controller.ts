@@ -1,10 +1,16 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { InfluencerOverviewPresenter } from "@/interface-adapters/presenters/influencer/influencer.overview.presenter";
 import { InfluencerDetailPresenter } from "@/interface-adapters/presenters/influencer/influencer.detail.presenter";
-import { Status } from "@/domain/entities/influencer";
+import { Influencer, Status } from "@/domain/entities/influencer";
 
 interface IndexProps {
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+  };
 }
 
 interface ShowProps {
@@ -12,7 +18,13 @@ interface ShowProps {
 }
 
 interface DisabledProps {
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+  };
 }
 
 interface DeactivateProps {
@@ -29,16 +41,30 @@ class InfluencerController {
   }> {
     const resolvedParams = await searchParams;
 
-    const { page } = resolvedParams;
+    const { page, city, followers, engagementVisualizationRate, updatedAt } =
+      resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
-
-    const result = await influencerUseCases.listActive(pageNumber, limit);
+    let result;
+    if (city || followers || engagementVisualizationRate || updatedAt) {
+      const filters = {
+        city,
+        followers,
+        engagementVisualizationRate,
+        updatedAt,
+        status: "active" as Status,
+      };
+      result = await influencerUseCases.filter(filters, pageNumber, limit);
+    } else {
+      result = await influencerUseCases.listActive(pageNumber, limit);
+    }
 
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
     );
+
+    const filters = Influencer.getFilters();
 
     const pageData = {
       influencers,
@@ -47,6 +73,7 @@ class InfluencerController {
       end: result.end,
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
+      filters,
     };
 
     return { pageData };
@@ -77,17 +104,31 @@ class InfluencerController {
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
+    const { page, city, followers, engagementVisualizationRate, updatedAt } =
+      resolvedParams;
 
-    const { page } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
-
-    const result = await influencerUseCases.listInactive(pageNumber, limit);
+    let result;
+    if (city || followers || engagementVisualizationRate || updatedAt) {
+      const filters = {
+        city,
+        followers,
+        engagementVisualizationRate,
+        updatedAt,
+        status: "inactive" as Status,
+      };
+      result = await influencerUseCases.filter(filters, pageNumber, limit);
+    } else {
+      result = await influencerUseCases.listInactive(pageNumber, limit);
+    }
 
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
     );
+
+    const filters = Influencer.getFilters();
 
     const pageData = {
       influencers,
@@ -96,6 +137,7 @@ class InfluencerController {
       end: result.end,
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
+      filters,
     };
 
     return { pageData };

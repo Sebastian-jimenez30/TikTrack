@@ -206,7 +206,7 @@
     "influencer": "Influencer",
     "status": "Status",
     "followers": "Followers",
-    "engagementRate": "Engagement Rate",
+    "engagementVisualizationRate": "Engagement Rate",
     "averageComments": "Average Comments",
     "averageLikes": "Average Likes",
     "averageSaves": "Average Saves",
@@ -306,5 +306,32 @@
       "errorGettingInfluencerList": "Error getting influencer list. Try again later",
       "errorSendingMessage": "Error sending message"
     }
+  },
+
+  "SearchBar": {
+    "search": "Search"
+  },
+
+  "FiltersInfluencer": {
+    "city": "City",
+    "followers": "Followers",
+    "engagementVisualizationRate": "Engagement Visualization Rate",
+    "updatedAt": "Last Updated",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
+  },
+
+  "FiltersUser": {
+    "role": "Role",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "admin": "Administrator",
+    "user": "User",
+    "updatedAt": "Last Updated",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
   }
 }

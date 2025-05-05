@@ -186,7 +186,7 @@ export default async function Show({ params }: ShowProps) {
             <h3 className="text-black text-lg font-bold leading-tight px-4 pb-2 pt-4">
               {t("videos")}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 p-4 place-items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-1 p-4 place-items-center">
               {influencer.featuredVideos.map((videoId: string) => {
                 return (
                   <div key={videoId}>

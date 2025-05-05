@@ -1,4 +1,4 @@
-import { Status } from "@/domain/entities/influencer";
+import { FilterOptions, Status } from "@/domain/entities/influencer";
 
 export default interface IInfluencerRepository {
   listActivePaginated(
@@ -27,6 +27,30 @@ export default interface IInfluencerRepository {
   listInactivePaginated(
     pageNumber: number,
     limit: number
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+  filterPaginated(
+    pageNumber: number,
+    limit: number,
+    filters: FilterOptions
   ): Promise<
     {
       id: number;

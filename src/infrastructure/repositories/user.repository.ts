@@ -1,9 +1,9 @@
-import { eq, and } from "drizzle-orm";
+import { eq, and, gte } from "drizzle-orm";
 import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
 import { count } from "drizzle-orm";
-import { Role, Status } from "@/domain/entities/user";
+import { FilterOptions, Role, Status } from "@/domain/entities/user";
 
 export default class UserRepository implements IUserRepository {
   async listPaginated(
@@ -114,5 +114,47 @@ export default class UserRepository implements IUserRepository {
       .set(updatableFields)
       .where(and(eq(usersTable.id, id)))
       .execute();
+  }
+
+  async filterPaginated(
+    pageNumber: number,
+    limit: number,
+    filters: FilterOptions
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+    const conditions = [];
+
+    if (filters.role) {
+      conditions.push(eq(usersTable.role, filters.role));
+    }
+
+    if (filters.status) {
+      conditions.push(eq(usersTable.status, filters.status));
+    }
+
+    if (filters.updatedAt) {
+      conditions.push(gte(usersTable.updatedAt, new Date(filters.updatedAt)));
+    }
+
+    const response = await db
+      .select()
+      .from(usersTable)
+      .where(and(...conditions))
+      .orderBy(usersTable.updatedAt)
+      .limit(limit)
+      .offset(offset);
+
+    return response;
   }
 }

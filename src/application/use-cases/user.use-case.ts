@@ -1,5 +1,5 @@
 import IUserRepository from "@/application/repositories/user.repository.interface";
-import { Role, Status, User } from "@/domain/entities/user";
+import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
 
@@ -33,7 +33,7 @@ export class UserUseCases {
     }
   }
 
-  async list(
+  async listPaginated(
     pageNumber: number,
     limit: number
   ): Promise<{
@@ -108,6 +108,58 @@ export class UserUseCases {
 
     return {
       isSuccess: true,
+    };
+  }
+
+  async filter(
+    filters: FilterOptions,
+    pageNumber: number,
+    limit: number
+  ): Promise<{
+    users: User[];
+    count: number;
+    start: number;
+    end: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  }> {
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const tempUsers = await repository.filterPaginated(
+      pageNumber,
+      limit,
+      filters
+    );
+
+    const tempCount = await repository.count();
+
+    const users = tempUsers.map((user) => {
+      return new User(
+        user.id,
+        user.email,
+        user.password,
+        user.name,
+        user.role as Role,
+        user.status as Status,
+        user.createdAt,
+        user.updatedAt
+      );
+    });
+
+    const count = Number(tempCount);
+    const [start, end] = PaginationUtil.getIndexes(
+      pageNumber.toString(),
+      count,
+      10
+    );
+
+    return {
+      users,
+      count,
+      start,
+      end,
+      hasNextPage: end < count,
+      hasPreviousPage: start > 1,
     };
   }
 }

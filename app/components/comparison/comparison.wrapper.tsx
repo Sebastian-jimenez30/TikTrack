@@ -51,7 +51,6 @@ export default function ComparisonWrapper({
         `${ROUTES_API.INFLUENCER_COMPARE}?usernames=${selectedInfluencers.join(",")}`
       );
       const result = await response.json();
-      console.log(result);
 
       if (result.pageData.isSuccess) {
         setInfluencerComparisonData(result.pageData.influencers);

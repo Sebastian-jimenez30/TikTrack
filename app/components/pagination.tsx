@@ -45,7 +45,6 @@ export default function Pagination({
         {hasPreviousPage ? (
           <Link
             href={{ pathname: pathname, query: { page: page - 1 } }}
-            scroll={false}
             className={`${baseClasses} rounded-s`}
           >
             <svg
@@ -92,7 +91,6 @@ export default function Pagination({
         {hasNextPage ? (
           <Link
             href={{ pathname: pathname, query: { page: page + 1 } }}
-            scroll={false}
             className={`${baseClasses} border-0 border-s border-black rounded-e`}
           >
             {t("next")}
