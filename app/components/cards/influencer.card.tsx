@@ -34,14 +34,14 @@ export default function InfluencerCard({
   const t = useTranslations("Cards");
 
   const handleToggleSelect = (e: React.MouseEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     onSelect?.(username);
   };
 
   return (
     <div
       className={clsx(
-        "relative w-80 bg-white border shadow-sm transform transition duration-300 hover:scale-105 mx-2 my-2",
+        "relative w-full bg-white border shadow-sm transform transition duration-300 hover:scale-105 mx-2 my-2",
         selected ? "border-purple ring-2 ring-purple" : "border-gray-200"
       )}
     >

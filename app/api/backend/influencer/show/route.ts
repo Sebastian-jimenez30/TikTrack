@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { influencerController } from "@/interface-adapters/controllers/influencer.controller";
 
-export async function POST(req: NextRequest) {
-  const body = await req.json();
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const username = searchParams.get("username");
 
-  const username = body?.username;
+  if (!username) {
+    return NextResponse.json({ error: "Missing id" }, { status: 400 });
+  }
 
   const data = await influencerController.show({ params: { username } });
 

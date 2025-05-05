@@ -40,13 +40,13 @@ export default function MessageCard({
         if (result.status === 200) {
           setEditing(false);
           setError(null);
-          setNewContent(result.data.content); 
+          setNewContent(result.data.content);
           alert(t("success.messageUpdated"));
           window.location.reload();
         } else {
           setError(t("error.failedToUpdateMessage"));
         }
-      } catch (error) {
+      } catch {
         setError(t("error.failedToUpdateMessage"));
       }
     });
@@ -65,7 +65,7 @@ export default function MessageCard({
         } else {
           setError(t("error.failedToDeleteMessage"));
         }
-      } catch (error) {
+      } catch {
         setError(t("error.failedToDeleteMessage"));
       }
     });
@@ -76,7 +76,7 @@ export default function MessageCard({
   };
 
   return (
-    <div className="min-w-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2">
+    <div className="min-h-[300px] max-h-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2 overflow-y-auto flex flex-col">
       {error && (
         <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
       )}
@@ -112,7 +112,7 @@ export default function MessageCard({
         <p className="text-gray-700 text-sm md:text-xl">{content}</p>
       )}
 
-      <div className="flex gap-2 justify-center">
+      <div className="mt-auto flex gap-2 justify-center">
         {!editing && isCustomizeLink && (
           <Link href={`?selectedId=${id}`}>
             <button className="bg-white text-purple border border-purple font-semibold transition-all mt-3 min-w-[120px] px-2 py-1 rounded hover:bg-gray-200">

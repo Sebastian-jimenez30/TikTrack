@@ -48,10 +48,13 @@ export default async function LocaleLayout({
 
   let isAuthenticated = false;
   let isAdmin = false;
+  let userId = "";
 
   if (token && !(await jwtUtil.isTokenExpired(token))) {
     isAuthenticated = true;
     isAdmin = await jwtUtil.isAdmin(token);
+    const userTempId = await jwtUtil.getUserIdFromToken(token);
+    userId = userTempId.toString() || "";
   }
 
   return (
@@ -62,15 +65,20 @@ export default async function LocaleLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="">
+      <body>
         <NextIntlClientProvider messages={messages}>
           <NavBar
             isAuthenticated={isAuthenticated}
             isAdmin={isAdmin}
             locale={locale}
+            id={userId}
           />
           <Toaster richColors position="top-right" />
-          {children}
+          <div>
+            <div className="sm:px-20 sm:pt-[130px] pt-[200px] px-10">
+              {children}
+            </div>
+          </div>
           <Footer />
         </NextIntlClientProvider>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

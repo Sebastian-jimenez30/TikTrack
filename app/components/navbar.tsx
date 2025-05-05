@@ -12,17 +12,19 @@ interface NavBarProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
   locale: string;
+  id: string;
 }
 
 export default function NavBar({
   isAuthenticated,
   isAdmin,
   locale,
+  id,
 }: NavBarProps) {
   const t = useTranslations("NavBar");
 
   return (
-    <nav className="bg-white border-gray-200 mb-10">
+    <nav className="bg-white border-gray-200 mb-10 fixed w-full z-50 top-0 left-0 shadow-sm">
       <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 justify-around">
         <Image
           src="/logos/combination-mark.png"
@@ -32,12 +34,18 @@ export default function NavBar({
           className="w-60 h-auto"
           priority={true}
         />
-        <div className="flex lg:order-2 space-x-3 lg:space-x-0 rtl:space-x-reverse items-center flex-wrap justify-center">
+        <div className="flex xl:order-2 space-x-3 xl:space-x-0 rtl:space-x-reverse items-center flex-wrap justify-center">
           {isAuthenticated ? (
             <div className="flex items-center gap-4 bg-gray-100 p-2 rounded-md">
-              <Button href={ROUTES.PROFILE} variant="primary">
+              <Link
+                href={{
+                  pathname: `${ROUTES.PROFILE}`,
+                  params: { id: id },
+                }}
+                className="px-4 py-2 rounded-md font-semibold transition-all bg-purple text-white cursor-pointer hover:bg-darkPurple"
+              >
                 {t("profile")}
-              </Button>
+              </Link>
               <div className="border-l border-gray-300 h-6"></div>
               <form action={() => logout(locale)}>
                 <button
@@ -57,7 +65,7 @@ export default function NavBar({
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
-            className="my-5 sm:my-0 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="my-5 sm:my-0 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="navbar-cta"
             aria-expanded="false"
           >
@@ -79,10 +87,10 @@ export default function NavBar({
           </button>
         </div>
         <div
-          className="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
+          className="items-center justify-between hidden w-full xl:flex xl:w-auto xl:order-1"
           id="navbar-cta"
         >
-          <ul className="flex flex-col font-medium p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white">
+          <ul className="flex flex-col font-medium p-4 xl:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 xl:space-x-8 rtl:space-x-reverse xl:flex-row xl:mt-0 xl:border-0 xl:bg-white">
             <li>
               <Link
                 className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
@@ -114,7 +122,7 @@ export default function NavBar({
                 <li>
                   <Link
                     className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
-                    href={ROUTES.MANAGEMENT}
+                    href={ROUTES.USER_MANAGEMENT_INDEX}
                   >
                     {t("userManagement")}
                   </Link>

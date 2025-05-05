@@ -1,6 +1,5 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
-import InfluencerCard from "~/app/components/cards/influencer.card";
 import Pagination from "~/app/components/pagination";
 import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
@@ -9,18 +8,8 @@ import { getTranslations } from "next-intl/server";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
 
-
 interface IndexProps {
   searchParams: { page?: string };
-}
-
-interface InfluencerOverview {
-  username: string;
-  profilePicture: string;
-  city: string;
-  engagementVisualizationRate: number;
-  followers: string;
-  updatedAt: string;
 }
 
 export async function generateMetadata() {
@@ -55,7 +44,7 @@ export default async function Index({
   return (
     <div>
       <NotificationSessionStorage />
-      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
+      <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
       <div>

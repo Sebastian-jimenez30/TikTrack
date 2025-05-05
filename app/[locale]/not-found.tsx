@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { getTranslations } from "next-intl/server";
 import ROUTES from "~/constants/urls/urls";
 import Button from "~/app/components/buttons/button";
+import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 export default async function NotFound() {
   const t = await getTranslations("NotFoundPage");

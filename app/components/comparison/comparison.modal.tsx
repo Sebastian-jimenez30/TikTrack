@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 interface Influencer {
   profilePicture: string;
@@ -20,7 +21,10 @@ interface ComparisonModalProps {
   onClose: () => void;
 }
 
-export default function ComparisonModal({ influencers, onClose }: ComparisonModalProps) {
+export default function ComparisonModal({
+  influencers,
+  onClose,
+}: ComparisonModalProps) {
   const t = useTranslations("InfluencerComparison");
 
   return (
@@ -43,14 +47,19 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
             <table className="w-full text-center">
               <thead className="bg-lightPurple">
                 <tr className="border-b">
-                  <th className="p-3 text-lg text-white font-semibold">{t("influencer")}</th>
+                  <th className="p-3 text-lg text-white font-semibold">
+                    {t("influencer")}
+                  </th>
                   {influencers.map((influencer) => (
                     <th key={influencer.username} className="p-3 font-semibold">
                       <div className="flex flex-col items-center">
-                        <img
+                        <Image
                           src={influencer.profilePicture}
                           alt={influencer.username}
+                          width={100}
+                          height={100}
                           className="w-8 h-8 rounded-full mb-1"
+                          priority
                         />
                         <div className="text-white text-center">
                           @{influencer.username}
@@ -66,10 +75,12 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
                   {influencers.map((influencer) => (
                     <td key={influencer.username} className="p-3">
                       <span
-                          className={`mr-1 w-3 h-3 rounded-full inline-block ${
-                            influencer.status === "active" ? "bg-purple-500" : "bg-gray-400"
-                          }`}
-                        ></span>
+                        className={`mr-1 w-3 h-3 rounded-full inline-block ${
+                          influencer.status === "active"
+                            ? "bg-purple-500"
+                            : "bg-gray-400"
+                        }`}
+                      ></span>
                       {influencer.status}
                     </td>
                   ))}
@@ -137,4 +148,4 @@ export default function ComparisonModal({ influencers, onClose }: ComparisonModa
       </div>
     </div>
   );
-} 
+}

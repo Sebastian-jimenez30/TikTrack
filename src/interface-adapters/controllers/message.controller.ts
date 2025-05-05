@@ -17,7 +17,7 @@ class MessageController {
   async index(): Promise<{ pageData: { messages: Message[] } }> {
     const data = await messageUseCases.listAll();
     return { pageData: data };
-  } 
+  }
 
   async create({ params }: CreateProps): Promise<Message> {
     const { content } = params;

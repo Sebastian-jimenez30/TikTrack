@@ -8,6 +8,7 @@ import InlineCard from "~/app/components/cards/inline.card";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
 import MessageCard from "~/app/components/cards/message.card";
+import EmailIcon from "~/app/components/icons/email.icon";
 
 interface Message {
   id: number;
@@ -17,7 +18,7 @@ interface Message {
 }
 
 interface Props {
-  params: { username: string };            
+  params: { username: string };
   searchParams: { selectedId?: string };
 }
 
@@ -35,19 +36,27 @@ export default async function MessagesPage({ params, searchParams }: Props) {
 
   const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
   const messages: Message[] = pageData.messages;
-  
-  const selectedId = searchParams?.selectedId;
-  const selectedMessage = messages.find((msg) => msg.id === Number(searchParams.selectedId)
+
+  const paramsData = await params;
+  const searchParamsData = await searchParams;
+
+  const selectedMessage = messages.find(
+    (msg) => msg.id === Number(searchParamsData.selectedId)
   );
+
+  const username = paramsData.username;
 
   return (
     <div>
-      <h1 className="mb-8 text-4xl md:text-5xl lg:text-6xl font-extrabold leading-none tracking-tight text-center">
-        {t("title")}
+      <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl lg:text-left text-center">
+        {t("title")} <EmailIcon className="text-lightPurple" />
       </h1>
-      <div className="mx-[100px]">
+      <div>
+        <h2 className="mb-8 text-3xl text-center font-bold leading-none tracking-tight md:text-4xl md:text-center lg:text-4xl lg:text-left ">
+          {t("messagingTemplate")}
+        </h2>
         {messages.length < 3 && <CreateMessage />}
-        <div className="grid w-full gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start">
+        <div className="grid w-full gap-4 grid-cols-1 lg:grid-cols-3 items-start">
           {messages.map((msg) => (
             <MessageCard
               key={msg.id}
@@ -63,9 +72,9 @@ export default async function MessagesPage({ params, searchParams }: Props) {
           </h2>
           <div className="flex flex-col flex-wrap justify-center lg:flex-row gap-6">
             <div className="flex flex-1 justify-center md:justify-center lg:justify-start flex-col">
-              <TextboxWithService 
-                selectedMessageContent={selectedMessage?.content} 
-                username={params.username}
+              <TextboxWithService
+                selectedMessageContent={selectedMessage?.content}
+                username={username}
               />
             </div>
             <div className="flex flex-1 justify-center flex-col items-center flex-wrap ml-5 my-5 lg:my-0 gap-6">

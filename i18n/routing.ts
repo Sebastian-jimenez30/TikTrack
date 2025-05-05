@@ -38,18 +38,17 @@ export const routing = defineRouting({
       en: "/sign-up",
       es: "/registrarse",
     },
-    "/profile": {
-      en: "/profile",
-      es: "/perfil",
+    "/profile/[id]": {
+      en: "/profile/[id]",
+      es: "/perfil/[id]",
     },
-    "/admin/users": {
-      en: "/admin/users",
-      es: "/admin/usuarios",
+    "/admin/users-management": {
+      en: "/admin/users-management",
+      es: "/admin/gestion-de-usuarios",
     },
-
-    "/admin/users/manage": {
-      en: "/admin/users/manage",
-      es: "/admin/usuarios/gestionar",
+    "/admin/users-management/[id]": {
+      en: "/admin/users-management/[id]",
+      es: "/admin/gestion-de-usuarios/[id]",
     },
   },
 });
@@ -57,7 +56,10 @@ export type Locale = (typeof routing.locales)[number];
 
 type StaticPathname = Exclude<
   keyof typeof routing.pathnames,
-  "/influencers/[username]" | "/messages/[username]"
+  | "/influencers/[username]"
+  | "/messages/[username]"
+  | "/admin/users-management/[id]"
+  | "/profile/[id]"
 >;
 
 export type Pathname = StaticPathname;

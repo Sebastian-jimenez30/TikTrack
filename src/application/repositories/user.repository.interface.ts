@@ -1,67 +1,70 @@
+import { Role, Status } from "@/domain/entities/user";
+
 export default interface IUserRepository {
-  createUser(user: {
+  listPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+
+  count(): Promise<number>;
+
+  create(user: {
     email: string;
     password: string;
     name: string;
-    role?: string;
-    status?: string;
+    role?: Role;
+    status?: Status;
   }): Promise<{
     id: number;
     email: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   }>;
 
-  findUserByEmail(email: string): Promise<{
+  findByEmail(email: string): Promise<{
     id: number;
     email: string;
     password: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null>;
 
-  findUserById(id: number): Promise<{
+  findById(id: number): Promise<{
     id: number;
     email: string;
     password: string;
     name: string;
-    role: string;
-    status: string;
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null>;
 
-  findAllUsers(): Promise<{
+  update(user: {
     id: number;
     email: string;
     password: string;
     name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
-  }[]>;
-
-  updateUser(id: number, user: {
-    name?: string;
-    email?: string;
-    password?: string;
-    role?: string;
-    status?: string;
-  }): Promise<{
-    id: number;
-    email: string;
-    name: string;
-    role: string;
-    status: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }>;
-
+  }): Promise<void>;
 }

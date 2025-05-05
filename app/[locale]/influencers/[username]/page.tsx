@@ -1,7 +1,6 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
-import Button from "~/app/components/buttons/button";
 import RedirectButton from "~/app/components/buttons/redirect.button";
 import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
@@ -44,8 +43,8 @@ export default async function Show({ params }: ShowProps) {
 
   const pathParams = await params;
   const pageData = (
-    await axios.post(ROUTES_API.INFLUENCER_SHOW, {
-      username: pathParams.username,
+    await axios.get(ROUTES_API.INFLUENCER_SHOW, {
+      params: { username: pathParams.username },
     })
   ).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {
@@ -91,17 +90,15 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                
-                <Link
-                  href={{
-                    pathname: ROUTES.MESSAGES,
-                    params: { username: influencer.username },
-                  }}
-                  className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
-                >
-                  {t("message")}
-                </Link>
-
+                  <Link
+                    href={{
+                      pathname: ROUTES.MESSAGES,
+                      params: { username: influencer.username },
+                    }}
+                    className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
+                  >
+                    {t("message")}
+                  </Link>
 
                   {isAdmin &&
                     (isInfluencerActive ? (

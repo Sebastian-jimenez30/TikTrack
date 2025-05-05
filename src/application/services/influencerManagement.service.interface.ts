@@ -1,4 +1,9 @@
-interface IInfluencerManagementService {
+export interface SendMessageResponse {
+  status: "success";
+  message: string;
+}
+
+export interface IInfluencerManagementService {
   fetchInfluencers(): Promise<
     {
       username: string;
@@ -15,7 +20,8 @@ interface IInfluencerManagementService {
       featuredVideos: string[];
     }[]
   >;
-  sendMessageToInfluencer(username: string, message: string): Promise<any>;
+  sendMessageToInfluencer(
+    username: string,
+    message: string
+  ): Promise<SendMessageResponse>;
 }
-
-export default IInfluencerManagementService;

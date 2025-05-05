@@ -52,11 +52,11 @@ export default async function Disabled({
 
   return (
     <div>
-      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
+      <h1 className="mb-10 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <ErrorIcon className="text-lightPurple"></ErrorIcon>
       </h1>
       <div>
-        <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
+        <div className="grid w-full justify-center grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 items-center">
           {influencers.map((influencer: InfluencerOverview) => (
             <div key={influencer.username}>
               <InfluencerCard
