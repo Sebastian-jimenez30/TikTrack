@@ -1,5 +1,9 @@
-import IInfluencerManagementService from "@/application/services/influencerManagement.service.interface";
+import {
+  IInfluencerManagementService,
+  SendMessageResponse,
+} from "@/application/services/influencerManagement.service.interface";
 import ROUTES from "~/constants/urls/services.urls";
+import { getTranslations } from "next-intl/server";
 
 class InfluencerManagementService implements IInfluencerManagementService {
   async fetchInfluencers(): Promise<
@@ -18,11 +22,10 @@ class InfluencerManagementService implements IInfluencerManagementService {
       featuredVideos: string[];
     }[]
   > {
-    const endpoint = "influencers";
-    const url = ROUTES.TIKTRACK_SCRAPER_SYSTEM + endpoint;
+    const t = await getTranslations("InfluencerManagementService");
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(ROUTES.GET_INFLUENCERS);
       if (!response.ok) {
         throw new Error(
           `HTTP Error: ${response.status} - ${response.statusText}`
@@ -31,10 +34,29 @@ class InfluencerManagementService implements IInfluencerManagementService {
 
       return await response.json();
     } catch (error) {
-      console.error("❌ Error al obtener influencers:", error);
-      throw new Error(
-        "No se pudo obtener la lista de influencers. Intenta nuevamente más tarde."
-      );
+      console.error(t("error.errorGettingInfluencers"), error);
+      throw new Error(t("error.errorGettingInfluencerList"));
+    }
+  }
+
+  async sendMessageToInfluencer(
+    username: string,
+    message: string
+  ): Promise<SendMessageResponse> {
+    const t = await getTranslations("InfluencerManagementService");
+
+    try {
+      const response = await fetch(ROUTES.SEND_MESSAGE(username), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      return response.json();
+    } catch {
+      throw new Error(t("error.errorSendingMessage"));
     }
   }
 }

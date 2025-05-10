@@ -68,13 +68,164 @@
     "error": "Ocurrió un error al procesar tu solicitud"
   },
 
+  "MessagesIndexPage": {
+    "metadata": {
+      "title": "Mensajes",
+      "description": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención."
+    },
+    "title": "Mensajes",
+    "input": {
+      "placeholder": "Escribe tu mensaje...",
+      "send": "Enviar"
+    },
+    "messagingTemplate": "Plantilla de Mensajes",
+    "aiSuggestions": "Sugerencias de IA",
+    "communicationDescription": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención.",
+    "connectionDescription": "Conecte emocionalmente: Elabore mensajes que resuenen con su público y sus marcas a un nivel más profundo.",
+    "standOutDescription": "Destaque al instante: Deja que la IA te ayude a redactar propuestas más atractivas y visualmente impactantes que capten la atención."
+  },
+
+  "SignInPage": {
+    "metadata": {
+      "title": "Iniciar Sesión",
+      "description": "Inicia sesión en tu cuenta"
+    },
+    "title": "Iniciar Sesión",
+    "emailLabel": "Correo Electrónico",
+    "passwordLabel": "Contraseña",
+    "submit": "Iniciar Sesión",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Registrarse",
+    "success": "Usuario autenticado con éxito",
+    "userDoesNotExist": "El usuario no existe",
+    "userInactive": "El usuario está inactivo",
+    "incorrectPassword": "Contraseña incorrecta"
+  },
+
+  "SignUpPage": {
+    "metadata": {
+      "title": "Registrarse",
+      "description": "Crea una cuenta"
+    },
+    "title": "Registrarse",
+    "nameLabel": "Nombre",
+    "emailLabel": "Correo Electrónico",
+    "passwordLabel": "Contraseña",
+    "confirmPasswordLabel": "Confirmar Contraseña",
+    "submit": "Registrarse",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "signIn": "Iniciar Sesión",
+    "success": "Usuario registrado con éxito",
+    "error": {
+      "userAlreadyExists": "El usuario ya existe",
+      "passwordMismatch": "Las contraseñas no coinciden"
+    }
+  },
+
+  "ProfilePage": {
+    "metadata": {
+      "title": "Perfil de Usuario",
+      "description": "Observa tu información personal y preferencias."
+    },
+    "title": "Perfil de Usuario",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "roles": {
+      "user": "Usuario",
+      "admin": "Administrador"
+    },
+    "authError": "Error de autenticación. Inicia sesión nuevamente.",
+    "tokenError": "Token inválido. Intenta de nuevo.",
+    "fetchError": "No se pudo obtener la información del usuario."
+  },
+
+  "NotFoundPage": {
+    "metadata": {
+      "title": "Página No Encontrada",
+      "description": "La página que buscas no existe."
+    },
+    "title": "Página No Encontrada",
+    "description": "La página que buscas no existe.",
+    "goBack": "Regresar"
+  },
+
+  "LayoutPage": {
+    "metadata": {
+      "title": "TikTrack",
+      "description": "La plataforma para encontrar influencers."
+    }
+  },
+
+  "UserManagementIndexPage": {
+    "metadata": {
+      "title": "Gestión de Usuarios",
+      "description": "Gestiona los usuarios de la plataforma."
+    },
+    "title": "Gestión de Usuarios",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "role": "Rol",
+    "updatedAt": "Actualizado en",
+    "status": "Estado",
+    "action": "Acción",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "manage": "Gestionar"
+  },
+
+  "UserManagementShowPage": {
+    "metadata": {
+      "title": "Editar usuario",
+      "description": "Modifica los datos del usuario seleccionado."
+    },
+    "editTitle": "Editar Usuario",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Déjalo en blanco para mantener la actual",
+    "role": "Rol",
+    "roles": {
+      "user": "Usuario",
+      "admin": "Administrador"
+    },
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+
+  "InfluencerComparison": {
+    "title": "Comparación de Influencers",
+    "compareInfluencers": "Comparar Influencers",
+    "compare": "Comparar",
+    "cancel": "Cancelar",
+    "influencer": "Influencer",
+    "status": "Estado",
+    "followers": "Seguidores",
+    "engagementVisualizationRate": "Tasa de participación",
+    "averageComments": "Promedio de comentarios",
+    "averageLikes": "Promedio de me gusta",
+    "averageSaves": "Promedio de guardados",
+    "averageShares": "Promedio de compartidos",
+    "averageViews": "Promedio de vistas",
+    "selectMinimum": "Por favor selecciona al menos dos influencers para comparar",
+    "selectMaximum": "Solo puedes comparar hasta 5 influencers al mismo tiempo",
+    "selectRange": "Por favor selecciona entre 2 y 5 influencers para comparar",
+    "error": "Ocurrió un error al comparar los influencers"
+  },
+
   "NavBar": {
     "home": "Inicio",
     "influencers": "Influencers",
     "getStarted": "Comenzar",
     "profile": "Perfil",
     "logout": "Cerrar Sesión",
-    "influencersDisabled": "Desactivados"
+    "influencersDisabled": "Desactivados",
+    "userManagement": "Gestión de usuarios"
   },
 
   "Footer": {
@@ -93,7 +244,16 @@
       "delete": "Eliminar",
       "customize": "Personalizar",
       "edit": "Editar",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "error": {
+        "notEmptyContent": "El contenido no puede estar vacío",
+        "failedToUpdateMessage": "Error al actualizar el mensaje",
+        "failedToDeleteMessage": "Error al eliminar el mensaje"
+      },
+      "success": {
+        "messageUpdated": "Mensaje actualizado correctamente",
+        "messageDeleted": "Mensaje eliminado correctamente"
+      }
     }
   },
 
@@ -106,77 +266,31 @@
     "next": "Siguiente"
   },
 
-  "MessagesPage": {
-    "title": "Plantillas de Mensajes",
-    "input": {
-      "placeholder": "Escribe tu mensaje...",
-      "send": "Enviar"
-    },
-    "aiSuggestions": "Sugerencias de IA",
-    "communicationDescription": "Comunicación efectiva: Haga que su mensaje sea más nítido y fácil de entender — aumente sus posibilidades de llamar la atención.",
-    "connectionDescription": "Conecte emocionalmente: Elabore mensajes que resuenen con su público y sus marcas a un nivel más profundo.",
-    "standOutDescription": "Destaque al instante: Deja que la IA te ayude a redactar propuestas más atractivas y visualmente impactantes que capten la atención."
-  },
-
   "Forms": {
     "message": {
       "placeholder": "Crea una plantilla...",
-      "saveTemplate": "Guardar plantilla"
+      "saveTemplate": "Guardar plantilla",
+      "error": "Error al crear la plantilla"
     }
-  },
-
-  "AuthPage": {
-    "signIn": {
-      "title": "Iniciar Sesión",
-      "emailLabel": "Correo Electrónico",
-      "passwordLabel": "Contraseña",
-      "submit": "Iniciar Sesión",
-      "noAccount": "¿No tienes una cuenta?",
-      "register": "Regístrate",
-      "success": "Usuario logueado correctamente",
-      "userDoesNotExist": "El usuario no existe",
-      "userInactive": "El usuario está inactivo",
-      "incorrectPassword": "Contraseña incorrecta"
-    },
-    "signUp": {
-      "title": "Registrarse",
-      "usernameLabel": "Nombre de Usuario",
-      "emailLabel": "Correo Electrónico",
-      "passwordLabel": "Contraseña",
-      "submit": "Registrarse",
-      "alreadyAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar Sesión",
-      "success": "Usuario registrado correctamente",
-      "emailExist": "El correo electrónico ya existe"
-    },
-    "loading": "Cargando..."
-  },
-
-  "ProfilePage": {
-    "title": "Perfil de Usuario",
-    "name": "Nombre",
-    "email": "Correo Electrónico",
-    "role": "Rol",
-    "roles": {
-      "user": "Usuario",
-      "admin": "Administrador"
-    },
-    "authError": "Error de autenticación. Inicia sesión nuevamente.",
-    "tokenError": "Token inválido. Intenta de nuevo.",
-    "fetchError": "No se pudo obtener la información del usuario."
   },
 
   "TextboxAI": {
     "buttonAccept": "Aceptar",
     "buttonCancel": "Cancelar",
+    "buttonSend": "Enviar mensaje",
     "placeholder": "Escribe tu mensaje aquí...",
     "loading": "Cargando...",
     "enhanced": "Mejorar mensaje con IA",
     "error": {
       "inputEmpty": "El campo de mensaje está vacío",
-      "general": "Ocurrió un error al procesar tu solicitud"
+      "general": "Ocurrió un error al procesar tu solicitud",
+      "noUsernameOrMessage": "No se proporcionó un nombre de usuario o mensaje",
+      "failedToSendMessage": "No se pudo enviar el mensaje"
     },
-    "success": "Respuesta generada con éxito"
+    "success": {
+      "responseReceived": "Respuesta generada con éxito",
+      "messageSent": "Mensaje enviado con éxito"
+    }
   },
 
   "OpenAIService": {
@@ -186,20 +300,38 @@
     }
   },
 
-  "NotFoundPage": {
-    "metadata": {
-      "title": "Página No Encontrada",
-      "description": "La página que buscas no existe."
-    },
-    "title": "Página No Encontrada",
-    "description": "La página que buscas no existe.",
-    "goBack": "Regresar"
+  "InfluencerManagementService": {
+    "error": {
+      "errorGettingInfluencers": "Error al obtener influencers",
+      "errorGettingInfluencerList": "Error al obtener la lista de influencers. Intenta nuevamente más tarde",
+      "errorSendingMessage": "Error al enviar el mensaje"
+    }
   },
 
-  "LayoutPage": {
-    "metadata": {
-      "title": "TikTrack",
-      "description": "La plataforma para encontrar influencers."
-    }
+  "SearchBar": {
+    "search": "Buscar"
+  },
+
+  "FiltersInfluencer": {
+    "city": "Ciudad",
+    "followers": "Seguidores",
+    "engagementVisualizationRate": "Tasa de participación y visualización",
+    "updatedAt": "Ultima actualización",
+    "today": "Hoy",
+    "thisWeek": "Esta semana",
+    "thisMonth": "Este mes"
+  },
+
+  "FiltersUser": {
+    "role": "Rol",
+    "status": "Estado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "updatedAt": "Ultima actualización",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
   }
 }

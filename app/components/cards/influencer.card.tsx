@@ -1,10 +1,12 @@
+"use client";
+
 import { JSX } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-
 import { Link } from "~/i18n/routing";
 import MapPinIcon from "~/app/components/icons/location.icon";
 import ROUTES from "~/constants/urls/urls";
+import clsx from "clsx";
 
 interface InfluencerCardProps {
   username: string;
@@ -13,6 +15,9 @@ interface InfluencerCardProps {
   engagementVisualizationRate: number;
   followers: string;
   updatedAt: string;
+  comparison?: boolean;
+  selected?: boolean;
+  onSelect?: (username: string) => void;
 }
 
 export default function InfluencerCard({
@@ -22,14 +27,40 @@ export default function InfluencerCard({
   engagementVisualizationRate,
   followers,
   updatedAt,
+  comparison = false,
+  selected = false,
+  onSelect,
 }: InfluencerCardProps): JSX.Element {
   const t = useTranslations("Cards");
+
+  const handleToggleSelect = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onSelect?.(username);
+  };
+
   return (
-    <div className="w-80 bg-white border border-gray-200 shadow-sm transform transition duration-300 hover:scale-105 mx-2 my-2">
+    <div
+      className={clsx(
+        "relative w-full bg-white border shadow-sm transform transition duration-300 hover:scale-105 mx-2 my-2",
+        selected ? "border-purple ring-2 ring-purple" : "border-gray-200"
+      )}
+    >
+      {comparison && (
+        <button
+          onClick={handleToggleSelect}
+          className={clsx(
+            "absolute top-2 left-2 rounded-full w-6 h-6 border border-gray-300 flex items-center justify-center text-xs font-bold z-10",
+            selected ? "bg-purple text-white" : "bg-white text-gray-300"
+          )}
+        >
+          ✓
+        </button>
+      )}
+
       <Link
         href={{
           pathname: `${ROUTES["INFLUENCERS_DETAIL"]}`,
-          params: { username: username },
+          params: { username },
         }}
       >
         <div className="flex flex-col items-center pb-10">
@@ -40,7 +71,7 @@ export default function InfluencerCard({
               width={100}
               height={100}
               className="w-24 h-24 mt-3 rounded-full shadow-lg"
-              priority={true}
+              priority
             />
             <b>
               <h5 className="mb-1 text-xl text-white mb-4">@{username}</h5>

@@ -12,10 +12,25 @@ const ROUTES_API = {
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/deactivate",
   INFLUENCER_ACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/activate",
-  INFLUENCER_SEARCH: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/search",
+  INFLUENCER_COMPARE:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/compare",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
   SIGN_UP: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/sign-up",
   PROFILE_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/profile/show",
+
+  MESSAGE_INDEX: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/index",
+  MESSAGE_CREATE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/create",
+  MESSAGE_EDIT: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/edit",
+  MESSAGE_DELETE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/message/delete",
+  MESSAGE_SEND: (username: string) =>
+    NEXT_PUBLIC_BASE_URL_API + `/api/backend/services/messages/${username}`,
+
+  USER_MANAGEMENT_SHOW:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/user-management/show",
+  USER_MANAGEMENT_INDEX:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/user-management/index",
+  USER_MANAGEMENT_UPDATE:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/user-management/update",
 } as const;
 
 export default ROUTES_API;

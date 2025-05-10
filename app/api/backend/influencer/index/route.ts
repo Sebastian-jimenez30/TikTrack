@@ -3,6 +3,7 @@ import { influencerController } from "@/interface-adapters/controllers/influence
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+
   const page = searchParams.get("page") || undefined;
   const city = searchParams.get("city") || undefined;
   const followers = searchParams.get("followers") || undefined;

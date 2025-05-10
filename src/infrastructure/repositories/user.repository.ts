@@ -1,21 +1,52 @@
-import { eq } from "drizzle-orm";
+import { eq, and, gte } from "drizzle-orm";
 import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
+import { count } from "drizzle-orm";
+import { FilterOptions, Role, Status } from "@/domain/entities/user";
 
 export default class UserRepository implements IUserRepository {
-  async createUser(user: {
+  async listPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+    const response = await db
+      .select()
+      .from(usersTable)
+      .limit(limit)
+      .offset(offset);
+    return response;
+  }
+
+  async count(): Promise<number> {
+    const response = await db.select({ count: count() }).from(usersTable);
+    return response[0].count;
+  }
+
+  async create(user: {
     email: string;
     password: string;
     name: string;
-    role?: "admin" | "user";
-    status?: "active" | "inactive";
+    role?: Role;
+    status?: Status;
   }): Promise<{
     id: number;
     email: string;
     name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   }> {
@@ -33,13 +64,13 @@ export default class UserRepository implements IUserRepository {
     return newUser[0];
   }
 
-  async findUserByEmail(email: string): Promise<{
+  async findByEmail(email: string): Promise<{
     id: number;
     email: string;
     password: string;
     name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null> {
@@ -50,13 +81,13 @@ export default class UserRepository implements IUserRepository {
     return user[0] || null;
   }
 
-  async findUserById(id: number): Promise<{
+  async findById(id: number): Promise<{
     id: number;
     email: string;
     password: string;
     name: string;
-    role: "admin" | "user";
-    status: "active" | "inactive";
+    role: Role;
+    status: Status;
     createdAt: Date;
     updatedAt: Date;
   } | null> {
@@ -65,5 +96,65 @@ export default class UserRepository implements IUserRepository {
       .from(usersTable)
       .where(eq(usersTable.id, id));
     return user[0] || null;
+  }
+
+  async update(user: {
+    id: number;
+    email: string;
+    password: string;
+    name: string;
+    role: Role;
+    status: Status;
+    createdAt: Date;
+    updatedAt: Date;
+  }): Promise<void> {
+    const { id, ...updatableFields } = user;
+    await db
+      .update(usersTable)
+      .set(updatableFields)
+      .where(and(eq(usersTable.id, id)))
+      .execute();
+  }
+
+  async filterPaginated(
+    pageNumber: number,
+    limit: number,
+    filters: FilterOptions
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+    const conditions = [];
+
+    if (filters.role) {
+      conditions.push(eq(usersTable.role, filters.role));
+    }
+
+    if (filters.status) {
+      conditions.push(eq(usersTable.status, filters.status));
+    }
+
+    if (filters.updatedAt) {
+      conditions.push(gte(usersTable.updatedAt, new Date(filters.updatedAt)));
+    }
+
+    const response = await db
+      .select()
+      .from(usersTable)
+      .where(and(...conditions))
+      .orderBy(usersTable.updatedAt)
+      .limit(limit)
+      .offset(offset);
+
+    return response;
   }
 }

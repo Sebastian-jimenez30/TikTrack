@@ -14,9 +14,9 @@ interface UpdateProps {
 }
 
 class MessageController {
-  async index(): Promise<{ messages: Message[] }> {
-    const messages = await messageUseCases.listAll();
-    return messages;
+  async index(): Promise<{ pageData: { messages: Message[] } }> {
+    const data = await messageUseCases.listAll();
+    return { pageData: data };
   }
 
   async create({ params }: CreateProps): Promise<Message> {
@@ -27,7 +27,7 @@ class MessageController {
 
   async update({ params }: UpdateProps): Promise<Message | null> {
     const { id, content } = params;
-    const message = await messageUseCases.update(Number(id), { content });
+    const message = await messageUseCases.update(Number(id), content);
     return message;
   }
 

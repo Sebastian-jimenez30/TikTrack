@@ -13,30 +13,49 @@ interface UserCardProps {
 
 export default function UserCard({ name, email, role }: UserCardProps) {
   const t = useTranslations("ProfilePage");
-
   const translatedRole = t(`roles.${role}`);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-96 border border-gray-200">
-      <h2 className="text-xl font-bold text-center mb-4">{t("title")}</h2>
-      <div className="space-y-3">
-        <div className="flex items-center gap-3">
-          <UserIcon className="text-purple text-xl" />
-          <p className="text-lg font-medium">
-            <strong>{t("name")}:</strong> {name}
-          </p>
+    <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 border border-gray-200 mx-auto">
+      <h1 className="text-3xl font-semibold text-purple text-center mb-8">
+        {t("title")}
+      </h1>
+
+      <div className="space-y-6">
+        <div className="flex items-start gap-6">
+          <UserIcon className="text-purple text-3xl mt-1" />
+          <div>
+            <p className="text-base text-gray-500 uppercase tracking-wide">
+              {t("name")}
+            </p>
+            <p className="text-xl font-medium text-gray-800">{name}</p>
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <EmailIcon className="text-purple text-xl" />
-          <p className="text-lg font-medium">
-            <strong>{t("email")}:</strong> {email}
-          </p>
+
+        <div className="flex items-start gap-6">
+          <EmailIcon className="text-purple text-3xl mt-1" />
+          <div>
+            <p className="text-base text-gray-500 uppercase tracking-wide">
+              {t("email")}
+            </p>
+            <p className="text-xl font-medium text-gray-800">{email}</p>
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <RoleIcon className="text-purple text-xl" />
-          <p className="text-lg font-medium">
-            <strong>{t("role")}:</strong> {translatedRole}
-          </p>
+
+        <div className="flex items-start gap-6">
+          <RoleIcon className="text-purple text-3xl mt-1" />
+          <div>
+            <p className="text-base text-gray-500 uppercase tracking-wide">
+              {t("role")}
+            </p>
+            <p
+              className={`text-xl font-medium ${
+                role === "admin" ? "text-red-500" : "text-gray-800"
+              }`}
+            >
+              {translatedRole}
+            </p>
+          </div>
         </div>
       </div>
     </div>

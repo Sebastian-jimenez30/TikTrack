@@ -1,6 +1,5 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
-import InfluencerCard from "~/app/components/cards/influencer.card";
 import Pagination from "~/app/components/pagination";
 import SearchBar from "~/app/components/searchBar"; 
 import FireIcon from "~/app/components/icons/fire.icon";
@@ -8,6 +7,9 @@ import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
+import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
+import SearchBar from "~/app/components/forms/searchBar";
+import FilterBar from "~/app/components/forms/filterBar";
 
 interface IndexProps {
   searchParams: {
@@ -33,6 +35,7 @@ export default async function Index({
   searchParams,
 }: IndexProps): Promise<JSX.Element> {
   const t = await getTranslations("InfluencersIndexPage");
+  const translationKeyFilter = "FiltersInfluencer";
   const safeParams = Object.fromEntries(
     Object.entries(await searchParams).filter(
       ([, value]) => typeof value === "string"
@@ -53,7 +56,7 @@ export default async function Index({
   return (
     <div>
       <NotificationSessionStorage />
-      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
+      <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
       <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
@@ -82,6 +85,9 @@ export default async function Index({
             </div>
           ))}
         </div>
+      </div>
+      <div>
+        <ComparisonWrapper influencers={influencers} />
         <Pagination
           pathname={ROUTES.INFLUENCERS}
           page={paginationCurrentNumber}

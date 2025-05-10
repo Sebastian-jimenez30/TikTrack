@@ -7,8 +7,9 @@ export async function POST(req: NextRequest) {
   const username = body?.username;
   const email = body?.email;
   const password = body?.password;
+  const locale = body?.locale || "en";
 
-  const data = await authController.signUp(email, password, username);
+  const data = await authController.signUp(email, password, username, locale);
 
   return NextResponse.json(data);
 }

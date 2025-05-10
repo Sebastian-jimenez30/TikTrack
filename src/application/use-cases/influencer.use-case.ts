@@ -1,4 +1,8 @@
-import { Influencer, Status } from "@/domain/entities/influencer";
+import {
+  FilterOptions,
+  Influencer,
+  Status,
+} from "@/domain/entities/influencer";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
@@ -180,9 +184,9 @@ export class InfluencerUseCases {
       isSuccess: true,
     };
   }
-  
-  async search(
-    query: string,
+
+  async filter(
+    filters: FilterOptions,
     pageNumber: number,
     limit: number
   ): Promise<{
@@ -236,9 +240,9 @@ export class InfluencerUseCases {
     const [start, end] = PaginationUtil.getIndexes(
       pageNumber.toString(),
       count,
-      limit
+      10
     );
-  
+
     return {
       influencers,
       count,

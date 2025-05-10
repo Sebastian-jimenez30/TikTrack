@@ -6,8 +6,9 @@ export async function POST(req: NextRequest) {
 
   const email = body?.email;
   const password = body?.password;
+  const locale = body?.locale || "en";
 
-  const data = await authController.logIn(email, password);
+  const data = await authController.logIn(email, password, locale);
 
   return NextResponse.json(data);
 }

@@ -1,7 +1,6 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
-import Button from "~/app/components/buttons/button";
 import RedirectButton from "~/app/components/buttons/redirect.button";
 import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
@@ -16,6 +15,7 @@ import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import axios from "axios";
+import { Link } from "~/i18n/routing";
 
 interface ShowProps {
   params: { username: string };
@@ -43,8 +43,8 @@ export default async function Show({ params }: ShowProps) {
 
   const pathParams = await params;
   const pageData = (
-    await axios.post(ROUTES_API.INFLUENCER_SHOW, {
-      username: pathParams.username,
+    await axios.get(ROUTES_API.INFLUENCER_SHOW, {
+      params: { username: pathParams.username },
     })
   ).data.pageData;
   if (!pageData.haveResults || !pageData.influencer) {
@@ -90,9 +90,15 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                  <Button href={ROUTES.MESSAGES} variant="primary">
+                  <Link
+                    href={{
+                      pathname: ROUTES.MESSAGES,
+                      params: { username: influencer.username },
+                    }}
+                    className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
+                  >
                     {t("message")}
-                  </Button>
+                  </Link>
 
                   {isAdmin &&
                     (isInfluencerActive ? (
@@ -180,7 +186,7 @@ export default async function Show({ params }: ShowProps) {
             <h3 className="text-black text-lg font-bold leading-tight px-4 pb-2 pt-4">
               {t("videos")}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 p-4 place-items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-1 p-4 place-items-center">
               {influencer.featuredVideos.map((videoId: string) => {
                 return (
                   <div key={videoId}>

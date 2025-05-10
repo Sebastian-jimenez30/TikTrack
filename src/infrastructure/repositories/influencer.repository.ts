@@ -3,9 +3,10 @@ import { or, like, ilike } from "drizzle-orm";
 
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
-import { Status } from "@/domain/entities/influencer";
+import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq, ilike } from "drizzle-orm";
+import { eq, and, gte, lte } from "drizzle-orm";
+
 
 
 
@@ -156,7 +157,12 @@ export default class InfluencerRepository implements IInfluencerRepository {
     await db
       .update(influencersTable)
       .set(updatableFields)
-      .where(eq(influencersTable.id, influencer.id))
+      .where(
+        and(
+          eq(influencersTable.id, id),
+          eq(influencersTable.updatedAt, updatedAt)
+        )
+      )
       .execute();
   }
 

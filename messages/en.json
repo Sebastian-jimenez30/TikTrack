@@ -68,13 +68,164 @@
     "error": "An error occurred while processing your request"
   },
 
+  "MessagesIndexPage": {
+    "metadata": {
+      "title": "Messaging",
+      "description": "Communicate clearly: Make your message sharper and easier to understand — increase your chance of getting noticed."
+    },
+    "title": "Messaging",
+    "input": {
+      "placeholder": "Type your message...",
+      "send": "Send"
+    },
+    "messagingTemplate": "Messaging Template",
+    "communicationDescription": "Communicate clearly: Make your message sharper and easier to understand — increase your chance of getting noticed.",
+    "connectionDescription": "Connect emotionally: Craft messages that resonate with your audience and brands on a deeper level.",
+    "standOutDescription": "Stand out instantly: Let AI help you write more engaging, visually striking pitches that grab attention.",
+    "aiSuggestions": "AI Suggestions"
+  },
+
+  "SignInPage": {
+    "metadata": {
+      "title": "Sign In",
+      "description": "Log in to your account"
+    },
+    "title": "Sign In",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "submit": "Sign In",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "success": "User logged in successfully",
+    "userDoesNotExist": "User does not exist",
+    "userInactive": "User is inactive",
+    "incorrectPassword": "Incorrect password"
+  },
+
+  "SignUpPage": {
+    "metadata": {
+      "title": "Sign Up",
+      "description": "Create a new account"
+    },
+    "title": "Sign Up",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "submit": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "success": "User registered successfully",
+    "error": {
+      "userAlreadyExists": "User already exists",
+      "passwordMismatch": "Passwords do not match"
+    }
+  },
+
+  "ProfilePage": {
+    "metadata": {
+      "title": "User Profile",
+      "description": "View your profile information"
+    },
+    "title": "User Profile",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "roles": {
+      "user": "User",
+      "admin": "Administrator"
+    },
+    "authError": "Authentication error. Please log in again.",
+    "tokenError": "Invalid token. Please try again.",
+    "fetchError": "Could not fetch user information."
+  },
+
+  "NotFoundPage": {
+    "metadata": {
+      "title": "Page Not Found",
+      "description": "The page you are looking for does not exist."
+    },
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "goBack": "Go Back"
+  },
+
+  "LayoutPage": {
+    "metadata": {
+      "title": "TikTrack",
+      "description": "Discover the influencer who will help you boost your reach and maximize your impact."
+    }
+  },
+
+  "UserManagementIndexPage": {
+    "metadata": {
+      "title": "User Management",
+      "description": "Manage users and their roles"
+    },
+    "title": "User Management",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "updatedAt": "Updated At",
+    "status": "Status",
+    "action": "Action",
+    "admin": "Administrator",
+    "user": "User",
+    "active": "Active",
+    "inactive": "Inactive",
+    "manage": "Manage"
+  },
+
+  "UserManagementShowPage": {
+    "metadata": {
+      "title": "Edit User",
+      "description": "Edit user information"
+    },
+    "editTitle": "Edit User",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordPlaceholder": "Leave blank to keep current password",
+    "role": "Role",
+    "roles": {
+      "user": "User",
+      "admin": "Administrator"
+    },
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+
+  "InfluencerComparison": {
+    "title": "Influencer Comparison",
+    "compareInfluencers": "Compare Influencers",
+    "compare": "Compare",
+    "cancel": "Cancel",
+    "influencer": "Influencer",
+    "status": "Status",
+    "followers": "Followers",
+    "engagementVisualizationRate": "Engagement Rate",
+    "averageComments": "Average Comments",
+    "averageLikes": "Average Likes",
+    "averageSaves": "Average Saves",
+    "averageShares": "Average Shares",
+    "averageViews": "Average Views",
+    "selectMinimum": "Please select at least two influencers to compare",
+    "selectMaximum": "You can only compare up to five influencers at a time",
+    "selectRange": "Please select between 2 and 5 influencers to compare",
+    "error": "An error occurred while comparing influencers"
+  },
+
   "NavBar": {
     "home": "Home",
     "influencers": "Influencers",
     "getStarted": "Get Started",
     "profile": "Profile",
     "logout": "Logout",
-    "influencersDisabled": "Disabled"
+    "influencersDisabled": "Disabled",
+    "userManagement": "User Management"
   },
 
   "Footer": {
@@ -93,7 +244,16 @@
       "delete": "Delete",
       "customize": "Customize",
       "edit": "Edit",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "error": {
+        "notEmptyContent": "Content cannot be empty",
+        "failedToUpdateMessage": "Failed to update message",
+        "failedToDeleteMessage": "Failed to delete message"
+      },
+      "success": {
+        "messageUpdated": "Message updated successfully",
+        "messageDeleted": "Message deleted successfully"
+      }
     }
   },
 
@@ -106,77 +266,31 @@
     "next": "Next"
   },
 
-  "MessagesPage": {
-    "title": "Messaging Templates",
-    "input": {
-      "placeholder": "Type your message...",
-      "send": "Send"
-    },
-    "communicationDescription": "Communicate clearly: Make your message sharper and easier to understand — increase your chance of getting noticed.",
-    "connectionDescription": "Connect emotionally: Craft messages that resonate with your audience and brands on a deeper level.",
-    "standOutDescription": "Stand out instantly: Let AI help you write more engaging, visually striking pitches that grab attention.",
-    "aiSuggestions": "AI Suggestions"
-  },
-
   "Forms": {
     "message": {
       "placeholder": "Create a message template...",
-      "saveTemplate": "Save Template"
+      "saveTemplate": "Save Template",
+      "error": "Failed to create template"
     }
-  },
-
-  "AuthPage": {
-    "signIn": {
-      "title": "Sign In",
-      "emailLabel": "Email",
-      "passwordLabel": "Password",
-      "submit": "Sign In",
-      "noAccount": "Don't have an account?",
-      "register": "Register",
-      "success": "User logged in successfully",
-      "userDoesNotExist": "User does not exist",
-      "userInactive": "User is inactive",
-      "incorrectPassword": "Incorrect password"
-    },
-    "signUp": {
-      "title": "Sign Up",
-      "usernameLabel": "Username",
-      "emailLabel": "Email",
-      "passwordLabel": "Password",
-      "submit": "Sign Up",
-      "alreadyAccount": "Already have an account?",
-      "login": "Log In",
-      "success": "User created successfully",
-      "emailExist": "Email already exists"
-    },
-    "loading": "Loading..."
-  },
-
-  "ProfilePage": {
-    "title": "User Profile",
-    "name": "Name",
-    "email": "Email",
-    "role": "Role",
-    "roles": {
-      "user": "User",
-      "admin": "Administrator"
-    },
-    "authError": "Authentication error. Please log in again.",
-    "tokenError": "Invalid token. Please try again.",
-    "fetchError": "Could not fetch user information."
   },
 
   "TextboxAI": {
     "buttonAccept": "Accept",
     "buttonCancel": "Cancel",
+    "buttonSend": "Send Message",
     "placeholder": "Write your message here...",
     "loading": "Loading...",
     "enhanced": "Enhance message with AI",
     "error": {
       "inputEmpty": "The message field is empty",
-      "general": "An error occurred while processing your request"
+      "general": "An error occurred while processing your request",
+      "noUsernameOrMessage": "No username or message provided",
+      "failedToSendMessage": "Failed to send message"
     },
-    "success": "Response received successfully"
+    "success": {
+      "responseReceived": "Response received successfully",
+      "messageSent": "Message sent successfully"
+    }
   },
 
   "OpenAIService": {
@@ -186,20 +300,38 @@
     }
   },
 
-  "NotFoundPage": {
-    "metadata": {
-      "title": "Page Not Found",
-      "description": "The page you are looking for does not exist."
-    },
-    "title": "Page Not Found",
-    "description": "The page you are looking for does not exist.",
-    "goBack": "Go Back"
+  "InfluencerManagementService": {
+    "error": {
+      "errorGettingInfluencers": "Error getting influencers",
+      "errorGettingInfluencerList": "Error getting influencer list. Try again later",
+      "errorSendingMessage": "Error sending message"
+    }
   },
 
-  "LayoutPage": {
-    "metadata": {
-      "title": "TikTrack",
-      "description": "Discover the influencer who will help you boost your reach and maximize your impact."
-    }
+  "SearchBar": {
+    "search": "Search"
+  },
+
+  "FiltersInfluencer": {
+    "city": "City",
+    "followers": "Followers",
+    "engagementVisualizationRate": "Engagement Visualization Rate",
+    "updatedAt": "Last Updated",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
+  },
+
+  "FiltersUser": {
+    "role": "Role",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "admin": "Administrator",
+    "user": "User",
+    "updatedAt": "Last Updated",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month"
   }
 }

@@ -1,7 +1,7 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { InfluencerOverviewPresenter } from "@/interface-adapters/presenters/influencer/influencer.overview.presenter";
 import { InfluencerDetailPresenter } from "@/interface-adapters/presenters/influencer/influencer.detail.presenter";
-import { Status } from "@/domain/entities/influencer";
+import { Influencer, Status } from "@/domain/entities/influencer";
 
 interface IndexProps {
   searchParams: {
@@ -73,6 +73,8 @@ class InfluencerController {
       InfluencerOverviewPresenter.toHttp(influencer)
     );
 
+    const filters = Influencer.getFilters();
+
     const pageData = {
       influencers,
       count: result.count,
@@ -115,7 +117,6 @@ class InfluencerController {
     const { page, city, followers, engagementVisualizationRate, updatedAt,search } =
       resolvedParams;
 
-    const { page } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
@@ -139,6 +140,8 @@ class InfluencerController {
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
     );
+
+    const filters = Influencer.getFilters();
 
     const pageData = {
       influencers,

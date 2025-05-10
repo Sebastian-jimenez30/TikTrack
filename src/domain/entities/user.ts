@@ -1,14 +1,52 @@
-export class User {
+export type Status = "active" | "inactive";
+export type Role = "admin" | "user";
+
+export interface FilterOptions {
+  role?: Role;
+  status?: Status;
+  updatedAt?: string;
+}
+
+class User {
   constructor(
     public id: number,
     public email: string,
     public password: string,
     public name: string,
-    public role: "admin" | "user",
-    public status: "active" | "inactive",
+    public role: Role,
+    public status: Status,
     public createdAt: Date,
     public updatedAt: Date
   ) {}
+
+  static getFilters(): object[] {
+    return [
+      {
+        name: "role",
+        options: [{ value: "admin" }, { value: "user" }],
+      },
+      {
+        name: "status",
+        options: [{ value: "active" }, { value: "inactive" }],
+      },
+      {
+        name: "updatedAt",
+        options: [
+          { value: new Date().toISOString().split("T")[0] },
+          {
+            value: new Date(new Date().setDate(new Date().getDate() - 7))
+              .toISOString()
+              .split("T")[0],
+          },
+          {
+            value: new Date(new Date().setDate(new Date().getDate() - 30))
+              .toISOString()
+              .split("T")[0],
+          },
+        ],
+      },
+    ];
+  }
 
   getId(): number {
     return this.id;
@@ -22,20 +60,20 @@ export class User {
     return this.name;
   }
 
-  getRole(): "admin" | "user" {
+  getRole(): Role {
     return this.role;
   }
 
-  getStatus(): "active" | "inactive" {
+  getStatus(): Status {
     return this.status;
   }
 
-  getCreatedAt(): Date {
-    return this.createdAt;
+  getCreatedAt(): string {
+    return this.createdAt.toLocaleDateString();
   }
 
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  getUpdatedAt(): string {
+    return this.updatedAt.toLocaleDateString();
   }
 
   setEmail(email: string): void {
@@ -50,11 +88,13 @@ export class User {
     this.name = name;
   }
 
-  setRole(role: "admin" | "user"): void {
+  setRole(role: Role): void {
     this.role = role;
   }
 
-  setStatus(status: "active" | "inactive"): void {
+  setStatus(status: Status): void {
     this.status = status;
   }
 }
+
+export { User };

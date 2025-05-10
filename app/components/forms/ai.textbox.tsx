@@ -1,9 +1,18 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { toast } from "sonner";
 import ROUTES_API from "~/constants/urls/api.urls";
-export default function TextboxWithService() {
+
+interface TextboxWithServiceProps {
+  selectedMessageContent?: string;
+  username?: string;
+}
+
+export default function TextboxWithService({
+  selectedMessageContent,
+  username,
+}: TextboxWithServiceProps) {
   const t = useTranslations("TextboxAI");
 
   const [textBoxValue, setTextBoxValue] = useState<string>("");
@@ -11,6 +20,12 @@ export default function TextboxWithService() {
   const [serviceText, setServiceText] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (selectedMessageContent) {
+      setTextBoxValue(selectedMessageContent);
+    }
+  }, [selectedMessageContent]);
 
   const handleTextBoxChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setTextBoxValue(e.target.value);
@@ -52,7 +67,7 @@ export default function TextboxWithService() {
 
       setShowConfirmation(true);
       setIsLoading(false);
-      toast.success(t("success"));
+      toast.success(t("success.responseReceived"));
     } catch {
       toast.error(t("error.general"));
     } finally {
@@ -70,9 +85,34 @@ export default function TextboxWithService() {
 
   const handleDecline = () => {
     setTextBoxValue(originalTextBoxValue);
-
     setShowConfirmation(false);
     setServiceText(null);
+  };
+
+  const handleSendMessage = async () => {
+    if (!username || !textBoxValue) {
+      toast.error(t("error.noUsernameOrMessage"));
+      return;
+    }
+    try {
+      const response = await fetch(ROUTES_API.MESSAGE_SEND(username), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: textBoxValue,
+        }),
+      });
+
+      if (response.status !== 200) {
+        toast.error(t("error.failedToSendMessage"));
+      } else {
+        toast.success(t("success.messageSent"));
+      }
+    } catch {
+      toast.error(t("error.failedToSendMessage"));
+    }
   };
 
   return (
@@ -93,6 +133,14 @@ export default function TextboxWithService() {
             >
               {isLoading ? t("loading") : t("enhanced")}
             </button>
+            {username && textBoxValue && (
+              <button
+                onClick={handleSendMessage}
+                className="mt-4 bg-purple font-bold text-white px-4 py-2 rounded"
+              >
+                {t("buttonSend")}
+              </button>
+            )}
           </div>
         </div>
       ) : (

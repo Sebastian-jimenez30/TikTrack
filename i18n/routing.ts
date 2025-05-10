@@ -1,6 +1,5 @@
 import { defineRouting } from "next-intl/routing";
 import { createNavigation } from "next-intl/navigation";
-import { UrlObject } from "url";
 
 export const routing = defineRouting({
   locales: ["en", "es"],
@@ -19,9 +18,9 @@ export const routing = defineRouting({
       en: "/influencers/[username]",
       es: "/creador-de-contenido/[username]",
     },
-    "/messages": {
-      en: "/messages",
-      es: "/mensajes",
+    "/messages/[username]": {
+      en: "/messages/[username]",
+      es: "/mensajes/[username]",
     },
     "/admin/influencers/disabled": {
       en: "/admin/influencers/disabled",
@@ -31,17 +30,36 @@ export const routing = defineRouting({
       en: "/not-found",
       es: "/no-encontrado",
     },
-    "/sign-in": { en: "/sign-in", es: "/iniciar-sesion" },
-    "/sign-up": { en: "/sign-up", es: "/registrarse" },
-    "/profile": { en: "/profile", es: "/perfil" },
+    "/sign-in": {
+      en: "/sign-in",
+      es: "/iniciar-sesion",
+    },
+    "/sign-up": {
+      en: "/sign-up",
+      es: "/registrarse",
+    },
+    "/profile/[id]": {
+      en: "/profile/[id]",
+      es: "/perfil/[id]",
+    },
+    "/admin/users-management": {
+      en: "/admin/users-management",
+      es: "/admin/gestion-de-usuarios",
+    },
+    "/admin/users-management/[id]": {
+      en: "/admin/users-management/[id]",
+      es: "/admin/gestion-de-usuarios/[id]",
+    },
   },
 });
-
 export type Locale = (typeof routing.locales)[number];
 
 type StaticPathname = Exclude<
   keyof typeof routing.pathnames,
-  "/influencers/[username]"
+  | "/influencers/[username]"
+  | "/messages/[username]"
+  | "/admin/users-management/[id]"
+  | "/profile/[id]"
 >;
 
 export type Pathname = StaticPathname;

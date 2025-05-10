@@ -17,9 +17,7 @@ export default interface IMessageRepository {
 
   update(
     id: number,
-    message: {
-      content: string;
-    }
+    content: string
   ): Promise<{
     id: number;
     content: string;

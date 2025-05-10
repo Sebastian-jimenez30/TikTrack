@@ -2,34 +2,27 @@ import IUserRepository from "@/application/repositories/user.repository.interfac
 import repositoryContainer from "~/containers/repository.container";
 import { hash, compare } from "bcryptjs";
 import jwtUtil from "@/shared/utils/jwt.util";
-import { User } from "@/domain/entities/user";
+import { Role, User } from "@/domain/entities/user";
 import { getTranslations } from "next-intl/server";
 export class AuthUseCases {
   async signUp(
     email: string,
     password: string,
-    name: string
+    name: string,
+    locale: string
   ): Promise<{
     token: string | null;
     message: string;
     is_success: boolean;
   }> {
-    const t = await getTranslations("AuthPage");
+    const t = await getTranslations({ locale, namespace: "SignUpPage" });
+
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
 
-    const existingUser = await repository.findUserByEmail(email);
-    if (existingUser) {
-      return {
-        token: null,
-        message: t("signUp.emailExist"),
-        is_success: false,
-      };
-    }
-
     const hashedPassword = await hash(password, 10);
 
-    const user = (await repository.createUser({
+    const user = (await repository.create({
       email,
       password: hashedPassword,
       name,
@@ -52,29 +45,30 @@ export class AuthUseCases {
 
     return {
       token: token,
-      message: t("signUp.success"),
+      message: t("success"),
       is_success: true,
     };
   }
 
   async logIn(
     email: string,
-    password: string
+    password: string,
+    locale: string
   ): Promise<{
     token: string | null;
     message: string;
     is_success: boolean;
   }> {
-    const t = await getTranslations("AuthPage");
+    const t = await getTranslations({ locale, namespace: "SignInPage" });
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
 
-    const userData = await repository.findUserByEmail(email);
+    const userData = await repository.findByEmail(email);
 
     if (!userData) {
       return {
         token: null,
-        message: t("signIn.userDoesNotExist"),
+        message: t("userDoesNotExist"),
         is_success: false,
       };
     }
@@ -82,7 +76,7 @@ export class AuthUseCases {
     if (userData.status !== "active") {
       return {
         token: null,
-        message: t("signIn.userInactive"),
+        message: t("userInactive"),
         is_success: false,
       };
     }
@@ -91,7 +85,7 @@ export class AuthUseCases {
     if (!isValidPassword) {
       return {
         token: null,
-        message: t("signIn.incorrectPassword"),
+        message: t("incorrectPassword"),
         is_success: false,
       };
     }
@@ -101,7 +95,7 @@ export class AuthUseCases {
       userData.email,
       userData.password,
       userData.name,
-      userData.role as "admin" | "user",
+      userData.role as Role,
       userData.status,
       userData.createdAt,
       userData.updatedAt
@@ -115,7 +109,7 @@ export class AuthUseCases {
 
     return {
       token,
-      message: t("signIn.success"),
+      message: t("success"),
       is_success: true,
     };
   }

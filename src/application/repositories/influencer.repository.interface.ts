@@ -1,4 +1,4 @@
-import { Status } from "@/domain/entities/influencer";
+import { FilterOptions, Status } from "@/domain/entities/influencer";
 
 export default interface IInfluencerRepository {
   listActivePaginated(
