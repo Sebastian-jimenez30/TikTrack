@@ -1,17 +1,40 @@
-import { getTranslations } from "next-intl/server";
+"use client";
+
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface SearchBarProps {
   placeholder?: string;
   className?: string;
 }
 
-export default async function SearchBar({
+export default function SearchBar({
   placeholder = "",
   className = "",
 }: SearchBarProps) {
-  const t = await getTranslations("SearchBar");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const t = useTranslations("SearchBar");
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const searchQuery = formData.get("search")?.toString() || "";
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    } else {
+      params.delete("search");
+    }
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   return (
-    <form action="" method="GET" className={`${className}`}>
+    <form onSubmit={handleSearch} className={`${className}`}>
       <label
         htmlFor="search-input"
         className="text-sm font-medium text-gray-900 sr-only"
@@ -40,9 +63,9 @@ export default async function SearchBar({
           type="search"
           name="search"
           id="search-input"
-          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
+          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
           placeholder={placeholder}
-          required
+          defaultValue={searchParams.get("search") || ""}
         />
         <button
           type="submit"

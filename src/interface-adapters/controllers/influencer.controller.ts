@@ -10,6 +10,7 @@ interface IndexProps {
     followers?: string;
     engagementVisualizationRate?: string;
     updatedAt?: string;
+    search?: string;
   };
 }
 
@@ -24,6 +25,7 @@ interface DisabledProps {
     followers?: string;
     engagementVisualizationRate?: string;
     updatedAt?: string;
+    search?: string;
   };
 }
 
@@ -35,19 +37,26 @@ interface ActivateProps {
   params: { username: string | null };
 }
 
+interface SearchProps {
+  searchParams: { query: string; page?: string };
+}
+
 class InfluencerController {
   async index({ searchParams }: IndexProps): Promise<{
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
 
-    const { page, city, followers, engagementVisualizationRate, updatedAt } =
+    const { page, city, followers, engagementVisualizationRate, updatedAt, search, } =
       resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
     let result;
-    if (city || followers || engagementVisualizationRate || updatedAt) {
+
+    if (search)
+      result = await influencerUseCases.search(search, pageNumber, limit);
+    else if (city || followers || engagementVisualizationRate || updatedAt) {
       const filters = {
         city,
         followers,
@@ -74,6 +83,7 @@ class InfluencerController {
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
       filters,
+      search,
     };
 
     return { pageData };
@@ -104,14 +114,17 @@ class InfluencerController {
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
-    const { page, city, followers, engagementVisualizationRate, updatedAt } =
+    const { page, city, followers, engagementVisualizationRate, updatedAt,search } =
       resolvedParams;
 
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
     let result;
-    if (city || followers || engagementVisualizationRate || updatedAt) {
+
+    if (search)
+      result = await influencerUseCases.search(search, pageNumber, limit);
+    else if (city || followers || engagementVisualizationRate || updatedAt) {
       const filters = {
         city,
         followers,
@@ -138,6 +151,7 @@ class InfluencerController {
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
       filters,
+      search,
     };
 
     return { pageData };
@@ -192,6 +206,8 @@ class InfluencerController {
       return { pageData };
     }
   }
+  
+
 }
 
 export const influencerController = new InfluencerController();

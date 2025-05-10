@@ -1,10 +1,11 @@
-import { count } from "drizzle-orm";
-
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq, and, gte, lte } from "drizzle-orm";
+import { eq, and, gte, lte, count, or, like, ilike } from "drizzle-orm";
+
+
+
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
@@ -239,7 +240,79 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .orderBy(influencersTable.updatedAt)
       .limit(limit)
       .offset(offset);
-
+  
     return response;
   }
+
+  async searchPaginated(
+    pageNumber: number,
+    limit: number,
+    query: string
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+  
+    const conditions = [];
+
+    if (query) {
+      conditions.push(
+        or(
+          ilike(influencersTable.username, `%${query}%`),
+          ilike(influencersTable.profileName, `%${query}%`)
+        )
+      );
+    }
+    conditions.push(eq(influencersTable.status, "active"));
+
+    const response = await db
+      .select()
+      .from(influencersTable)
+      .where(and(...conditions))
+      .orderBy(influencersTable.updatedAt) 
+      .limit(limit)
+      .offset(offset);
+  
+    return response;
+  }
+
+  async countSearchResults(query: string): Promise<number> {
+    const conditions = [];
+    
+    if (query) {
+      conditions.push(
+        or(
+          ilike(influencersTable.username, `%${query}%`),
+          ilike(influencersTable.profileName, `%${query}%`)
+        )
+      );
+    }
+
+    conditions.push(eq(influencersTable.status, "active"));
+
+    const response = await db
+      .select({ count: count() })
+      .from(influencersTable)
+      .where(and(...conditions));
+  
+    return response[0].count;
+  }
+
 }

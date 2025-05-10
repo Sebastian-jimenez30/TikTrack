@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
   const engagementVisualizationRate =
     searchParams.get("engagementVisualizationRate") || undefined;
   const updatedAt = searchParams.get("updatedAt") || undefined;
+  const search = searchParams.get("search") || undefined;
 
   const data = await influencerController.index({
     searchParams: {
@@ -18,6 +19,7 @@ export async function GET(req: NextRequest) {
       followers,
       engagementVisualizationRate,
       updatedAt,
+      search,
     },
   });
 

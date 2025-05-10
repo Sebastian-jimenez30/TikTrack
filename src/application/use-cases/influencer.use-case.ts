@@ -252,5 +252,65 @@ export class InfluencerUseCases {
       hasPreviousPage: start > 1,
     };
   }
+
+  async search(
+    query: string,
+    pageNumber: number,
+    limit: number
+  ): Promise<{
+    influencers: Influencer[];
+    count: number;
+    start: number;
+    end: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+  
+    const tempInfluencers = await repository.searchPaginated(pageNumber, limit, query);
+  
+    const influencers = tempInfluencers.map((influencer) => {
+      return new Influencer(
+        influencer.id,
+        influencer.username,
+        influencer.profileName,
+        influencer.profilePicture,
+        influencer.profileUrl,
+        influencer.averageLikes,
+        influencer.averageComments,
+        influencer.averageShares,
+        influencer.averageSaves,
+        influencer.averageViews,
+        influencer.followers,
+        influencer.city,
+        influencer.featuredVideos,
+        influencer.status,
+        influencer.createdAt,
+        influencer.updatedAt
+      );
+    });
+  
+    const tempCount = await repository.countSearchResults(query);
+  
+    const count = Number(tempCount);
+    const [start, end] = PaginationUtil.getIndexes(
+      pageNumber.toString(),
+      count,
+      limit
+    );
+  
+    return {
+      influencers,
+      count,
+      start,
+      end,
+      hasNextPage: end < count,
+      hasPreviousPage: start > 1,
+    };
+  }
+
+
 }
 export const influencerUseCases = new InfluencerUseCases();
