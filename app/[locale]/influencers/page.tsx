@@ -10,16 +10,14 @@ import { getTranslations } from "next-intl/server";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
 interface IndexProps {
-  searchParams: { page?: string };
-}
-
-interface InfluencerOverview {
-  username: string;
-  profilePicture: string;
-  city: string;
-  engagementVisualizationRate: number;
-  followers: string;
-  updatedAt: string;
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+    search?: string;
+  };
 }
 
 export async function generateMetadata() {
@@ -50,17 +48,21 @@ export default async function Index({
   const end = pageData.end;
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
-
-  
+  const filters = pageData.filters;
+  const search = pageData.search;
   return (
     <div>
       <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center">
         {t("title")} <FireIcon className="text-lightPurple" />
       </h1>
-
-      <div className="mb-8 flex justify-center">
-        <SearchBar actionUrl={`${ROUTES.INFLUENCERS_SEARCH}`} />
+      <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
+        <div className="flex-[0.40] my-5 flex items-center">
+          <SearchBar placeholder="Search influencers..."className="w-full" />
+        </div>
+        <div className="flex-[0.60] my-5">
+          <FilterBar filters={filters} translation={translationKeyFilter} />
+        </div>
       </div>
     
       <div>

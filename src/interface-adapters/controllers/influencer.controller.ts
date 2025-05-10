@@ -4,7 +4,14 @@ import { InfluencerDetailPresenter } from "@/interface-adapters/presenters/influ
 import { Status } from "@/domain/entities/influencer";
 
 interface IndexProps {
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+    search?: string;
+  };
 }
 
 interface ShowProps {
@@ -12,7 +19,14 @@ interface ShowProps {
 }
 
 interface DisabledProps {
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+    search?: string;
+  };
 }
 
 interface DeactivateProps {
@@ -33,12 +47,27 @@ class InfluencerController {
   }> {
     const resolvedParams = await searchParams;
 
-    const { page } = resolvedParams;
+    const { page, city, followers, engagementVisualizationRate, updatedAt, search, } =
+      resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
+    let result;
 
-    const result = await influencerUseCases.listActive(pageNumber, limit);
+    if (search)
+      result = await influencerUseCases.search(search, pageNumber, limit);
+    else if (city || followers || engagementVisualizationRate || updatedAt) {
+      const filters = {
+        city,
+        followers,
+        engagementVisualizationRate,
+        updatedAt,
+        status: "active" as Status,
+      };
+      result = await influencerUseCases.filter(filters, pageNumber, limit);
+    } else {
+      result = await influencerUseCases.listActive(pageNumber, limit);
+    }
 
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
@@ -51,6 +80,8 @@ class InfluencerController {
       end: result.end,
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
+      filters,
+      search,
     };
 
     return { pageData };
@@ -81,13 +112,29 @@ class InfluencerController {
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
+    const { page, city, followers, engagementVisualizationRate, updatedAt,search } =
+      resolvedParams;
 
     const { page } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
+    let result;
 
-    const result = await influencerUseCases.listInactive(pageNumber, limit);
+    if (search)
+      result = await influencerUseCases.search(search, pageNumber, limit);
+    else if (city || followers || engagementVisualizationRate || updatedAt) {
+      const filters = {
+        city,
+        followers,
+        engagementVisualizationRate,
+        updatedAt,
+        status: "inactive" as Status,
+      };
+      result = await influencerUseCases.filter(filters, pageNumber, limit);
+    } else {
+      result = await influencerUseCases.listInactive(pageNumber, limit);
+    }
 
     const influencers = result.influencers.map((influencer) =>
       InfluencerOverviewPresenter.toHttp(influencer)
@@ -100,6 +147,8 @@ class InfluencerController {
       end: result.end,
       hasNextPage: result.hasNextPage,
       hasPreviousPage: result.hasPreviousPage,
+      filters,
+      search,
     };
 
     return { pageData };

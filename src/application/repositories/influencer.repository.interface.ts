@@ -47,6 +47,58 @@ export default interface IInfluencerRepository {
       updatedAt: Date;
     }[]
   >;
+  filterPaginated(
+    pageNumber: number,
+    limit: number,
+    filters: FilterOptions
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+
+  searchPaginated(
+    pageNumber: number,
+    limit: number,
+    query: string
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+  
+  countSearchResults(query: string): Promise<number>;
+
   findByUsername(username: string): Promise<{
     id: number;
     username: string;
