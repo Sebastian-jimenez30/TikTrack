@@ -1,7 +1,6 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import Pagination from "~/app/components/pagination";
-import SearchBar from "~/app/components/searchBar"; 
 import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
 import { JSX } from "react";
@@ -65,25 +64,6 @@ export default async function Index({
         </div>
         <div className="flex-[0.60] my-5">
           <FilterBar filters={filters} translation={translationKeyFilter} />
-        </div>
-      </div>
-    
-      <div>
-        <div className="flex flex-wrap w-full justify-center sm:justify-baseline">
-          {influencers.map((influencer: InfluencerOverview) => (
-            <div key={influencer.username}>
-              <InfluencerCard
-                username={influencer.username}
-                profilePicture={influencer.profilePicture}
-                city={influencer.city}
-                engagementVisualizationRate={
-                  influencer.engagementVisualizationRate
-                }
-                followers={influencer.followers}
-                updatedAt={influencer.updatedAt}
-              />
-            </div>
-          ))}
         </div>
       </div>
       <div>
