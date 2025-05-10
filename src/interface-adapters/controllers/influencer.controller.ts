@@ -206,34 +206,6 @@ class InfluencerController {
       return { pageData };
     }
   }
-
-  async search({ searchParams }: SearchProps): Promise<{
-    pageData: object;
-  }> {
-    const resolvedParams = await searchParams;
-
-    const { query, page } = resolvedParams;
-    const pageNumber = page ? Number(page) : 1;
-    const limit = 8;
-
-    // Use the use case to fetch influencers matching the query
-    const result = await influencerUseCases.search(query, pageNumber, limit);
-
-    const influencers = result.influencers.map((influencer) =>
-      InfluencerOverviewPresenter.toHttp(influencer)
-    );
-
-    const pageData = {
-      influencers,
-      count: result.count,
-      start: result.start,
-      end: result.end,
-      hasNextPage: result.hasNextPage,
-      hasPreviousPage: result.hasPreviousPage,
-    };
-
-    return { pageData };
-  }
   
 
 }
