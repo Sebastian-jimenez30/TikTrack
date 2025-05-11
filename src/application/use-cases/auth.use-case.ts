@@ -13,7 +13,7 @@ export class AuthUseCases {
   ): Promise<{
     token: string | null;
     message: string;
-    is_success: boolean;
+    is_success: boolean; 
   }> {
     const t = await getTranslations({ locale, namespace: "SignUpPage" });
 

@@ -2,6 +2,7 @@ import IUserRepository from "@/application/repositories/user.repository.interfac
 import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
+import { hash } from "bcryptjs";
 
 export class UserUseCases {
   async detail(
@@ -90,19 +91,23 @@ export class UserUseCases {
       status?: Status;
     }
   ): Promise<{ isSuccess: boolean }> {
-    const repository =
-      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
     const tempUser = await repository.findById(id);
     if (!tempUser) {
       return {
         isSuccess: false,
       };
     }
+
     tempUser.name = user.name || tempUser.name;
     tempUser.email = user.email || tempUser.email;
-    tempUser.password = user.password || tempUser.password;
     tempUser.role = user.role || tempUser.role;
     tempUser.status = user.status || tempUser.status;
+
+    if (user.password) {
+      const hashedPassword = await hash(user.password, 10);
+      tempUser.password = hashedPassword;
+    }
 
     await repository.update(tempUser);
 
