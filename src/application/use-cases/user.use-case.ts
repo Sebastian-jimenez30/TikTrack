@@ -3,6 +3,7 @@ import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
 import { hash } from "bcryptjs";
+import { validatePasswordStrength } from "@/shared/utils/password.util";
 
 export class UserUseCases {
   async detail(
@@ -89,10 +90,12 @@ export class UserUseCases {
       password?: string;
       role?: Role;
       status?: Status;
-    }
+    },
+    locale: string
   ): Promise<{ isSuccess: boolean }> {
     const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
     const tempUser = await repository.findById(id);
+
     if (!tempUser) {
       return {
         isSuccess: false,
@@ -105,6 +108,7 @@ export class UserUseCases {
     tempUser.status = user.status || tempUser.status;
 
     if (user.password) {
+      await validatePasswordStrength(user.password, locale); 
       const hashedPassword = await hash(user.password, 10);
       tempUser.password = hashedPassword;
     }
@@ -115,6 +119,7 @@ export class UserUseCases {
       isSuccess: true,
     };
   }
+
 
   async filter(
     filters: FilterOptions,

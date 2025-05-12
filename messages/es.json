@@ -333,5 +333,9 @@
     "today": "Today",
     "thisWeek": "This Week",
     "thisMonth": "This Month"
+  },
+
+  "Validation": {
+    "passwordStrength": "La contraseña debe tener al menos 8 caracteres e incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial."
   }
 }

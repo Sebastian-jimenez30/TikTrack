@@ -36,15 +36,16 @@ export default function SignUpPage() {
 
     if (!pageData.is_success) {
       return { error: pageData.message };
-    } else {
-      if (pageData.token) {
-        (await cookies()).set("authToken", pageData.token, {
-          httpOnly: true,
-          path: "/",
-        });
-      }
-      redirect(ROUTES.HOME);
     }
+
+    if (pageData.token) {
+      (await cookies()).set("authToken", pageData.token, {
+        httpOnly: true,
+        path: "/",
+      });
+    }
+
+    redirect(ROUTES.HOME);
   }
 
   return (

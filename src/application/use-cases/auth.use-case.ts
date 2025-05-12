@@ -4,6 +4,8 @@ import { hash, compare } from "bcryptjs";
 import jwtUtil from "@/shared/utils/jwt.util";
 import { Role, User } from "@/domain/entities/user";
 import { getTranslations } from "next-intl/server";
+import { validatePasswordStrength } from "@/shared/utils/password.util";
+
 export class AuthUseCases {
   async signUp(
     email: string,
@@ -13,12 +15,13 @@ export class AuthUseCases {
   ): Promise<{
     token: string | null;
     message: string;
-    is_success: boolean; 
+    is_success: boolean;
   }> {
     const t = await getTranslations({ locale, namespace: "SignUpPage" });
 
-    const repository =
-      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
+
+    await validatePasswordStrength(password, locale);
 
     const hashedPassword = await hash(password, 10);
 
@@ -49,6 +52,7 @@ export class AuthUseCases {
       is_success: true,
     };
   }
+
 
   async logIn(
     email: string,
