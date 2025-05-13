@@ -4,7 +4,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations, getLocale } from "next-intl/server";
-import UserForm from "~/app/components/forms/UserForm"; // corregido: U mayúscula
+import UserForm from "~/app/components/forms/UserForm";
 
 interface ShowProps {
   params: { id: string };
