@@ -3,7 +3,7 @@ import UserCard from "~/app/components/cards/user.card";
 import { cookies } from "next/headers";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
-import { notFound } from "next/navigation"; // 👈 IMPORTANTE
+import { notFound } from "next/navigation";
 
 interface ShowProps {
   params: { id: string };
