@@ -8,7 +8,7 @@ export class AuthController {
     locale: string
   ): Promise<object> {
     const pageData = await authUseCases.signUp(email, password, name, locale);
-    return pageData; 
+    return pageData;
   }
 
   async logIn(

@@ -19,9 +19,17 @@ export class AuthUseCases {
   }> {
     const t = await getTranslations({ locale, namespace: "SignUpPage" });
 
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
 
-    await validatePasswordStrength(password, locale);
+    const passwordValidation = await validatePasswordStrength(password, locale);
+    if (!passwordValidation.isValid) {
+      return {
+        token: null,
+        message: passwordValidation.message ?? t("defaultError"), // En caso que no traiga message
+        is_success: false,
+      };
+    }
 
     const hashedPassword = await hash(password, 10);
 
@@ -52,7 +60,6 @@ export class AuthUseCases {
       is_success: true,
     };
   }
-
 
   async logIn(
     email: string,

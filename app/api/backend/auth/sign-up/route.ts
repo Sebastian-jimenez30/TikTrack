@@ -13,7 +13,6 @@ export async function POST(req: NextRequest) {
     const data = await authController.signUp(email, password, username, locale);
 
     return NextResponse.json({ pageData: data }, { status: 200 });
-
   } catch (error: unknown) {
     let errorMessage = "An unexpected error occurred.";
     if (error instanceof Error) {
@@ -32,4 +31,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-

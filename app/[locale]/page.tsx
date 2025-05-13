@@ -7,6 +7,7 @@ import FireIcon from "~/app/components/icons/fire.icon";
 import Image from "next/image";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
+import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
 export async function generateMetadata() {
   const t = await getTranslations("HomeIndexPage");
@@ -24,6 +25,7 @@ export default async function Index() {
 
   return (
     <div>
+      <NotificationSessionStorage />
       <section id="home-section">
         <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md px-4 pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center">

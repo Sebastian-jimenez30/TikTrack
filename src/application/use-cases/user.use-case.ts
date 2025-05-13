@@ -4,6 +4,7 @@ import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
 import { hash } from "bcryptjs";
 import { validatePasswordStrength } from "@/shared/utils/password.util";
+import { getTranslations } from "next-intl/server";
 
 export class UserUseCases {
   async detail(
@@ -92,13 +93,27 @@ export class UserUseCases {
       status?: Status;
     },
     locale: string
-  ): Promise<{ isSuccess: boolean }> {
-    const repository = repositoryContainer.get<IUserRepository>("IUserRepository");
+  ): Promise<{ isSuccess: boolean; message?: string }> {
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const t = await getTranslations({
+      locale,
+      namespace: "UserManagementShowPage",
+    });
+
+    if (!id || !user) {
+      return {
+        isSuccess: false,
+        message: t("errors.missingData"),
+      };
+    }
+
     const tempUser = await repository.findById(id);
 
     if (!tempUser) {
       return {
         isSuccess: false,
+        message: t("errors.userNotFound"),
       };
     }
 
@@ -108,7 +123,17 @@ export class UserUseCases {
     tempUser.status = user.status || tempUser.status;
 
     if (user.password) {
-      await validatePasswordStrength(user.password, locale); 
+      const passwordValidation = await validatePasswordStrength(
+        user.password,
+        locale
+      );
+      if (!passwordValidation.isValid) {
+        return {
+          isSuccess: false,
+          message: passwordValidation.message,
+        };
+      }
+
       const hashedPassword = await hash(user.password, 10);
       tempUser.password = hashedPassword;
     }
@@ -117,9 +142,9 @@ export class UserUseCases {
 
     return {
       isSuccess: true,
+      message: t("errors.updateSuccess"),
     };
   }
-
 
   async filter(
     filters: FilterOptions,

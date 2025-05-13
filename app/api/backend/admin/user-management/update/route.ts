@@ -3,7 +3,7 @@ import { userController } from "@/interface-adapters/controllers/user.controller
 
 export async function PATCH(req: NextRequest) {
   const body = await req.json();
-  const { id, name, email, password, role, status } = body;
+  const { id, name, email, password, role, status, locale } = body;
 
   const data = await userController.update({
     params: {
@@ -15,6 +15,7 @@ export async function PATCH(req: NextRequest) {
         role,
         status,
       },
+      locale,
     },
   });
 

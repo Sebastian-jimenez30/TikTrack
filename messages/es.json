@@ -195,7 +195,12 @@
     "active": "Activo",
     "inactive": "Inactivo",
     "save": "Guardar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "errors": {
+      "missingData": "ID de usuario o datos de actualización faltantes.",
+      "userNotFound": "Usuario no encontrado.",
+      "updateSuccess": "Usuario actualizado correctamente."
+    }
   },
 
   "InfluencerComparison": {
