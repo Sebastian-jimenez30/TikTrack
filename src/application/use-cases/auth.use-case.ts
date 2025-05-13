@@ -26,7 +26,7 @@ export class AuthUseCases {
     if (!passwordValidation.isValid) {
       return {
         token: null,
-        message: passwordValidation.message ?? t("defaultError"), // En caso que no traiga message
+        message: passwordValidation.message ?? t("defaultError"),
         is_success: false,
       };
     }
