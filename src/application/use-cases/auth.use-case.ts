@@ -4,6 +4,8 @@ import { hash, compare } from "bcryptjs";
 import jwtUtil from "@/shared/utils/jwt.util";
 import { Role, User } from "@/domain/entities/user";
 import { getTranslations } from "next-intl/server";
+import { validatePasswordStrength } from "@/shared/utils/password.util";
+
 export class AuthUseCases {
   async signUp(
     email: string,
@@ -19,6 +21,15 @@ export class AuthUseCases {
 
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
+
+    const passwordValidation = await validatePasswordStrength(password, locale);
+    if (!passwordValidation.isValid) {
+      return {
+        token: null,
+        message: passwordValidation.message ?? t("defaultError"),
+        is_success: false,
+      };
+    }
 
     const hashedPassword = await hash(password, 10);
 

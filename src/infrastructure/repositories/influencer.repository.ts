@@ -4,9 +4,6 @@ import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
 import { eq, and, gte, lte, count, or, like, ilike } from "drizzle-orm";
 
-
-
-
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
     pageNumber: number,
@@ -240,7 +237,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .orderBy(influencersTable.updatedAt)
       .limit(limit)
       .offset(offset);
-  
+
     return response;
   }
 
@@ -269,7 +266,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
     }[]
   > {
     const offset = (pageNumber - 1) * limit;
-  
+
     const conditions = [];
 
     if (query) {
@@ -286,16 +283,16 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .select()
       .from(influencersTable)
       .where(and(...conditions))
-      .orderBy(influencersTable.updatedAt) 
+      .orderBy(influencersTable.updatedAt)
       .limit(limit)
       .offset(offset);
-  
+
     return response;
   }
 
   async countSearchResults(query: string): Promise<number> {
     const conditions = [];
-    
+
     if (query) {
       conditions.push(
         or(
@@ -311,8 +308,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .select({ count: count() })
       .from(influencersTable)
       .where(and(...conditions));
-  
+
     return response[0].count;
   }
-
 }

@@ -9,6 +9,7 @@ import { getTranslations } from "next-intl/server";
 import UserIcon from "~/app/components/icons/user.icon";
 import SearchBar from "~/app/components/forms/searchBar";
 import FilterBar from "~/app/components/forms/filterBar";
+import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -66,6 +67,7 @@ export default async function Index({
 
   return (
     <div>
+      <NotificationSessionStorage />
       <h1 className="mb-10 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl sm:text-left text-center">
         {t("title")} <UserIcon className="text-lightPurple" />
       </h1>

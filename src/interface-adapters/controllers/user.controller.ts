@@ -26,6 +26,7 @@ interface UpdateProps {
       role?: Role;
       status?: Status;
     };
+    locale: string;
   };
 }
 
@@ -95,25 +96,25 @@ export class UserController {
     return { pageData };
   }
 
-  async update({ params }: UpdateProps): Promise<{ pageData: object }> {
-    const { userId, userData } = await params;
-    let result;
-    let pageData;
+  async update({
+    params,
+  }: UpdateProps): Promise<{
+    pageData: { isSuccess: boolean; message: string };
+  }> {
+    const { userId, userData, locale } = params;
 
-    if (!userId || !userData) {
-      pageData = {
-        isSuccess: false,
-      };
-      return { pageData };
-    } else {
-      result = await userUseCases.updateInformation(userId, userData);
+    const result = await userUseCases.updateInformation(
+      userId,
+      userData,
+      locale
+    );
 
-      const pageData = {
-        isSuccess: result.isSuccess,
-      };
+    const pageData = {
+      isSuccess: result.isSuccess,
+      message: result.message ?? "",
+    };
 
-      return { pageData };
-    }
+    return { pageData };
   }
 }
 

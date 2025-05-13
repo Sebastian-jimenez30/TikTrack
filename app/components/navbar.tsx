@@ -1,6 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { toast } from "sonner";
 import { Link } from "~/i18n/routing";
 import Image from "next/image";
 import Button from "./buttons/button";
@@ -22,6 +24,27 @@ export default function NavBar({
   id,
 }: NavBarProps) {
   const t = useTranslations("NavBar");
+
+  useEffect(() => {
+    const message = sessionStorage.getItem("notification");
+    const type = sessionStorage.getItem("notificationType");
+
+    if (message) {
+      if (type === "error") {
+        toast.error(message);
+      } else if (type === "warning") {
+        toast.warning(message);
+      } else if (type === "info") {
+        toast.info(message);
+      } else if (type === "success") {
+        toast.success(message);
+      } else {
+        toast(message);
+      }
+      sessionStorage.removeItem("notification");
+      sessionStorage.removeItem("notificationType");
+    }
+  }, []);
 
   return (
     <nav className="bg-white border-gray-200 mb-10 fixed w-full z-50 top-0 left-0 shadow-sm">
@@ -96,8 +119,7 @@ export default function NavBar({
                 className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
                 href={ROUTES.HOME}
               >
-                {" "}
-                {t("home")}{" "}
+                {t("home")}
               </Link>
             </li>
             <li>
@@ -105,8 +127,7 @@ export default function NavBar({
                 className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
                 href={ROUTES.INFLUENCERS}
               >
-                {" "}
-                {t("influencers")}{" "}
+                {t("influencers")}
               </Link>
             </li>
             {isAdmin && (
