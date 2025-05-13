@@ -47,6 +47,29 @@ export default interface IInfluencerRepository {
       updatedAt: Date;
     }[]
   >;
+  listReportedPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
   filterPaginated(
     pageNumber: number,
     limit: number,
@@ -118,8 +141,10 @@ export default interface IInfluencerRepository {
     updatedAt: Date;
   } | null>;
 
+
   countActive(): Promise<number>;
   countInactive(): Promise<number>;
+  countReported(): Promise<number>;
 
   create(influencer: {
     username: string;

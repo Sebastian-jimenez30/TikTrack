@@ -37,6 +37,21 @@ interface ActivateProps {
   params: { username: string | null };
 }
 
+interface ReportProps {
+  params: { username: string | null };  
+}
+
+interface ReportedProps {
+  searchParams: {
+    page?: string;
+    city?: string;
+    followers?: string;
+    engagementVisualizationRate?: string;
+    updatedAt?: string;
+    search?: string;
+  };
+}
+
 interface SearchProps {
   searchParams: { query: string; page?: string };
 }
@@ -206,7 +221,79 @@ class InfluencerController {
       return { pageData };
     }
   }
-  
+
+  async report({ params }: ReportProps): Promise<{
+    pageData: object;
+  }> {
+    const { username } = await params;
+    let result;
+    let pageData;
+
+    if (!username) {
+      pageData = {
+        isSuccess: false,
+      };
+      return { pageData };
+    } else {
+      result = await influencerUseCases.updateStatus(
+        username,
+        "reported" as Status
+      );
+
+      pageData = {
+        isSuccess: result.isSuccess,
+      };
+
+      return { pageData };
+    } 
+  }
+
+  async reported({ searchParams }: ReportedProps): Promise<{
+    pageData: object;
+  }> {
+    const resolvedParams = await searchParams;
+    const { page, city, followers, engagementVisualizationRate, updatedAt,search } =
+      resolvedParams;
+
+    const pageNumber = page ? Number(page) : 1;
+
+    const limit = 8;
+    let result;
+
+    if (search)
+      result = await influencerUseCases.search(search, pageNumber, limit);
+    else if (city || followers || engagementVisualizationRate || updatedAt) {
+      const filters = {
+        city,
+        followers,
+        engagementVisualizationRate,
+        updatedAt,
+        status: "reported" as Status,
+      };
+      result = await influencerUseCases.filter(filters, pageNumber, limit);
+    } else {
+      result = await influencerUseCases.listReported(pageNumber, limit);
+    }
+
+    const influencers = result.influencers.map((influencer) =>
+      InfluencerOverviewPresenter.toHttp(influencer)
+    );
+
+    const filters = Influencer.getFilters();
+
+    const pageData = {
+      influencers,
+      count: result.count,
+      start: result.start,
+      end: result.end,
+      hasNextPage: result.hasNextPage,
+      hasPreviousPage: result.hasPreviousPage,
+      filters,
+      search,
+    };
+
+    return { pageData };
+  }
 
 }
 

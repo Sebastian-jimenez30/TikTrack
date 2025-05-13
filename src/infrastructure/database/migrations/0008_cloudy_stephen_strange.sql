@@ -1,0 +1,1 @@
+ALTER TYPE "public"."influencer_status" ADD VALUE 'reported';

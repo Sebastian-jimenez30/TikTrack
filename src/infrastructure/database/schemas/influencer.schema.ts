@@ -11,6 +11,7 @@ import {
 export const influencerStatusEnum = pgEnum("influencer_status", [
   "active",
   "inactive",
+  "reported",
 ]);
 
 export const influencersTable = pgTable("influencers", {

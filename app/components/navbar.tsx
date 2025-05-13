@@ -122,6 +122,14 @@ export default function NavBar({
                 <li>
                   <Link
                     className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
+                    href={ROUTES.INFLUENCERS_REPORTED}
+                  >
+                    {t("influencersReported")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="px-4 py-2 text-lg font-medium text-black hover:text-purple transition-colors duration-200"
                     href={ROUTES.USER_MANAGEMENT_INDEX}
                   >
                     {t("userManagement")}

@@ -74,6 +74,39 @@ export default class InfluencerRepository implements IInfluencerRepository {
     return response;
   }
 
+  async listReportedPaginated(
+    pageNumber: number,
+    limit: number
+  ): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+    const response = await db
+      .select()
+      .from(influencersTable)
+      .where(eq(influencersTable.status, "reported"))
+      .limit(limit)
+      .offset(offset);
+    return response;
+  }
+
   async findByUsername(username: string): Promise<{
     id: number;
     username: string;
@@ -112,6 +145,14 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .select({ count: count() })
       .from(influencersTable)
       .where(eq(influencersTable.status, "inactive"));
+    return response[0].count;
+  }
+
+  async countReported(): Promise<number> {
+    const response = await db
+      .select({ count: count() })
+      .from(influencersTable)
+      .where(eq(influencersTable.status, "reported"));
     return response[0].count;
   }
 
@@ -315,4 +356,5 @@ export default class InfluencerRepository implements IInfluencerRepository {
     return response[0].count;
   }
 
+  
 }

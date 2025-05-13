@@ -64,6 +64,8 @@
     "videos": "Videos",
     "deactivate": "Deactivate",
     "activate": "Activate",
+    "report": "Report",
+    "alreadyReported": "Already reported",
     "success": "Process completed successfully",
     "error": "An error occurred while processing your request"
   },
@@ -225,6 +227,7 @@
     "profile": "Profile",
     "logout": "Logout",
     "influencersDisabled": "Disabled",
+    "influencersReported": "Reports",
     "userManagement": "User Management"
   },
 
@@ -333,5 +336,12 @@
     "today": "Today",
     "thisWeek": "This Week",
     "thisMonth": "This Month"
+  },
+  "InfluencersReportedPage": {
+    "metadata": {
+      "title": "Reported Influencers",
+      "description": "Find the reported influencers"
+    },
+    "title": "Reported Influencers"
   }
 }

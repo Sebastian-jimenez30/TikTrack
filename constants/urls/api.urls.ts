@@ -8,10 +8,14 @@ const ROUTES_API = {
   INFLUENCER_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/show",
   INFLUENCER_DISABLED:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/disabled",
+  INFLUENCER_REPORTED:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/reported",  
   INFLUENCER_DEACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/deactivate",
   INFLUENCER_ACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/activate",
+  INFLUENCER_REPORT:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/report",
   INFLUENCER_COMPARE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/compare",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
