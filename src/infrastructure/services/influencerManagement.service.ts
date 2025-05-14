@@ -3,7 +3,6 @@ import {
   SendMessageResponse,
 } from "@/application/services/influencerManagement.service.interface";
 import ROUTES from "~/constants/urls/services.urls";
-import { getTranslations } from "next-intl/server";
 
 class InfluencerManagementService implements IInfluencerManagementService {
   async fetchInfluencers(): Promise<
@@ -22,8 +21,6 @@ class InfluencerManagementService implements IInfluencerManagementService {
       featuredVideos: string[];
     }[]
   > {
-    const t = await getTranslations("InfluencerManagementService");
-
     try {
       const response = await fetch(ROUTES.GET_INFLUENCERS);
       if (!response.ok) {
@@ -34,8 +31,8 @@ class InfluencerManagementService implements IInfluencerManagementService {
 
       return await response.json();
     } catch (error) {
-      console.error(t("error.errorGettingInfluencers"), error);
-      throw new Error(t("error.errorGettingInfluencerList"));
+      console.error("Error getting influencers", error);
+      throw new Error("Error getting influencer list");
     }
   }
 
@@ -43,8 +40,6 @@ class InfluencerManagementService implements IInfluencerManagementService {
     username: string,
     message: string
   ): Promise<SendMessageResponse> {
-    const t = await getTranslations("InfluencerManagementService");
-
     try {
       const response = await fetch(ROUTES.SEND_MESSAGE(username), {
         method: "POST",
@@ -56,7 +51,7 @@ class InfluencerManagementService implements IInfluencerManagementService {
 
       return response.json();
     } catch {
-      throw new Error(t("error.errorSendingMessage"));
+      throw new Error("Error sending message");
     }
   }
 }
