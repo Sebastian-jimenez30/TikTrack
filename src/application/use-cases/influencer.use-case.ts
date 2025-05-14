@@ -327,9 +327,13 @@ export class InfluencerUseCases {
     const repository = repositoryContainer.get<IInfluencerRepository>(
       "IInfluencerRepository"
     );
-  
-    const tempInfluencers = await repository.searchPaginated(pageNumber, limit, query);
-  
+
+    const tempInfluencers = await repository.searchPaginated(
+      pageNumber,
+      limit,
+      query
+    );
+
     const influencers = tempInfluencers.map((influencer) => {
       return new Influencer(
         influencer.id,
@@ -350,16 +354,16 @@ export class InfluencerUseCases {
         influencer.updatedAt
       );
     });
-  
+
     const tempCount = await repository.countSearchResults(query);
-  
+
     const count = Number(tempCount);
     const [start, end] = PaginationUtil.getIndexes(
       pageNumber.toString(),
       count,
       limit
     );
-  
+
     return {
       influencers,
       count,
@@ -369,10 +373,6 @@ export class InfluencerUseCases {
       hasPreviousPage: start > 1,
     };
   }
-
-
-  
-
 
 }
 export const influencerUseCases = new InfluencerUseCases();

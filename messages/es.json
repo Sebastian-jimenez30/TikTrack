@@ -196,7 +196,12 @@
     "active": "Activo",
     "inactive": "Inactivo",
     "save": "Guardar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "errors": {
+      "missingData": "ID de usuario o datos de actualización faltantes.",
+      "userNotFound": "Usuario no encontrado.",
+      "updateSuccess": "Usuario actualizado correctamente."
+    }
   },
 
   "InfluencerComparison": {
@@ -334,5 +339,9 @@
     "today": "Today",
     "thisWeek": "This Week",
     "thisMonth": "This Month"
+  },
+
+  "Validation": {
+    "passwordStrength": "La contraseña debe tener al menos 8 caracteres e incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial."
   }
 }

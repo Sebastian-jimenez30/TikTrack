@@ -51,7 +51,6 @@ export default async function Index({
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
   const filters = pageData.filters;
-  const search = pageData.search;
   return (
     <div>
       <NotificationSessionStorage />
@@ -60,7 +59,7 @@ export default async function Index({
       </h1>
       <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
         <div className="flex-[0.40] my-5 flex items-center">
-          <SearchBar placeholder="Search influencers..."className="w-full" />
+          <SearchBar placeholder="Search influencers..." className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
           <FilterBar filters={filters} translation={translationKeyFilter} />

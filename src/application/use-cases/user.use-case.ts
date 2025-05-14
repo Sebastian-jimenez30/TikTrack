@@ -2,6 +2,9 @@ import IUserRepository from "@/application/repositories/user.repository.interfac
 import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
+import { hash } from "bcryptjs";
+import { validatePasswordStrength } from "@/shared/utils/password.util";
+import { getTranslations } from "next-intl/server";
 
 export class UserUseCases {
   async detail(
@@ -88,26 +91,58 @@ export class UserUseCases {
       password?: string;
       role?: Role;
       status?: Status;
-    }
-  ): Promise<{ isSuccess: boolean }> {
+    },
+    locale: string
+  ): Promise<{ isSuccess: boolean; message?: string }> {
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
+    const t = await getTranslations({
+      locale,
+      namespace: "UserManagementShowPage",
+    });
+
+    if (!id || !user) {
+      return {
+        isSuccess: false,
+        message: t("errors.missingData"),
+      };
+    }
+
     const tempUser = await repository.findById(id);
+
     if (!tempUser) {
       return {
         isSuccess: false,
+        message: t("errors.userNotFound"),
       };
     }
+
     tempUser.name = user.name || tempUser.name;
     tempUser.email = user.email || tempUser.email;
-    tempUser.password = user.password || tempUser.password;
     tempUser.role = user.role || tempUser.role;
     tempUser.status = user.status || tempUser.status;
+
+    if (user.password) {
+      const passwordValidation = await validatePasswordStrength(
+        user.password,
+        locale
+      );
+      if (!passwordValidation.isValid) {
+        return {
+          isSuccess: false,
+          message: passwordValidation.message,
+        };
+      }
+
+      const hashedPassword = await hash(user.password, 10);
+      tempUser.password = hashedPassword;
+    }
 
     await repository.update(tempUser);
 
     return {
       isSuccess: true,
+      message: t("errors.updateSuccess"),
     };
   }
 
