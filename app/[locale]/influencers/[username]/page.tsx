@@ -38,8 +38,10 @@ export default async function Show({ params }: ShowProps) {
   const token = cookiesData.get("authToken")?.value;
 
   let isAdmin = false;
+  let isAuthenticated = false;
   if (token && !(await jwtUtil.isTokenExpired(token))) {
     isAdmin = await jwtUtil.isAdmin(token);
+    isAuthenticated = true;
   }
 
   const pathParams = await params;
@@ -93,15 +95,17 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                  <Link
-                    href={{
-                      pathname: ROUTES.MESSAGES,
-                      params: { username: influencer.username },
-                    }}
-                    className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
-                  >
-                    {t("message")}
-                  </Link>
+                  {isAuthenticated && (
+                    <Link
+                      href={{
+                        pathname: ROUTES.MESSAGES,
+                        params: { username: influencer.username },
+                      }}
+                      className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
+                    >
+                      {t("message")}
+                    </Link>
+                  )}
 
                   
                   {isInfluencerActive && (

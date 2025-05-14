@@ -9,13 +9,13 @@ import axios from "axios";
 interface MessageCardProps {
   id: number;
   content: string;
-  isCustomizeLink?: boolean;
+  isSelectLink?: boolean;
 }
 
 export default function MessageCard({
   id,
   content,
-  isCustomizeLink,
+  isSelectLink,
 }: MessageCardProps) {
   const [editing, setEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -113,10 +113,10 @@ export default function MessageCard({
       )}
 
       <div className="mt-auto flex gap-2 justify-center">
-        {!editing && isCustomizeLink && (
+        {!editing && isSelectLink && (
           <Link href={`?selectedId=${id}`}>
             <button className="bg-white text-purple border border-purple font-semibold transition-all mt-3 min-w-[120px] px-2 py-1 rounded hover:bg-gray-200">
-              {t("customize")}
+              {t("select")}
             </button>
           </Link>
         )}

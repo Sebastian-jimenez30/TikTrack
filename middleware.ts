@@ -30,9 +30,30 @@ export default async function middleware(request: NextRequest) {
   }
 
   const token = request.cookies.get("authToken")?.value;
-
   const locale = pathname.split("/")[1] || "en";
   const notFoundPath = routing.pathnames["/not-found"]?.[locale as "en" | "es"];
+  const signInPath = routing.pathnames["/sign-in"]?.[locale as "en" | "es"];
+
+  if (pathname.includes("/messages")) {
+    if (!token) {
+      return NextResponse.redirect(
+        new URL(`/${locale}${signInPath}`, request.url)
+      );
+    }
+    try {
+      const isExpired = await jwtUtil.isTokenExpired(token);
+      if (isExpired) {
+        return NextResponse.redirect(
+          new URL(`/${locale}${signInPath}`, request.url)
+        );
+      }
+    } catch {
+      return NextResponse.redirect(
+        new URL(`/${locale}${signInPath}`, request.url)
+      );
+    }
+  }
+
   if (pathname.includes("/admin")) {
     if (!token) {
       return NextResponse.redirect(

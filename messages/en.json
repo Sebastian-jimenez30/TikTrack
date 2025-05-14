@@ -250,7 +250,7 @@
     "message": {
       "update": "Update",
       "delete": "Delete",
-      "customize": "Customize",
+      "select": "Select",
       "edit": "Edit",
       "cancel": "Cancel",
       "error": {
