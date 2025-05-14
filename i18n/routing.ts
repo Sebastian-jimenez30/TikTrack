@@ -26,6 +26,10 @@ export const routing = defineRouting({
       en: "/admin/influencers/disabled",
       es: "/admin/creadores-de-contenido/desactivados",
     },
+    "/admin/influencers/reported": {
+      en: "/admin/influencers/reported",
+      es: "/admin/creadores-de-contenido/reportados",
+    },
     "/not-found": {
       en: "/not-found",
       es: "/no-encontrado",

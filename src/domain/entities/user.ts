@@ -1,4 +1,4 @@
-export type Status = "active" | "inactive";
+export type Status = "active" | "inactive" | "reported";
 export type Role = "admin" | "user";
 
 export interface FilterOptions {
@@ -27,7 +27,7 @@ class User {
       },
       {
         name: "status",
-        options: [{ value: "active" }, { value: "inactive" }],
+        options: [{ value: "active" }, { value: "inactive" }, { value: "reported" }],
       },
       {
         name: "updatedAt",
