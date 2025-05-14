@@ -63,11 +63,18 @@ export default function ComparisonWrapper({
     }
   };
 
+  const handleComparisonModeToggle = () => {
+    if (comparisonMode) {
+      setSelectedInfluencers([]);
+    }
+    setComparisonMode(!comparisonMode);
+  };
+
   return (
     <div>
       <div className="flex justify-center">
         <button
-          onClick={() => setComparisonMode(!comparisonMode)}
+          onClick={handleComparisonModeToggle}
           className="mb-6 px-4 py-2 rounded bg-white text-purple border border-purple font-semibold transition-all hover:bg-gray-200"
         >
           {comparisonMode ? t("cancel") : t("compareInfluencers")}
