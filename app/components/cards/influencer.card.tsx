@@ -33,9 +33,11 @@ export default function InfluencerCard({
 }: InfluencerCardProps): JSX.Element {
   const t = useTranslations("Cards");
 
-  const handleToggleSelect = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onSelect?.(username);
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (comparison) {
+      e.preventDefault();
+      onSelect?.(username);
+    }
   };
 
   return (
@@ -47,7 +49,10 @@ export default function InfluencerCard({
     >
       {comparison && (
         <button
-          onClick={handleToggleSelect}
+          onClick={(e) => {
+            e.preventDefault();
+            onSelect?.(username);
+          }}
           className={clsx(
             "absolute top-2 left-2 rounded-full w-6 h-6 border border-gray-300 flex items-center justify-center text-xs font-bold z-10",
             selected ? "bg-purple text-white" : "bg-white text-gray-300"
@@ -58,6 +63,7 @@ export default function InfluencerCard({
       )}
 
       <Link
+        onClick={handleCardClick}
         href={{
           pathname: `${ROUTES["INFLUENCERS_DETAIL"]}`,
           params: { username },
