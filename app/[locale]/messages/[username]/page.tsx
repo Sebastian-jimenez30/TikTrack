@@ -62,7 +62,7 @@ export default async function MessagesPage({ params, searchParams }: Props) {
               key={msg.id}
               id={msg.id}
               content={msg.content}
-              isCustomizeLink
+              isSelectLink
             />
           ))}
         </div>
