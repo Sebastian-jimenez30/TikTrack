@@ -37,6 +37,7 @@ export default async function Show({ params }: ShowProps) {
   const cookiesData = await cookies();
   const token = cookiesData.get("authToken")?.value;
 
+  let isAuthenticated = false;
   let isAdmin = false;
   let isAuthenticated = false;
   if (token && !(await jwtUtil.isTokenExpired(token))) {
@@ -110,18 +111,20 @@ export default async function Show({ params }: ShowProps) {
                   
                   {isInfluencerActive && (
                   <>
-                    <RedirectButton
-                      variant="secondary"
-                      redirect={ROUTES.INFLUENCERS}
-                      actionUrl={
-                        ROUTES_API.INFLUENCER_REPORT + "?username=" + influencer.username
-                      }
-                      value={t("report")}
-                      messages={{
-                        success: t("success"),
-                        error: t("error"),
-                      }}
-                    />
+                    {isAuthenticated && (
+                      <RedirectButton
+                        variant="secondary"
+                        redirect={ROUTES.INFLUENCERS}
+                        actionUrl={
+                          ROUTES_API.INFLUENCER_REPORT + "?username=" + influencer.username
+                        }
+                        value={t("report")}
+                        messages={{
+                          success: t("success"),
+                          error: t("error"),
+                        }}
+                      />
+                    )}
                     {isAdmin && (
                       <RedirectButton
                         variant="secondary"
