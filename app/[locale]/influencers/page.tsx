@@ -51,7 +51,6 @@ export default async function Index({
   const hasNextPage = pageData.hasNextPage;
   const hasPreviousPage = pageData.hasPreviousPage;
   const filters = pageData.filters;
-  const search = pageData.search;
   return (
     <div>
       <NotificationSessionStorage />

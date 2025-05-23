@@ -3,6 +3,7 @@ import UserCard from "~/app/components/cards/user.card";
 import { cookies } from "next/headers";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 interface ShowProps {
   params: { id: string };
@@ -22,17 +23,27 @@ export default async function Show({ params }: ShowProps) {
   const token = cookieStore.get("authToken")?.value;
 
   const pathParams = await params;
-  const pageData = (
-    await axios.get(ROUTES_API.PROFILE_SHOW, {
+
+  try {
+    const response = await axios.get(ROUTES_API.PROFILE_SHOW, {
       params: { id: pathParams.id },
       headers: { Cookie: `authToken=${token}` },
-    })
-  ).data.pageData;
+    });
 
-  const user = pageData.user;
-  return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <UserCard name={user.name} email={user.email} role={user.role} />
-    </div>
-  );
+    const pageData = response.data.pageData;
+
+    if (!pageData.user) {
+      notFound();
+    }
+
+    const user = pageData.user;
+
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <UserCard name={user.name} email={user.email} role={user.role} />
+      </div>
+    );
+  } catch {
+    notFound();
+  }
 }

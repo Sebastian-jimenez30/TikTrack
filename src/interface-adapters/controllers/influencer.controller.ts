@@ -62,8 +62,14 @@ class InfluencerController {
   }> {
     const resolvedParams = await searchParams;
 
-    const { page, city, followers, engagementVisualizationRate, updatedAt, search, } =
-      resolvedParams;
+    const {
+      page,
+      city,
+      followers,
+      engagementVisualizationRate,
+      updatedAt,
+      search,
+    } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
@@ -129,8 +135,14 @@ class InfluencerController {
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
-    const { page, city, followers, engagementVisualizationRate, updatedAt,search } =
-      resolvedParams;
+    const {
+      page,
+      city,
+      followers,
+      engagementVisualizationRate,
+      updatedAt,
+      search,
+    } = resolvedParams;
 
     const pageNumber = page ? Number(page) : 1;
 

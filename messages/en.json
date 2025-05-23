@@ -198,7 +198,12 @@
     "active": "Active",
     "inactive": "Inactive",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "errors": {
+      "missingData": "User ID or update data is missing.",
+      "userNotFound": "User not found.",
+      "updateSuccess": "User updated successfully."
+    }
   },
 
   "InfluencerComparison": {
@@ -338,11 +343,16 @@
     "thisWeek": "This Week",
     "thisMonth": "This Month"
   },
+
   "InfluencersReportedPage": {
     "metadata": {
       "title": "Reported Influencers",
       "description": "Find the reported influencers"
     },
     "title": "Reported Influencers"
+  },
+
+  "Validation": {
+    "passwordStrength": "Password must have at least 8 characters and include at least one uppercase letter, one lowercase letter, one number, and one special character."
   }
 }

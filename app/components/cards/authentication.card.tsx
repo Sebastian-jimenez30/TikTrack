@@ -1,24 +1,33 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Link } from "~/i18n/routing";
+import { useRouter } from "next/navigation";
 
 interface AuthCardProps {
   type: "sign-in" | "sign-up";
-  onSubmit: (formData: FormData) => Promise<{ error?: string }>;
+  onSubmit: (
+    formData: FormData
+  ) => Promise<{ error?: string; success?: string }>;
 }
 
 export default function AuthCard({ type, onSubmit }: AuthCardProps) {
   const t1 = useTranslations("SignInPage");
   const t2 = useTranslations("SignUpPage");
-
-  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   async function handleFormSubmit(formData: FormData) {
     const result = await onSubmit(formData);
     if (result.error) {
-      setError(result.error);
+      toast.error(result.error);
+    } else if (result.success) {
+      sessionStorage.setItem(
+        "notification",
+        type === "sign-in" ? t1("success") : t2("success")
+      );
+      sessionStorage.setItem("notificationType", "success");
+      router.push("/");
     }
   }
 
@@ -27,12 +36,6 @@ export default function AuthCard({ type, onSubmit }: AuthCardProps) {
       <h1 className="text-2xl font-bold text-center mb-6 text-purple">
         {type === "sign-in" ? t1("title") : t2("title")}
       </h1>
-
-      {error && (
-        <div className="mb-4 p-2 text-red-600 bg-red-100 border border-red-400 rounded">
-          {error}
-        </div>
-      )}
 
       <form action={handleFormSubmit} className="space-y-4">
         {type === "sign-up" && (
