@@ -36,7 +36,8 @@
       "title": "Top Influencers",
       "description": "Find the top influencers in your city and start collaborating with them."
     },
-    "title": "Top Influencers"
+    "title": "Top Influencers",
+    "search":"Search influencers"
   },
 
   "InfluencersDisabledPage": {

@@ -36,7 +36,8 @@
       "title": "Influencers Destacados",
       "description": "Encuentra a los influencers más destacados en tu ciudad y comienza a colaborar con ellos."
     },
-    "title": "Influencers Destacados"
+    "title": "Influencers Destacados",
+    "search":"Buscar influencers"
   },
 
   "InfluencersDisabledPage": {
@@ -64,7 +65,8 @@
     "videos": "Videos",
     "deactivate": "Desactivar",
     "activate": "Activar",
-    "reported": "Reportar",
+    "report": "Reportar",
+    "alreadyReported": "Reportado",
     "success": "Proceso completado con éxito",
     "error": "Ocurrió un error al procesar tu solicitud"
   },
@@ -226,6 +228,7 @@
     "profile": "Perfil",
     "logout": "Cerrar Sesión",
     "influencersDisabled": "Desactivados",
+    "influencersReported": "Reportados",
     "userManagement": "Gestión de usuarios"
   },
 
@@ -313,6 +316,7 @@
     "search": "Buscar"
   },
 
+  
   "FiltersInfluencer": {
     "city": "Ciudad",
     "followers": "Seguidores",
@@ -334,5 +338,13 @@
     "today": "Today",
     "thisWeek": "This Week",
     "thisMonth": "This Month"
+  },
+
+  "InfluencersReportedPage": {
+    "metadata": {
+      "title": "Influencers Reportados",
+      "description": "Encuentra los influencers reportads"
+    },
+    "title": "Influencers Reportados"
   }
 }
