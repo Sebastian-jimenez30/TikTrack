@@ -55,6 +55,7 @@
     },
     "followers": "followers",
     "message": "Message",
+    "favorite": "Add to favorites ★",
     "metrics": "Metrics (average per post - 10 last posts)",
     "likes": "Likes",
     "comments": "Comments",

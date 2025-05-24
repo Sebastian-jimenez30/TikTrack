@@ -56,7 +56,7 @@
     "followers": "seguidores",
     "message": "Mensaje",
     "metrics": "Métricas (promedio por publicación - 10 últimas publicaciones)",
-    "likes": "Me gusta",
+    "favorite": "Añadir a favoritos ★",
     "comments": "Comentarios",
     "shares": "Compartidos",
     "saves": "Guardados",
