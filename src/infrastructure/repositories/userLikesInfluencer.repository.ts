@@ -23,6 +23,16 @@ export class UserLikesInfluencerRepository {
     }
   }
 
+  async removeLike(userId: number, influencerId: number): Promise<void> {
+    await db.delete(userLikesInfluencerTable)
+      .where(
+        and(
+          eq(userLikesInfluencerTable.userId, userId),
+          eq(userLikesInfluencerTable.influencerId, influencerId)
+        )
+      );
+  }
+  
   async getFavoritesByUserId(userId: number) {
    
     const favorites = await db

@@ -70,6 +70,8 @@
     "addToFavorites": "Añadir a favoritos ★",
     "adding": "Añadiendo...",
     "alreadyFavorite": "En favoritos !",
+    "removeFromFavorites": "Eliminar de favoritos",
+    "removing": "Eliminando...",
     "success": "Proceso completado con éxito",
     "error": "Ocurrió un error al procesar tu solicitud"
   },

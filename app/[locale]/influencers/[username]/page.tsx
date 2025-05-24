@@ -18,6 +18,7 @@ import { notFound } from "next/navigation";
 import axios from "axios";
 import { Link } from "~/i18n/routing";
 import AddToFavoritesButton from "~/app/components/buttons/AddToFavoritesButton";
+import InfluencerActionsClient from "~/app/components/buttons/InfluencerActionsClient";
 
 interface ShowProps {
   params: { username: string };
@@ -65,8 +66,6 @@ export default async function Show({ params }: ShowProps) {
   const favorites = pageData.favorites || []; 
   const isFavorite = favorites.some((fav: {id: number}) => fav.id === influencer.id);
 
-  console.log("favorites:", favorites);
-  
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
       <div className="layout-container flex h-full grow flex-col">
@@ -131,7 +130,18 @@ export default async function Show({ params }: ShowProps) {
                   />
                   )}
                   {isAuthenticated && isFavorite && (
-                    <span className="px-4 py-2 rounded-md font-semibold bg-purple text-white cursor-not-allowed">{t("alreadyFavorite")}</span>
+                     <InfluencerActionsClient
+                      influencerId={influencer.id}
+                      messages={{
+                        success: t("success"),
+                        error: t("error"),
+                        removing: t("removing"),
+                        remove: t("removeFromFavorites"),
+                      }}
+                      variant="danger"
+                      redirect={ROUTES.INFLUENCERS}
+                      actionUrl={ROUTES_API.INFLUENCER_UNLIKE}
+                    />
                   )}
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">  
