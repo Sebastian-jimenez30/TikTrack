@@ -2,7 +2,7 @@ import { userUseCases } from "@/application/use-cases/user.use-case";
 import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
 import { UserDetailPresenter } from "@/interface-adapters/presenters/user/user.detail.presenter";
 import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
-
+import { UserLikesInfluencerRepository } from "@/infrastructure/repositories/userLikesInfluencer.repository";
 interface IndexProps {
   searchParams: {
     page?: string;
@@ -82,14 +82,21 @@ export class UserController {
     const result = await userUseCases.detail(Number(id));
 
     let user = null;
+    let favorites = null;
 
     if (result.user) {
       const tempUser = result.user;
       user = UserDetailPresenter.toHttp(tempUser);
+
+      const userLikesInfluencerRepository =
+        new UserLikesInfluencerRepository();
+
+      favorites = await userLikesInfluencerRepository.getFavoritesByUserId(Number(id));
     }
 
     const pageData = {
       user,
+      favorites,
       haveResults: result.haveResults,
     };
 

@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     if (!influencerId) {
         return NextResponse.json({ error: "Missing influencerId" }, { status: 400 });
     }
-
+    
     await userLikesInfluencerController.like({ userId, influencerId });
     return NextResponse.json({ success: true });
 }

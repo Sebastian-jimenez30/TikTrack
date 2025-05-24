@@ -49,8 +49,10 @@ export default async function Show({ params }: ShowProps) {
   const pageData = (
     await axios.get(ROUTES_API.INFLUENCER_SHOW, {
       params: { username: pathParams.username },
+      headers: { Cookie: `authToken=${token}` },
     })
   ).data.pageData;
+
   if (!pageData.haveResults || !pageData.influencer) {
     notFound();
   }
@@ -60,6 +62,10 @@ export default async function Show({ params }: ShowProps) {
   const isInfluencerReported = influencer.status === "reported";
   const isInfluencerDeactivated = influencer.status === "inactive";
 
+  const favorites = pageData.favorites || []; 
+  const isFavorite = favorites.some((fav: {id: number}) => fav.id === influencer.id);
+
+  console.log("favorites:", favorites);
   
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -108,7 +114,7 @@ export default async function Show({ params }: ShowProps) {
                   >
                     {t("message")}
                   </Link>
-                  {isAuthenticated && (
+                  {isAuthenticated && !isFavorite &&(
                   <AddToFavoritesButton
                     variant="primary"
                       redirect={ROUTES.INFLUENCERS}
@@ -117,12 +123,15 @@ export default async function Show({ params }: ShowProps) {
                       messages={{
                         success: t("success"),
                         error: t("error"),
-                        alreadyFavorite: t("alreadyFavorite"), // agrega esta clave a tus traducciones
+                        alreadyFavorite: t("alreadyFavorite"), 
                         adding: t("adding"),
                         add: t("addToFavorites"),
                       }}
                       httpMethod="post"
                   />
+                  )}
+                  {isAuthenticated && isFavorite && (
+                    <span className="px-4 py-2 rounded-md font-semibold bg-purple text-white cursor-not-allowed">{t("alreadyFavorite")}</span>
                   )}
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">  

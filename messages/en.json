@@ -69,7 +69,7 @@
     "alreadyReported": "Already reported",
     "addToFavorites": "Add to favorites ★",
     "adding": "Adding to favorites...",
-    "alreadyFavorite": "Already in favorites",
+    "alreadyFavorite": "Already in favorites!",
     "success": "Process completed successfully",
     "error": "An error occurred while processing your request"
   },
@@ -141,6 +141,8 @@
       "user": "User",
       "admin": "Administrator"
     },
+    "favoritesTitle": "Favorites",
+    "noFavorites": "No favorites yet",
     "authError": "Authentication error. Please log in again.",
     "tokenError": "Invalid token. Please try again.",
     "fetchError": "Could not fetch user information."

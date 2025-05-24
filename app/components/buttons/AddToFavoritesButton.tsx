@@ -15,9 +15,9 @@ interface AddToFavoritesButtonProps {
   messages: {
     success: string;
     error: string;
-    alreadyFavorite: string; // Traducción para "Ya es tu favorito"
-    adding: string;          // Traducción para "Agregando..."
-    add: string;             // Traducción para "Agregar a favoritos"
+    alreadyFavorite: string; 
+    adding: string;          
+    add: string;             
   };
   httpMethod?: "patch" | "post";
 }
@@ -51,8 +51,7 @@ export default function AddToFavoritesButton({
         setLiked(true);
         sessionStorage.setItem("notification", messages.success);
         sessionStorage.setItem("notificationType", "success");
-        // Puedes redirigir si quieres, o solo mostrar el mensaje
-        // router.push(`/${locale}${redirect}`);
+        
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");
