@@ -56,7 +56,7 @@
     "followers": "seguidores",
     "message": "Mensaje",
     "metrics": "Métricas (promedio por publicación - 10 últimas publicaciones)",
-    "favorite": "Añadir a favoritos ★",
+    "likes": "Me gusta",
     "comments": "Comentarios",
     "shares": "Compartidos",
     "saves": "Guardados",
@@ -67,6 +67,9 @@
     "activate": "Activar",
     "report": "Reportar",
     "alreadyReported": "Reportado",
+    "addToFavorites": "Añadir a favoritos ★",
+    "adding": "Añadiendo...",
+    "alreadyFavorite": "En favoritos",
     "success": "Proceso completado con éxito",
     "error": "Ocurrió un error al procesar tu solicitud"
   },

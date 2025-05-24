@@ -17,6 +17,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import axios from "axios";
 import { Link } from "~/i18n/routing";
+import AddToFavoritesButton from "~/app/components/buttons/AddToFavoritesButton";
 
 interface ShowProps {
   params: { username: string };
@@ -59,6 +60,7 @@ export default async function Show({ params }: ShowProps) {
   const isInfluencerReported = influencer.status === "reported";
   const isInfluencerDeactivated = influencer.status === "inactive";
 
+  
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
       <div className="layout-container flex h-full grow flex-col">
@@ -77,6 +79,7 @@ export default async function Show({ params }: ShowProps) {
                       priority={true}
                     />
                   </div>
+
                   <div className="flex flex-col items-center justify-center">
                     <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
                       {influencer.profileName}
@@ -105,15 +108,22 @@ export default async function Show({ params }: ShowProps) {
                   >
                     {t("message")}
                   </Link>
-                  <Link
-                    href={{
-                      pathname: ROUTES.MESSAGES,
-                      params: { username: influencer.username },
-                    }}
-                    className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
-                    >
-                    {t("favorite")}
-                  </Link>
+                  {isAuthenticated && (
+                  <AddToFavoritesButton
+                    variant="primary"
+                      redirect={ROUTES.INFLUENCERS}
+                      actionUrl={ ROUTES_API.INFLUENCER_LIKE}
+                      influencerId={influencer.id}
+                      messages={{
+                        success: t("success"),
+                        error: t("error"),
+                        alreadyFavorite: t("alreadyFavorite"), // agrega esta clave a tus traducciones
+                        adding: t("adding"),
+                        add: t("addToFavorites"),
+                      }}
+                      httpMethod="post"
+                  />
+                  )}
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">  
                   {isInfluencerActive && (

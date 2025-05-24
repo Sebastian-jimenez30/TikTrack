@@ -1,39 +1,43 @@
 "use client";
-import { Pathname } from "~/i18n/routing";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import clsx from "clsx";
 import axios from "axios";
+import { Pathname } from "~/i18n/routing";
 import { usePathname } from "next/navigation";
 
-interface RedirectButtonProps {
+interface AddToFavoritesButtonProps {
   variant: "primary" | "secondary" | "danger";
   redirect: Pathname;
   actionUrl: string;
-  influencerId?: string; 
-  value: string;
+  influencerId: string;
   messages: {
     success: string;
     error: string;
+    alreadyFavorite: string; // Traducción para "Ya es tu favorito"
+    adding: string;          // Traducción para "Agregando..."
+    add: string;             // Traducción para "Agregar a favoritos"
   };
-  httpMethod?: "patch" | "post"; // Nueva prop opcional
+  httpMethod?: "patch" | "post";
 }
 
-export default function RedirectButton({
+export default function AddToFavoritesButton({
   variant,
   redirect,
   actionUrl,
   influencerId,
-  value,
   messages,
-  httpMethod = "patch", // Por defecto PATCH para compatibilidad
-}: RedirectButtonProps): JSX.Element {
+  httpMethod = "post",
+}: AddToFavoritesButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
+  const [liked, setLiked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
+    setLoading(true);
     try {
       let response;
       if (httpMethod === "post") {
@@ -44,9 +48,11 @@ export default function RedirectButton({
       const result = response.data.pageData ?? response.data;
 
       if (result.isSuccess || result.success) {
+        setLiked(true);
         sessionStorage.setItem("notification", messages.success);
         sessionStorage.setItem("notificationType", "success");
-        router.push(`/${locale}${redirect}`);
+        // Puedes redirigir si quieres, o solo mostrar el mensaje
+        // router.push(`/${locale}${redirect}`);
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");
@@ -56,12 +62,15 @@ export default function RedirectButton({
       sessionStorage.setItem("notification", messages.error);
       sessionStorage.setItem("notificationType", "error");
       router.push(pathname);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <button
       onClick={handleClick}
+      disabled={liked || loading}
       className={clsx(
         "px-4 py-2 rounded-md font-semibold transition-all hover:",
         variant === "primary" &&
@@ -72,7 +81,11 @@ export default function RedirectButton({
           "bg-red-600 text-white cursor-pointer hover:bg-red-700"
       )}
     >
-      {value}
+      {liked
+        ? messages.alreadyFavorite
+        : loading
+        ? messages.adding
+        : messages.add}
     </button>
   );
 }

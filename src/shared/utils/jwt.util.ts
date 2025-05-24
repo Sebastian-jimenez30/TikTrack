@@ -49,6 +49,16 @@ class JwtUtil {
     const { payload } = await jwtVerify(token, this.secret);
     return payload.role === "admin";
   }
+
+  async getUserId(token: string): Promise<number | null> {
+    try {
+      const payload = await this.verifyToken(token);
+      return payload.userId ?? null;
+    } catch {
+      return null;
+    }
+  }
+
 }
 
 const jwtUtil = new JwtUtil();
