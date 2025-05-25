@@ -2,7 +2,7 @@ import { influencersTable } from "@/infrastructure/database/schemas/influencer.s
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq, and, gte, lte, count, or, like, ilike, inArray } from "drizzle-orm";
+import { eq, and, gte, lte, count, or, like, ilike, inArray, asc } from "drizzle-orm";
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
@@ -35,6 +35,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .where(
          inArray(influencersTable.status, ["active", "reported"])
       )
+      .orderBy(asc(influencersTable.id))
       .limit(limit)
       .offset(offset);
     return response;
