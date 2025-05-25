@@ -20,6 +20,7 @@ export default function TextboxWithService({
   const [serviceText, setServiceText] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   useEffect(() => {
     if (selectedMessageContent) {
@@ -94,6 +95,7 @@ export default function TextboxWithService({
       toast.error(t("error.noUsernameOrMessage"));
       return;
     }
+    setIsSending(true);
     try {
       const response = await fetch(ROUTES_API.MESSAGE_SEND(username), {
         method: "POST",
@@ -112,6 +114,8 @@ export default function TextboxWithService({
       }
     } catch {
       toast.error(t("error.failedToSendMessage"));
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -136,9 +140,10 @@ export default function TextboxWithService({
             {username && textBoxValue && (
               <button
                 onClick={handleSendMessage}
-                className="mt-4 bg-purple font-bold text-white px-4 py-2 rounded"
+                className="mt-4 bg-purple font-bold text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSending}
               >
-                {t("buttonSend")}
+                {isSending ? t("sending") : t("buttonSend")}
               </button>
             )}
           </div>

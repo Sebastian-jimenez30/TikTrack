@@ -3,24 +3,25 @@ import IMessageRepository from "@/application/repositories/message.repository.in
 import repositoryContainer from "~/containers/repository.container";
 
 export class MessageUseCases {
-  async listAll(): Promise<{ messages: Message[] }> {
+  async listByUser(user_id: number): Promise<{ messages: Message[] }> {
     const repository =
       repositoryContainer.get<IMessageRepository>("IMessageRepository");
-    const tempMessages = await repository.listAll();
+    const tempMessages = await repository.listByUser(user_id);
 
     const messages = tempMessages.map((message) => {
       return new Message(
         message.id,
         message.content,
         message.created_at,
-        message.updated_at
+        message.updated_at,
+        message.user_id
       );
     });
 
     return { messages };
   }
 
-  async create(data: { content: string }): Promise<Message> {
+  async create(data: { content: string; user_id: number }): Promise<Message> {
     const repository =
       repositoryContainer.get<IMessageRepository>("IMessageRepository");
 
@@ -30,7 +31,8 @@ export class MessageUseCases {
       tempMessage.id,
       tempMessage.content,
       tempMessage.created_at,
-      tempMessage.updated_at
+      tempMessage.updated_at,
+      tempMessage.user_id
     );
   }
 
@@ -46,7 +48,8 @@ export class MessageUseCases {
       updatedMessage.id,
       updatedMessage.content,
       updatedMessage.created_at,
-      updatedMessage.updated_at
+      updatedMessage.updated_at,
+      updatedMessage.user_id
     );
   }
 

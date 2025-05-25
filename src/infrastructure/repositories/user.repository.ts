@@ -2,7 +2,7 @@ import { eq, and, gte } from "drizzle-orm";
 import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
-import { count } from "drizzle-orm";
+import { count, asc } from "drizzle-orm";
 import { FilterOptions, Role, Status } from "@/domain/entities/user";
 
 export default class UserRepository implements IUserRepository {
@@ -25,6 +25,7 @@ export default class UserRepository implements IUserRepository {
     const response = await db
       .select()
       .from(usersTable)
+      .orderBy(asc(usersTable.id))
       .limit(limit)
       .offset(offset);
     return response;

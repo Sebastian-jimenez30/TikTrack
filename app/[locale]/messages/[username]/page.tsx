@@ -9,10 +9,13 @@ import axios from "axios";
 import { getTranslations } from "next-intl/server";
 import MessageCard from "~/app/components/cards/message.card";
 import EmailIcon from "~/app/components/icons/email.icon";
+import { cookies } from "next/headers";
+import jwtUtil from "@/shared/utils/jwt.util";
 
 interface Message {
   id: number;
   content: string;
+  user_id: number;
   created_at?: string;
   updated_at?: string;
 }
@@ -34,7 +37,13 @@ export async function generateMetadata() {
 export default async function MessagesPage({ params, searchParams }: Props) {
   const t = await getTranslations("MessagesIndexPage");
 
-  const pageData = (await axios.get(ROUTES_API.MESSAGE_INDEX)).data.pageData;
+  const token = (await cookies()).get("authToken")?.value;
+  let userId = "";
+  if (token && !(await jwtUtil.isTokenExpired(token))) {
+    userId = (await jwtUtil.getUserIdFromToken(token)).toString();
+  }
+  
+  const pageData = (await axios.get(`${ROUTES_API.MESSAGE_INDEX}?user_id=${userId}`)).data.pageData;
   const messages: Message[] = pageData.messages;
 
   const paramsData = await params;
@@ -55,7 +64,7 @@ export default async function MessagesPage({ params, searchParams }: Props) {
         <h2 className="mb-8 text-3xl text-center font-bold leading-none tracking-tight md:text-4xl md:text-center lg:text-4xl lg:text-left ">
           {t("messagingTemplate")}
         </h2>
-        {messages.length < 3 && <CreateMessage />}
+        {messages.length < 3 && <CreateMessage userId={userId} />}
         <div className="grid w-full gap-4 grid-cols-1 lg:grid-cols-3 items-start">
           {messages.map((msg) => (
             <MessageCard

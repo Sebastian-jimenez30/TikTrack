@@ -16,6 +16,8 @@ const ROUTES_API = {
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/activate",
   INFLUENCER_REPORT:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/report",
+  INFLUENCER_REMOVE_REPORT:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/removeReport",
   INFLUENCER_COMPARE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/compare",
   INFLUENCER_LIKE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/like",
