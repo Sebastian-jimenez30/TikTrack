@@ -20,6 +20,7 @@ interface AddToFavoritesButtonProps {
     add: string;             
   };
   httpMethod?: "patch" | "post";
+  onSuccess?: () => void;
 }
 
 export default function AddToFavoritesButton({
@@ -29,6 +30,7 @@ export default function AddToFavoritesButton({
   influencerId,
   messages,
   httpMethod = "post",
+  onSuccess,
 }: AddToFavoritesButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
@@ -51,7 +53,7 @@ export default function AddToFavoritesButton({
         setLiked(true);
         sessionStorage.setItem("notification", messages.success);
         sessionStorage.setItem("notificationType", "success");
-        
+        if (onSuccess) onSuccess();
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");

@@ -29,6 +29,7 @@ export default function RemoveFromFavoritesButton({
   influencerId,
   messages,
   httpMethod = "delete",
+  onSuccess,
 }: RemoveFromFavoritesButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
@@ -51,8 +52,7 @@ export default function RemoveFromFavoritesButton({
         setRemoved(true);
         sessionStorage.setItem("notification", messages.success);
         sessionStorage.setItem("notificationType", "success");
-        // Puedes redirigir si quieres:
-        // router.push(redirect);
+        if (onSuccess) onSuccess();
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");
