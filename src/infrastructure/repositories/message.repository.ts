@@ -3,24 +3,37 @@ import { messagesTable } from "@/infrastructure/database/schemas/message.schema"
 import IMessageRepository from "@/application/repositories/message.repository.interface";
 import db from "@/infrastructure/database/index";
 import { asc } from "drizzle-orm";
+import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 
 export default class MessageRepository implements IMessageRepository {
-  async listAll(): Promise<
+  async listByUser(user_id: number): Promise<
     {
       id: number;
       content: string;
       created_at: Date;
       updated_at: Date;
+      user_id: number;
     }[]
   > {
-    return await db.select().from(messagesTable).orderBy(asc(messagesTable.id));
+    return await db
+      .select({
+        id: messagesTable.id,
+        content: messagesTable.content,
+        created_at: messagesTable.created_at,
+        updated_at: messagesTable.updated_at,
+        user_id: messagesTable.user_id,
+      })
+      .from(messagesTable)
+      .where(eq(messagesTable.user_id, user_id))
+      .orderBy(asc(messagesTable.id));
   }
 
-  async create(message: { content: string }): Promise<{
+  async create(message: { content: string; user_id: number }): Promise<{
     id: number;
     content: string;
     created_at: Date;
     updated_at: Date;
+    user_id: number;
   }> {
     const response = await db.insert(messagesTable).values(message).returning();
     return response[0];
@@ -34,6 +47,7 @@ export default class MessageRepository implements IMessageRepository {
     content: string;
     created_at: Date;
     updated_at: Date;
+    user_id: number;
   } | null> {
     const response = await db
       .update(messagesTable)

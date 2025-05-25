@@ -1,15 +1,17 @@
 export default interface IMessageRepository {
-  listAll(): Promise<
+  listByUser(user_id: number): Promise<
     {
       id: number;
+      user_id: number;
       content: string;
       created_at: Date;
       updated_at: Date;
     }[]
   >;
 
-  create(message: { content: string }): Promise<{
+  create(message: { content: string; user_id: number }): Promise<{
     id: number;
+    user_id: number;
     content: string;
     created_at: Date;
     updated_at: Date;
@@ -20,6 +22,7 @@ export default interface IMessageRepository {
     content: string
   ): Promise<{
     id: number;
+    user_id: number;
     content: string;
     created_at: Date;
     updated_at: Date;
