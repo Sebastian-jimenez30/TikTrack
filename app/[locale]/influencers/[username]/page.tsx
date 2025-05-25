@@ -103,7 +103,7 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                  
+                  {isAuthenticated && (
                   <Link
                     href={{
                       pathname: ROUTES.MESSAGES,
@@ -113,6 +113,7 @@ export default async function Show({ params }: ShowProps) {
                   >
                     {t("message")}
                   </Link>
+                  )}
                   {isAuthenticated && !isFavorite &&(
                   <AddToFavoritesButton
                     variant="primary"
