@@ -147,7 +147,7 @@ export default async function Show({ params }: ShowProps) {
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">  
                   {isInfluencerActive && (
                   <>
-                    {isAuthenticated && (
+                    {isAuthenticated && !isAdmin &&(
                       <RedirectButton
                         variant="secondary"
                         redirect={ROUTES.INFLUENCERS}
@@ -179,12 +179,21 @@ export default async function Show({ params }: ShowProps) {
                 )}
                 {isInfluencerReported && (
                   <>
-                    <button
-                      className="px-4 py-2 rounded-md font-semibold bg-gray-400 text-white cursor-not-allowed"
-                      disabled
-                    >
-                      {t("alreadyReported")}
-                    </button>
+                    {isAuthenticated && !isAdmin && (
+                      <RedirectButton
+                          variant="secondary"
+                          redirect={ROUTES.INFLUENCERS}
+                          actionUrl={
+                            ROUTES_API.INFLUENCER_REMOVE_REPORT + "?username=" + influencer.username
+                          }
+                          value={t("removeReport")}
+                          messages={{
+                            success: t("success"),
+                            error: t("error"),
+                          }}
+                        />
+                    )}
+                    
                     {isAdmin && (
                       <>
                         <RedirectButton
