@@ -67,6 +67,11 @@
     "activate": "Activar",
     "report": "Reportar",
     "alreadyReported": "Reportado",
+    "addToFavorites": "Añadir a favoritos ★",
+    "adding": "Añadiendo...",
+    "alreadyFavorite": "En favoritos !",
+    "removeFromFavorites": "Eliminar de favoritos",
+    "removing": "Eliminando...",
     "success": "Proceso completado con éxito",
     "error": "Ocurrió un error al procesar tu solicitud"
   },
@@ -138,6 +143,8 @@
       "user": "Usuario",
       "admin": "Administrador"
     },
+    "favoritesTitle": "Favoritos",
+    "noFavorites": "No tienes influencers favoritos",
     "authError": "Error de autenticación. Inicia sesión nuevamente.",
     "tokenError": "Token inválido. Intenta de nuevo.",
     "fetchError": "No se pudo obtener la información del usuario."
@@ -278,7 +285,7 @@
   "Forms": {
     "message": {
       "placeholder": "Crea una plantilla...",
-      "saveTemplate": "Guardar plantilla",
+      "saveTemplate": "Guardar como Plantilla",
       "error": "Error al crear la plantilla"
     }
   },
