@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
+  
   const data = await userController.show({ params: { id } });
-
   return NextResponse.json(data);
 }

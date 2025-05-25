@@ -49,7 +49,7 @@ export default async function Reported({
   const token = cookieStore.get("authToken")?.value;
 
   const pageData = (
-    await axios.get(ROUTES_API.INFLUENCERS_REPORTED + `?${query}`, {
+    await axios.get(ROUTES_API.INFLUENCER_REPORTED + `?${query}`, {
       headers: { Cookie: `authToken=${token}` },
     })
   ).data.pageData;

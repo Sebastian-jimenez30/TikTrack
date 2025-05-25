@@ -1,52 +1,58 @@
 "use client";
-import { Pathname } from "~/i18n/routing";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { JSX } from "react";
+import { JSX, useState } from "react";
 import clsx from "clsx";
 import axios from "axios";
+import { Pathname } from "~/i18n/routing";
 import { usePathname } from "next/navigation";
 
-interface RedirectButtonProps {
+interface RemoveFromFavoritesButtonProps {
   variant: "primary" | "secondary" | "danger";
   redirect: Pathname;
   actionUrl: string;
-  influencerId?: string; 
-  value: string;
+  influencerId: string;
   messages: {
     success: string;
     error: string;
+    removing: string;
+    remove: string;
   };
-  httpMethod?: "patch" | "post"; // Nueva prop opcional
+  httpMethod?: "delete" | "post";
+  onSuccess?: () => void;
 }
 
-export default function RedirectButton({
+export default function RemoveFromFavoritesButton({
   variant,
   redirect,
   actionUrl,
   influencerId,
-  value,
   messages,
-  httpMethod = "patch", // Por defecto PATCH para compatibilidad
-}: RedirectButtonProps): JSX.Element {
+  httpMethod = "delete",
+  onSuccess,
+}: RemoveFromFavoritesButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
+  const [removed, setRemoved] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
+    setLoading(true);
     try {
       let response;
-      if (httpMethod === "post") {
-        response = await axios.post(actionUrl, { influencerId });
+      if (httpMethod === "delete") {
+        response = await axios.delete(actionUrl, { data: { influencerId } });
       } else {
-        response = await axios.patch(actionUrl, { influencerId });
+        response = await axios.post(actionUrl, { influencerId });
       }
       const result = response.data.pageData ?? response.data;
 
       if (result.isSuccess || result.success) {
+        setRemoved(true);
         sessionStorage.setItem("notification", messages.success);
         sessionStorage.setItem("notificationType", "success");
-        router.push(`/${locale}${redirect}`);
+        if (onSuccess) onSuccess();
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");
@@ -56,12 +62,15 @@ export default function RedirectButton({
       sessionStorage.setItem("notification", messages.error);
       sessionStorage.setItem("notificationType", "error");
       router.push(pathname);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <button
       onClick={handleClick}
+      disabled={removed || loading}
       className={clsx(
         "px-4 py-2 rounded-md font-semibold transition-all hover:",
         variant === "primary" &&
@@ -72,7 +81,11 @@ export default function RedirectButton({
           "bg-red-600 text-white cursor-pointer hover:bg-red-700"
       )}
     >
-      {value}
+      {removed
+        ? messages.success
+        : loading
+        ? messages.removing
+        : messages.remove}
     </button>
   );
 }

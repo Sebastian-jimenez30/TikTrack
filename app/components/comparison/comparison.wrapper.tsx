@@ -83,7 +83,7 @@ export default function ComparisonWrapper({
         {comparisonMode && selectedInfluencers.length >= 2 && (
           <button
             onClick={handleCompare}
-            className="ml-2 mb-6 px-4 py-2 bg-purple text-white rounded hover:bg-darkPurple transition"
+            className="ml-2 mb-6 px-4 py-2 bg-purple text-white font-semibold rounded hover:bg-darkPurple transition"
           >
             {t("compare")}
           </button>

@@ -17,6 +17,8 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import axios from "axios";
 import { Link } from "~/i18n/routing";
+import AddToFavoritesButton from "~/app/components/buttons/AddToFavoritesButton";
+import InfluencerActionsClient from "~/app/components/buttons/InfluencerActionsClient";
 
 interface ShowProps {
   params: { username: string };
@@ -37,7 +39,6 @@ export default async function Show({ params }: ShowProps) {
   const cookiesData = await cookies();
   const token = cookiesData.get("authToken")?.value;
 
-  let isAuthenticated = false;
   let isAdmin = false;
   let isAuthenticated = false;
   if (token && !(await jwtUtil.isTokenExpired(token))) {
@@ -49,8 +50,10 @@ export default async function Show({ params }: ShowProps) {
   const pageData = (
     await axios.get(ROUTES_API.INFLUENCER_SHOW, {
       params: { username: pathParams.username },
+      headers: { Cookie: `authToken=${token}` },
     })
   ).data.pageData;
+
   if (!pageData.haveResults || !pageData.influencer) {
     notFound();
   }
@@ -59,6 +62,9 @@ export default async function Show({ params }: ShowProps) {
   const isInfluencerActive = influencer.status === "active";
   const isInfluencerReported = influencer.status === "reported";
   const isInfluencerDeactivated = influencer.status === "inactive";
+
+  const favorites = pageData.favorites || []; 
+  const isFavorite = favorites.some((fav: {id: number}) => fav.id === influencer.id);
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -78,6 +84,7 @@ export default async function Show({ params }: ShowProps) {
                       priority={true}
                     />
                   </div>
+
                   <div className="flex flex-col items-center justify-center">
                     <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
                       {influencer.profileName}
@@ -96,19 +103,48 @@ export default async function Show({ params }: ShowProps) {
                   </div>
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
-                  {isAuthenticated && (
-                    <Link
-                      href={{
-                        pathname: ROUTES.MESSAGES,
-                        params: { username: influencer.username },
-                      }}
-                      className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
-                    >
-                      {t("message")}
-                    </Link>
-                  )}
-
                   
+                  <Link
+                    href={{
+                      pathname: ROUTES.MESSAGES,
+                      params: { username: influencer.username },
+                    }}
+                    className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
+                  >
+                    {t("message")}
+                  </Link>
+                  {isAuthenticated && !isFavorite &&(
+                  <AddToFavoritesButton
+                    variant="primary"
+                      redirect={ROUTES.INFLUENCERS}
+                      actionUrl={ ROUTES_API.INFLUENCER_LIKE}
+                      influencerId={influencer.id}
+                      messages={{
+                        success: t("success"),
+                        error: t("error"),
+                        alreadyFavorite: t("alreadyFavorite"), 
+                        adding: t("adding"),
+                        add: t("addToFavorites"),
+                      }}
+                      httpMethod="post"
+                  />
+                  )}
+                  {isAuthenticated && isFavorite && (
+                     <InfluencerActionsClient
+                      influencerId={influencer.id}
+                      messages={{
+                        success: t("success"),
+                        error: t("error"),
+                        removing: t("removing"),
+                        remove: t("removeFromFavorites"),
+                      }}
+                      variant="danger"
+                      redirect={ROUTES.INFLUENCERS}
+                      actionUrl={ROUTES_API.INFLUENCER_UNLIKE}
+                    />
+                  )}
+                </div>
+                <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">  
                   {isInfluencerActive && (
                   <>
                     {isAuthenticated && (
