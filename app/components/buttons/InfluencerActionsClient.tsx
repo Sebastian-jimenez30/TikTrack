@@ -17,14 +17,8 @@ interface Props {
 
 export default function InfluencerActionsClient(props: Props) {
   const handleSuccess = () => {
-    // Aquí puedes actualizar el estado, recargar la página, etc.
     window.location.reload();
   };
 
-  return (
-    <RemoveFromFavoritesButton
-      {...props}
-      onSuccess={handleSuccess}
-    />
-  );
+  return <RemoveFromFavoritesButton {...props} onSuccess={handleSuccess} />;
 }

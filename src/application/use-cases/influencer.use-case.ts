@@ -182,7 +182,6 @@ export class InfluencerUseCases {
     };
   }
 
-
   async detail(
     username: string
   ): Promise<{ influencer: Influencer | null; haveResults: boolean }> {
@@ -373,6 +372,5 @@ export class InfluencerUseCases {
       hasPreviousPage: start > 1,
     };
   }
-
 }
 export const influencerUseCases = new InfluencerUseCases();

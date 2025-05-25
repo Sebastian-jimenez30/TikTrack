@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
   let decoded;
   try {
-    decoded = await jwtUtil.verifyToken(token); // decoded tendrá { userId, email, role }
+    decoded = await jwtUtil.verifyToken(token);
   } catch {
     return NextResponse.json({ error: "Invalid token" }, { status: 401 });
   }
@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  
   const data = await userController.show({ params: { id } });
   return NextResponse.json(data);
 }

@@ -84,8 +84,8 @@ export default function RemoveFromFavoritesButton({
       {removed
         ? messages.success
         : loading
-        ? messages.removing
-        : messages.remove}
+          ? messages.removing
+          : messages.remove}
     </button>
   );
 }

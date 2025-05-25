@@ -141,7 +141,6 @@ export default interface IInfluencerRepository {
     updatedAt: Date;
   } | null>;
 
-
   countActive(): Promise<number>;
   countInactive(): Promise<number>;
   countReported(): Promise<number>;

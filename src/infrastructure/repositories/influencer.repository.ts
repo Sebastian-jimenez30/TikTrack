@@ -2,7 +2,7 @@ import { influencersTable } from "@/infrastructure/database/schemas/influencer.s
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq, and, gte, lte, count, or, like, ilike } from "drizzle-orm";
+import { eq, and, gte, lte, count, or, ilike } from "drizzle-orm";
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
@@ -193,7 +193,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .update(influencersTable)
       .set({
         ...updatableFields,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       })
       .where(eq(influencersTable.id, id))
       .execute();
@@ -350,5 +350,4 @@ export default class InfluencerRepository implements IInfluencerRepository {
 
     return response[0].count;
   }
-
 }

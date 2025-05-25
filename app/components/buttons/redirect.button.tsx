@@ -11,13 +11,13 @@ interface RedirectButtonProps {
   variant: "primary" | "secondary" | "danger";
   redirect: Pathname;
   actionUrl: string;
-  influencerId?: string; 
+  influencerId?: string;
   value: string;
   messages: {
     success: string;
     error: string;
   };
-  httpMethod?: "patch" | "post"; // Nueva prop opcional
+  httpMethod?: "patch" | "post";
 }
 
 export default function RedirectButton({
@@ -27,7 +27,7 @@ export default function RedirectButton({
   influencerId,
   value,
   messages,
-  httpMethod = "patch", // Por defecto PATCH para compatibilidad
+  httpMethod = "patch",
 }: RedirectButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();

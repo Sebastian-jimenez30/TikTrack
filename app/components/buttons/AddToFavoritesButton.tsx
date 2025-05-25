@@ -15,9 +15,9 @@ interface AddToFavoritesButtonProps {
   messages: {
     success: string;
     error: string;
-    alreadyFavorite: string; 
-    adding: string;          
-    add: string;             
+    alreadyFavorite: string;
+    adding: string;
+    add: string;
   };
   httpMethod?: "patch" | "post";
   onSuccess?: () => void;
@@ -85,8 +85,8 @@ export default function AddToFavoritesButton({
       {liked
         ? messages.alreadyFavorite
         : loading
-        ? messages.adding
-        : messages.add}
+          ? messages.adding
+          : messages.add}
     </button>
   );
 }

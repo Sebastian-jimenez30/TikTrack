@@ -1,8 +1,8 @@
 import { eq, and } from "drizzle-orm";
 
-import db  from "@/infrastructure/database/index";
+import db from "@/infrastructure/database/index";
 import { userLikesInfluencerTable } from "@/infrastructure/database/schemas/userLikesInfluencer.schema";
-import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema"; // Ajusta la ruta si es necesario
+import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 
 export class UserLikesInfluencerRepository {
   async addLike(userId: number, influencerId: number): Promise<void> {
@@ -13,18 +13,20 @@ export class UserLikesInfluencerRepository {
         and(
           eq(userLikesInfluencerTable.userId, userId),
           eq(userLikesInfluencerTable.influencerId, influencerId)
-      
         )
       )
       .limit(1);
 
     if (exists.length === 0) {
-      await db.insert(userLikesInfluencerTable).values({ userId, influencerId });
+      await db
+        .insert(userLikesInfluencerTable)
+        .values({ userId, influencerId });
     }
   }
 
   async removeLike(userId: number, influencerId: number): Promise<void> {
-    await db.delete(userLikesInfluencerTable)
+    await db
+      .delete(userLikesInfluencerTable)
       .where(
         and(
           eq(userLikesInfluencerTable.userId, userId),
@@ -32,9 +34,8 @@ export class UserLikesInfluencerRepository {
         )
       );
   }
-  
+
   async getFavoritesByUserId(userId: number) {
-   
     const favorites = await db
       .select({
         id: influencersTable.id,
@@ -51,9 +52,7 @@ export class UserLikesInfluencerRepository {
         influencersTable,
         eq(userLikesInfluencerTable.influencerId, influencersTable.id)
       )
-      .where(eq(userLikesInfluencerTable.userId, userId))
+      .where(eq(userLikesInfluencerTable.userId, userId));
     return favorites;
   }
-
-
 }
