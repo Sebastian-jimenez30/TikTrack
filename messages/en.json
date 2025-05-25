@@ -295,6 +295,7 @@
     "buttonAccept": "Accept",
     "buttonCancel": "Cancel",
     "buttonSend": "Send Message",
+    "sending": "Sending...",
     "placeholder": "Write your message here...",
     "loading": "Loading...",
     "enhanced": "Enhance message with AI",
