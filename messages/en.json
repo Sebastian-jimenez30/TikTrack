@@ -285,7 +285,7 @@
   "Forms": {
     "message": {
       "placeholder": "Create a message template...",
-      "saveTemplate": "Save Template",
+      "saveTemplate": "Save as Template",
       "error": "Failed to create template"
     }
   },

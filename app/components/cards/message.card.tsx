@@ -87,7 +87,7 @@ export default function MessageCard({
             name="content"
             value={newContent}
             onChange={handleContentChange}
-            className="w-full mb-3 p-2 border rounded text-sm md:text-xl"
+            className="w-full h-[125px] mb-3 p-2 border rounded text-sm md:text-xl"
             disabled={isPending}
           />
           <div className="flex gap-2">
