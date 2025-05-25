@@ -2,7 +2,9 @@ import { UserLikesInfluencerUseCase } from "@/application/use-cases/userLikesInf
 import { UserLikesInfluencerRepository } from "@/infrastructure/repositories/userLikesInfluencer.repository";
 
 const userLikesInfluencerRepository = new UserLikesInfluencerRepository();
-const userLikesInfluencerUseCase = new UserLikesInfluencerUseCase(userLikesInfluencerRepository);
+const userLikesInfluencerUseCase = new UserLikesInfluencerUseCase(
+  userLikesInfluencerRepository
+);
 
 export const userLikesInfluencerController = {
   async like(req: { userId: number; influencerId: number }) {

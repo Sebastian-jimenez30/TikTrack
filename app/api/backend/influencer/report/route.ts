@@ -3,7 +3,7 @@ import { influencerController } from "@/interface-adapters/controllers/influence
 
 export async function PATCH(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const username = searchParams.get("username")|| null;
+  const username = searchParams.get("username") || null;
   const data = await influencerController.report({ params: { username } });
 
   return NextResponse.json(data);

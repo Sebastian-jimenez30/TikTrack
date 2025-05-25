@@ -37,7 +37,7 @@
       "description": "Encuentra a los influencers más destacados en tu ciudad y comienza a colaborar con ellos."
     },
     "title": "Influencers Destacados",
-    "search":"Buscar influencers"
+    "search": "Buscar influencers"
   },
 
   "InfluencersDisabledPage": {
@@ -329,7 +329,6 @@
     "search": "Buscar"
   },
 
-  
   "FiltersInfluencer": {
     "city": "Ciudad",
     "followers": "Seguidores",

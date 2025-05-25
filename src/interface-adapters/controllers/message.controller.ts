@@ -6,7 +6,7 @@ interface ShowProps {
 }
 
 interface CreateProps {
-  params: { content: string };
+  params: { content: string; user_id: number };
 }
 
 interface UpdateProps {
@@ -14,14 +14,14 @@ interface UpdateProps {
 }
 
 class MessageController {
-  async index(): Promise<{ pageData: { messages: Message[] } }> {
-    const data = await messageUseCases.listAll();
+  async index({ user_id }: { user_id: number }): Promise<{ pageData: { messages: Message[] } }> {
+    const data = await messageUseCases.listByUser(user_id);
     return { pageData: data };
   }
 
   async create({ params }: CreateProps): Promise<Message> {
-    const { content } = params;
-    const message = await messageUseCases.create({ content });
+    const { content, user_id } = params;
+    const message = await messageUseCases.create({ content, user_id });
     return message;
   }
 

@@ -6,9 +6,7 @@ class InfluencerSchedulerUtil {
   private intervalId: NodeJS.Timeout | null = null;
   private readonly intervalTime: number = 60000;
 
-  constructor() {
-    this.start();
-  }
+  constructor() {}
 
   start() {
     if (!this.intervalId) {

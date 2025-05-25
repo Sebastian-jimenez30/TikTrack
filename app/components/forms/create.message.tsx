@@ -5,7 +5,11 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import ROUTES_API from "~/constants/urls/api.urls";
 
-export default function CreateMessage() {
+interface CreateMessageProps {
+  userId: string;
+}
+
+export default function CreateMessage({ userId }: CreateMessageProps) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -18,6 +22,7 @@ export default function CreateMessage() {
     startTransition(async () => {
       const result = await axios.post(ROUTES_API.MESSAGE_CREATE, {
         content: message,
+        user_id: Number(userId),
       });
       if (result.status === 200) {
         setMessage("");

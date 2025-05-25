@@ -11,7 +11,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing username" }, { status: 400 });
   }
 
-  // Obtener el token y el usuario autenticado
   const token = req.cookies.get("authToken")?.value;
   let userId = null;
   if (token) {
@@ -32,5 +31,5 @@ export async function GET(req: NextRequest) {
 
   (data.pageData as Record<string, any>).favorites = favorites;
 
-return NextResponse.json(data);
+  return NextResponse.json(data);
 }

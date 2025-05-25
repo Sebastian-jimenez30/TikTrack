@@ -195,7 +195,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .update(influencersTable)
       .set({
         ...updatableFields,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       })
       .where(eq(influencersTable.id, id))
       .execute();
@@ -352,5 +352,4 @@ export default class InfluencerRepository implements IInfluencerRepository {
 
     return response[0].count;
   }
-
 }
