@@ -197,6 +197,58 @@ export class UserUseCases {
       hasPreviousPage: start > 1,
     };
   }
+
+  async search(
+    query: string,
+    pageNumber: number,
+    limit: number
+  ): Promise<{
+    users: User[];
+    count: number;
+    start: number;
+    end: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  }> {
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const tempUsers = await repository.searchPaginated(
+      pageNumber,
+      limit,
+      query
+    );
+
+    const tempCount = await repository.count();
+
+    const users = tempUsers.map((user) => {
+      return new User(
+        user.id,
+        user.email,
+        user.password,
+        user.name,
+        user.role as Role,
+        user.status as Status,
+        user.createdAt,
+        user.updatedAt
+      );
+    });
+
+    const count = Number(tempCount);
+    const [start, end] = PaginationUtil.getIndexes(
+      pageNumber.toString(),
+      count,
+      10
+    );
+
+    return {
+      users,
+      count,
+      start,
+      end,
+      hasNextPage: end < count,
+      hasPreviousPage: start > 1,
+    };
+  }
 }
 
 export const userUseCases = new UserUseCases();

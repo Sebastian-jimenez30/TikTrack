@@ -9,6 +9,7 @@ interface IndexProps {
     role?: string;
     status?: string;
     updatedAt?: string;
+    search?: string;
   };
 }
 
@@ -36,13 +37,15 @@ export class UserController {
   }> {
     const resolvedParams = await searchParams;
 
-    const { page, role, status, updatedAt } = resolvedParams;
+    const { page, role, status, updatedAt, search } = resolvedParams;
     const pageNumber = page ? Number(page) : 1;
 
     const limit = 8;
 
     let result;
-    if (role || status || updatedAt) {
+    if (search)
+      result = await userUseCases.search(search, pageNumber, limit);
+    else if (role || status || updatedAt) {
       const filters = {
         role,
         status,
@@ -70,6 +73,7 @@ export class UserController {
       hasPreviousPage: result.hasPreviousPage,
       emptyRows: emptyRows,
       filters,
+      search,
     };
 
     return { pageData };

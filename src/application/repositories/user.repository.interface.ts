@@ -84,4 +84,21 @@ export default interface IUserRepository {
       updatedAt: Date;
     }[]
   >;
+
+  searchPaginated(
+    pageNumber: number,
+    limit: number,
+    query: string
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
 }
