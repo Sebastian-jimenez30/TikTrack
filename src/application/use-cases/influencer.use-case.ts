@@ -314,7 +314,8 @@ export class InfluencerUseCases {
   async search(
     query: string,
     pageNumber: number,
-    limit: number
+    limit: number,
+    status?: Status
   ): Promise<{
     influencers: Influencer[];
     count: number;
@@ -330,7 +331,8 @@ export class InfluencerUseCases {
     const tempInfluencers = await repository.searchPaginated(
       pageNumber,
       limit,
-      query
+      query,
+      status
     );
 
     const influencers = tempInfluencers.map((influencer) => {
@@ -354,7 +356,7 @@ export class InfluencerUseCases {
       );
     });
 
-    const tempCount = await repository.countSearchResults(query);
+    const tempCount = await repository.countSearchResults(query, status);
 
     const count = Number(tempCount);
     const [start, end] = PaginationUtil.getIndexes(

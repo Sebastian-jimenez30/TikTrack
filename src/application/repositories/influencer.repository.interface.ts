@@ -98,7 +98,8 @@ export default interface IInfluencerRepository {
   searchPaginated(
     pageNumber: number,
     limit: number,
-    query: string
+    query: string,
+    status?: Status
   ): Promise<
     {
       id: number;
@@ -120,7 +121,7 @@ export default interface IInfluencerRepository {
     }[]
   >;
 
-  countSearchResults(query: string): Promise<number>;
+  countSearchResults(query: string, status?: Status): Promise<number>;
 
   findByUsername(username: string): Promise<{
     id: number;
