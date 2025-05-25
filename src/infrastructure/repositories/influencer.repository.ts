@@ -191,13 +191,11 @@ export default class InfluencerRepository implements IInfluencerRepository {
     const { id, updatedAt, ...updatableFields } = influencer;
     await db
       .update(influencersTable)
-      .set(updatableFields)
-      .where(
-        and(
-          eq(influencersTable.id, id),
-          eq(influencersTable.updatedAt, updatedAt)
-        )
-      )
+      .set({
+        ...updatableFields,
+        updatedAt: new Date()
+      })
+      .where(eq(influencersTable.id, id))
       .execute();
   }
 
