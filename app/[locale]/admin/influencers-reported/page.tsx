@@ -122,7 +122,9 @@ export default async function Reported({
                         : "text-red-500"
                     }`}
                   >
-                    {influencer.status === "active" ? t("active") : t("inactive")}
+                    {influencer.status === "active"
+                      ? t("active")
+                      : t("inactive")}
                   </td>
                   <td className="flex items-center px-6 py-4 gap-2">
                     {influencer.status === "inactive" && (

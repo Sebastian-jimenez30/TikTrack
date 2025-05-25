@@ -38,7 +38,7 @@ interface ActivateProps {
 }
 
 interface ReportProps {
-  params: { username: string | null };  
+  params: { username: string | null };
 }
 
 interface ReportedProps {
@@ -50,10 +50,6 @@ interface ReportedProps {
     updatedAt?: string;
     search?: string;
   };
-}
-
-interface SearchProps {
-  searchParams: { query: string; page?: string };
 }
 
 class InfluencerController {
@@ -257,15 +253,21 @@ class InfluencerController {
       };
 
       return { pageData };
-    } 
+    }
   }
 
   async reported({ searchParams }: ReportedProps): Promise<{
     pageData: object;
   }> {
     const resolvedParams = await searchParams;
-    const { page, city, followers, engagementVisualizationRate, updatedAt,search } =
-      resolvedParams;
+    const {
+      page,
+      city,
+      followers,
+      engagementVisualizationRate,
+      updatedAt,
+      search,
+    } = resolvedParams;
 
     const pageNumber = page ? Number(page) : 1;
 
@@ -306,7 +308,6 @@ class InfluencerController {
 
     return { pageData };
   }
-
 }
 
 export const influencerController = new InfluencerController();

@@ -88,10 +88,11 @@ export class UserController {
       const tempUser = result.user;
       user = UserDetailPresenter.toHttp(tempUser);
 
-      const userLikesInfluencerRepository =
-        new UserLikesInfluencerRepository();
+      const userLikesInfluencerRepository = new UserLikesInfluencerRepository();
 
-      favorites = await userLikesInfluencerRepository.getFavoritesByUserId(Number(id));
+      favorites = await userLikesInfluencerRepository.getFavoritesByUserId(
+        Number(id)
+      );
     }
 
     const pageData = {
@@ -103,9 +104,7 @@ export class UserController {
     return { pageData };
   }
 
-  async update({
-    params,
-  }: UpdateProps): Promise<{
+  async update({ params }: UpdateProps): Promise<{
     pageData: { isSuccess: boolean; message: string };
   }> {
     const { userId, userData, locale } = params;

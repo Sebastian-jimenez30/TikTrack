@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface ShowProps {
-  params: { id: string, locale: string };
+  params: { id: string; locale: string };
 }
 
 export async function generateMetadata() {
@@ -25,7 +25,7 @@ export default async function Show({ params }: ShowProps) {
   const token = cookieStore.get("authToken")?.value;
 
   const t = await getTranslations("ProfilePage");
-  
+
   const pathParams = await params;
 
   try {
@@ -41,9 +41,8 @@ export default async function Show({ params }: ShowProps) {
     }
 
     const user = pageData.user;
-    const favorites = pageData.favorites || []; 
+    const favorites = pageData.favorites || [];
 
-    console.log(favorites);
     return (
       <div className="flex flex-col items-center min-h-screen pb-5">
         <UserCard name={user.name} email={user.email} role={user.role} />
@@ -55,35 +54,39 @@ export default async function Show({ params }: ShowProps) {
             <p className="text-gray-500">{t("noFavorites")}</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl px-4">
-              {favorites.map((inf: {
-                id: number;
-                username: string;
-                profileName: string;
-                profilePicture: string;
-              }) => (
-                <div
-                  key={inf.id}
-                  className="flex items-center gap-4 bg-gray-100 p-4 rounded shadow-sm hover:bg-gray-200 transition"
-                >
-                  <Image
-                    src={inf.profilePicture}
-                    alt={inf.username}
-                    width={80}
-                    height={80}
-                    className="w-12 h-12 rounded-full shadow-lg"
-                    priority
-                  />
-                  <div>
-                    <Link
-                      href={`/${pathParams.locale}/influencers/${inf.username}`}
-                      className="font-semibold text-purple-700 hover:underline"
-                    >
-                      {inf.profileName}
-                    </Link>
-                    <div className="text-sm text-gray-600">@{inf.username}</div>
+              {favorites.map(
+                (inf: {
+                  id: number;
+                  username: string;
+                  profileName: string;
+                  profilePicture: string;
+                }) => (
+                  <div
+                    key={inf.id}
+                    className="flex items-center gap-4 bg-gray-100 p-4 rounded shadow-sm hover:bg-gray-200 transition"
+                  >
+                    <Image
+                      src={inf.profilePicture}
+                      alt={inf.username}
+                      width={80}
+                      height={80}
+                      className="w-12 h-12 rounded-full shadow-lg"
+                      priority
+                    />
+                    <div>
+                      <Link
+                        href={`/${pathParams.locale}/influencers/${inf.username}`}
+                        className="font-semibold text-purple-700 hover:underline"
+                      >
+                        {inf.profileName}
+                      </Link>
+                      <div className="text-sm text-gray-600">
+                        @{inf.username}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           )}
         </div>

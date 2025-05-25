@@ -27,7 +27,11 @@ class User {
       },
       {
         name: "status",
-        options: [{ value: "active" }, { value: "inactive" }, { value: "reported" }],
+        options: [
+          { value: "active" },
+          { value: "inactive" },
+          { value: "reported" },
+        ],
       },
       {
         name: "updatedAt",

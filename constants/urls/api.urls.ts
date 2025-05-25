@@ -9,7 +9,7 @@ const ROUTES_API = {
   INFLUENCER_DISABLED:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/disabled",
   INFLUENCER_REPORTED:
-    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/reported",  
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/reported",
   INFLUENCER_DEACTIVATE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/admin/influencer/deactivate",
   INFLUENCER_ACTIVATE:
@@ -18,8 +18,7 @@ const ROUTES_API = {
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/report",
   INFLUENCER_COMPARE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/compare",
-  INFLUENCER_LIKE:
-    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/like",
+  INFLUENCER_LIKE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/like",
   INFLUENCER_UNLIKE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/unlike",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",

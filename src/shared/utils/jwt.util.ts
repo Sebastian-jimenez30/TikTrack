@@ -58,7 +58,6 @@ class JwtUtil {
       return null;
     }
   }
-
 }
 
 const jwtUtil = new JwtUtil();
