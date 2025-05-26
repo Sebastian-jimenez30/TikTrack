@@ -81,7 +81,23 @@ class Influencer {
     return [
       {
         name: "city",
-        options: [{ value: "Medellín" }, { value: "Bogota" }],
+        options: [
+          { value: "Medellín" },
+          { value: "Bogota" },
+          { value: "Cali" },
+          { value: "Barranquilla" },
+          { value: "Cartagena" },
+          { value: "Bucaramanga" },
+          { value: "Pereira" },
+          { value: "Santa Marta" },
+          { value: "Cúcuta" },
+          { value: "Manizales" },
+          { value: "Ibagué" },
+          { value: "Pasto" },
+          { value: "Neiva" },
+          { value: "Villavicencio" },
+          { value: "Soledad" },
+        ],
       },
       {
         name: "followers",
