@@ -184,7 +184,8 @@
     "user": "Usuario",
     "active": "Activo",
     "inactive": "Inactivo",
-    "manage": "Gestionar"
+    "manage": "Gestionar",
+    "search": "Buscar"
   },
 
   "UserManagementShowPage": {

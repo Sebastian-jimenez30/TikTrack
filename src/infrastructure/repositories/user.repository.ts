@@ -1,4 +1,4 @@
-import { eq, and, gte } from "drizzle-orm";
+import { eq, and, gte, or, ilike } from "drizzle-orm";
 import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
@@ -112,7 +112,7 @@ export default class UserRepository implements IUserRepository {
     const { id, ...updatableFields } = user;
     await db
       .update(usersTable)
-      .set(updatableFields)
+      .set(updatableFieñlds)
       .where(and(eq(usersTable.id, id)))
       .execute();
   }
@@ -146,6 +146,45 @@ export default class UserRepository implements IUserRepository {
 
     if (filters.updatedAt) {
       conditions.push(gte(usersTable.updatedAt, new Date(filters.updatedAt)));
+    }
+
+    const response = await db
+      .select()
+      .from(usersTable)
+      .where(and(...conditions))
+      .orderBy(usersTable.updatedAt)
+      .limit(limit)
+      .offset(offset);
+
+    return response;
+  }
+
+  async searchPaginated(
+    pageNumber: number,
+    limit: number,
+    query: string
+  ): Promise<
+    {
+      id: number;
+      email: string;
+      password: string;
+      name: string;
+      role: Role;
+      status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  > {
+    const offset = (pageNumber - 1) * limit;
+    const conditions = [];
+
+    if (query) {
+      conditions.push(
+        or(
+          ilike(usersTable.email, `%${query}%`),
+          ilike(usersTable.name, `%${query}%`)
+        )
+      );
     }
 
     const response = await db

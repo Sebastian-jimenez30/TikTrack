@@ -184,7 +184,8 @@
     "user": "User",
     "active": "Active",
     "inactive": "Inactive",
-    "manage": "Manage"
+    "manage": "Manage",
+    "search": "Search "
   },
 
   "UserManagementShowPage": {

@@ -6,6 +6,9 @@ import clsx from "clsx";
 import axios from "axios";
 import { Pathname } from "~/i18n/routing";
 import { usePathname } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 interface AddToFavoritesButtonProps {
   variant: "primary" | "secondary" | "danger";
@@ -20,6 +23,7 @@ interface AddToFavoritesButtonProps {
     add: string;
   };
   httpMethod?: "patch" | "post";
+  isFavorite?: boolean;
   onSuccess?: () => void;
 }
 
@@ -30,12 +34,13 @@ export default function AddToFavoritesButton({
   influencerId,
   messages,
   httpMethod = "post",
+  isFavorite = false,
   onSuccess,
 }: AddToFavoritesButtonProps): JSX.Element {
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(isFavorite);
   const [loading, setLoading] = useState(false);
 
   const handleClick = async () => {
@@ -50,10 +55,7 @@ export default function AddToFavoritesButton({
       const result = response.data.pageData ?? response.data;
 
       if (result.isSuccess || result.success) {
-        setLiked(true);
-        sessionStorage.setItem("notification", messages.success);
-        sessionStorage.setItem("notificationType", "success");
-        if (onSuccess) onSuccess();
+        router.refresh();
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");
@@ -73,20 +75,21 @@ export default function AddToFavoritesButton({
       onClick={handleClick}
       disabled={liked || loading}
       className={clsx(
-        "px-4 py-2 rounded-md font-semibold transition-all hover:",
-        variant === "primary" &&
-          "bg-purple text-white cursor-pointer hover:bg-darkPurple",
-        variant === "secondary" &&
-          "bg-darkGrey text-white cursor-pointer hover:bg-black",
-        variant === "danger" &&
-          "bg-red-600 text-white cursor-pointer hover:bg-red-700"
+        "p-2 rounded-full transition-all hover:scale-110",
+        liked
+          ? "bg-purple/10 text-purple"
+          : "bg-gray-100 text-gray-400 hover:text-purple"
       )}
+      aria-label={liked ? messages.alreadyFavorite : messages.add}
+      title={liked ? messages.alreadyFavorite : messages.add}
     >
-      {liked
-        ? messages.alreadyFavorite
-        : loading
-          ? messages.adding
-          : messages.add}
+      <FontAwesomeIcon
+        icon={liked ? solidHeart : regularHeart}
+        className={clsx(
+          "text-2xl text-gray-400"
+        )}
+        spin={loading}
+      />
     </button>
   );
 }

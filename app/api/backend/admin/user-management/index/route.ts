@@ -7,8 +7,10 @@ export async function GET(req: NextRequest) {
   const role = searchParams.get("role") || undefined;
   const status = searchParams.get("status") || undefined;
   const updatedAt = searchParams.get("updatedAt") || undefined;
+  const search = searchParams.get("search") || undefined;
+
   const data = await userController.index({
-    searchParams: { page, role, status, updatedAt },
+    searchParams: { page, role, status, updatedAt, search },
   });
 
   return NextResponse.json(data);

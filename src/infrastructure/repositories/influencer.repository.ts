@@ -286,7 +286,8 @@ export default class InfluencerRepository implements IInfluencerRepository {
   async searchPaginated(
     pageNumber: number,
     limit: number,
-    query: string
+    query: string,
+    status?: Status
   ): Promise<
     {
       id: number;
@@ -319,8 +320,9 @@ export default class InfluencerRepository implements IInfluencerRepository {
         )
       );
     }
-    conditions.push(eq(influencersTable.status, "active"));
-
+    if (status) {
+      conditions.push(eq(influencersTable.status, status));
+    }
     const response = await db
       .select()
       .from(influencersTable)
@@ -332,7 +334,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
     return response;
   }
 
-  async countSearchResults(query: string): Promise<number> {
+  async countSearchResults(query: string, status?: Status): Promise<number> {
     const conditions = [];
 
     if (query) {
@@ -344,8 +346,9 @@ export default class InfluencerRepository implements IInfluencerRepository {
       );
     }
 
-    conditions.push(eq(influencersTable.status, "active"));
-
+    if (status) {
+      conditions.push(eq(influencersTable.status, status));
+    }
     const response = await db
       .select({ count: count() })
       .from(influencersTable)
