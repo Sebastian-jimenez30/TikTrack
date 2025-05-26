@@ -1,9 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Link } from "~/i18n/routing";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import Button from "./buttons/button";
 import ROUTES from "~/constants/urls/urls";
@@ -24,6 +25,12 @@ export default function NavBar({
   id,
 }: NavBarProps) {
   const t = useTranslations("NavBar");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);  const router = useRouter();
+  const pathname = usePathname();
+ 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
  
   useEffect(() => {
     const message = sessionStorage.getItem("notification");
@@ -86,11 +93,12 @@ export default function NavBar({
             </Button>
           )}
           <button
+            onClick={() => setIsMenuOpen(prev => !prev)}
             data-collapse-toggle="navbar-cta"
             type="button"
             className="my-5 sm:my-0 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg 2xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="navbar-cta"
-            aria-expanded="false"
+            aria-expanded={isMenuOpen}
           >
             <svg
               className="w-5 h-5"
@@ -110,7 +118,7 @@ export default function NavBar({
           </button>
         </div>
         <div
-          className="items-center justify-between hidden w-full 2xl:flex 2xl:w-auto 2xl:order-1"
+          className={`items-center justify-between w-full 2xl:flex 2xl:w-auto 2xl:order-1 ${isMenuOpen ? '' : 'hidden'}`}
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 2xl:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 2xl:space-x-8 rtl:space-x-reverse 2xl:flex-row 2xl:mt-0 2xl:border-0 2xl:bg-white">
