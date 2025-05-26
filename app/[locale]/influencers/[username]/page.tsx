@@ -203,9 +203,9 @@ export default async function Show({ params }: ShowProps) {
                           variant="secondary"
                           redirect={ROUTES.INFLUENCERS}
                           actionUrl={
-                            ROUTES_API.INFLUENCER_ACTIVATE + "?username=" + influencer.username
+                            ROUTES_API.INFLUENCER_REMOVE_REPORT + "?username=" + influencer.username
                           }
-                          value={t("activate")}
+                          value={t("removeReport")}
                           messages={{
                             success: t("success"),
                             error: t("error"),
