@@ -120,6 +120,7 @@ export default async function Show({ params }: ShowProps) {
                       redirect={ROUTES.INFLUENCERS}
                       actionUrl={ ROUTES_API.INFLUENCER_LIKE}
                       influencerId={influencer.id}
+                      isFavorite={isFavorite}
                       messages={{
                         success: t("success"),
                         error: t("error"),
@@ -133,6 +134,7 @@ export default async function Show({ params }: ShowProps) {
                   {isAuthenticated && isFavorite && (
                      <InfluencerActionsClient
                       influencerId={influencer.id}
+                      isFavorite={isFavorite}
                       messages={{
                         success: t("success"),
                         error: t("error"),

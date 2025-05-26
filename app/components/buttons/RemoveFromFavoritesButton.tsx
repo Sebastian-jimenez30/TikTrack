@@ -6,6 +6,9 @@ import clsx from "clsx";
 import axios from "axios";
 import { Pathname } from "~/i18n/routing";
 import { usePathname } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 interface RemoveFromFavoritesButtonProps {
   variant: "primary" | "secondary" | "danger";
@@ -19,6 +22,7 @@ interface RemoveFromFavoritesButtonProps {
     remove: string;
   };
   httpMethod?: "delete" | "post";
+  isFavorite?: boolean;
   onSuccess?: () => void;
 }
 
@@ -29,6 +33,7 @@ export default function RemoveFromFavoritesButton({
   influencerId,
   messages,
   httpMethod = "delete",
+  isFavorite = false,
   onSuccess,
 }: RemoveFromFavoritesButtonProps): JSX.Element {
   const router = useRouter();
@@ -49,10 +54,7 @@ export default function RemoveFromFavoritesButton({
       const result = response.data.pageData ?? response.data;
 
       if (result.isSuccess || result.success) {
-        setRemoved(true);
-        sessionStorage.setItem("notification", messages.success);
-        sessionStorage.setItem("notificationType", "success");
-        if (onSuccess) onSuccess();
+        router.refresh();
       } else {
         sessionStorage.setItem("notification", messages.error);
         sessionStorage.setItem("notificationType", "error");
@@ -70,22 +72,20 @@ export default function RemoveFromFavoritesButton({
   return (
     <button
       onClick={handleClick}
-      disabled={removed || loading}
+      disabled={loading}
       className={clsx(
-        "px-4 py-2 rounded-md font-semibold transition-all hover:",
-        variant === "primary" &&
-          "bg-purple text-white cursor-pointer hover:bg-darkPurple",
-        variant === "secondary" &&
-          "bg-darkGrey text-white cursor-pointer hover:bg-black",
-        variant === "danger" &&
-          "bg-red-600 text-white cursor-pointer hover:bg-red-700"
+        "p-2 rounded-full transition-all hover:scale-110 bg-purple/10 text-purple"
       )}
+      aria-label={removed ? messages.success : messages.remove}
+      title={removed ? messages.success : messages.remove}
     >
-      {removed
-        ? messages.success
-        : loading
-          ? messages.removing
-          : messages.remove}
+      <FontAwesomeIcon
+        icon={solidHeart}
+        className={clsx(
+          "text-2xl text-purple"
+        )}
+        spin={loading}
+      />
     </button>
   );
 }

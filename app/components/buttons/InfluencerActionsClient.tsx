@@ -13,6 +13,7 @@ interface Props {
   variant: "primary" | "secondary" | "danger";
   redirect: Pathname;
   actionUrl: string;
+  isFavorite?: boolean;
 }
 
 export default function InfluencerActionsClient(props: Props) {
@@ -20,5 +21,5 @@ export default function InfluencerActionsClient(props: Props) {
     window.location.reload();
   };
 
-  return <RemoveFromFavoritesButton {...props} onSuccess={handleSuccess} />;
+  return <RemoveFromFavoritesButton {...props} isFavorite={props.isFavorite} onSuccess={handleSuccess} />;
 }
