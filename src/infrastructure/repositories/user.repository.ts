@@ -112,7 +112,7 @@ export default class UserRepository implements IUserRepository {
     const { id, ...updatableFields } = user;
     await db
       .update(usersTable)
-      .set(updatableFieñlds)
+      .set(updatableFields)
       .where(and(eq(usersTable.id, id)))
       .execute();
   }
@@ -157,6 +157,29 @@ export default class UserRepository implements IUserRepository {
       .offset(offset);
 
     return response;
+  }
+
+  async countFiltered(filters: FilterOptions): Promise<number> {
+    const conditions = [];
+
+    if (filters.role) {
+      conditions.push(eq(usersTable.role, filters.role));
+    }
+
+    if (filters.status) {
+      conditions.push(eq(usersTable.status, filters.status));
+    }
+
+    if (filters.updatedAt) {
+      conditions.push(gte(usersTable.updatedAt, new Date(filters.updatedAt)));
+    }
+
+    const response = await db
+      .select({ count: count() })
+      .from(usersTable)
+      .where(and(...conditions));
+
+    return response[0].count;
   }
 
   async searchPaginated(

@@ -18,6 +18,7 @@ export default interface IUserRepository {
   >;
 
   count(): Promise<number>;
+  countFiltered(filters: FilterOptions): Promise<number>;
 
   create(user: {
     email: string;
