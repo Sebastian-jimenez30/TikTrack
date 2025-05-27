@@ -8,6 +8,7 @@ import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
 import FilterBar from "~/app/components/forms/filterBar";
 import SearchBar from "~/app/components/forms/searchBar";
+import FilterRedirectHandler from "~/app/components/forms/filterRedirectHandler";
 
 interface DisabledProps {
   searchParams: {
@@ -49,6 +50,12 @@ export default async function Disabled({
   );
   const query = new URLSearchParams(safeParams).toString();
   const paginationCurrentNumber = parseInt(safeParams.page || "1");
+  const filterCity = safeParams.city || undefined;
+  const filterFollowers = safeParams.followers || undefined;
+  const filterEngagementVisualizationRate =
+    safeParams.engagementVisualizationRate || undefined;
+  const filterUpdatedAt = safeParams.updatedAt || undefined;
+  const search = safeParams.search || undefined;
   const pageData = (
     await axios.get(ROUTES_API.INFLUENCER_DISABLED + `?${query}`)
   ).data.pageData;
@@ -70,6 +77,7 @@ export default async function Disabled({
           <SearchBar className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
+          <FilterRedirectHandler />
           <FilterBar filters={filters} translation={translationKeyFilter} />
         </div>
       </div>
@@ -93,6 +101,11 @@ export default async function Disabled({
         <Pagination
           pathname={ROUTES.INFLUENCERS}
           page={paginationCurrentNumber}
+          city={filterCity}
+          followers={filterFollowers}
+          engagementVisualizationRate={filterEngagementVisualizationRate}
+          updatedAt={filterUpdatedAt}
+          search={search}
           hasNextPage={hasNextPage}
           hasPreviousPage={hasPreviousPage}
           totalElements={count}

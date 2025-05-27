@@ -10,6 +10,7 @@ import UserIcon from "~/app/components/icons/user.icon";
 import SearchBar from "~/app/components/forms/searchBar";
 import FilterBar from "~/app/components/forms/filterBar";
 import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
+import FilterRedirectHandler from "~/app/components/forms/filterRedirectHandler";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -46,6 +47,10 @@ export default async function Index({
   );
   const query = new URLSearchParams(safeParams).toString();
   const paginationCurrentNumber = parseInt(safeParams.page || "1");
+  const filterRole = safeParams.role || undefined;
+  const filterStatus = safeParams.status || undefined;
+  const filterUpdatedAt = safeParams.updatedAt || undefined;
+  const search = safeParams.search || undefined;
 
   const cookieStore = await cookies();
   const token = cookieStore.get("authToken")?.value;
@@ -76,6 +81,7 @@ export default async function Index({
           <SearchBar placeholder={t("search")} className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
+          <FilterRedirectHandler />
           <FilterBar filters={filters} translation={translationKeyFilter} />
         </div>
       </div>

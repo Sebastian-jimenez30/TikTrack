@@ -9,6 +9,7 @@ import NotificationSessionStorage from "~/app/components/notificationSessionStor
 import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
 import SearchBar from "~/app/components/forms/searchBar";
 import FilterBar from "~/app/components/forms/filterBar";
+import FilterRedirectHandler from "~/app/components/forms/filterRedirectHandler";
 
 interface IndexProps {
   searchParams: {
@@ -42,6 +43,12 @@ export default async function Index({
   );
   const query = new URLSearchParams(safeParams).toString();
   const paginationCurrentNumber = parseInt(safeParams.page || "1");
+  const filterCity = safeParams.city || undefined;
+  const filterFollowers = safeParams.followers || undefined;
+  const filterEngagementVisualizationRate =
+    safeParams.engagementVisualizationRate || undefined;
+  const filterUpdatedAt = safeParams.updatedAt || undefined;
+  const search = safeParams.search || undefined;
   const pageData = (await axios.get(ROUTES_API.INFLUENCER_INDEX + `?${query}`))
     .data.pageData;
   const influencers = pageData.influencers;
@@ -62,6 +69,7 @@ export default async function Index({
           <SearchBar placeholder={t("search")} className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
+          <FilterRedirectHandler />
           <FilterBar filters={filters} translation={translationKeyFilter} />
         </div>
       </div>
@@ -70,6 +78,11 @@ export default async function Index({
         <Pagination
           pathname={ROUTES.INFLUENCERS}
           page={paginationCurrentNumber}
+          city={filterCity}
+          followers={filterFollowers}
+          engagementVisualizationRate={filterEngagementVisualizationRate}
+          updatedAt={filterUpdatedAt}
+          search={search}
           hasNextPage={hasNextPage}
           hasPreviousPage={hasPreviousPage}
           totalElements={count}
