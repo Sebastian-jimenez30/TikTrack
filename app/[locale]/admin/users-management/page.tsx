@@ -164,6 +164,10 @@ export default async function Index({
         <Pagination
           pathname={ROUTES.USER_MANAGEMENT_INDEX}
           page={paginationCurrentNumber}
+          search={search}
+          role={filterRole}
+          status={filterStatus}
+          updatedAt={filterUpdatedAt}
           hasNextPage={hasNextPage}
           hasPreviousPage={hasPreviousPage}
           totalElements={count}

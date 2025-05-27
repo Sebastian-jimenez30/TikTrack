@@ -2,7 +2,18 @@ import { influencersTable } from "@/infrastructure/database/schemas/influencer.s
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq, and, gte, lte, count, or, like, ilike, inArray, asc, sql } from "drizzle-orm";
+import {
+  eq,
+  and,
+  gte,
+  lte,
+  count,
+  or,
+  ilike,
+  inArray,
+  asc,
+  sql,
+} from "drizzle-orm";
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
@@ -32,9 +43,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
     const response = await db
       .select()
       .from(influencersTable)
-      .where(
-         inArray(influencersTable.status, ["active", "reported"])
-      )
+      .where(inArray(influencersTable.status, ["active", "reported"]))
       .orderBy(asc(influencersTable.id))
       .limit(limit)
       .offset(offset);
@@ -300,7 +309,7 @@ export default class InfluencerRepository implements IInfluencerRepository {
 
   async countFiltered(filters: FilterOptions): Promise<number> {
     const conditions = [];
-    
+
     if (filters.city) {
       conditions.push(eq(influencersTable.city, filters.city));
     }
@@ -335,7 +344,9 @@ export default class InfluencerRepository implements IInfluencerRepository {
     }
 
     if (filters.updatedAt) {
-      conditions.push(gte(influencersTable.updatedAt, new Date(filters.updatedAt)));
+      conditions.push(
+        gte(influencersTable.updatedAt, new Date(filters.updatedAt))
+      );
     }
 
     if (filters.status) {

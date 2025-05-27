@@ -85,9 +85,7 @@ export default function AddToFavoritesButton({
     >
       <FontAwesomeIcon
         icon={liked ? solidHeart : regularHeart}
-        className={clsx(
-          "text-2xl text-gray-400"
-        )}
+        className={clsx("text-2xl text-gray-400")}
         spin={loading}
       />
     </button>

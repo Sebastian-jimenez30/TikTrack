@@ -46,23 +46,31 @@ export default async function Show({ params }: ShowProps) {
       <div className="flex justify-center flex-col items-center pb-5 md:flex-row">
         <div className="flex-[0.75] flex items-center justify-center flex-col min-h-[700px] flex-col">
           <Image
-              src="/profile/influencer-animation.png"
-              alt="influencer"
-              width={400}
-              height={400}
-              priority={true}
-              className="mb-5"
+            src="/profile/influencer-animation.png"
+            alt="influencer"
+            width={400}
+            height={400}
+            priority={true}
+            className="mb-5"
           />
           <div className="text-center space-y-2">
             <h2 className="text-2xl md:text-3xl font-bold">{user.name}</h2>
             <div>
-              <label className="block text-sm font-medium text-gray-600">{t("email")}</label>
-              <h3 className="text-base md:text-lg text-gray-800">{user.email}</h3>
+              <label className="block text-sm font-medium text-gray-600">
+                {t("email")}
+              </label>
+              <h3 className="text-base md:text-lg text-gray-800">
+                {user.email}
+              </h3>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-600">{t("role")}</label>
+              <label className="block text-sm font-medium text-gray-600">
+                {t("role")}
+              </label>
 
-              <h3 className="text-base md:text-lg text-gray-800">{user.role == 'admin'? t("roles.admin") : t("roles.user")}</h3>
+              <h3 className="text-base md:text-lg text-gray-800">
+                {user.role == "admin" ? t("roles.admin") : t("roles.user")}
+              </h3>
             </div>
           </div>
         </div>

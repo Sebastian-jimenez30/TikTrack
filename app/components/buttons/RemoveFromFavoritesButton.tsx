@@ -81,9 +81,7 @@ export default function RemoveFromFavoritesButton({
     >
       <FontAwesomeIcon
         icon={solidHeart}
-        className={clsx(
-          "text-2xl text-purple"
-        )}
+        className={clsx("text-2xl text-purple")}
         spin={loading}
       />
     </button>

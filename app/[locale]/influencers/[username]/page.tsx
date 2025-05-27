@@ -2,7 +2,6 @@ import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
 import RedirectButton from "~/app/components/buttons/redirect.button";
-import Button from "~/app/components/buttons/button";
 import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
 import DiskIcon from "~/app/components/icons/disk.icon";
@@ -63,8 +62,10 @@ export default async function Show({ params }: ShowProps) {
   const isInfluencerReported = influencer.status === "reported";
   const isInfluencerDeactivated = influencer.status === "inactive";
 
-  const favorites = pageData.favorites || []; 
-  const isFavorite = favorites.some((fav: {id: number}) => fav.id === influencer.id);
+  const favorites = pageData.favorites || [];
+  const isFavorite = favorites.some(
+    (fav: { id: number }) => fav.id === influencer.id
+  );
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -104,35 +105,35 @@ export default async function Show({ params }: ShowProps) {
                 </div>
                 <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
                   {isAuthenticated && (
-                  <Link
-                    href={{
-                      pathname: ROUTES.MESSAGES,
-                      params: { username: influencer.username },
-                    }}
-                    className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
-                  >
-                    {t("message")}
-                  </Link>
+                    <Link
+                      href={{
+                        pathname: ROUTES.MESSAGES,
+                        params: { username: influencer.username },
+                      }}
+                      className="px-4 py-2 rounded-md font-semibold transition-all hover:bg-darkPurple bg-purple text-white cursor-pointer"
+                    >
+                      {t("message")}
+                    </Link>
                   )}
-                  {isAuthenticated && !isFavorite &&(
-                  <AddToFavoritesButton
-                    variant="primary"
+                  {isAuthenticated && !isFavorite && (
+                    <AddToFavoritesButton
+                      variant="primary"
                       redirect={ROUTES.INFLUENCERS}
-                      actionUrl={ ROUTES_API.INFLUENCER_LIKE}
+                      actionUrl={ROUTES_API.INFLUENCER_LIKE}
                       influencerId={influencer.id}
                       isFavorite={isFavorite}
                       messages={{
                         success: t("success"),
                         error: t("error"),
-                        alreadyFavorite: t("alreadyFavorite"), 
+                        alreadyFavorite: t("alreadyFavorite"),
                         adding: t("adding"),
                         add: t("addToFavorites"),
                       }}
                       httpMethod="post"
-                  />
+                    />
                   )}
                   {isAuthenticated && isFavorite && (
-                     <InfluencerActionsClient
+                    <InfluencerActionsClient
                       influencerId={influencer.id}
                       isFavorite={isFavorite}
                       messages={{
@@ -147,75 +148,33 @@ export default async function Show({ params }: ShowProps) {
                     />
                   )}
                 </div>
-                <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">  
+                <div className="flex w-full max-w-[480px] gap-3 @[480px]:w-auto items-center justify-center">
                   {isInfluencerActive && (
-                  <>
-                    {isAuthenticated && !isAdmin &&(
-                      <RedirectButton
-                        variant="secondary"
-                        redirect={ROUTES.INFLUENCERS}
-                        actionUrl={
-                          ROUTES_API.INFLUENCER_REPORT + "?username=" + influencer.username
-                        }
-                        value={t("report")}
-                        messages={{
-                          success: t("success"),
-                          error: t("error"),
-                        }}
-                      />
-                    )}
-                    {isAdmin && (
-                      <RedirectButton
-                        variant="secondary"
-                        redirect={ROUTES.INFLUENCERS}
-                        actionUrl={
-                          ROUTES_API.INFLUENCER_DEACTIVATE + "?username=" + influencer.username
-                        }
-                        value={t("deactivate")}
-                        messages={{
-                          success: t("success"),
-                          error: t("error"),
-                        }}
-                      />
-                    )}
-                  </>
-                )}
-                {isInfluencerReported && (
-                  <>
-                    {isAuthenticated && !isAdmin && (
-                      <RedirectButton
+                    <>
+                      {isAuthenticated && !isAdmin && (
+                        <RedirectButton
                           variant="secondary"
                           redirect={ROUTES.INFLUENCERS}
                           actionUrl={
-                            ROUTES_API.INFLUENCER_REMOVE_REPORT + "?username=" + influencer.username
+                            ROUTES_API.INFLUENCER_REPORT +
+                            "?username=" +
+                            influencer.username
                           }
-                          value={t("removeReport")}
+                          value={t("report")}
                           messages={{
                             success: t("success"),
                             error: t("error"),
                           }}
                         />
-                    )}
-                    
-                    {isAdmin && (
-                      <>
+                      )}
+                      {isAdmin && (
                         <RedirectButton
                           variant="secondary"
                           redirect={ROUTES.INFLUENCERS}
                           actionUrl={
-                            ROUTES_API.INFLUENCER_REMOVE_REPORT + "?username=" + influencer.username
-                          }
-                          value={t("removeReport")}
-                          messages={{
-                            success: t("success"),
-                            error: t("error"),
-                          }}
-                        />
-                        <RedirectButton
-                          variant="secondary"
-                          redirect={ROUTES.INFLUENCERS}
-                          actionUrl={
-                            ROUTES_API.INFLUENCER_DEACTIVATE + "?username=" + influencer.username
+                            ROUTES_API.INFLUENCER_DEACTIVATE +
+                            "?username=" +
+                            influencer.username
                           }
                           value={t("deactivate")}
                           messages={{
@@ -223,27 +182,80 @@ export default async function Show({ params }: ShowProps) {
                             error: t("error"),
                           }}
                         />
-                      </>
-                    )}
-                  </>
-                )}
-                {isInfluencerDeactivated && isAdmin && (
-                  <>
-                    <RedirectButton
-                      variant="secondary"
-                      redirect={ROUTES.INFLUENCERS}
-                      actionUrl={
-                        ROUTES_API.INFLUENCER_ACTIVATE + "?username=" + influencer.username
-                      }
-                      value={t("activate")}
-                      messages={{
-                        success: t("success"),
-                        error: t("error"),
-                      }}
-                    />
-                  </>
-                )}
+                      )}
+                    </>
+                  )}
+                  {isInfluencerReported && (
+                    <>
+                      {isAuthenticated && !isAdmin && (
+                        <RedirectButton
+                          variant="secondary"
+                          redirect={ROUTES.INFLUENCERS}
+                          actionUrl={
+                            ROUTES_API.INFLUENCER_REMOVE_REPORT +
+                            "?username=" +
+                            influencer.username
+                          }
+                          value={t("removeReport")}
+                          messages={{
+                            success: t("success"),
+                            error: t("error"),
+                          }}
+                        />
+                      )}
 
+                      {isAdmin && (
+                        <>
+                          <RedirectButton
+                            variant="secondary"
+                            redirect={ROUTES.INFLUENCERS}
+                            actionUrl={
+                              ROUTES_API.INFLUENCER_REMOVE_REPORT +
+                              "?username=" +
+                              influencer.username
+                            }
+                            value={t("removeReport")}
+                            messages={{
+                              success: t("success"),
+                              error: t("error"),
+                            }}
+                          />
+                          <RedirectButton
+                            variant="secondary"
+                            redirect={ROUTES.INFLUENCERS}
+                            actionUrl={
+                              ROUTES_API.INFLUENCER_DEACTIVATE +
+                              "?username=" +
+                              influencer.username
+                            }
+                            value={t("deactivate")}
+                            messages={{
+                              success: t("success"),
+                              error: t("error"),
+                            }}
+                          />
+                        </>
+                      )}
+                    </>
+                  )}
+                  {isInfluencerDeactivated && isAdmin && (
+                    <>
+                      <RedirectButton
+                        variant="secondary"
+                        redirect={ROUTES.INFLUENCERS}
+                        actionUrl={
+                          ROUTES_API.INFLUENCER_ACTIVATE +
+                          "?username=" +
+                          influencer.username
+                        }
+                        value={t("activate")}
+                        messages={{
+                          success: t("success"),
+                          error: t("error"),
+                        }}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
             </div>

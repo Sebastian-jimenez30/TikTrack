@@ -43,8 +43,7 @@ export class UserController {
     const limit = 8;
 
     let result;
-    if (search)
-      result = await userUseCases.search(search, pageNumber, limit);
+    if (search) result = await userUseCases.search(search, pageNumber, limit);
     else if (role || status || updatedAt) {
       const filters = {
         role,

@@ -14,7 +14,11 @@ interface UpdateProps {
 }
 
 class MessageController {
-  async index({ user_id }: { user_id: number }): Promise<{ pageData: { messages: Message[] } }> {
+  async index({
+    user_id,
+  }: {
+    user_id: number;
+  }): Promise<{ pageData: { messages: Message[] } }> {
     const data = await messageUseCases.listByUser(user_id);
     return { pageData: data };
   }

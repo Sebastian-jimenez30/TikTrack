@@ -4,20 +4,20 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Link } from "~/i18n/routing";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Button from "./buttons/button";
 import ROUTES from "~/constants/urls/urls";
 import { logout } from "@/shared/utils/auth.util";
 import LogoutIcon from "./icons/logout.icon";
- 
+
 interface NavBarProps {
   isAuthenticated: boolean;
   isAdmin: boolean;
   locale: string;
   id: string;
 }
- 
+
 export default function NavBar({
   isAuthenticated,
   isAdmin,
@@ -25,17 +25,17 @@ export default function NavBar({
   id,
 }: NavBarProps) {
   const t = useTranslations("NavBar");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
- 
+
   useEffect(() => {
     setIsMenuOpen(false);
   }, [pathname]);
- 
+
   useEffect(() => {
     const message = sessionStorage.getItem("notification");
     const type = sessionStorage.getItem("notificationType");
- 
+
     if (message) {
       if (type === "error") {
         toast.error(message);
@@ -52,7 +52,7 @@ export default function NavBar({
       sessionStorage.removeItem("notificationType");
     }
   }, []);
- 
+
   return (
     <nav className="bg-white border-gray-200 mb-10 fixed w-full z-50 top-0 left-0 shadow-sm">
       <div className="flex flex-wrap items-center p-4 justify-around">
@@ -93,7 +93,7 @@ export default function NavBar({
             </Button>
           )}
           <button
-            onClick={() => setIsMenuOpen(prev => !prev)}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
             data-collapse-toggle="navbar-cta"
             type="button"
             className="my-5 sm:my-0 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg 2xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
@@ -118,7 +118,7 @@ export default function NavBar({
           </button>
         </div>
         <div
-          className={`items-center justify-between w-full 2xl:flex 2xl:w-auto 2xl:order-1 ${isMenuOpen ? '' : 'hidden'}`}
+          className={`items-center justify-between w-full 2xl:flex 2xl:w-auto 2xl:order-1 ${isMenuOpen ? "" : "hidden"}`}
           id="navbar-cta"
         >
           <ul className="flex flex-col font-medium p-4 2xl:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 2xl:space-x-8 rtl:space-x-reverse 2xl:flex-row 2xl:mt-0 2xl:border-0 2xl:bg-white">

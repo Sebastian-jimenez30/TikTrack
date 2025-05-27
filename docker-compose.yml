@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
     environment:
       - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=30 
+      - WATCHTOWER_POLL_INTERVAL=30
 
 volumes:
   postgres_data:

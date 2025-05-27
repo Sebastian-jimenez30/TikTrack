@@ -42,8 +42,10 @@ export default async function MessagesPage({ params, searchParams }: Props) {
   if (token && !(await jwtUtil.isTokenExpired(token))) {
     userId = (await jwtUtil.getUserIdFromToken(token)).toString();
   }
-  
-  const pageData = (await axios.get(`${ROUTES_API.MESSAGE_INDEX}?user_id=${userId}`)).data.pageData;
+
+  const pageData = (
+    await axios.get(`${ROUTES_API.MESSAGE_INDEX}?user_id=${userId}`)
+  ).data.pageData;
   const messages: Message[] = pageData.messages;
 
   const paramsData = await params;

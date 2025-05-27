@@ -72,7 +72,12 @@ class InfluencerController {
     let result;
 
     if (search)
-      result = await influencerUseCases.search(search, pageNumber, limit, "active");
+      result = await influencerUseCases.search(
+        search,
+        pageNumber,
+        limit,
+        "active"
+      );
     else if (city || followers || engagementVisualizationRate || updatedAt) {
       const filters = {
         city,
@@ -146,7 +151,12 @@ class InfluencerController {
     let result;
 
     if (search)
-      result = await influencerUseCases.search(search, pageNumber, limit,"inactive");
+      result = await influencerUseCases.search(
+        search,
+        pageNumber,
+        limit,
+        "inactive"
+      );
     else if (city || followers || engagementVisualizationRate || updatedAt) {
       const filters = {
         city,
@@ -275,7 +285,12 @@ class InfluencerController {
     let result;
 
     if (search)
-      result = await influencerUseCases.search(search, pageNumber, limit, "reported");
+      result = await influencerUseCases.search(
+        search,
+        pageNumber,
+        limit,
+        "reported"
+      );
     else if (city || followers || engagementVisualizationRate || updatedAt) {
       const filters = {
         city,

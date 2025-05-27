@@ -21,5 +21,11 @@ export default function InfluencerActionsClient(props: Props) {
     window.location.reload();
   };
 
-  return <RemoveFromFavoritesButton {...props} isFavorite={props.isFavorite} onSuccess={handleSuccess} />;
+  return (
+    <RemoveFromFavoritesButton
+      {...props}
+      isFavorite={props.isFavorite}
+      onSuccess={handleSuccess}
+    />
+  );
 }

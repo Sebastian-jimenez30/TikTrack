@@ -3,7 +3,6 @@ import { messagesTable } from "@/infrastructure/database/schemas/message.schema"
 import IMessageRepository from "@/application/repositories/message.repository.interface";
 import db from "@/infrastructure/database/index";
 import { asc } from "drizzle-orm";
-import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 
 export default class MessageRepository implements IMessageRepository {
   async listByUser(user_id: number): Promise<

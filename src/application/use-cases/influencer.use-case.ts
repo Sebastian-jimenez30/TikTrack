@@ -264,7 +264,7 @@ export class InfluencerUseCases {
       filters
     );
 
-    let influencers = tempInfluencers.map((influencer) => {
+    const influencers = tempInfluencers.map((influencer) => {
       return new Influencer(
         influencer.id,
         influencer.username,
@@ -285,11 +285,9 @@ export class InfluencerUseCases {
       );
     });
 
-    const tempCount = await repository.countFiltered(
-      filters
-    );
+    const tempCount = await repository.countFiltered(filters);
 
-    const count = Number(tempCount)
+    const count = Number(tempCount);
     const [start, end] = PaginationUtil.getIndexes(
       pageNumber.toString(),
       count,

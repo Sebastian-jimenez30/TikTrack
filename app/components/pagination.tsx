@@ -1,4 +1,3 @@
-import { FilterOptions } from "@/domain/entities/influencer";
 import { useTranslations } from "next-intl";
 import { JSX } from "react";
 import { Pathname } from "~/i18n/routing";
@@ -59,7 +58,19 @@ export default function Pagination({
       <div className="inline-flex mt-2 xs:mt-0">
         {hasPreviousPage ? (
           <Link
-            href={{ pathname: pathname, query: { page: page - 1, followers: followers, city: city, engagementVisualizationRate:engagementVisualizationRate,  updatedAt: updatedAt, search: search, role: role, status: status} }}
+            href={{
+              pathname: pathname,
+              query: {
+                page: page - 1,
+                followers: followers,
+                city: city,
+                engagementVisualizationRate: engagementVisualizationRate,
+                updatedAt: updatedAt,
+                search: search,
+                role: role,
+                status: status,
+              },
+            }}
             className={`${baseClasses} rounded-s`}
           >
             <svg
@@ -105,7 +116,19 @@ export default function Pagination({
 
         {hasNextPage ? (
           <Link
-            href={{ pathname: pathname, query: { page: page + 1, followers: followers, city: city, engagementVisualizationRate:engagementVisualizationRate,  updatedAt: updatedAt, search:search, role: role, status: status} }}
+            href={{
+              pathname: pathname,
+              query: {
+                page: page + 1,
+                followers: followers,
+                city: city,
+                engagementVisualizationRate: engagementVisualizationRate,
+                updatedAt: updatedAt,
+                search: search,
+                role: role,
+                status: status,
+              },
+            }}
             className={`${baseClasses} border-0 border-s border-black rounded-e`}
           >
             {t("next")}

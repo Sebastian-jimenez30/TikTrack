@@ -52,7 +52,7 @@ export default function RedirectButton({
         sessionStorage.setItem("notificationType", "error");
         router.push(pathname);
       }
-    } catch (error) {
+    } catch {
       sessionStorage.setItem("notification", messages.error);
       sessionStorage.setItem("notificationType", "error");
       router.push(pathname);
