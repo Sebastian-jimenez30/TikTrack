@@ -83,7 +83,7 @@ class Influencer {
         name: "city",
         options: [
           { value: "Medellín" },
-          { value: "Bogota" },
+          { value: "Bogotá" },
           { value: "Cali" },
           { value: "Barranquilla" },
           { value: "Cartagena" },
