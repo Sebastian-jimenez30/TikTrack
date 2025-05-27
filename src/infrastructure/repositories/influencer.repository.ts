@@ -2,7 +2,7 @@ import { influencersTable } from "@/infrastructure/database/schemas/influencer.s
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { FilterOptions, Status } from "@/domain/entities/influencer";
 import db from "@/infrastructure/database/index";
-import { eq, and, gte, lte, count, or, like, ilike, inArray, asc } from "drizzle-orm";
+import { eq, and, gte, lte, count, or, like, ilike, inArray, asc, sql } from "drizzle-orm";
 
 export default class InfluencerRepository implements IInfluencerRepository {
   async listActivePaginated(
@@ -272,6 +272,21 @@ export default class InfluencerRepository implements IInfluencerRepository {
       conditions.push(eq(influencersTable.status, filters.status));
     }
 
+    if (filters.engagementVisualizationRate) {
+      const match = filters.engagementVisualizationRate.match(/\d+/);
+      const evr = match ? parseFloat(match[0]) / 100 : 0 / 100;
+
+      conditions.push(sql`
+      (
+        (${influencersTable.averageLikes} +
+        ${influencersTable.averageComments} +
+        ${influencersTable.averageShares} +
+        ${influencersTable.averageSaves}
+        ) / NULLIF(${influencersTable.averageViews}, 0)
+      ) >= ${evr}
+    `);
+    }
+
     const response = await db
       .select()
       .from(influencersTable)
@@ -281,6 +296,73 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .offset(offset);
 
     return response;
+  }
+
+  async countFiltered(filters: FilterOptions): Promise<number> {
+    const conditions = [];
+    
+    if (filters.city) {
+      conditions.push(eq(influencersTable.city, filters.city));
+    }
+
+    if (filters.followers) {
+      let [minStr, maxStr] = filters.followers.split("-");
+
+      const parseValue = (val: string) => {
+        const lower = val.toLowerCase().trim();
+        if (lower.endsWith("k")) {
+          return parseFloat(lower.replace("k", "")) * 1000;
+        }
+        if (lower.includes("m")) {
+          return parseFloat(lower.replace("m", "")) * 1000000;
+        }
+        return parseFloat(lower);
+      };
+
+      if (!maxStr) {
+        maxStr = "80M";
+        minStr = "1M";
+      }
+      const min = parseValue(minStr);
+      const max = parseValue(maxStr);
+
+      conditions.push(
+        and(
+          gte(influencersTable.followers, min),
+          lte(influencersTable.followers, max)
+        )
+      );
+    }
+
+    if (filters.updatedAt) {
+      conditions.push(gte(influencersTable.updatedAt, new Date(filters.updatedAt)));
+    }
+
+    if (filters.status) {
+      conditions.push(eq(influencersTable.status, filters.status));
+    }
+
+    if (filters.engagementVisualizationRate) {
+      const match = filters.engagementVisualizationRate.match(/\d+/);
+      const evr = match ? parseFloat(match[0]) / 100 : 0 / 100;
+
+      conditions.push(sql`
+      (
+        (${influencersTable.averageLikes} +
+        ${influencersTable.averageComments} +
+        ${influencersTable.averageShares} +
+        ${influencersTable.averageSaves}
+        ) / NULLIF(${influencersTable.averageViews}, 0)
+      ) >= ${evr}
+    `);
+    }
+
+    const response = await db
+      .select({ count: count() })
+      .from(influencersTable)
+      .where(and(...conditions));
+
+    return response[0].count;
   }
 
   async searchPaginated(

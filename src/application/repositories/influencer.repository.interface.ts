@@ -145,6 +145,7 @@ export default interface IInfluencerRepository {
   countActive(): Promise<number>;
   countInactive(): Promise<number>;
   countReported(): Promise<number>;
+  countFiltered(filters: FilterOptions): Promise<number>;
 
   create(influencer: {
     username: string;
