@@ -32,6 +32,7 @@ export default function FilterBar({ filters, translation }: FilterBarProps) {
     } else {
       params.delete(name);
     }
+    sessionStorage.setItem("filtersChanged", "true");
     router.push(`${pathname}?${params.toString()}`);
   };
 
