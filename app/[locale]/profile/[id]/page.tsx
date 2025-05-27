@@ -1,5 +1,4 @@
 import ROUTES_API from "~/constants/urls/api.urls";
-import UserCard from "~/app/components/cards/user.card";
 import { cookies } from "next/headers";
 import axios from "axios";
 import { getTranslations } from "next-intl/server";
@@ -44,30 +43,51 @@ export default async function Show({ params }: ShowProps) {
     const favorites = pageData.favorites || [];
 
     return (
-      <div className="flex flex-col items-center min-h-screen pb-5">
-        <UserCard name={user.name} email={user.email} role={user.role} />
-        <div className="mt-8 w-full max-w-3xl">
-          <h2 className="text-3xl font-semibold text-purple text-center mb-8">
+      <div className="flex justify-center flex-col items-center pb-5 md:flex-row">
+        <div className="flex-[0.75] flex items-center justify-center flex-col min-h-[700px] flex-col">
+          <Image
+              src="/profile/influencer-animation.png"
+              alt="influencer"
+              width={400}
+              height={400}
+              priority={true}
+              className="mb-5"
+          />
+          <div className="text-center space-y-2">
+            <h2 className="text-2xl md:text-3xl font-bold">{user.name}</h2>
+            <div>
+              <label className="block text-sm font-medium text-gray-600">{t("email")}</label>
+              <h3 className="text-base md:text-lg text-gray-800">{user.email}</h3>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600">{t("role")}</label>
+
+              <h3 className="text-base md:text-lg text-gray-800">{user.role == 'admin'? t("roles.admin") : t("roles.user")}</h3>
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col">
+          <h2 className="mx-auto mb-5 text-center text-lg font-semibold relative w-fit after:content-[''] after:block after:w-16 after:h-[3px] after:bg-black after:mx-auto after:mt-1">
             {t("favoritesTitle")}
           </h2>
           {favorites.length === 0 ? (
             <p className="text-gray-500">{t("noFavorites")}</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl px-4">
+            <div className="grid gap-4 w-full max-w-5xl px-4 mx-auto">
               {favorites.map(
-                (inf: {
+                (influencer: {
                   id: number;
                   username: string;
                   profileName: string;
                   profilePicture: string;
                 }) => (
                   <div
-                    key={inf.id}
+                    key={influencer.id}
                     className="flex items-center gap-4 bg-gray-100 p-4 rounded shadow-sm hover:bg-gray-200 transition"
                   >
                     <Image
-                      src={inf.profilePicture}
-                      alt={inf.username}
+                      src={influencer.profilePicture}
+                      alt={influencer.username}
                       width={80}
                       height={80}
                       className="w-12 h-12 rounded-full shadow-lg"
@@ -75,13 +95,13 @@ export default async function Show({ params }: ShowProps) {
                     />
                     <div>
                       <Link
-                        href={`/${pathParams.locale}/influencers/${inf.username}`}
+                        href={`/${pathParams.locale}/influencers/${influencer.username}`}
                         className="font-semibold text-purple-700 hover:underline"
                       >
-                        {inf.profileName}
+                        {influencer.profileName}
                       </Link>
                       <div className="text-sm text-gray-600">
-                        @{inf.username}
+                        @{influencer.username}
                       </div>
                     </div>
                   </div>
