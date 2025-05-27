@@ -166,7 +166,7 @@ export class UserUseCases {
       filters
     );
 
-    const tempCount = await repository.count();
+    const tempCount = await repository.countFiltered(filters);
 
     const users = tempUsers.map((user) => {
       return new User(
@@ -185,7 +185,7 @@ export class UserUseCases {
     const [start, end] = PaginationUtil.getIndexes(
       pageNumber.toString(),
       count,
-      10
+      limit
     );
 
     return {

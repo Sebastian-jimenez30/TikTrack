@@ -1,4 +1,4 @@
-export type Status = "active" | "inactive" | "reported";
+export type Status = "active" | "inactive";
 export type Role = "admin" | "user";
 
 export interface FilterOptions {

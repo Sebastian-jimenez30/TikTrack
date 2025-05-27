@@ -285,20 +285,15 @@ export class InfluencerUseCases {
       );
     });
 
-    if (filters.engagementVisualizationRate) {
-      influencers = influencers.filter((influencer) => {
-        return (
-          Number(filters.engagementVisualizationRate?.match(/\d+/)) <=
-          Number(influencer.getEngagementVisualizationRate())
-        );
-      });
-    }
+    const tempCount = await repository.countFiltered(
+      filters
+    );
 
-    const count = influencers.length;
+    const count = Number(tempCount)
     const [start, end] = PaginationUtil.getIndexes(
       pageNumber.toString(),
       count,
-      10
+      limit
     );
 
     return {
