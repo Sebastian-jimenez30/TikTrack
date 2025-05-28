@@ -31,6 +31,15 @@ export class AuthUseCases {
       };
     }
 
+    const existingUser = await repository.findByEmail(email);
+    if (existingUser) {
+      return {
+        token: null,
+        message: t("error.userAlreadyExists"),
+        is_success: false,
+      };
+    }
+
     const hashedPassword = await hash(password, 10);
 
     const user = (await repository.create({
