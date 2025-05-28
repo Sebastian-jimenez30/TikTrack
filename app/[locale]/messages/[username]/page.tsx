@@ -11,6 +11,7 @@ import MessageCard from "~/app/components/cards/message.card";
 import EmailIcon from "~/app/components/icons/email.icon";
 import { cookies } from "next/headers";
 import jwtUtil from "@/shared/utils/jwt.util";
+import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
 
 interface Message {
   id: number;
@@ -59,6 +60,7 @@ export default async function MessagesPage({ params, searchParams }: Props) {
 
   return (
     <div>
+      <NotificationSessionStorage />
       <h1 className="mb-8 text-4xl font-semibold leading-none tracking-tight md:text-5xl lg:text-6xl lg:text-left text-center">
         {t("title")} <EmailIcon className="text-lightPurple" />
       </h1>

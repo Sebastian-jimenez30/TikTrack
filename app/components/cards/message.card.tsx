@@ -5,52 +5,59 @@ import { useTranslations } from "next-intl";
 import ROUTES_API from "~/constants/urls/api.urls";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
 
 interface MessageCardProps {
   id: number;
   content: string;
   isSelectLink?: boolean;
+  onDelete?: (id: number) => void;
+  onUpdate?: (id: number, newContent: string) => void;
 }
 
 export default function MessageCard({
   id,
   content,
+  onDelete,
+  onUpdate,
   isSelectLink,
 }: MessageCardProps) {
   const [editing, setEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
   const [newContent, setNewContent] = useState(content);
+  
   const t = useTranslations("Cards.message");
+  const router = useRouter();
 
   async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newContent.trim()) {
-      setError(t("error.notEmptyContent"));
+      toast.error(t("error.notEmptyContent"));
       return;
     }
 
     startTransition(async () => {
-      try {
-        const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
-          id,
-          content: newContent,
-        });
+    try {
+      const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
+        id,
+        content: newContent,
+      });
 
-        if (result.status === 200) {
-          setEditing(false);
-          setError(null);
-          setNewContent(result.data.content);
-          alert(t("success.messageUpdated"));
-          window.location.reload();
-        } else {
-          setError(t("error.failedToUpdateMessage"));
-        }
-      } catch {
-        setError(t("error.failedToUpdateMessage"));
+      if (result.status === 200) {
+        setEditing(false);
+        onUpdate?.(id, result.data.content);
+        toast.success(t("success.messageUpdated"));
+        router.refresh()
+      } else {
+        toast.error(t("error.failedToUpdateMessage"));
       }
-    });
-  }
+    } catch {
+      toast.error(t("error.failedToUpdateMessage"));
+    }
+  });
+}
 
   async function handleDelete() {
     startTransition(async () => {
@@ -59,14 +66,14 @@ export default function MessageCard({
           data: { id },
         });
         if (result.status === 200) {
-          setError(null);
-          alert(t("success.messageDeleted"));
-          window.location.reload();
+          onDelete?.(id);
+          toast.success(t("success.messageDeleted"));
+          router.refresh()
         } else {
-          setError(t("error.failedToDeleteMessage"));
+          toast.error(t("error.failedToDeleteMessage"));
         }
       } catch {
-        setError(t("error.failedToDeleteMessage"));
+        toast.error(t("error.failedToDeleteMessage"));
       }
     });
   }
@@ -77,10 +84,6 @@ export default function MessageCard({
 
   return (
     <div className="min-h-[300px] max-h-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2 overflow-y-auto flex flex-col">
-      {error && (
-        <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
-      )}
-
       {editing ? (
         <form onSubmit={handleUpdate} className="mt-3">
           <textarea
