@@ -23,7 +23,7 @@ interface UserUpdateProps {
 
 export default function UserUpdate({ user }: UserUpdateProps) {
   const t = useTranslations("UserManagementShowPage");
-  
+
   const [actionResult, setActionResult] = useState<{
     error?: string;
     success?: string;
@@ -38,7 +38,7 @@ export default function UserUpdate({ user }: UserUpdateProps) {
       } else if (actionResult.success) {
         sessionStorage.setItem("notification", actionResult.success);
         sessionStorage.setItem("notificationType", "success");
-        router.push(ROUTES.USER_MANAGEMENT_INDEX);  
+        router.push(ROUTES.USER_MANAGEMENT_INDEX);
       }
     }
   }, [actionResult, router]);

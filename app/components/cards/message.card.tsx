@@ -8,7 +8,6 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-
 interface MessageCardProps {
   id: number;
   content: string;
@@ -27,7 +26,7 @@ export default function MessageCard({
   const [editing, setEditing] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [newContent, setNewContent] = useState(content);
-  
+
   const t = useTranslations("Cards.message");
   const router = useRouter();
 
@@ -39,25 +38,25 @@ export default function MessageCard({
     }
 
     startTransition(async () => {
-    try {
-      const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
-        id,
-        content: newContent,
-      });
+      try {
+        const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
+          id,
+          content: newContent,
+        });
 
-      if (result.status === 200) {
-        setEditing(false);
-        onUpdate?.(id, result.data.content);
-        toast.success(t("success.messageUpdated"));
-        router.refresh()
-      } else {
+        if (result.status === 200) {
+          setEditing(false);
+          onUpdate?.(id, result.data.content);
+          toast.success(t("success.messageUpdated"));
+          router.refresh();
+        } else {
+          toast.error(t("error.failedToUpdateMessage"));
+        }
+      } catch {
         toast.error(t("error.failedToUpdateMessage"));
       }
-    } catch {
-      toast.error(t("error.failedToUpdateMessage"));
-    }
-  });
-}
+    });
+  }
 
   async function handleDelete() {
     startTransition(async () => {
@@ -68,7 +67,7 @@ export default function MessageCard({
         if (result.status === 200) {
           onDelete?.(id);
           toast.success(t("success.messageDeleted"));
-          router.refresh()
+          router.refresh();
         } else {
           toast.error(t("error.failedToDeleteMessage"));
         }
