@@ -1,0 +1,12 @@
+const TIKTRACK_FETCH_INFLUENCERS_URL =
+  process.env.NEXT_PUBLIC_FETCH_INFLUENCERS_MICROSERVICE_URL!;
+const TIKTRACK_SEND_MESSAGE_URL =
+  process.env.NEXT_PUBLIC_SEND_MESSAGE_MICROSERVICE_URL!;
+
+const ROUTES = {
+  GET_INFLUENCERS: TIKTRACK_FETCH_INFLUENCERS_URL + "influencers",
+  SEND_MESSAGE: (username: string) =>
+    TIKTRACK_SEND_MESSAGE_URL + `messages/${username}`,
+} as const;
+
+export default ROUTES;

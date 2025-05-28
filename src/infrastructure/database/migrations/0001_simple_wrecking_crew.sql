@@ -1,0 +1,1 @@
+ALTER TABLE "influencers" ADD COLUMN "featured_videos" json NOT NULL;

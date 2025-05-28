@@ -1,0 +1,135 @@
+"use client";
+
+import { useTransition, useState } from "react";
+import { useTranslations } from "next-intl";
+import ROUTES_API from "~/constants/urls/api.urls";
+import Link from "next/link";
+import axios from "axios";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+interface MessageCardProps {
+  id: number;
+  content: string;
+  isSelectLink?: boolean;
+  onDelete?: (id: number) => void;
+  onUpdate?: (id: number, newContent: string) => void;
+}
+
+export default function MessageCard({
+  id,
+  content,
+  onDelete,
+  onUpdate,
+  isSelectLink,
+}: MessageCardProps) {
+  const [editing, setEditing] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [newContent, setNewContent] = useState(content);
+
+  const t = useTranslations("Cards.message");
+  const router = useRouter();
+
+  async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!newContent.trim()) {
+      toast.error(t("error.notEmptyContent"));
+      return;
+    }
+
+    startTransition(async () => {
+      try {
+        const result = await axios.put(ROUTES_API.MESSAGE_EDIT, {
+          id,
+          content: newContent,
+        });
+
+        if (result.status === 200) {
+          setEditing(false);
+          onUpdate?.(id, result.data.content);
+          toast.success(t("success.messageUpdated"));
+          router.refresh();
+        } else {
+          toast.error(t("error.failedToUpdateMessage"));
+        }
+      } catch {
+        toast.error(t("error.failedToUpdateMessage"));
+      }
+    });
+  }
+
+  async function handleDelete() {
+    startTransition(async () => {
+      try {
+        const result = await axios.delete(ROUTES_API.MESSAGE_DELETE, {
+          data: { id },
+        });
+        if (result.status === 200) {
+          onDelete?.(id);
+          toast.success(t("success.messageDeleted"));
+          router.refresh();
+        } else {
+          toast.error(t("error.failedToDeleteMessage"));
+        }
+      } catch {
+        toast.error(t("error.failedToDeleteMessage"));
+      }
+    });
+  }
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewContent(e.target.value);
+  };
+
+  return (
+    <div className="min-h-[300px] max-h-[300px] p-6 bg-white border border-gray-200 rounded-lg shadow-sm mx-5 my-2 overflow-y-auto flex flex-col">
+      {editing ? (
+        <form onSubmit={handleUpdate} className="mt-3">
+          <textarea
+            name="content"
+            value={newContent}
+            onChange={handleContentChange}
+            className="w-full h-[125px] mb-3 p-2 border rounded text-sm md:text-xl"
+            disabled={isPending}
+          />
+          <div className="flex gap-2">
+            <button
+              type="submit"
+              className="bg-white text-purple border border-purple font-semibold transition-all mt-3 w-full px-2 py-1 rounded hover:bg-gray-200"
+              disabled={isPending}
+            >
+              {t("update")}
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="bg-darkGrey text-white font-semibold transition-all mt-3 w-full px-2 py-1 rounded hover:bg-black"
+              disabled={isPending}
+            >
+              {t("delete")}
+            </button>
+          </div>
+        </form>
+      ) : (
+        <p className="text-gray-700 text-sm md:text-xl">{content}</p>
+      )}
+
+      <div className="mt-auto flex gap-2 justify-center">
+        {!editing && isSelectLink && (
+          <Link href={`?selectedId=${id}`}>
+            <button className="bg-white text-purple border border-purple font-semibold transition-all mt-3 min-w-[120px] px-2 py-1 rounded hover:bg-gray-200">
+              {t("select")}
+            </button>
+          </Link>
+        )}
+        <button
+          onClick={() => setEditing(!editing)}
+          className="bg-purple text-white font-semibold transition-all mt-3 px-2 min-w-[120px] py-1 rounded hover:bg-darkPurple"
+          aria-label={editing ? t("cancel") : t("edit")}
+        >
+          {editing ? t("cancel") : t("edit")}
+        </button>
+      </div>
+    </div>
+  );
+}
