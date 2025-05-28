@@ -1,11 +1,9 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import { cookies } from "next/headers";
 import axios from "axios";
-
+import { getLocale } from "next-intl/server";
 export async function updateUser(formData: FormData) {
   const id = formData.get("id");
   const name = formData.get("name");
@@ -16,7 +14,9 @@ export async function updateUser(formData: FormData) {
 
   const token = (await cookies()).get("authToken")?.value;
 
-  await axios.patch(
+  const locale = await getLocale();
+
+  const response = await axios.patch(
     ROUTES_API.USER_MANAGEMENT_UPDATE,
     {
       id,
@@ -25,6 +25,7 @@ export async function updateUser(formData: FormData) {
       password,
       role,
       status,
+      locale,
     },
     {
       headers: {
@@ -33,5 +34,11 @@ export async function updateUser(formData: FormData) {
     }
   );
 
-  redirect(ROUTES.USER_MANAGEMENT_INDEX);
+  const pageData = response.data.pageData;
+
+  if (!pageData.isSuccess) {
+    return { error: pageData.message };
+  }
+
+  return { success: pageData.message };
 }
