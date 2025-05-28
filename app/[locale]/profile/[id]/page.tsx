@@ -96,9 +96,9 @@ export default async function Show({ params }: ShowProps) {
                     <Image
                       src={influencer.profilePicture}
                       alt={influencer.username}
-                      width={80}
-                      height={80}
-                      className="w-12 h-12 rounded-full shadow-lg"
+                      width={100}
+                      height={100}
+                      className="w-12 h-12 mt-3 rounded-full shadow-lg"
                       priority
                     />
                     <div>
