@@ -29,7 +29,7 @@ export default function SearchBar({
     } else {
       params.delete("search");
     }
-
+    sessionStorage.setItem("searchBarChanged", "true");
     router.push(`${pathname}?${params.toString()}`);
   };
 

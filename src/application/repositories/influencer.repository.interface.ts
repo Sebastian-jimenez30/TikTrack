@@ -1,4 +1,4 @@
-import { FilterOptions, Status } from "@/domain/entities/influencer";
+import { FilterOptions, Status } from "@/domain/entities/influencer.entity";
 
 export default interface IInfluencerRepository {
   listActivePaginated(
@@ -180,4 +180,7 @@ export default interface IInfluencerRepository {
     createdAt: Date;
     updatedAt: Date;
   }): Promise<void>;
+
+  addLike(userId: number, influencerId: number): Promise<boolean>;
+  removeLike(userId: number, influencerId: number): Promise<boolean>;
 }

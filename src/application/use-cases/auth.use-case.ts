@@ -2,7 +2,7 @@ import IUserRepository from "@/application/repositories/user.repository.interfac
 import repositoryContainer from "~/containers/repository.container";
 import { hash, compare } from "bcryptjs";
 import jwtUtil from "@/shared/utils/jwt.util";
-import { Role, User } from "@/domain/entities/user";
+import { Role, User } from "@/domain/entities/user.entity";
 import { getTranslations } from "next-intl/server";
 import { validatePasswordStrength } from "@/shared/utils/password.util";
 

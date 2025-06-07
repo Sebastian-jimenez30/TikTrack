@@ -1,4 +1,4 @@
-import { Message } from "@/domain/entities/message";
+import { Message } from "@/domain/entities/message.entity";
 import IMessageRepository from "@/application/repositories/message.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
 

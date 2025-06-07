@@ -2,10 +2,12 @@ import {
   FilterOptions,
   Influencer,
   Status,
-} from "@/domain/entities/influencer";
+} from "@/domain/entities/influencer.entity";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
-import PaginationUtil from "@/shared/utils/pagination";
+import PaginationUtil from "@/shared/utils/pagination.util";
 import repositoryContainer from "~/containers/repository.container";
+import IUserRepository from "@/application/repositories/user.repository.interface";
+import { getTranslations } from "next-intl/server";
 
 export class InfluencerUseCases {
   async listActive(
@@ -366,6 +368,94 @@ export class InfluencerUseCases {
       hasNextPage: end < count,
       hasPreviousPage: start > 1,
     };
+  }
+
+  async like(
+    userId: number,
+    influencerId: number
+  ): Promise<{ isSuccess: boolean }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+
+    const isSuccess = await repository.addLike(userId, influencerId);
+    return { isSuccess: isSuccess };
+  }
+
+  async unlike(
+    userId: number,
+    influencerId: number
+  ): Promise<{ isSuccess: boolean }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+
+    const isSuccess = await repository.removeLike(userId, influencerId);
+    return { isSuccess: isSuccess };
+  }
+
+  async isLikedByUser(userId: number, influencerId: number): Promise<boolean> {
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const userFavorites = await repository.getFavoritesInfluencers(userId);
+
+    const isFavorite = userFavorites.some(
+      (favorite: { id: number }) => favorite.id === influencerId
+    );
+    return isFavorite;
+  }
+
+  async compareStatistics(usernames: string[]): Promise<{
+    isSuccess: boolean;
+    influencers: Influencer[];
+    error?: string;
+  }> {
+    const t = await getTranslations("InfluencerComparison");
+
+    try {
+      const repository = repositoryContainer.get<IInfluencerRepository>(
+        "IInfluencerRepository"
+      );
+
+      const tempInfluencers = await Promise.all(
+        usernames.map((username) => repository.findByUsername(username))
+      );
+
+      const influencers = tempInfluencers
+        .filter((inf): inf is NonNullable<typeof inf> => inf != null)
+        .map(
+          (influencer) =>
+            new Influencer(
+              influencer.id,
+              influencer.username,
+              influencer.profileName,
+              influencer.profilePicture,
+              influencer.profileUrl,
+              influencer.averageLikes,
+              influencer.averageComments,
+              influencer.averageShares,
+              influencer.averageSaves,
+              influencer.averageViews,
+              influencer.followers,
+              influencer.city,
+              influencer.featuredVideos,
+              influencer.status,
+              influencer.createdAt,
+              influencer.updatedAt
+            )
+        );
+
+      return {
+        isSuccess: true,
+        influencers: influencers,
+      };
+    } catch {
+      return {
+        isSuccess: false,
+        influencers: [],
+        error: t("error"),
+      };
+    }
   }
 }
 export const influencerUseCases = new InfluencerUseCases();
