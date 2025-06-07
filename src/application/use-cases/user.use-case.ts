@@ -5,17 +5,21 @@ import repositoryContainer from "~/containers/repository.container";
 import { hash } from "bcryptjs";
 import { validatePasswordStrength } from "@/shared/utils/password.util";
 import { getTranslations } from "next-intl/server";
+import { Influencer } from "@/domain/entities/influencer";
 
 export class UserUseCases {
-  async detail(
-    id: number
-  ): Promise<{ user: User | null; haveResults: boolean }> {
+  async detail(id: number): Promise<{
+    user: User | null;
+    favoritesInfluencers: Influencer[];
+    haveResults: boolean;
+  }> {
     const repository =
       repositoryContainer.get<IUserRepository>("IUserRepository");
     const tempUser = await repository.findById(id);
     if (!tempUser) {
       return {
         user: null,
+        favoritesInfluencers: [],
         haveResults: false,
       };
     } else {
@@ -29,8 +33,34 @@ export class UserUseCases {
         tempUser.createdAt,
         tempUser.updatedAt
       );
+
+      const favoritesInfluencersData =
+        await repository.getFavoritesInfluencers(id);
+      const favoritesInfluencers = favoritesInfluencersData.map(
+        (influencer) =>
+          new Influencer(
+            influencer.id,
+            influencer.username,
+            influencer.profileName,
+            influencer.profilePicture,
+            influencer.profileUrl,
+            influencer.averageLikes,
+            influencer.averageComments,
+            influencer.averageShares,
+            influencer.averageSaves,
+            influencer.averageViews,
+            influencer.followers,
+            influencer.city,
+            influencer.featuredVideos,
+            influencer.status,
+            influencer.createdAt,
+            influencer.updatedAt
+          )
+      );
+
       return {
         user,
+        favoritesInfluencers,
         haveResults: true,
       };
     }
