@@ -9,6 +9,7 @@ import { getTranslations } from "next-intl/server";
 import FilterBar from "~/app/components/forms/filterBar.form";
 import SearchBar from "~/app/components/forms/searchBar.form";
 import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler.shared";
+import SearchBarRedirectHandler from "~/app/components/shared/searchBarRedirectHandler.shared";
 
 interface DisabledProps {
   searchParams: {
@@ -74,6 +75,7 @@ export default async function Disabled({
       </h1>
       <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
         <div className="flex-[0.40] my-5 flex items-center">
+          <SearchBarRedirectHandler />
           <SearchBar className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
@@ -99,7 +101,7 @@ export default async function Disabled({
           ))}
         </div>
         <Pagination
-          pathname={ROUTES.INFLUENCERS}
+          pathname={ROUTES.INFLUENCERS_DISABLED}
           page={paginationCurrentNumber}
           city={filterCity}
           followers={filterFollowers}

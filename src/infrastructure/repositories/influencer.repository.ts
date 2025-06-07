@@ -202,19 +202,14 @@ export default class InfluencerRepository implements IInfluencerRepository {
     createdAt: Date;
     updatedAt: Date;
   }): Promise<void> {
-    const { id, updatedAt, ...updatableFields } = influencer;
+    const { id, updatedAt, ...updatableFields } = influencer; // eslint-disable-line @typescript-eslint/no-unused-vars
     await db
       .update(influencersTable)
       .set({
         ...updatableFields,
         updatedAt: new Date(),
       })
-      .where(
-        and(
-          eq(influencersTable.id, id),
-          eq(influencersTable.updatedAt, updatedAt)
-        )
-      )
+      .where(eq(influencersTable.id, id))
       .execute();
   }
 

@@ -11,6 +11,7 @@ import SearchBar from "~/app/components/forms/searchBar.form";
 import FilterBar from "~/app/components/forms/filterBar.form";
 import NotificationSessionStorage from "~/app/components/shared/notificationSessionStorage.shared";
 import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler.shared";
+import SearchBarRedirectHandler from "~/app/components/shared/searchBarRedirectHandler.shared";
 
 interface IndexProps {
   searchParams: { page?: string };
@@ -78,6 +79,7 @@ export default async function Index({
       </h1>
       <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
         <div className="flex-[0.40] my-5 flex items-center">
+          <SearchBarRedirectHandler />
           <SearchBar placeholder={t("search")} className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
