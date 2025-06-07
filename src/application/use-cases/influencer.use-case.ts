@@ -7,6 +7,7 @@ import IInfluencerRepository from "@/application/repositories/influencer.reposit
 import PaginationUtil from "@/shared/utils/pagination.util";
 import repositoryContainer from "~/containers/repository.container";
 import IUserRepository from "@/application/repositories/user.repository.interface";
+import { getTranslations } from "next-intl/server";
 
 export class InfluencerUseCases {
   async listActive(
@@ -402,6 +403,59 @@ export class InfluencerUseCases {
       (favorite: { id: number }) => favorite.id === influencerId
     );
     return isFavorite;
+  }
+
+  async compareStatistics(usernames: string[]): Promise<{
+    isSuccess: boolean;
+    influencers: Influencer[];
+    error?: string;
+  }> {
+    const t = await getTranslations("InfluencerComparison");
+
+    try {
+      const repository = repositoryContainer.get<IInfluencerRepository>(
+        "IInfluencerRepository"
+      );
+
+      const tempInfluencers = await Promise.all(
+        usernames.map((username) => repository.findByUsername(username))
+      );
+
+      const influencers = tempInfluencers
+        .filter((inf): inf is NonNullable<typeof inf> => inf != null)
+        .map(
+          (influencer) =>
+            new Influencer(
+              influencer.id,
+              influencer.username,
+              influencer.profileName,
+              influencer.profilePicture,
+              influencer.profileUrl,
+              influencer.averageLikes,
+              influencer.averageComments,
+              influencer.averageShares,
+              influencer.averageSaves,
+              influencer.averageViews,
+              influencer.followers,
+              influencer.city,
+              influencer.featuredVideos,
+              influencer.status,
+              influencer.createdAt,
+              influencer.updatedAt
+            )
+        );
+
+      return {
+        isSuccess: true,
+        influencers: influencers,
+      };
+    } catch {
+      return {
+        isSuccess: false,
+        influencers: [],
+        error: t("error"),
+      };
+    }
   }
 }
 export const influencerUseCases = new InfluencerUseCases();

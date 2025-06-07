@@ -1,5 +1,10 @@
 import IUserRepository from "@/application/repositories/user.repository.interface";
-import { FilterOptions, Role, Status, User } from "@/domain/entities/user.entity";
+import {
+  FilterOptions,
+  Role,
+  Status,
+  User,
+} from "@/domain/entities/user.entity";
 import PaginationUtil from "@/shared/utils/pagination.util";
 import repositoryContainer from "~/containers/repository.container";
 import { hash } from "bcryptjs";

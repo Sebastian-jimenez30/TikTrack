@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import axios from "axios";
 import ROUTES_API from "~/constants/urls/api.urls";
+import { toast } from "sonner";
 
 interface CreateMessageProps {
   userId: string;
@@ -11,7 +12,6 @@ interface CreateMessageProps {
 
 export default function CreateMessage({ userId }: CreateMessageProps) {
   const [message, setMessage] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const t = useTranslations("Forms.message");
 
@@ -26,10 +26,10 @@ export default function CreateMessage({ userId }: CreateMessageProps) {
       });
       if (result.status === 200) {
         setMessage("");
-        setError(null);
+        toast.success(t("success"));
         window.location.reload();
       } else {
-        setError(t("error"));
+        toast.error(t("error"));
       }
     });
   }
