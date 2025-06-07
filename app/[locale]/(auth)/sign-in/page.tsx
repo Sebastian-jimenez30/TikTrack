@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 import axios from "axios";
 import Image from "next/image";
-import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
+import NotificationSessionStorage from "~/app/components/shared/notificationSessionStorage.shared";
 
 export async function generateMetadata() {
   const t = await getTranslations("SignInPage");

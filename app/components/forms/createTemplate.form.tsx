@@ -36,10 +36,6 @@ export default function CreateMessage({ userId }: CreateMessageProps) {
 
   return (
     <form onSubmit={handleSubmit} className="mb-4 w-full text-center">
-      {error && (
-        <div className="mb-4 p-2 text-red-500 bg-red-50 rounded">{error}</div>
-      )}
-
       <div>
         <input
           type="text"

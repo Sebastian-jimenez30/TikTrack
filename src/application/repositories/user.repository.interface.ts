@@ -1,5 +1,5 @@
-import { FilterOptions, Role, Status } from "@/domain/entities/user";
-import { Status as InfluencerStatus } from "@/domain/entities/influencer";
+import { FilterOptions, Role, Status } from "@/domain/entities/user.entity";
+import { Status as InfluencerStatus } from "@/domain/entities/influencer.entity";
 export default interface IUserRepository {
   listPaginated(
     pageNumber: number,

@@ -1,6 +1,6 @@
 import ROUTES_API from "~/constants/urls/api.urls";
-import CreateMessage from "~/app/components/forms/create.message";
-import TextboxWithService from "~/app/components/forms/ai.textbox";
+import CreateMessage from "~/app/components/forms/createTemplate.form";
+import TextboxWithService from "~/app/components/forms/textboxMessage.form";
 import FireIcon from "~/app/components/icons/fire.icon";
 import HeartIcon from "~/app/components/icons/heart.icon";
 import EyeIcon from "~/app/components/icons/eye.icon";
@@ -11,7 +11,7 @@ import MessageCard from "~/app/components/cards/message.card";
 import EmailIcon from "~/app/components/icons/email.icon";
 import { cookies } from "next/headers";
 import jwtUtil from "@/shared/utils/jwt.util";
-import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
+import NotificationSessionStorage from "~/app/components/shared/notificationSessionStorage.shared";
 
 interface Message {
   id: number;

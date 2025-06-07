@@ -1,4 +1,4 @@
-import { Influencer } from "@/domain/entities/influencer";
+import { Influencer } from "@/domain/entities/influencer.entity";
 
 export class InfluencerDetailPresenter {
   static toHttp(influencer: Influencer) {

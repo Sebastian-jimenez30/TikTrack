@@ -1,15 +1,15 @@
 import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
-import Pagination from "~/app/components/pagination";
+import Pagination from "~/app/components/shared/pagination.shared";
 import FireIcon from "~/app/components/icons/fire.icon";
 import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
-import NotificationSessionStorage from "~/app/components/notificationSessionStorage";
-import ComparisonWrapper from "~/app/components/comparison/comparison.wrapper";
-import SearchBar from "~/app/components/forms/searchBar";
-import FilterBar from "~/app/components/forms/filterBar";
-import FilterRedirectHandler from "~/app/components/forms/filterRedirectHandler";
+import NotificationSessionStorage from "~/app/components/shared/notificationSessionStorage.shared";
+import ComparisonWrapper from "~/app/components/comparison/wrapper.comparison";
+import SearchBar from "~/app/components/forms/searchBar.form";
+import FilterBar from "~/app/components/forms/filterBar.form";
+import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler.shared";
 
 interface IndexProps {
   searchParams: {

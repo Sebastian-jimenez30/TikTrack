@@ -3,7 +3,7 @@ import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
 import RedirectButton from "~/app/components/buttons/redirect.button";
 import FavoritesButton from "~/app/components/buttons/favorites.button";
-import Video from "~/app/components/video";
+import Video from "~/app/components/influencer/video.influencer";
 import CommentIcon from "~/app/components/icons/comment.icon";
 import DiskIcon from "~/app/components/icons/disk.icon";
 import EyeIcon from "~/app/components/icons/eye.icon";

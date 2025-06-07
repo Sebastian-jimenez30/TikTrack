@@ -1,7 +1,7 @@
 import { influencerComparisonUseCases } from "@/application/use-cases/influencer.comparison.use-case";
 import { InfluencerComparisonPresenter } from "../presenters/influencer/influencer.comparison.presenter";
 import { getTranslations } from "next-intl/server";
-import { Status } from "@/domain/entities/influencer";
+import { Status } from "@/domain/entities/influencer.entity";
 interface CompareProps {
   searchParams: { usernames: string[] };
 }

@@ -1,6 +1,6 @@
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
-import { FilterOptions, Status } from "@/domain/entities/influencer";
+import { FilterOptions, Status } from "@/domain/entities/influencer.entity";
 import { userLikesInfluencerTable } from "@/infrastructure/database/schemas/userLikesInfluencer.schema";
 
 import db from "@/infrastructure/database/index";

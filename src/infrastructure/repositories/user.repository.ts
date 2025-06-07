@@ -3,8 +3,8 @@ import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
 import { count, asc } from "drizzle-orm";
-import { FilterOptions, Role, Status } from "@/domain/entities/user";
-import { Status as InfluencerStatus } from "@/domain/entities/influencer";
+import { FilterOptions, Role, Status } from "@/domain/entities/user.entity";
+import { Status as InfluencerStatus } from "@/domain/entities/influencer.entity";
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import { userLikesInfluencerTable } from "@/infrastructure/database/schemas/userLikesInfluencer.schema";
 

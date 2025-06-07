@@ -1,11 +1,11 @@
 import IUserRepository from "@/application/repositories/user.repository.interface";
-import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
-import PaginationUtil from "@/shared/utils/pagination";
+import { FilterOptions, Role, Status, User } from "@/domain/entities/user.entity";
+import PaginationUtil from "@/shared/utils/pagination.util";
 import repositoryContainer from "~/containers/repository.container";
 import { hash } from "bcryptjs";
 import { validatePasswordStrength } from "@/shared/utils/password.util";
 import { getTranslations } from "next-intl/server";
-import { Influencer } from "@/domain/entities/influencer";
+import { Influencer } from "@/domain/entities/influencer.entity";
 
 export class UserUseCases {
   async detail(id: number): Promise<{

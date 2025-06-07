@@ -1,7 +1,7 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
 import { UserDetailPresenter } from "@/interface-adapters/presenters/user/user.detail.presenter";
-import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
+import { FilterOptions, Role, Status, User } from "@/domain/entities/user.entity";
 import { InfluencerFavoritePresenter } from "../presenters/influencer/influencer.favorite.presenter";
 
 interface IndexProps {

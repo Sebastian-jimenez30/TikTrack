@@ -2,13 +2,13 @@ import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import InfluencerCard from "~/app/components/cards/influencer.card";
 import ErrorIcon from "~/app/components/icons/error.icon";
-import Pagination from "~/app/components/pagination";
+import Pagination from "~/app/components/shared/pagination.shared";
 import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
-import FilterBar from "~/app/components/forms/filterBar";
-import SearchBar from "~/app/components/forms/searchBar";
-import FilterRedirectHandler from "~/app/components/forms/filterRedirectHandler";
+import FilterBar from "~/app/components/forms/filterBar.form";
+import SearchBar from "~/app/components/forms/searchBar.form";
+import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler.shared";
 
 interface DisabledProps {
   searchParams: {

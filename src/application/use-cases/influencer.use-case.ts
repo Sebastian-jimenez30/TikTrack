@@ -2,9 +2,9 @@ import {
   FilterOptions,
   Influencer,
   Status,
-} from "@/domain/entities/influencer";
+} from "@/domain/entities/influencer.entity";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
-import PaginationUtil from "@/shared/utils/pagination";
+import PaginationUtil from "@/shared/utils/pagination.util";
 import repositoryContainer from "~/containers/repository.container";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 

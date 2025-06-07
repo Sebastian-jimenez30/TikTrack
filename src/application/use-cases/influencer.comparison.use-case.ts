@@ -1,6 +1,6 @@
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import repositoryContainer from "~/containers/repository.container";
-import { Influencer } from "@/domain/entities/influencer";
+import { Influencer } from "@/domain/entities/influencer.entity";
 import { getTranslations } from "next-intl/server";
 
 export class InfluencerComparisonUseCases {
