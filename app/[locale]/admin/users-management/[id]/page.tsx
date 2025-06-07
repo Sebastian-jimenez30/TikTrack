@@ -3,7 +3,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import UserUpdate from "~/app/components/forms/userUpdate";
+import UserUpdate from "~/app/components/forms/userUpdate.form";
 
 interface ShowProps {
   params: { id: string };

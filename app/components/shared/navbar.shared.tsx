@@ -6,10 +6,10 @@ import { toast } from "sonner";
 import { Link } from "~/i18n/routing";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Button from "./buttons/button";
+import Button from "../buttons/button";
 import ROUTES from "~/constants/urls/urls";
 import { logout } from "@/shared/utils/auth.util";
-import LogoutIcon from "./icons/logout.icon";
+import LogoutIcon from "../icons/logout.icon";
 
 interface NavBarProps {
   isAuthenticated: boolean;

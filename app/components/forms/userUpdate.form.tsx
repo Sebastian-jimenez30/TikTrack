@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { updateUser } from "~/app/actions/updateUser";
+import { updateUser } from "~/app/actions/updateUser.action";
 import UserIcon from "~/app/components/icons/user.icon";
 import EmailIcon from "~/app/components/icons/email.icon";
 import LockIcon from "~/app/components/icons/lock.icon";

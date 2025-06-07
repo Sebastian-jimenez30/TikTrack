@@ -1,8 +1,14 @@
 import { userUseCases } from "@/application/use-cases/user.use-case";
 import { UserOverviewPresenter } from "@/interface-adapters/presenters/user/user.overview.presenter";
 import { UserDetailPresenter } from "@/interface-adapters/presenters/user/user.detail.presenter";
-import { FilterOptions, Role, Status, User } from "@/domain/entities/user";
-import { UserLikesInfluencerRepository } from "@/infrastructure/repositories/userLikesInfluencer.repository";
+import {
+  FilterOptions,
+  Role,
+  Status,
+  User,
+} from "@/domain/entities/user.entity";
+import { InfluencerFavoritePresenter } from "../presenters/influencer/influencer.favorite.presenter";
+
 interface IndexProps {
   searchParams: {
     page?: string;
@@ -90,11 +96,11 @@ export class UserController {
     if (result.user) {
       const tempUser = result.user;
       user = UserDetailPresenter.toHttp(tempUser);
+    }
 
-      const userLikesInfluencerRepository = new UserLikesInfluencerRepository();
-
-      favorites = await userLikesInfluencerRepository.getFavoritesByUserId(
-        Number(id)
+    if (result.favoritesInfluencers) {
+      favorites = result.favoritesInfluencers.map((influencer) =>
+        InfluencerFavoritePresenter.toHttp(influencer)
       );
     }
 

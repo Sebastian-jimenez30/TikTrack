@@ -1,5 +1,5 @@
-import { FilterOptions, Role, Status } from "@/domain/entities/user";
-
+import { FilterOptions, Role, Status } from "@/domain/entities/user.entity";
+import { Status as InfluencerStatus } from "@/domain/entities/influencer.entity";
 export default interface IUserRepository {
   listPaginated(
     pageNumber: number,
@@ -98,6 +98,27 @@ export default interface IUserRepository {
       name: string;
       role: Role;
       status: Status;
+      createdAt: Date;
+      updatedAt: Date;
+    }[]
+  >;
+
+  getFavoritesInfluencers(userId: number): Promise<
+    {
+      id: number;
+      username: string;
+      profileName: string;
+      profilePicture: string;
+      profileUrl: string;
+      averageLikes: number;
+      averageComments: number;
+      averageShares: number;
+      averageSaves: number;
+      averageViews: number;
+      followers: number;
+      city: string;
+      featuredVideos: string[];
+      status: InfluencerStatus;
       createdAt: Date;
       updatedAt: Date;
     }[]

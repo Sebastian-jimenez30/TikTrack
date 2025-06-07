@@ -1,5 +1,5 @@
 import { messageUseCases } from "@/application/use-cases/message.use-case";
-import { Message } from "@/domain/entities/message";
+import { Message } from "@/domain/entities/message.entity";
 
 interface ShowProps {
   params: { id: number };

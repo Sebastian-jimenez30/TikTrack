@@ -2,13 +2,14 @@ import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import InfluencerCard from "~/app/components/cards/influencer.card";
 import WarningIcon from "~/app/components/icons/warning.icon";
-import Pagination from "~/app/components/pagination";
+import Pagination from "~/app/components/shared/pagination.shared";
 import axios from "axios";
 import { JSX } from "react";
 import { getTranslations } from "next-intl/server";
-import FilterBar from "~/app/components/forms/filterBar";
-import SearchBar from "~/app/components/forms/searchBar";
-import FilterRedirectHandler from "~/app/components/forms/filterRedirectHandler";
+import FilterBar from "~/app/components/forms/filterBar.form";
+import SearchBar from "~/app/components/forms/searchBar.form";
+import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler.shared";
+import SearchBarRedirectHandler from "~/app/components/shared/searchBarRedirectHandler.shared";
 
 interface ReportedProps {
   searchParams: {
@@ -74,6 +75,7 @@ export default async function Reported({
       </h1>
       <div className="flex flex-col w-full flex-wrap justify-center gap-x-4 xl:flex-row">
         <div className="flex-[0.40] my-5 flex items-center">
+          <SearchBarRedirectHandler />
           <SearchBar className="w-full" />
         </div>
         <div className="flex-[0.60] my-5">
@@ -99,7 +101,7 @@ export default async function Reported({
           ))}
         </div>
         <Pagination
-          pathname={ROUTES.INFLUENCERS}
+          pathname={ROUTES.INFLUENCERS_REPORTED}
           page={paginationCurrentNumber}
           city={filterCity}
           followers={filterFollowers}

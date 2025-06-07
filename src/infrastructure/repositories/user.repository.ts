@@ -3,7 +3,10 @@ import { usersTable } from "@/infrastructure/database/schemas/user.schema";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import db from "@/infrastructure/database";
 import { count, asc } from "drizzle-orm";
-import { FilterOptions, Role, Status } from "@/domain/entities/user";
+import { FilterOptions, Role, Status } from "@/domain/entities/user.entity";
+import { Status as InfluencerStatus } from "@/domain/entities/influencer.entity";
+import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
+import { userLikesInfluencerTable } from "@/infrastructure/database/schemas/userLikesInfluencer.schema";
 
 export default class UserRepository implements IUserRepository {
   async listPaginated(
@@ -219,5 +222,38 @@ export default class UserRepository implements IUserRepository {
       .offset(offset);
 
     return response;
+  }
+
+  async getFavoritesInfluencers(userId: number) {
+    const favorites = await db
+      .select({
+        id: influencersTable.id,
+        username: influencersTable.username,
+        profileName: influencersTable.profileName,
+        profilePicture: influencersTable.profilePicture,
+        profileUrl: influencersTable.profileUrl,
+        averageLikes: influencersTable.averageLikes,
+        averageComments: influencersTable.averageComments,
+        averageShares: influencersTable.averageShares,
+        averageSaves: influencersTable.averageSaves,
+        averageViews: influencersTable.averageViews,
+        followers: influencersTable.followers,
+        city: influencersTable.city,
+        status: influencersTable.status,
+        featuredVideos: influencersTable.featuredVideos,
+        createdAt: influencersTable.createdAt,
+        updatedAt: influencersTable.updatedAt,
+      })
+      .from(userLikesInfluencerTable)
+      .innerJoin(
+        influencersTable,
+        eq(userLikesInfluencerTable.influencerId, influencersTable.id)
+      )
+      .where(eq(userLikesInfluencerTable.userId, userId));
+
+    return favorites.map((influencer) => ({
+      ...influencer,
+      status: influencer.status as InfluencerStatus,
+    }));
   }
 }

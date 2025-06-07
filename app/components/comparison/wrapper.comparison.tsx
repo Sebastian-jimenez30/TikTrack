@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import InfluencerCard from "../cards/influencer.card";
-import ComparisonModal from "./comparison.modal";
+import ComparisonModal from "./modal.comparison";
 import { toast } from "sonner";
 import ROUTES_API from "~/constants/urls/api.urls";
 import { useTranslations } from "next-intl";

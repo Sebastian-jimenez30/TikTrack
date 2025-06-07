@@ -1,7 +1,10 @@
 import { influencerUseCases } from "@/application/use-cases/influencer.use-case";
 import { InfluencerOverviewPresenter } from "@/interface-adapters/presenters/influencer/influencer.overview.presenter";
 import { InfluencerDetailPresenter } from "@/interface-adapters/presenters/influencer/influencer.detail.presenter";
-import { Influencer, Status } from "@/domain/entities/influencer";
+import { InfluencerComparisonPresenter } from "@/interface-adapters/presenters/influencer/influencer.comparison.presenter";
+
+import { Influencer, Status } from "@/domain/entities/influencer.entity";
+import { getTranslations } from "next-intl/server";
 
 interface IndexProps {
   searchParams: {
@@ -15,7 +18,7 @@ interface IndexProps {
 }
 
 interface ShowProps {
-  params: { username: string };
+  params: { username: string; userId?: number | null };
 }
 
 interface DisabledProps {
@@ -50,6 +53,18 @@ interface ReportedProps {
     updatedAt?: string;
     search?: string;
   };
+}
+
+interface LikeProps {
+  request: { userId: number; influencerId: number };
+}
+
+interface UnlikeProps {
+  request: { userId: number; influencerId: number };
+}
+
+interface CompareProps {
+  searchParams: { usernames: string[] };
 }
 
 class InfluencerController {
@@ -114,7 +129,7 @@ class InfluencerController {
   async show({ params }: ShowProps): Promise<{
     pageData: object;
   }> {
-    const { username } = await params;
+    const { username, userId } = await params;
     const result = await influencerUseCases.detail(username);
 
     let influencer = null;
@@ -124,9 +139,19 @@ class InfluencerController {
       influencer = InfluencerDetailPresenter.toHttp(tempInfluencer);
     }
 
+    let isFavorite = false;
+    if (userId) {
+      const userLikesInfluencer = await influencerUseCases.isLikedByUser(
+        userId,
+        result.influencer?.id || -1
+      );
+      isFavorite = userLikesInfluencer;
+    }
+
     const pageData = {
       influencer,
       haveResults: result.haveResults,
+      isFavorite: isFavorite,
     };
 
     return { pageData };
@@ -322,6 +347,83 @@ class InfluencerController {
     };
 
     return { pageData };
+  }
+
+  async like({ request }: LikeProps): Promise<{ pageData: object }> {
+    const { userId, influencerId } = request;
+
+    if (!userId || !influencerId) {
+      return { pageData: { isSuccess: false } };
+    }
+
+    const result = await influencerUseCases.like(userId, influencerId);
+
+    return { pageData: { isSuccess: result.isSuccess } };
+  }
+
+  async unlike({ request }: UnlikeProps): Promise<{ pageData: object }> {
+    const { userId, influencerId } = request;
+
+    if (!userId || !influencerId) {
+      return { pageData: { isSuccess: false } };
+    }
+
+    const result = await influencerUseCases.unlike(userId, influencerId);
+
+    return { pageData: { isSuccess: result.isSuccess } };
+  }
+
+  async compare({ searchParams }: CompareProps): Promise<{
+    pageData: {
+      isSuccess: boolean;
+      influencers:
+        | {
+            username: string;
+            profilePicture: string;
+            averageLikes: string;
+            averageComments: string;
+            averageShares: string;
+            averageSaves: string;
+            averageViews: string;
+            followers: string;
+            status: Status;
+            engagementVisualizationRate: number;
+          }[]
+        | null;
+      error: string | undefined;
+    };
+  }> {
+    const t = await getTranslations("InfluencerComparison");
+
+    const { usernames } = searchParams;
+
+    if (
+      !Array.isArray(usernames) ||
+      usernames.length < 2 ||
+      usernames.length > 5
+    ) {
+      return {
+        pageData: {
+          isSuccess: false,
+          influencers: null,
+          error: t("selectRange"),
+        },
+      };
+    }
+
+    const result = await influencerUseCases.compareStatistics(usernames);
+
+    const influencers = result.influencers.map((influencer) =>
+      InfluencerComparisonPresenter.toHttp(influencer)
+    );
+
+    return {
+      pageData: {
+        isSuccess: result.isSuccess,
+        influencers: influencers,
+        error: result.error,
+      },
+    };
   }
 }
 
