@@ -349,9 +349,9 @@
     "admin": "Administrador",
     "user": "Usuario",
     "updatedAt": "Ultima actualización",
-    "today": "Today",
-    "thisWeek": "This Week",
-    "thisMonth": "This Month"
+    "today": "Hoy",
+    "thisWeek": "Esta semana",
+    "thisMonth": "Este mes"
   },
 
   "Validation": {
