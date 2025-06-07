@@ -2,6 +2,7 @@ import ROUTES from "~/constants/urls/urls";
 import ROUTES_API from "~/constants/urls/api.urls";
 import MetricCard from "~/app/components/cards/metric.card";
 import RedirectButton from "~/app/components/buttons/redirect.button";
+import FavoritesButton from "~/app/components/buttons/favorites.button";
 import Video from "~/app/components/video";
 import CommentIcon from "~/app/components/icons/comment.icon";
 import DiskIcon from "~/app/components/icons/disk.icon";
@@ -14,10 +15,8 @@ import Image from "next/image";
 import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import axios from "axios";
 import { Link } from "~/i18n/routing";
-import AddToFavoritesButton from "~/app/components/buttons/AddToFavoritesButton";
-import InfluencerActionsClient from "~/app/components/buttons/InfluencerActionsClient";
+import axios from "axios";
 
 interface ShowProps {
   params: { username: string };
@@ -53,6 +52,8 @@ export default async function Show({ params }: ShowProps) {
     })
   ).data.pageData;
 
+  const userId = await jwtUtil.getUserId(token ? token : "");
+
   if (!pageData.haveResults || !pageData.influencer) {
     notFound();
   }
@@ -61,11 +62,7 @@ export default async function Show({ params }: ShowProps) {
   const isInfluencerActive = influencer.status === "active";
   const isInfluencerReported = influencer.status === "reported";
   const isInfluencerDeactivated = influencer.status === "inactive";
-
-  const favorites = pageData.favorites || [];
-  const isFavorite = favorites.some(
-    (fav: { id: number }) => fav.id === influencer.id
-  );
+  const isFavorite = pageData.isFavorite;
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -115,13 +112,15 @@ export default async function Show({ params }: ShowProps) {
                       {t("message")}
                     </Link>
                   )}
-                  {isAuthenticated && !isFavorite && (
-                    <AddToFavoritesButton
-                      variant="primary"
-                      redirect={ROUTES.INFLUENCERS}
-                      actionUrl={ROUTES_API.INFLUENCER_LIKE}
+                  {isAuthenticated && userId && (
+                    <FavoritesButton
+                      actionUrl={
+                        isFavorite
+                          ? ROUTES_API.INFLUENCER_UNLIKE
+                          : ROUTES_API.INFLUENCER_LIKE
+                      }
+                      userId={userId}
                       influencerId={influencer.id}
-                      isFavorite={isFavorite}
                       messages={{
                         success: t("success"),
                         error: t("error"),
@@ -129,22 +128,7 @@ export default async function Show({ params }: ShowProps) {
                         adding: t("adding"),
                         add: t("addToFavorites"),
                       }}
-                      httpMethod="post"
-                    />
-                  )}
-                  {isAuthenticated && isFavorite && (
-                    <InfluencerActionsClient
-                      influencerId={influencer.id}
                       isFavorite={isFavorite}
-                      messages={{
-                        success: t("success"),
-                        error: t("error"),
-                        removing: t("removing"),
-                        remove: t("removeFromFavorites"),
-                      }}
-                      variant="danger"
-                      redirect={ROUTES.INFLUENCERS}
-                      actionUrl={ROUTES_API.INFLUENCER_UNLIKE}
                     />
                   )}
                 </div>

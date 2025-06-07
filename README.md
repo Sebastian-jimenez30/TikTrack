@@ -5,10 +5,12 @@
 ## 🚀 Project Purpose
 
 Magneto struggles to promote job listings effectively in remote areas due to:
+
 - Low platform visibility in smaller cities.
 - Difficulty identifying location-specific influencers.
 
 **TikTrack** addresses these challenges by:
+
 - Searching and classifying influencers by city and engagement metrics.
 - Enabling automated outreach with AI-enhanced messages and templates.
 - Ensuring influencer data quality through a supervised reporting system.
@@ -59,3 +61,4 @@ npm run dev
 
 # Access the app
 http://localhost:3000
+```

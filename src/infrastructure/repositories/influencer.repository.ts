@@ -1,6 +1,8 @@
 import { influencersTable } from "@/infrastructure/database/schemas/influencer.schema";
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import { FilterOptions, Status } from "@/domain/entities/influencer";
+import { userLikesInfluencerTable } from "@/infrastructure/database/schemas/userLikesInfluencer.schema";
+
 import db from "@/infrastructure/database/index";
 import {
   eq,
@@ -207,7 +209,12 @@ export default class InfluencerRepository implements IInfluencerRepository {
         ...updatableFields,
         updatedAt: new Date(),
       })
-      .where(eq(influencersTable.id, id))
+      .where(
+        and(
+          eq(influencersTable.id, id),
+          eq(influencersTable.updatedAt, updatedAt)
+        )
+      )
       .execute();
   }
 
@@ -448,5 +455,45 @@ export default class InfluencerRepository implements IInfluencerRepository {
       .where(and(...conditions));
 
     return response[0].count;
+  }
+
+  async addLike(userId: number, influencerId: number): Promise<boolean> {
+    try {
+      const exists = await db
+        .select()
+        .from(userLikesInfluencerTable)
+        .where(
+          and(
+            eq(userLikesInfluencerTable.userId, userId),
+            eq(userLikesInfluencerTable.influencerId, influencerId)
+          )
+        )
+        .limit(1);
+
+      if (exists.length === 0) {
+        await db
+          .insert(userLikesInfluencerTable)
+          .values({ userId, influencerId });
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async removeLike(userId: number, influencerId: number): Promise<boolean> {
+    try {
+      await db
+        .delete(userLikesInfluencerTable)
+        .where(
+          and(
+            eq(userLikesInfluencerTable.userId, userId),
+            eq(userLikesInfluencerTable.influencerId, influencerId)
+          )
+        );
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

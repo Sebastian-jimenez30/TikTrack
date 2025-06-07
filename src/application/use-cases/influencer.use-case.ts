@@ -6,6 +6,7 @@ import {
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
 import PaginationUtil from "@/shared/utils/pagination";
 import repositoryContainer from "~/containers/repository.container";
+import IUserRepository from "@/application/repositories/user.repository.interface";
 
 export class InfluencerUseCases {
   async listActive(
@@ -366,6 +367,41 @@ export class InfluencerUseCases {
       hasNextPage: end < count,
       hasPreviousPage: start > 1,
     };
+  }
+
+  async like(
+    userId: number,
+    influencerId: number
+  ): Promise<{ isSuccess: boolean }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+
+    const isSuccess = await repository.addLike(userId, influencerId);
+    return { isSuccess: isSuccess };
+  }
+
+  async unlike(
+    userId: number,
+    influencerId: number
+  ): Promise<{ isSuccess: boolean }> {
+    const repository = repositoryContainer.get<IInfluencerRepository>(
+      "IInfluencerRepository"
+    );
+
+    const isSuccess = await repository.removeLike(userId, influencerId);
+    return { isSuccess: isSuccess };
+  }
+
+  async isLikedByUser(userId: number, influencerId: number): Promise<boolean> {
+    const repository =
+      repositoryContainer.get<IUserRepository>("IUserRepository");
+    const userFavorites = await repository.getFavoritesInfluencers(userId);
+
+    const isFavorite = userFavorites.some(
+      (favorite: { id: number }) => favorite.id === influencerId
+    );
+    return isFavorite;
   }
 }
 export const influencerUseCases = new InfluencerUseCases();
