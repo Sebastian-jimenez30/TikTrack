@@ -93,7 +93,9 @@ class InfluencerSchedulerUtil {
             followers: influencer.followers,
             city: tempInfluencer.city,
             featuredVideos: influencer.featuredVideos,
-            
+            status: tempInfluencer.status,
+            createdAt: tempInfluencer.createdAt,
+            updatedAt: new Date(),
           });
         }
       }
