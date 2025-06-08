@@ -17,6 +17,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "~/i18n/routing";
 import axios from "axios";
+import RefreshButton from "~/app/components/buttons/refresh.button";
 
 interface ShowProps {
   params: { username: string };
@@ -84,9 +85,19 @@ export default async function Show({ params }: ShowProps) {
                   </div>
 
                   <div className="flex flex-col items-center justify-center">
-                    <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
-                      {influencer.profileName}
-                    </a>
+                    <span>
+                      <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
+                        {influencer.profileName}
+                      </a>
+                      <RefreshButton
+                        actionUrl={ROUTES_API.INFLUENCER_REFRESH}
+                        influencerUsername={influencer.username}
+                        messages={{
+                          success: t("successRefresh"),
+                          error: t("error"),
+                        }}
+                      />
+                    </span>
                     <a
                       href={influencer.profileUrl}
                       className="text-center border-b border-transparent hover:border-purple transition"
