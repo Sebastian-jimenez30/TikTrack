@@ -1,31 +1,55 @@
 import IInfluencerRepository from "@/application/repositories/influencer.repository.interface";
+import IRedisRepository from "@/application/repositories/redis.repository.interface";
 import influencerManagementService from "@/infrastructure/services/influencerManagement.service";
 import repositoryContainer from "~/containers/repository.container";
+import cities from "@/infrastructure/database/cities.json";
+import cron, { ScheduledTask } from "node-cron";
+import moment from "moment-timezone";
 
 class InfluencerSchedulerUtil {
-  private intervalId: NodeJS.Timeout | null = null;
-  private readonly intervalTime: number = 60000;
+  private intervalIdStoreInfluencer: NodeJS.Timeout | null = null;
+  private readonly intervalTimeStoreInfluencers: number = 60000;
+
+  private notifyCitiesTask: ScheduledTask | null = null;
 
   constructor() {}
 
   start() {
-    if (!this.intervalId) {
-      this.fetchAndStoreInfluencers();
-      this.intervalId = setInterval(
-        () => this.fetchAndStoreInfluencers(),
-        this.intervalTime
+    if (!this.intervalIdStoreInfluencer) {
+      this.storeInfluencersInformation();
+      this.intervalIdStoreInfluencer = setInterval(
+        () => this.storeInfluencersInformation(),
+        this.intervalTimeStoreInfluencers
       );
+    }
+    if (!this.notifyCitiesTask) {
+      this.notifyCitiesTask = cron.schedule(
+        "*/15 1-5 * * *",
+        () => {
+          const now = moment().tz("America/Bogota");
+          console.log("Ejecutando notifyCities a las", now.format());
+          this.notifyCities();
+        },
+        {
+          timezone: "America/Bogota",
+        }
+      );
+      console.log("Tarea de cron registrada");
     }
   }
 
   stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
+    if (this.intervalIdStoreInfluencer) {
+      clearInterval(this.intervalIdStoreInfluencer);
+      this.intervalIdStoreInfluencer = null;
+    }
+    if (this.notifyCitiesTask) {
+      this.notifyCitiesTask.stop();
+      this.notifyCitiesTask = null;
     }
   }
 
-  private async fetchAndStoreInfluencers() {
+  private async storeInfluencersInformation() {
     try {
       const influencers = await influencerManagementService.fetchInfluencers();
       const repository = repositoryContainer.get<IInfluencerRepository>(
@@ -52,11 +76,9 @@ class InfluencerSchedulerUtil {
             city: influencer.city,
             featuredVideos: influencer.featuredVideos,
           });
-        } else {
-          console.log(
-            "Influencer ya existe, actualizando...",
-            influencer.username
-          );
+        }
+        else {
+          console.log("Actualizando influencer:", influencer);
           await repository.update({
             id: tempInfluencer.id,
             username: influencer.username,
@@ -71,9 +93,7 @@ class InfluencerSchedulerUtil {
             followers: influencer.followers,
             city: tempInfluencer.city,
             featuredVideos: influencer.featuredVideos,
-            status: tempInfluencer.status,
-            createdAt: tempInfluencer.createdAt,
-            updatedAt: new Date(),
+            
           });
         }
       }
@@ -84,6 +104,15 @@ class InfluencerSchedulerUtil {
         console.error(error);
       }
     }
+  }
+
+  public async notifyCities() {
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    const randomCity = cities[randomIndex];
+    const repository =
+      repositoryContainer.get<IRedisRepository>("IRedisRepository");
+
+    await repository.publish("tasks", `fetch_influencers:${randomCity}`);
   }
 }
 
