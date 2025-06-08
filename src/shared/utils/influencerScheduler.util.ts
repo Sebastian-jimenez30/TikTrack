@@ -52,6 +52,29 @@ class InfluencerSchedulerUtil {
             city: influencer.city,
             featuredVideos: influencer.featuredVideos,
           });
+        } else {
+          console.log(
+            "Influencer ya existe, actualizando...",
+            influencer.username
+          );
+          await repository.update({
+            id: tempInfluencer.id,
+            username: influencer.username,
+            profileName: influencer.profileName,
+            profilePicture: influencer.profilePicture,
+            profileUrl: influencer.profileUrl,
+            averageLikes: influencer.averageLikes,
+            averageComments: influencer.averageComments,
+            averageShares: influencer.averageShares,
+            averageSaves: influencer.averageSaves,
+            averageViews: influencer.averageViews,
+            followers: influencer.followers,
+            city: tempInfluencer.city,
+            featuredVideos: influencer.featuredVideos,
+            status: tempInfluencer.status,
+            createdAt: tempInfluencer.createdAt,
+            updatedAt: new Date(),
+          });
         }
       }
     } catch (error) {
