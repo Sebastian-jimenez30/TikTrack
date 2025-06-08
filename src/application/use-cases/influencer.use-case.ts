@@ -8,6 +8,7 @@ import PaginationUtil from "@/shared/utils/pagination.util";
 import repositoryContainer from "~/containers/repository.container";
 import IUserRepository from "@/application/repositories/user.repository.interface";
 import { getTranslations } from "next-intl/server";
+import IRedisRepository from "../repositories/redis.repository.interface";
 
 export class InfluencerUseCases {
   async listActive(
@@ -455,6 +456,18 @@ export class InfluencerUseCases {
         influencers: [],
         error: t("error"),
       };
+    }
+  }
+
+  async refresh(username: string): Promise<{ isSuccess: boolean }> {
+    const repository =
+      repositoryContainer.get<IRedisRepository>("IRedisRepository");
+
+    try {
+      await repository.publish("update_influencer", username);
+      return { isSuccess: true };
+    } catch {
+      return { isSuccess: false };
     }
   }
 }
