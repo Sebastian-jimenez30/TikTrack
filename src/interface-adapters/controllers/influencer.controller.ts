@@ -425,6 +425,28 @@ class InfluencerController {
       },
     };
   }
+
+  async refresh({
+    params,
+  }: {
+    params: { influencerUsername: string };
+  }): Promise<{
+    pageData: { isSuccess: boolean };
+  }> {
+    const { influencerUsername } = await params;
+
+    if (!influencerUsername) {
+      return { pageData: { isSuccess: false } };
+    }
+
+    const result = await influencerUseCases.refresh(influencerUsername);
+
+    return {
+      pageData: {
+        isSuccess: result.isSuccess,
+      },
+    };
+  }
 }
 
 export const influencerController = new InfluencerController();
