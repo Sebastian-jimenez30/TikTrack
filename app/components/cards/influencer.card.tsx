@@ -2,9 +2,9 @@
 
 import { JSX } from "react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { Link } from "~/i18n/routing";
 import MapPinIcon from "~/app/components/icons/location.icon";
+import FallbackImage from "~/app/components/shared/fallbackImage.shared";
 import ROUTES from "~/constants/urls/urls";
 import clsx from "clsx";
 
@@ -71,13 +71,12 @@ export default function InfluencerCard({
       >
         <div className="flex flex-col items-center pb-10">
           <div className="bg-purple w-full flex justify-center items-center flex-col mb-5">
-            <Image
+            <FallbackImage
               src={profilePicture}
               alt={username}
               width={100}
               height={100}
               className="w-24 h-24 mt-3 rounded-full shadow-lg"
-              priority
             />
             <b>
               <h5 className="mb-1 text-xl text-white mb-4">@{username}</h5>
