@@ -23,6 +23,8 @@ const ROUTES_API = {
   INFLUENCER_LIKE: NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/like",
   INFLUENCER_UNLIKE:
     NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/unlike",
+  INFLUENCER_REFRESH:
+    NEXT_PUBLIC_BASE_URL_API + "/api/backend/influencer/refresh",
   LOGIN: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/login",
   SIGN_UP: NEXT_PUBLIC_BASE_URL_API + "/api/backend/auth/sign-up",
   PROFILE_SHOW: NEXT_PUBLIC_BASE_URL_API + "/api/backend/profile/show",
