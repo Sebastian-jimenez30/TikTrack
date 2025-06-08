@@ -11,13 +11,13 @@ import HeartIcon from "~/app/components/icons/heart.icon";
 import ShareIcon from "~/app/components/icons/share.icon";
 import MapPinIcon from "~/app/components/icons/location.icon";
 import jwtUtil from "@/shared/utils/jwt.util";
-import Image from "next/image";
 import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "~/i18n/routing";
 import axios from "axios";
-
+import RefreshButton from "~/app/components/buttons/refresh.button";
+import FallbackImage from "~/app/components/shared/fallbackImage.shared";
 interface ShowProps {
   params: { username: string };
 }
@@ -73,20 +73,28 @@ export default async function Show({ params }: ShowProps) {
               <div className="flex w-full flex-col gap-4 items-center">
                 <div className="flex gap-4 flex-col items-center">
                   <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32 flex items-center justify-center">
-                    <Image
+                    <FallbackImage
                       src={influencer.profilePicture}
                       alt={influencer.username}
                       width={100}
                       height={100}
                       className="w-24 h-24 mt-3 rounded-full shadow-lg"
-                      priority={true}
                     />
                   </div>
-
                   <div className="flex flex-col items-center justify-center">
-                    <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
-                      {influencer.profileName}
-                    </a>
+                    <span className="flex flex-col items-center justify-center">
+                      <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
+                        {influencer.profileName}
+                      </a>
+                      <RefreshButton
+                        actionUrl={ROUTES_API.INFLUENCER_REFRESH}
+                        influencerUsername={influencer.username}
+                        messages={{
+                          success: t("successRefresh"),
+                          error: t("error"),
+                        }}
+                      />
+                    </span>
                     <a
                       href={influencer.profileUrl}
                       className="text-center border-b border-transparent hover:border-purple transition"

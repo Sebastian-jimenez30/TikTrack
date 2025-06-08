@@ -74,6 +74,7 @@
     "removeFromFavorites": "Remove from favorites",
     "removing": "Removing...",
     "success": "Process completed successfully",
+    "successRefresh": "Refreshing influencer, please come back later",
     "error": "An error occurred while processing your request"
   },
 

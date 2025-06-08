@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import FallbackImage from "~/app/components/shared/fallbackImage.shared";
 
 interface ShowProps {
   params: { id: string; locale: string };
@@ -93,13 +94,12 @@ export default async function Show({ params }: ShowProps) {
                     key={influencer.id}
                     className="flex items-center gap-4 bg-gray-100 p-4 rounded shadow-sm hover:bg-gray-200 transition"
                   >
-                    <Image
+                    <FallbackImage
                       src={influencer.profilePicture}
                       alt={influencer.username}
                       width={100}
                       height={100}
                       className="w-12 h-12 mt-3 rounded-full shadow-lg"
-                      priority
                     />
                     <div>
                       <Link
