@@ -464,7 +464,7 @@ export class InfluencerUseCases {
       repositoryContainer.get<IRedisRepository>("IRedisRepository");
 
     try {
-      await repository.publish("update_influencer", username);
+      await repository.publish("tasks", `update_influencer:${username}`);
       return { isSuccess: true };
     } catch {
       return { isSuccess: false };
