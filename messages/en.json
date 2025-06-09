@@ -285,11 +285,12 @@
     "next": "Next"
   },
 
-  "Forms": {
+  "FormsTemplate": {
     "message": {
       "placeholder": "Create a message template...",
       "saveTemplate": "Save as Template",
-      "error": "Failed to create template"
+      "error": "Failed to create template",
+      "success": "Template created successfully"
     }
   },
 

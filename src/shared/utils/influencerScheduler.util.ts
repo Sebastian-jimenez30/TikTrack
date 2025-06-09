@@ -76,8 +76,7 @@ class InfluencerSchedulerUtil {
             city: influencer.city,
             featuredVideos: influencer.featuredVideos,
           });
-        }
-        else {
+        } else {
           console.log("Actualizando influencer:", influencer);
           await repository.update({
             id: tempInfluencer.id,

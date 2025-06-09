@@ -12,8 +12,8 @@ interface MessageCardProps {
   id: number;
   content: string;
   isSelectLink?: boolean;
-  onDelete?: (id: number) => void;
-  onUpdate?: (id: number, newContent: string) => void;
+  onDelete?: () => void;
+  onUpdate?: () => void;
 }
 
 export default function MessageCard({
@@ -46,7 +46,7 @@ export default function MessageCard({
 
         if (result.status === 200) {
           setEditing(false);
-          onUpdate?.(id, result.data.content);
+          onUpdate?.();
           toast.success(t("success.messageUpdated"));
           router.refresh();
         } else {
@@ -65,7 +65,7 @@ export default function MessageCard({
           data: { id },
         });
         if (result.status === 200) {
-          onDelete?.(id);
+          onDelete?.();
           toast.success(t("success.messageDeleted"));
           router.refresh();
         } else {

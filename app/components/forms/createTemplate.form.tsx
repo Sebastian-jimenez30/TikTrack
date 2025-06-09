@@ -5,16 +5,21 @@ import { useTranslations } from "next-intl";
 import axios from "axios";
 import ROUTES_API from "~/constants/urls/api.urls";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface CreateMessageProps {
   userId: string;
+  onTemplateCreate?: () => void;
 }
 
-export default function CreateMessage({ userId }: CreateMessageProps) {
+export default function CreateMessage({
+  userId,
+  onTemplateCreate,
+}: CreateMessageProps) {
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
-  const t = useTranslations("Forms.message");
-
+  const t = useTranslations("FormsTemplate.message");
+  const router = useRouter();
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!message.trim()) return;
@@ -26,8 +31,9 @@ export default function CreateMessage({ userId }: CreateMessageProps) {
       });
       if (result.status === 200) {
         setMessage("");
+        onTemplateCreate?.();
         toast.success(t("success"));
-        window.location.reload();
+        router.refresh();
       } else {
         toast.error(t("error"));
       }

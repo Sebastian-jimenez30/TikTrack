@@ -285,11 +285,12 @@
     "next": "Siguiente"
   },
 
-  "Forms": {
+  "FormsTemplate": {
     "message": {
       "placeholder": "Crea una plantilla...",
       "saveTemplate": "Guardar como Plantilla",
-      "error": "Error al crear la plantilla"
+      "error": "Error al crear la plantilla",
+      "success": "Plantilla creada con éxito"
     }
   },
 
