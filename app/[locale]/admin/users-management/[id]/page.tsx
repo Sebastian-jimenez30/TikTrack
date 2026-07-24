@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 import UserUpdate from "~/app/components/forms/userUpdate.form";
 
 interface ShowProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata() {

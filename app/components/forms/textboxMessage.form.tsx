@@ -7,11 +7,13 @@ import ROUTES_API from "~/constants/urls/api.urls";
 interface TextboxWithServiceProps {
   selectedMessageContent?: string;
   username?: string;
+  sendMessageEnabled?: boolean;
 }
 
 export default function TextboxWithService({
   selectedMessageContent,
   username,
+  sendMessageEnabled = false,
 }: TextboxWithServiceProps) {
   const t = useTranslations("TextboxAI");
 
@@ -137,7 +139,7 @@ export default function TextboxWithService({
             >
               {isLoading ? t("loading") : t("enhanced")}
             </button>
-            {username && textBoxValue && (
+            {sendMessageEnabled && username && textBoxValue && (
               <button
                 onClick={handleSendMessage}
                 className="mt-4 bg-purple font-bold text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"

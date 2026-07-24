@@ -20,7 +20,7 @@ import { Toaster } from "sonner";
 
 interface LocaleProps {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export async function generateMetadata() {

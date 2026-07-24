@@ -12,13 +12,13 @@ import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler
 import SearchBarRedirectHandler from "~/app/components/shared/searchBarRedirectHandler.shared";
 
 interface DisabledProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     city?: string;
     followers?: string;
     engagementVisualizationRate?: string;
     updatedAt?: string;
-  };
+  }>;
 }
 
 interface InfluencerOverview {

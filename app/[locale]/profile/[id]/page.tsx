@@ -8,7 +8,7 @@ import Image from "next/image";
 import FallbackImage from "~/app/components/shared/fallbackImage.shared";
 
 interface ShowProps {
-  params: { id: string; locale: string };
+  params: Promise<{ id: string; locale: string }>;
 }
 
 export async function generateMetadata() {

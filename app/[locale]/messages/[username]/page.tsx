@@ -22,8 +22,8 @@ interface Message {
 }
 
 interface Props {
-  params: { username: string };
-  searchParams: { selectedId?: string };
+  params: Promise<{ username: string }>;
+  searchParams: Promise<{ selectedId?: string }>;
 }
 
 export async function generateMetadata() {
@@ -57,6 +57,9 @@ export default async function MessagesPage({ params, searchParams }: Props) {
   );
 
   const username = paramsData.username;
+  const sendMessageEnabled = Boolean(
+    process.env.NEXT_PUBLIC_SEND_MESSAGE_MICROSERVICE_URL
+  );
 
   return (
     <div>
@@ -88,6 +91,7 @@ export default async function MessagesPage({ params, searchParams }: Props) {
               <TextboxWithService
                 selectedMessageContent={selectedMessage?.content}
                 username={username}
+                sendMessageEnabled={sendMessageEnabled}
               />
             </div>
             <div className="flex flex-1 justify-center flex-col items-center flex-wrap ml-5 my-5 lg:my-0 gap-6">

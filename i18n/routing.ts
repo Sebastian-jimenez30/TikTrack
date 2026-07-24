@@ -70,7 +70,7 @@ export type Pathname = StaticPathname;
 
 export type Href = {
   pathname: StaticPathname;
-  query?: Record<string, any>;
+  query?: Record<string, unknown>;
 };
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =

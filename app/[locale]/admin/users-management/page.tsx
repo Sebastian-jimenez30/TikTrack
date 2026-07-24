@@ -14,7 +14,7 @@ import FilterRedirectHandler from "~/app/components/shared/filterRedirectHandler
 import SearchBarRedirectHandler from "~/app/components/shared/searchBarRedirectHandler.shared";
 
 interface IndexProps {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }
 
 interface User {

@@ -19,7 +19,7 @@ import axios from "axios";
 import RefreshButton from "~/app/components/buttons/refresh.button";
 import FallbackImage from "~/app/components/shared/fallbackImage.shared";
 interface ShowProps {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }
 
 export async function generateMetadata() {
@@ -63,6 +63,8 @@ export default async function Show({ params }: ShowProps) {
   const isInfluencerReported = influencer.status === "reported";
   const isInfluencerDeactivated = influencer.status === "inactive";
   const isFavorite = pageData.isFavorite;
+  const scraperCommandsEnabled =
+    process.env.SCRAPER_COMMANDS_ENABLED === "true";
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
@@ -86,14 +88,16 @@ export default async function Show({ params }: ShowProps) {
                       <a className="text-black text-[22px] font-bold leading-tight tracking-[-0.015em] text-center">
                         {influencer.profileName}
                       </a>
-                      <RefreshButton
-                        actionUrl={ROUTES_API.INFLUENCER_REFRESH}
-                        influencerUsername={influencer.username}
-                        messages={{
-                          success: t("successRefresh"),
-                          error: t("error"),
-                        }}
-                      />
+                      {scraperCommandsEnabled && (
+                        <RefreshButton
+                          actionUrl={ROUTES_API.INFLUENCER_REFRESH}
+                          influencerUsername={influencer.username}
+                          messages={{
+                            success: t("successRefresh"),
+                            error: t("error"),
+                          }}
+                        />
+                      )}
                     </span>
                     <a
                       href={influencer.profileUrl}
