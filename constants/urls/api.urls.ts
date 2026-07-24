@@ -1,8 +1,23 @@
-const NEXT_PUBLIC_BASE_URL_API =
-  process.env.NEXT_PUBLIC_BASE_URL_API ||
-  (typeof window === "undefined" && process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "");
+const getApiBaseUrl = () => {
+  // Browser requests target the same deployment, so relative URLs work both
+  // locally and on Vercel without baking a localhost URL into the bundle.
+  if (typeof window !== "undefined") {
+    return "";
+  }
+
+  // Vercel provides these automatically. They must take precedence over a
+  // local NEXT_PUBLIC_BASE_URL_API accidentally configured in the project.
+  const vercelHost =
+    process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+
+  if (vercelHost) {
+    return `https://${vercelHost}`;
+  }
+
+  return process.env.NEXT_PUBLIC_BASE_URL_API || "http://localhost:3000";
+};
+
+const NEXT_PUBLIC_BASE_URL_API = getApiBaseUrl();
 const ROUTES_API = {
   START_JOB: NEXT_PUBLIC_BASE_URL_API + "/api/backend/jobs/start-job",
   OPENAI:
